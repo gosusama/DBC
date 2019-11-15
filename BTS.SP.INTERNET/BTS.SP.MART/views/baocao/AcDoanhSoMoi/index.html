@@ -1,0 +1,77 @@
+﻿<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary" ng-form name="_form">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <span class="glyphicon glyphicon-bookmark"></span> Báo cáo doanh thu khách hàng mới
+                    </h3>
+                </div>
+                <div class="panel-body">                   
+                    <div class="row form-group">
+                        <div class="col-md-8">
+                            <div class="md-style-label-input">
+                                Đơn vị
+                            </div>
+                            <div class="md-8-style-input">
+                                <select class="form-control" ng-model="target.unitcode" ng-options="opt.value as opt.text for opt in unitUsers" required>
+                                    <option value="">-</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="md-style-label-input">
+                                    Kho
+                                </div>
+                                <div class="md-8-style-input">
+                                    <button type="button" style="display:inline" class="btn-primary input-border-form" ng-click="selectWareHouse()">Chọn Kho</button>
+                                    <input type="text" class="form-control" style="display:inline; width:870px;" ng-model="wareHouseCodes" placeholder="Ví dụ DV1-CH1-K1,DV1-CH1-K2" ng-blur="changewareHouseCodes(wareHouseCodes);">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-4">
+                            <div class="md-style-label-input">
+                                Từ Ngày <span style="color:red"></span>
+                            </div>
+                            <div class="md-4-style-input">
+                                <div class="add-input-zone">
+                                    <input class="input-border-form" type="text" ng-model="target.fromDate" placeholder="{{config.dateFormat}}"
+                                           uib-datepicker-popup="{{config.dateFormat}}" is-open="_fromDate" datepicker-localdate />
+                                    <div class="button-calender" ng-click="_fromDate = !_fromDate; config.delegateEvent($event);">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="md-style-label-input">
+                                Đến Ngày <span style="color:red"></span>
+                            </div>
+                            <div class="md-4-style-input">
+                                <div class="add-input-zone">
+                                    <input class="input-border-form" type="text" ng-model="target.toDate" placeholder="{{config.dateFormat}}"
+                                           uib-datepicker-popup="{{config.dateFormat}}" is-open="_toDate" datepicker-localdate />
+                                    <div class="button-calender" ng-click="_toDate = !_toDate; config.delegateEvent($event);">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>  
+                    </div>
+                  
+                    <div class="col-md-2 col-md-offset-10">
+                        <div class="form-group">
+                            <button class="btn btn-primary form-control" ng-disabled="_form.$invalid" prevent-default ng-click="report()">Báo cáo</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

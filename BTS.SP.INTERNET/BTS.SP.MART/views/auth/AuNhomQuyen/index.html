@@ -1,0 +1,89 @@
+﻿<div class="panel panel-default">
+    <div class="panel-heading panel-toolbar">
+      <h3 class="modal-title" style="color:blue;">{{title()}}</h3>
+        <div class="button-close" ng-click="goHome()">
+            <i class="fa fa-times-circle" ></i>
+        </div>
+    </div>
+    <div class="panel-heading">
+        <div class="btn-toolbar" role="toolbar">
+            <div class="btn-group">
+                <button prevent-default class="btn btn-primary" ng-if="accessList.add" title="create new item." ng-click="create()" ng-if="accessList.add"><i class="fa fa-plus"></i>&ensp;{{config.label.btnCreate}}</button>
+            </div>
+            <div class="col-lg-6">
+                <div class="input-group">
+                    <input type="text" class="form-control" ng-model="filtered.summary" ng-enter="doSearch()">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" prevent-default title="search" ng-click="doSearch()"><span class="fa fa-search"></span>&ensp;{{config.label.btnSearch}}</button>
+                        <button class="btn btn-default" prevent-default title="refresh page" ng-click="refresh()"><span class="fa fa-retweet"></span>&ensp;{{config.label.btnRefresh}}</button>
+                        <button class="btn btn-default" prevent-default title="refresh page" ng-click="goHome()"><span class="fa fa-undo"></span>&ensp;{{config.label.btnBack}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <table class="table table-striped table-hover no-margin-vertical">
+            <thead>
+                <tr class="headings">
+
+                    <th class="column-title" width="100px">#</th>
+                    <th>
+                        <a ng-click="sortType = 'MANHOMQUYEN'; sortReverse = !sortReverse">
+                            Mã nhóm quyền
+                            <span ng-show="sortType == 'MANHOMQUYEN' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortType == 'MANHOMQUYEN' && sortReverse" class="fa fa-caret-up"></span>
+                        </a>
+                    </th>
+                    <th class="column-title">
+                        <a ng-click="sortType = 'TENNHOMQUYEN'; sortReverse = !sortReverse">
+                            Tên nhóm quyền
+                            <span ng-show="sortType == 'TENNHOMQUYEN' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortType == 'TENNHOMQUYEN' && sortReverse" class="fa fa-caret-up"></span>
+                        </a>
+                    </th>
+                    <th class="column-title">Mô tả</th>
+                    <th class="column-title">
+                        <a ng-click="sortType = 'TRANGTHAI'; sortReverse = !sortReverse">
+                            Trạng thái
+                            <span ng-show="sortType == 'TRANGTHAI' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortType == 'TRANGTHAI' && sortReverse" class="fa fa-caret-up"></span>
+                        </a>
+                    </th>
+                    <th class="column-title" width="10%">Hành động</th>
+                </tr>
+            </thead>
+            <tbody ng-if="accessList.view">
+                <tr ng-show="data==NULL ||data.length<=0">
+                    <td colspan="6" style="background-color: #e2e2e2;">
+                        <p>Không có dữ liệu</p>
+                    </td>
+                </tr>
+                <tr ng-repeat="item in data | orderBy:sortType:sortReverse track by $index ">
+
+                    <td>{{paged.itemsPerPage*(paged.currentPage-1)+$index+1}}</td>
+                    <td>{{item.manhomquyen}}</td>
+                    <td>{{item.tennhomquyen}}</td>
+                    <td>{{item.mota}}</td>
+                    <td>{{item.trangthai | status}}</td>
+                    <td style="text-align: center;">
+                        <a class="fa fa-search" ng-click="detail(item)" ng-if="accessList.view" tabindex="Xem"></a>&nbsp;&nbsp;
+                        <a class="fa fa-pencil" ng-click="edit(item)" ng-if="accessList.edit" title="Sửa"></a>&nbsp;&nbsp;
+                        <a class="fa fa-remove" ng-click="delete($event,item)" ng-if="accessList.delete" title="Xóa"></a>&nbsp;&nbsp;
+                        <a class="fa fa-sitemap" ng-click="configItem(item)" ng-if="accessList.edit" title="Cấu hình nhóm quyền"></a>&nbsp;&nbsp;
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="panel-footer">
+        <div style="text-align: right;" ng-if="accessList.view">
+            <uib-pagination class="no-margin-vertical pagination-sm" ng-model="paged.currentPage"
+                            ng-change="pageChanged()"
+                            items-per-page="paged.itemsPerPage" ng-if="paged.totalItems > 0" total-items="paged.totalItems" max-size="paged.maxSize"
+                            boundary-links="true" num-pages="paged.totalPage"
+                            previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;">
+            </uib-pagination>
+        </div>
+    </div>
+</div>

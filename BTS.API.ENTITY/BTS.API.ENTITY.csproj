@@ -1,0 +1,418 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{2BEE3908-6263-4AD2-9208-C3779001A2AA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BTS.API.ENTITY</RootNamespace>
+    <AssemblyName>BTS.API.ENTITY</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Oracle.ManagedDataAccess, Version=4.121.2.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Oracle.ManagedDataAccess.12.2.1100\lib\net40\Oracle.ManagedDataAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="Oracle.ManagedDataAccess.EntityFramework, Version=6.122.1.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\app\client\AnhNguyen\product\12.1.0\client_1\odp.net\managed\common\EF6\Oracle.ManagedDataAccess.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Authorize\AU_NGUOIDUNG_NHOMQUYEN.cs" />
+    <Compile Include="Authorize\AU_NGUOIDUNG_QUYEN.cs" />
+    <Compile Include="Authorize\AU_NHOMQUYEN.cs" />
+    <Compile Include="Authorize\AU_NHOMQUYEN_CHUCNANG.cs" />
+    <Compile Include="Authorize\AU_LOG.cs" />
+    <Compile Include="Authorize\Client.cs" />
+    <Compile Include="Authorize\AU_THAMSOHETHONG.cs" />
+    <Compile Include="Authorize\AU_NGUOIDUNG.cs" />
+    <Compile Include="Authorize\AU_DONVI.cs" />
+    <Compile Include="Common\GrantGroupObj.cs" />
+    <Compile Include="Common\StoreInfoObj.cs" />
+    <Compile Include="Common\GrantInfoObj.cs" />
+    <Compile Include="Common\UserInfo.cs" />
+    <Compile Include="DataContext.cs" />
+    <Compile Include="DataInfoEntity.cs" />
+    <Compile Include="DataInfoState.cs" />
+    <Compile Include="DCL\DclCloseout.cs" />
+    <Compile Include="DCL\DclEndingBalance.cs" />
+    <Compile Include="DCL\DclGeneralLedger.cs" />
+    <Compile Include="DetailInfoEntity.cs" />
+    <Compile Include="EntityBase.cs" />
+    <Compile Include="ERPContext.cs" />
+    <Compile Include="HelperHash.cs" />
+    <Compile Include="IDataContext.cs" />
+    <Compile Include="IObjectState.cs" />
+    <Compile Include="Md\ThongKe.cs" />
+    <Compile Include="Md\MdAsync.cs" />
+    <Compile Include="Md\MdXuatXu.cs" />
+    <Compile Include="Md\MdBoHang.cs" />
+    <Compile Include="Md\MdBoHangChiTiet.cs" />
+    <Compile Include="Md\MdChietKhauKH.cs" />
+    <Compile Include="Md\MdDistricts.cs" />
+    <Compile Include="Md\MdContract.cs" />
+    <Compile Include="Md\MdCity.cs" />
+    <Compile Include="Md\MdCountry.cs" />
+    <Compile Include="Md\MdCurrency.cs" />
+    <Compile Include="Md\MdCustomer.cs" />
+    <Compile Include="Md\MdDetailContract.cs" />
+    <Compile Include="Md\MdColor.cs" />
+    <Compile Include="Md\MdHangKH.cs" />
+    <Compile Include="Md\MdSize.cs" />
+    <Compile Include="Md\MdDonViTinh.cs" />
+    <Compile Include="Md\MdIdBuilder.cs" />
+    <Compile Include="Authorize\AU_MENU.cs" />
+    <Compile Include="Md\MdMerchandise.cs" />
+    <Compile Include="Md\MdMerchandisePrice.cs" />
+    <Compile Include="Md\MdMerchandiseType.cs" />
+    <Compile Include="Md\MdMonitorProcess.cs" />
+    <Compile Include="Md\MdNhomVatTu.cs" />
+    <Compile Include="Md\MdPackaging.cs" />
+    <Compile Include="Md\MdSellingMechine.cs" />
+    <Compile Include="Md\MdPeriod.cs" />
+    <Compile Include="Md\MdShelves.cs" />
+    <Compile Include="Md\MdSupplier.cs" />
+    <Compile Include="Md\MdTax.cs" />
+    <Compile Include="Md\MdTypeReason.cs" />
+    <Compile Include="Md\MdDepartment.cs" />
+    <Compile Include="Md\MdWareHouse.cs" />
+    <Compile Include="Migrations\201801241212356_24012018_InitializeDatabase_ANHPT.cs" />
+    <Compile Include="Migrations\201801241212356_24012018_InitializeDatabase_ANHPT.Designer.cs">
+      <DependentUpon>201801241212356_24012018_InitializeDatabase_ANHPT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801280313554_28012018_AddFieldAU_NGUOIDUNG_ANHPT.cs" />
+    <Compile Include="Migrations\201801280313554_28012018_AddFieldAU_NGUOIDUNG_ANHPT.Designer.cs">
+      <DependentUpon>201801280313554_28012018_AddFieldAU_NGUOIDUNG_ANHPT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801300300445_30012018_AddFielNvDatHang_HuyNQ.cs" />
+    <Compile Include="Migrations\201801300300445_30012018_AddFielNvDatHang_HuyNQ.Designer.cs">
+      <DependentUpon>201801300300445_30012018_AddFielNvDatHang_HuyNQ.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802040933356_04022018_AddF_TK_NGANHANG_ANHPT.cs" />
+    <Compile Include="Migrations\201802040933356_04022018_AddF_TK_NGANHANG_ANHPT.Designer.cs">
+      <DependentUpon>201802040933356_04022018_AddF_TK_NGANHANG_ANHPT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802040941095_04022018_A_U_THONGTIN_NGANHANG_ANHPT.cs" />
+    <Compile Include="Migrations\201802040941095_04022018_A_U_THONGTIN_NGANHANG_ANHPT.Designer.cs">
+      <DependentUpon>201802040941095_04022018_A_U_THONGTIN_NGANHANG_ANHPT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802050200044_05022018_alterTableNvDatHangChiTiet_HuyNQ.cs" />
+    <Compile Include="Migrations\201802050200044_05022018_alterTableNvDatHangChiTiet_HuyNQ.Designer.cs">
+      <DependentUpon>201802050200044_05022018_alterTableNvDatHangChiTiet_HuyNQ.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803070347333_07032018_NullableTrangThaiCon_ANHPT.cs" />
+    <Compile Include="Migrations\201803070347333_07032018_NullableTrangThaiCon_ANHPT.Designer.cs">
+      <DependentUpon>201803070347333_07032018_NullableTrangThaiCon_ANHPT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803210220549_21032018_dropTableNvCongNo_HuyNQ.cs" />
+    <Compile Include="Migrations\201803210220549_21032018_dropTableNvCongNo_HuyNQ.Designer.cs">
+      <DependentUpon>201803210220549_21032018_dropTableNvCongNo_HuyNQ.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803210222569_21032018_addTableNvCongNo_HuyNQ_SecondTime.cs" />
+    <Compile Include="Migrations\201803210222569_21032018_addTableNvCongNo_HuyNQ_SecondTime.Designer.cs">
+      <DependentUpon>201803210222569_21032018_addTableNvCongNo_HuyNQ_SecondTime.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803210833455_21032018_alterTableNvCongNo_HuyNQ_SecondTime.cs" />
+    <Compile Include="Migrations\201803210833455_21032018_alterTableNvCongNo_HuyNQ_SecondTime.Designer.cs">
+      <DependentUpon>201803210833455_21032018_alterTableNvCongNo_HuyNQ_SecondTime.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803251806357_26_03_2018_Upadte_AUNGUOIDUNG_ANHPT.cs" />
+    <Compile Include="Migrations\201803251806357_26_03_2018_Upadte_AUNGUOIDUNG_ANHPT.Designer.cs">
+      <DependentUpon>201803251806357_26_03_2018_Upadte_AUNGUOIDUNG_ANHPT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803290227275_29_03_2018_CreateNvHetHanHangHoa_ANHPT.cs" />
+    <Compile Include="Migrations\201803290227275_29_03_2018_CreateNvHetHanHangHoa_ANHPT.Designer.cs">
+      <DependentUpon>201803290227275_29_03_2018_CreateNvHetHanHangHoa_ANHPT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804010508178_01042018_addColTienNoCu_VatTuChungTu_HuyNQ.cs" />
+    <Compile Include="Migrations\201804010508178_01042018_addColTienNoCu_VatTuChungTu_HuyNQ.Designer.cs">
+      <DependentUpon>201804010508178_01042018_addColTienNoCu_VatTuChungTu_HuyNQ.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804010509398_01042018_addColTienThanhToan_VatTuChungTu_HuyNQ.cs" />
+    <Compile Include="Migrations\201804010509398_01042018_addColTienThanhToan_VatTuChungTu_HuyNQ.Designer.cs">
+      <DependentUpon>201804010509398_01042018_addColTienThanhToan_VatTuChungTu_HuyNQ.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804021050122_04_02_2018_UpdateNgayHetHan_ANHPT.cs" />
+    <Compile Include="Migrations\201804021050122_04_02_2018_UpdateNgayHetHan_ANHPT.Designer.cs">
+      <DependentUpon>201804021050122_04_02_2018_UpdateNgayHetHan_ANHPT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804050756163_05_04_2018_Update_VatTuChungTuChiTiet_Hieu.cs" />
+    <Compile Include="Migrations\201804050756163_05_04_2018_Update_VatTuChungTuChiTiet_Hieu.Designer.cs">
+      <DependentUpon>201804050756163_05_04_2018_Update_VatTuChungTuChiTiet_Hieu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804060416163_06042018_AddTableThongKe_HuyNQ.cs" />
+    <Compile Include="Migrations\201804060416163_06042018_AddTableThongKe_HuyNQ.Designer.cs">
+      <DependentUpon>201804060416163_06042018_AddTableThongKe_HuyNQ.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804070228056_07_04_2018_AddField_VAT_VATTUCTU_ANHPT.cs" />
+    <Compile Include="Migrations\201804070228056_07_04_2018_AddField_VAT_VATTUCTU_ANHPT.Designer.cs">
+      <DependentUpon>201804070228056_07_04_2018_AddField_VAT_VATTUCTU_ANHPT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804091654314_09_04_2018_AddMaVat_NvGDQuay_ANHPT.cs" />
+    <Compile Include="Migrations\201804091654314_09_04_2018_AddMaVat_NvGDQuay_ANHPT.Designer.cs">
+      <DependentUpon>201804091654314_09_04_2018_AddMaVat_NvGDQuay_ANHPT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806031857556_04062018_alterTableVtct_congno_HuyNQ.cs" />
+    <Compile Include="Migrations\201806031857556_04062018_alterTableVtct_congno_HuyNQ.Designer.cs">
+      <DependentUpon>201806031857556_04062018_alterTableVtct_congno_HuyNQ.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806171122550_20180617_addColQuyen_nhomquyen_Anhpt.cs" />
+    <Compile Include="Migrations\201806171122550_20180617_addColQuyen_nhomquyen_Anhpt.Designer.cs">
+      <DependentUpon>201806171122550_20180617_addColQuyen_nhomquyen_Anhpt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809210205567_21092018_UDP_DM_HANGKH_ANHPT.cs" />
+    <Compile Include="Migrations\201809210205567_21092018_UDP_DM_HANGKH_ANHPT.Designer.cs">
+      <DependentUpon>201809210205567_21092018_UDP_DM_HANGKH_ANHPT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809210400346_21092018_UDP_LAN2_DM_HANGKH_ANHPT.cs" />
+    <Compile Include="Migrations\201809210400346_21092018_UDP_LAN2_DM_HANGKH_ANHPT.Designer.cs">
+      <DependentUpon>201809210400346_21092018_UDP_LAN2_DM_HANGKH_ANHPT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809220428569_22092018_UDP_SOTIEN_HANGKH_ANHPT.cs" />
+    <Compile Include="Migrations\201809220428569_22092018_UDP_SOTIEN_HANGKH_ANHPT.Designer.cs">
+      <DependentUpon>201809220428569_22092018_UDP_SOTIEN_HANGKH_ANHPT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="NV\NvChuongTrinhKhuyenMai.cs" />
+    <Compile Include="NV\NvChuongTrinhKhuyenMaiHangKM.cs" />
+    <Compile Include="NV\NvChuongTrinhKhuyenMaiChiTiet.cs" />
+    <Compile Include="NV\NvCongNo.cs" />
+    <Compile Include="NV\NvDatHang.cs" />
+    <Compile Include="NV\NvDatHangChiTiet.cs" />
+    <Compile Include="NV\NvGiaoDichQuay.cs" />
+    <Compile Include="NV\NvGiaoDichQuayChiTiet.cs" />
+    <Compile Include="NV\NvNgayHetHanHangHoaChiTiet.cs" />
+    <Compile Include="NV\NvNgayHetHanHangHoa.cs" />
+    <Compile Include="NV\NvKiemKeChiTiet.cs" />
+    <Compile Include="NV\NvKiemKe.cs" />
+    <Compile Include="NV\NvVatTuChungTu.cs" />
+    <Compile Include="NV\NvVatTuChungTuChiTiet.cs" />
+    <Compile Include="ObjectState.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ApprovalState.cs" />
+    <Compile Include="StateHelper.cs" />
+    <Compile Include="StateInfoObj.cs" />
+    <Compile Include="OrderState.cs" />
+    <Compile Include="ProcessState.cs" />
+    <Compile Include="SyncEntityState.cs" />
+    <Compile Include="StateTranform.cs" />
+    <Compile Include="TypeCustomer.cs" />
+    <Compile Include="TypeMasterData.cs" />
+    <Compile Include="TypePromotion.cs" />
+    <Compile Include="TypeVoucher.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SCRIPTDB\AutoIncrement.sql" />
+    <Content Include="SCRIPTDB\Baocao\PCK_BAOCAO_NHAPKHO.sql" />
+    <Content Include="SCRIPTDB\commondata.txt" />
+    <Content Include="SCRIPTDB\createtablespace.sql" />
+    <Content Include="SCRIPTDB\CUSTOMERCARE\CUSTOMER_CARE.sql" />
+    <Content Include="SCRIPTDB\datadbc26_9.sql" />
+    <Content Include="SCRIPTDB\DATHANG\DATHANG.sql" />
+    <Content Include="SCRIPTDB\GIAODICHQUAY\CREATE_TEMP_GDQ.sql" />
+    <Content Include="SCRIPTDB\GIAODICHQUAY\GIAODICHQUAY_VER8.sql" />
+    <Content Include="SCRIPTDB\GIAODICHQUAY\V_GIAODICHQUAY_MATHANGGIAODICHQUAY.sql" />
+    <Content Include="SCRIPTDB\KHUYENMAI\KHUYENMAI.sql" />
+    <Content Include="SCRIPTDB\KIEMKE\BAOCAOKIEMKE_VER2.sql" />
+    <Content Include="SCRIPTDB\KIEMKE\KIEMKE_VER1.sql" />
+    <Content Include="SCRIPTDB\migration command.txt" />
+    <Content Include="SCRIPTDB\MIGRATION_HISTORY\Migration.sql" />
+    <Content Include="SCRIPTDB\PACKGE\KETOAN\1. Tab_tonghopbc_tmp.sql" />
+    <Content Include="SCRIPTDB\PACKGE\KETOAN\2. V_SONHATKYCHUNG.sql" />
+    <Content Include="SCRIPTDB\PACKGE\KETOAN\3. BTSOFT_PCK_BAOCAOKETOAN.sql" />
+    <Content Include="SCRIPTDB\PACKGE\KETOAN\BTSOFT_PCK_BAOCAOKETOAN.sql" />
+    <Content Include="SCRIPTDB\PACKGE\KETOAN\BTSOFT_PCK_BAOCAOKETOAN_Body.sql" />
+    <Content Include="SCRIPTDB\PACKGE\KETOAN\TAB_TONGHOP_TEMP.sql" />
+    <Content Include="SCRIPTDB\PACKGE\DATHANG.sql" />
+    <Content Include="SCRIPTDB\PACKGE\XUATNHAPTON.sql" />
+    <Content Include="SCRIPTDB\PACKGE\XUATBAN.sql" />
+    <Content Include="SCRIPTDB\PACKGE\TONKHO.sql" />
+    <Content Include="SCRIPTDB\PACKGE\NVPHIEU.sql" />
+    <Content Include="SCRIPTDB\PHIEU\PHIEU.sql" />
+    <Content Include="SCRIPTDB\PHIEU\PHIEU_VER13.sql" />
+    <Content Include="SCRIPTDB\PHIEU\PHIEU_VER14.sql" />
+    <Content Include="SCRIPTDB\PHIEU\PHIEU_VER2.sql" />
+    <Content Include="SCRIPTDB\PHIEU\PHIEU_VER3.sql" />
+    <Content Include="SCRIPTDB\PKG_LEDGER_REPORT.sql" />
+    <Content Include="SCRIPTDB\PROCEDURE\INVENTORE_MULTI_STORE.sql" />
+    <Content Include="SCRIPTDB\PROCEDURE\BAOCAO_XNTNEW_CHITIET.sql" />
+    <Content Include="SCRIPTDB\PROCEDURE\PC_SEARCH_VATTU.sql" />
+    <Content Include="SCRIPTDB\PROCEDURE\BAOCAO_XNTNEW_TONGHOP.sql" />
+    <Content Include="SCRIPTDB\PROCEDURE\BAOCAO_TONKHO_TONGHOP_THEOKHO - Copy %284%29.sql" />
+    <Content Include="SCRIPTDB\PROCEDURE\PC_VATTU_SEARCH_PAGING.sql" />
+    <Content Include="SCRIPTDB\PROCEDURE\PC_VATTU_COUNT.sql" />
+    <Content Include="SCRIPTDB\PROCEDURE\HISTORYBUYOFCUSTOMER.sql" />
+    <Content Include="SCRIPTDB\PROCEDURE\SEARCH_MERCHANDISE.sql" />
+    <Content Include="SCRIPTDB\PROCEDURE\SEARCH_CUSTOMER .sql" />
+    <Content Include="SCRIPTDB\PROCEDURE\REPORT_CUSTOMER_BY_BIRTHDAY.sql" />
+    <Content Include="SCRIPTDB\PROCEDURE\FILTER_EXTERNALCODE_KIEMKE.sql" />
+    <Content Include="SCRIPTDB\PROCEDURE\BAOCAO_TONKHO_TONGHOP_THEOKHO.sql" />
+    <Content Include="SCRIPTDB\SCRIPT_TELERIK_2018\BAOCAO_BLETRALAI_TONGHOP.sql" />
+    <Content Include="SCRIPTDB\SCRIPT_TELERIK_2018\BAOCAO_CNKH_CHITIET.sql" />
+    <Content Include="SCRIPTDB\SCRIPT_TELERIK_2018\BAOCAO_CNKH_TONGHOP.sql" />
+    <Content Include="SCRIPTDB\SCRIPT_TELERIK_2018\BAOCAO_CNNCC_CHITIET.sql" />
+    <Content Include="SCRIPTDB\SCRIPT_TELERIK_2018\BAOCAO_CNNCC_TONGHOP.sql" />
+    <Content Include="SCRIPTDB\SCRIPT_TELERIK_2018\BAOCAO_XBANLE_TONGHOP.sql" />
+    <Content Include="SCRIPTDB\SCRIPT_TELERIK_2018\BAOCAO_XNT_05052018.sql" />
+    <Content Include="SCRIPTDB\SCRIPT_TELERIK_2018\THONGKE_DOANHTHU.sql" />
+    <Content Include="SCRIPTDB\THUNGAN\BAOCAO_QUAY.sql" />
+    <Content Include="SCRIPTDB\Truncate_All_Database.sql" />
+    <Content Include="SCRIPTDB\VIEW\VIEW_CHUONGTRINHKHUYENMAI.sql" />
+    <Content Include="SCRIPTDB\VIEW\VIEW_VATTUGD_XNT.sql" />
+    <Content Include="SCRIPTDB\VIEW\V_VATTU_GIABAN_ITEMCODE.sql" />
+    <Content Include="SCRIPTDB\VIEW\V_GET_TICHDIEM.sql" />
+    <Content Include="SCRIPTDB\VIEW\VIEW_VATTU_GIABAN.sql" />
+    <Content Include="SCRIPTDB\XNT\XNT_DETAIL_NEWESTVERSION_1205.sql" />
+    <Content Include="SCRIPTDB\XNT\XuatNhapTonChiTiet.sql" />
+    <Content Include="SCRIPTDB\XNT\TONKHO_VER2.sql" />
+    <Content Include="SCRIPTDB\XNT\XNT_CHINHSUA_ver11.sql" />
+    <Content Include="SCRIPTDB\XNT\XNT_USING_NOW.sql" />
+    <Content Include="SCRIPTDB\XNT\XNT_RUTGON_ver10.sql" />
+    <Content Include="SCRIPTDB\XNT\XNT_RUTGON_ver9.sql" />
+    <Content Include="SCRIPTDB\XNT\XNT_RUTGON_ver7.sql" />
+    <Content Include="SCRIPTDB\XNT_NEW\XNTNEW_CHITIET_VER2.sql" />
+    <Content Include="SCRIPTDB\XNT_NEW\XNTNEW_TONGHOP_VER2.sql" />
+    <Content Include="SCRIPTDB\XUATBAN\XUATBAN_VER1.sql" />
+    <Content Include="SCRIPTDB\XUATBAN\XUATBAN_VER12.sql" />
+    <Content Include="SCRIPTDB\XUATBAN\XUATBAN_VER2.sql" />
+    <Content Include="SCRIPTDB\SEARCH_USINGNOW.sql" />
+    <Content Include="SCRIPTDB\__MigrationHistory.sql" />
+    <Content Include="SCRIPTDB\XNT\TONKHO.sql" />
+    <Content Include="SCRIPTDB\XNT\XNT_ver6.sql" />
+    <Content Include="SCRIPTDB\XNT\XNT_ver5.sql" />
+    <Content Include="SCRIPTDB\XNT\XNT_ver4.sql" />
+    <Content Include="SCRIPTDB\XNT\XNT_ver3.sql" />
+    <Content Include="SCRIPTDB\XNT\XNT_ver2.sql" />
+    <Content Include="SCRIPTDB\XNT\XNT.sql" />
+    <Content Include="SCRIPTDB\XNT\XNT_EXEC.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+    <None Include="SPContents\WSS_Content_8686.bak" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201801241212356_24012018_InitializeDatabase_ANHPT.resx">
+      <DependentUpon>201801241212356_24012018_InitializeDatabase_ANHPT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801280313554_28012018_AddFieldAU_NGUOIDUNG_ANHPT.resx">
+      <DependentUpon>201801280313554_28012018_AddFieldAU_NGUOIDUNG_ANHPT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801300300445_30012018_AddFielNvDatHang_HuyNQ.resx">
+      <DependentUpon>201801300300445_30012018_AddFielNvDatHang_HuyNQ.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802040933356_04022018_AddF_TK_NGANHANG_ANHPT.resx">
+      <DependentUpon>201802040933356_04022018_AddF_TK_NGANHANG_ANHPT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802040941095_04022018_A_U_THONGTIN_NGANHANG_ANHPT.resx">
+      <DependentUpon>201802040941095_04022018_A_U_THONGTIN_NGANHANG_ANHPT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802050200044_05022018_alterTableNvDatHangChiTiet_HuyNQ.resx">
+      <DependentUpon>201802050200044_05022018_alterTableNvDatHangChiTiet_HuyNQ.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803070347333_07032018_NullableTrangThaiCon_ANHPT.resx">
+      <DependentUpon>201803070347333_07032018_NullableTrangThaiCon_ANHPT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803210220549_21032018_dropTableNvCongNo_HuyNQ.resx">
+      <DependentUpon>201803210220549_21032018_dropTableNvCongNo_HuyNQ.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803210222569_21032018_addTableNvCongNo_HuyNQ_SecondTime.resx">
+      <DependentUpon>201803210222569_21032018_addTableNvCongNo_HuyNQ_SecondTime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803210833455_21032018_alterTableNvCongNo_HuyNQ_SecondTime.resx">
+      <DependentUpon>201803210833455_21032018_alterTableNvCongNo_HuyNQ_SecondTime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803251806357_26_03_2018_Upadte_AUNGUOIDUNG_ANHPT.resx">
+      <DependentUpon>201803251806357_26_03_2018_Upadte_AUNGUOIDUNG_ANHPT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803290227275_29_03_2018_CreateNvHetHanHangHoa_ANHPT.resx">
+      <DependentUpon>201803290227275_29_03_2018_CreateNvHetHanHangHoa_ANHPT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804010508178_01042018_addColTienNoCu_VatTuChungTu_HuyNQ.resx">
+      <DependentUpon>201804010508178_01042018_addColTienNoCu_VatTuChungTu_HuyNQ.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804010509398_01042018_addColTienThanhToan_VatTuChungTu_HuyNQ.resx">
+      <DependentUpon>201804010509398_01042018_addColTienThanhToan_VatTuChungTu_HuyNQ.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804021050122_04_02_2018_UpdateNgayHetHan_ANHPT.resx">
+      <DependentUpon>201804021050122_04_02_2018_UpdateNgayHetHan_ANHPT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804050756163_05_04_2018_Update_VatTuChungTuChiTiet_Hieu.resx">
+      <DependentUpon>201804050756163_05_04_2018_Update_VatTuChungTuChiTiet_Hieu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804060416163_06042018_AddTableThongKe_HuyNQ.resx">
+      <DependentUpon>201804060416163_06042018_AddTableThongKe_HuyNQ.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804070228056_07_04_2018_AddField_VAT_VATTUCTU_ANHPT.resx">
+      <DependentUpon>201804070228056_07_04_2018_AddField_VAT_VATTUCTU_ANHPT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804091654314_09_04_2018_AddMaVat_NvGDQuay_ANHPT.resx">
+      <DependentUpon>201804091654314_09_04_2018_AddMaVat_NvGDQuay_ANHPT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806031857556_04062018_alterTableVtct_congno_HuyNQ.resx">
+      <DependentUpon>201806031857556_04062018_alterTableVtct_congno_HuyNQ.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806171122550_20180617_addColQuyen_nhomquyen_Anhpt.resx">
+      <DependentUpon>201806171122550_20180617_addColQuyen_nhomquyen_Anhpt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809210205567_21092018_UDP_DM_HANGKH_ANHPT.resx">
+      <DependentUpon>201809210205567_21092018_UDP_DM_HANGKH_ANHPT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809210400346_21092018_UDP_LAN2_DM_HANGKH_ANHPT.resx">
+      <DependentUpon>201809210400346_21092018_UDP_LAN2_DM_HANGKH_ANHPT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809220428569_22092018_UDP_SOTIEN_HANGKH_ANHPT.resx">
+      <DependentUpon>201809220428569_22092018_UDP_SOTIEN_HANGKH_ANHPT.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

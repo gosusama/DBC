@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{031FEFE0-E286-4950-B5F4-1DE05ECDBFC8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BTS.API.ASYNC</RootNamespace>
+    <AssemblyName>BTS.API.ASYNC</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DatabaseContext\DBCSQL.cs" />
+    <Compile Include="DatabaseContext\sysdiagram.cs" />
+    <Compile Include="DatabaseContext\TDS_Banbuon.cs" />
+    <Compile Include="DatabaseContext\TDS_Barcode.cs" />
+    <Compile Include="DatabaseContext\TDS_Congno.cs" />
+    <Compile Include="DatabaseContext\TDS_Ctugoc.cs" />
+    <Compile Include="DatabaseContext\TDS_Dathang.cs" />
+    <Compile Include="DatabaseContext\TDS_Dathangct.cs" />
+    <Compile Include="DatabaseContext\TDS_Dathangtudong.cs" />
+    <Compile Include="DatabaseContext\TDS_Dmbohang.cs" />
+    <Compile Include="DatabaseContext\TDS_Dmbohangct.cs" />
+    <Compile Include="DatabaseContext\TDS_Dmcapma.cs" />
+    <Compile Include="DatabaseContext\TDS_Dmchinhanhnganhang.cs" />
+    <Compile Include="DatabaseContext\TDS_Dmchungtu.cs" />
+    <Compile Include="DatabaseContext\TDS_Dmdonvi.cs" />
+    <Compile Include="DatabaseContext\TDS_Dmdonvitinh.cs" />
+    <Compile Include="DatabaseContext\TDS_Dmgiaban.cs" />
+    <Compile Include="DatabaseContext\TDS_Dmgiagiaodich.cs" />
+    <Compile Include="DatabaseContext\TDS_Dmhopdong.cs" />
+    <Compile Include="DatabaseContext\TDS_Dmkehang.cs" />
+    <Compile Include="DatabaseContext\TDS_Dmkhachhang.cs" />
+    <Compile Include="DatabaseContext\TDS_Dmkhachhangtt.cs" />
+    <Compile Include="DatabaseContext\TDS_Dmkhohang.cs" />
+    <Compile Include="DatabaseContext\TDS_Dmkmchiphi.cs" />
+    <Compile Include="DatabaseContext\TDS_Dmloaichungtu.cs" />
+    <Compile Include="DatabaseContext\TDS_Dmloaikhachhang.cs" />
+    <Compile Include="DatabaseContext\TDS_Dmloaikhohang.cs" />
+    <Compile Include="DatabaseContext\TDS_Dmloaitk.cs" />
+    <Compile Include="DatabaseContext\TDS_Dmmathang.cs" />
+    <Compile Include="DatabaseContext\TDS_Dmmaxmindieuchuyen.cs" />
+    <Compile Include="DatabaseContext\TDS_Dmmotasanpham.cs" />
+    <Compile Include="DatabaseContext\TDS_Dmmotasanphamchitiet.cs" />
+    <Compile Include="DatabaseContext\TDS_Dmnganhang.cs" />
+    <Compile Include="DatabaseContext\TDS_Dmnganhhang.cs" />
+    <Compile Include="DatabaseContext\TDS_Dmnhomhang.cs" />
+    <Compile Include="DatabaseContext\TDS_Dmnhomkmchiphi.cs" />
+    <Compile Include="DatabaseContext\TDS_Dmnhomptnx.cs" />
+    <Compile Include="DatabaseContext\TDS_Dmnhomvuviec.cs" />
+    <Compile Include="DatabaseContext\TDS_Dmnvkhachang.cs" />
+    <Compile Include="DatabaseContext\TDS_Dmptnx.cs" />
+    <Compile Include="DatabaseContext\TDS_Dmquayhang.cs" />
+    <Compile Include="DatabaseContext\TDS_Dmtaikhoanketchuyen.cs" />
+    <Compile Include="DatabaseContext\TDS_Dmtaikhoanketchuyenct.cs" />
+    <Compile Include="DatabaseContext\TDS_Dmtk.cs" />
+    <Compile Include="DatabaseContext\TDS_Dmtuyenduong.cs" />
+    <Compile Include="DatabaseContext\TDS_Dmvat.cs" />
+    <Compile Include="DatabaseContext\TDS_Dmvuviec.cs" />
+    <Compile Include="DatabaseContext\TDS_Giaodich.cs" />
+    <Compile Include="DatabaseContext\TDS_Giaodichct.cs" />
+    <Compile Include="DatabaseContext\TDS_Giaodichdhthanhvien.cs" />
+    <Compile Include="DatabaseContext\TDS_Giaodichdhthanhvienct.cs" />
+    <Compile Include="DatabaseContext\TDS_Giaodichquay.cs" />
+    <Compile Include="DatabaseContext\TDS_Giaodichquayamct.cs" />
+    <Compile Include="DatabaseContext\TDS_Giaodichquayct.cs" />
+    <Compile Include="DatabaseContext\TDS_Giaodichtondau.cs" />
+    <Compile Include="DatabaseContext\TDS_Giaodichtondauct.cs" />
+    <Compile Include="DatabaseContext\TDS_KhohangNhomhang.cs" />
+    <Compile Include="DatabaseContext\TDS_Khuyenmai.cs" />
+    <Compile Include="DatabaseContext\TDS_Khuyenmaict.cs" />
+    <Compile Include="DatabaseContext\TDS_Kiemke.cs" />
+    <Compile Include="DatabaseContext\TDS_Kiemkect.cs" />
+    <Compile Include="DatabaseContext\TDS_Lichdathang.cs" />
+    <Compile Include="DatabaseContext\TDS_Lichsuthaydoigia.cs" />
+    <Compile Include="DatabaseContext\TDS_Lichxuathang.cs" />
+    <Compile Include="DatabaseContext\TDS_Log.cs" />
+    <Compile Include="DatabaseContext\TDS_Maxmindathang.cs" />
+    <Compile Include="DatabaseContext\TDS_Menu.cs" />
+    <Compile Include="DatabaseContext\TDS_Menunhomquyen.cs" />
+    <Compile Include="DatabaseContext\TDS_Nguoisudung.cs" />
+    <Compile Include="DatabaseContext\TDS_Nhomquyen.cs" />
+    <Compile Include="DatabaseContext\TDS_Nhomquyenphu.cs" />
+    <Compile Include="DatabaseContext\TDS_Quyctkt.cs" />
+    <Compile Include="DatabaseContext\TDS_Quyctktct.cs" />
+    <Compile Include="DatabaseContext\TDS_Sodutaikhoan.cs" />
+    <Compile Include="DatabaseContext\TDS_Sodutaikhoanct.cs" />
+    <Compile Include="DatabaseContext\TDS_SXDathang.cs" />
+    <Compile Include="DatabaseContext\TDS_SXDathangct.cs" />
+    <Compile Include="DatabaseContext\TDS_SXDmCTdinhmuc.cs" />
+    <Compile Include="DatabaseContext\TDS_SXDmCTDinhmucct.cs" />
+    <Compile Include="DatabaseContext\TDS_SXDmmaysanxuat.cs" />
+    <Compile Include="DatabaseContext\TDS_SXDmNangSuatNV.cs" />
+    <Compile Include="DatabaseContext\TDS_SXLenhsx.cs" />
+    <Compile Include="DatabaseContext\TDS_SXLenhsxct.cs" />
+    <Compile Include="DatabaseContext\TDS_Taikhoanhachtoan.cs" />
+    <Compile Include="DatabaseContext\TDS_Thamsohethong.cs" />
+    <Compile Include="DatabaseContext\TDS_Thuachitheogd.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

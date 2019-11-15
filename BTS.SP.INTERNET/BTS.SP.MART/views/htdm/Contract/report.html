@@ -1,0 +1,192 @@
+﻿<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="button-close" ng-click="goIndex()">
+            <i class="fa fa-times-circle"></i>
+        </div>
+        <div class="btn-group">
+            <button class="btn btn-default" prevent-default title="In danh sách" ng-click="print()"><span class="fa fa-print"></span>&ensp;In</button>
+            <button class="btn btn-default" prevent-default title="In danh sách" ng-click="printExcel()"><span class="fa fa-print"></span>&ensp;Xuất Excel</button>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div id="main-report">
+            <br />
+            <div id="dataTable">
+                <style>
+                    th,
+                    td {
+                        padding: 5px;
+                    }
+
+                    table {
+                        margin: 0 auto;
+                    }
+
+                    .header-report {
+                        margin-bottom: 50px;
+                    }
+
+                        .header-report table,
+                        .infor-report table {
+                            width: 100%;
+                            border: 0;
+                        }
+
+                    .data-report table {
+                        width: 100%;
+                        border: 1px solid;
+                        border-collapse: collapse;
+                    }
+
+                        .data-report table tr,
+                        .data-report table tr td,
+                        .data-report table tr th {
+                            border: 1px solid;
+                        }
+
+                    .header-report table tr {
+                        text-align: center;
+                    }
+
+                    .header-report table tbody tr td {
+                        width: 30%;
+                    }
+
+                    .infor-report table tr td {
+                        position: relative;
+                    }
+
+                    .dotted-description {
+                        position: absolute;
+                        width: calc(100% - 110px);
+                        border-bottom: 1px dotted;
+                    }
+
+                    .signature-place table {
+                        width: 100%;
+                    }
+
+                        .signature-place table thead tr th {
+                            width: 50%;
+                            text-align: center;
+                        }
+
+                        .signature-place table tbody tr td {
+                            height: 150px;
+                        }
+                                            .label-info-report {
+                        float: left;
+                        width: 110px;
+                    }
+                </style>
+                <div class="header-report">
+                    <table>
+                        <tr>
+                            <td>
+                                ISO 9001
+                                <Br>ISO 2200
+                            </td>
+                            <td>CÔNG TY CỔ PHẦN TẬP ĐOÀN DABACO VIỆT NAM</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>HỢP ĐỒNG</td>
+                            <td>Mẫu</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="infor-report">
+                    <table>
+                        <tr>
+                            <td colspan="2">
+                                <div class="label-info-report">Nhà cung cấp</div>
+                                <span class="dotted-description">&nbsp;{{target.maKhachHang}} - {{target.tenKhachHang}}</span>
+                                <br>
+                                <div class="label-info-report">Địa chỉ: </div>
+                                <span class="dotted-description">&nbsp;{{target.diaChi}}</span>
+                                <br>
+                                <div class="label-info-report">Fax: </div>
+                                <span class="dotted-description">&nbsp;{{target.fax}}</span>
+                                <br>
+                                <div class="label-info-report">Số điện thoại: </div>
+                                <span class="dotted-description">&nbsp;{{target.dienThoai}}</span>
+                            </td>
+                            <td colspan="2">
+                                <div class="label-info-report">Mã hợp đồng: </div>
+                                <span class="dotted-description">&nbsp;{{target.maHd}}</span>
+                                <br>
+                                <div class="label-info-report">Ngày ký: </div>
+                                <span class="dotted-description">&nbsp;{{target.ngayKy}}</span>
+                                <br>
+                                <div class="label-info-report">&nbsp;</div>
+                                <span>&nbsp;</span>
+                                <br>
+                                <div class="label-info-report">&nbsp;</div>
+                                <span>&nbsp;</span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <br>
+            <div class="data-report">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="text-center" style="width: 10%">STT</th>
+                            <th class="text-center" style="width: 30%">Tên hàng</th>
+                            <th class="text-center" style="width: 10%">ĐVT</th>
+                            <th class="text-center" style="width: 10%">Số lượng</th>
+                            <th class="text-center" style="width: 10%; text-algin: right;">Đơn giá</th>
+                            <th class="text-center" style="width: 30%; text-algin: right;">Thành tiền</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in target.dataReportDetails">
+                            <td>{{$index + 1}}</td>
+                            <td>
+                                {{item.maHang}} - {{item.tenHang}}
+                            </td>
+                            <td>
+                                {{item.donViTinh}}
+                            </td>
+                            <td  style="text-align:center;">
+                                {{item.soLuong}}
+                            </td>
+                            <td  style="text-align:right;">
+                                {{item.donGia | number}}
+                            </td>
+                            <td style="text-align:right;">
+                                {{item.thanhTien | number}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="5" style="text-align: center;">Tổng tiền</td>
+                            <td style="text-align:right;">{{robot.sum(target.dataReportDetails, 'thanhTien') | number}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="signature-place">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nhà cung cấp</th>
+                            <th>Người lập phiếu</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

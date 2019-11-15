@@ -1,0 +1,33 @@
+﻿<div>
+    <div class="modal-header">
+      <h3 class="modal-title" style="color:blue;">{{title()}}</h3>
+        <div class="button-close" ng-click="cancel()">
+            <i class="fa fa-times-circle" ></i>
+        </div>
+    </div>
+    <div class="modal-body">
+        <form role="form">
+            <input type="hidden" ng-model="target.id">
+            <div class="row form-group">
+                <div class="col-lg-6">
+                    <label>Mã kho</label>
+                    <input type="text" class="form-control" ng-model="target.maKho" disabled>
+                </div>
+                <div class="col-lg-6">
+                    <label>Tên kho</label>
+                    <input type="text" class="form-control" ng-model="target.tenKho" disabled>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-lg-6">
+                    <label>Trạng thái</label>
+                    <select class="form-control" ng-model="target.trangThai" ng-options="opt.value as opt.text for opt in tempData('status')" disabled></select>
+                </div>
+            </div>
+
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button prevent-default class="btn btn-default" ng-click="cancel()"><span class="glyphicon glyphicon-remove"></span>&ensp;<i class="fa fa-arrow-left"></i>&nbsp;&nbsp;{{config.label.btnCancel}}</button>
+    </div>
+</div>

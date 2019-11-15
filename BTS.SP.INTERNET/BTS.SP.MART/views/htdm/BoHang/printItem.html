@@ -1,0 +1,73 @@
+﻿<form></form><!-- KHông hiểu sao để thế này thì nó mới không bị lỗi T_T-->
+<div>
+    <div class="modal-header">
+      <h3 class="modal-title" style="color:blue;">{{title()}}</h3>
+        <div class="button-close" ng-click="cancel()">
+            <i class="fa fa-times-circle"></i>
+        </div>
+    </div>
+    <div class="modal-body" ng-form name="_form">
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="md-style-label-input">
+                        Số lượng <span style="color:red">(*)</span>
+                    </div>
+                    <div class="md-4-style-input">
+                        <input class="input-border-form" type="number" name="_maHoaDon" ng-model="dataHangHoa.soLuongIn" maxlength="50" required />
+                        <span style="color:red" ng-show="_form._maHoaDon.$dirty && _form._maHoaDon.$invalid">
+                            <span ng-show="_form._maHoaDon.$error.required">Không được để trống</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="tableToExport">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="text-center">Tên siêu thị</th>
+                        <th class="text-center">Mã nhà cung cấp</th>
+                        <th class="text-center">Loại vật tư</th>
+                        <th class="text-center">Mã bó hàng</th>
+                        <th class="text-center">Tên bó hàng</th>
+                        <th class="text-center">Số lượng</th>
+                        <th class="text-center">Đơn giá</th>
+                        <th class="text-center">Thứ tự in</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-center">DABACO MART</td>
+                        <td class="text-left"></td>
+                        <td class="text-left"></td>
+                        <td class="text-center">{{dataHangHoa.maBoHang}}</td>
+                        <td class="text-center">{{dataHangHoa.tenBoHang}}</td>
+                        <td class="text-right">
+                            <div class="md-4-style-input">
+                                <input class="input-border-form" type="text" style="text-align: right;font-weight: bold;" ng-model="dataHangHoa.soLuongIn" maxlength="50" awnum="number">
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            <input class="input-border-form" type="text" style="text-align: right;font-weight: bold;" ng-model="donGia" maxlength="50" awnum="number">
+                        </td>
+                        <td class="text-right">1</td>
+                    </tr>
+                    <tr>
+                        <td class="text-right" colspan="5" style="font-weight: bold; padding-right: 100px;">Tổng số lượng</td>
+                        <td class="text-right">
+                            <div class="md-4-style-input">
+                                <input class="input-border-form" type="text" style="text-align: right;font-weight: bold;" ng-model="dataHangHoa.soLuongIn" maxlength="50" awnum="number">
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button prevent-default type="submit" class="btn btn-primary" ng-disabled="_form.$invalid || Loading" ng-click="exportToExcel('#tableToExport')">Tải temp Excel</button>
+        <!--<a class="btn btn-primary" ng-href="{{hrefTem}}">Tải xuống </a>-->
+        <button prevent-default class="btn btn-default" ng-disabled="Loading" ng-click="cancel()"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;{{config.label.btnCancel}}</button>
+    </div>
+</div>

@@ -1,0 +1,93 @@
+﻿<script>
+    $('.modal-body').resizable({
+        minHeight: 300,
+        minWidth: 300
+    });
+    $('.modal-dialog').draggable();
+    $('#priceUpdate').on('show.bs.modal', function() {
+        $(this).find('.modal-body').css({
+            'max-height': '100%'
+        });
+    });
+</script>
+<style>
+    .modal-body {
+        font-family: Arial;
+        font-size: 12px;
+    }
+</style>
+<div id="priceUpdate">
+    <div class="modal-header">
+      <h3 class="modal-title" style="color:blue;">{{title()}}</h3>
+        <div class="button-close" ng-click="cancel()">
+            <i class="fa fa-times-circle"></i>
+        </div>
+    </div>
+    <div class="modal-body">
+        <form role="form" name="_form">
+            <div class="row form-group">
+                <div class="col-lg-6">
+                    <label style="color: blue;">VAT vào</label>
+                    <select class="form-control" ng-model="target.maVatVao" ng-options="opt.value as opt.text for opt in tempData('taxs')" readonly="">
+                        <option value="0">None</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-lg-6" ng-if="accessList.giamua">
+                    <label style="color: blue;">Giá mua</label>
+                    <input class="form-control" style="font-weight: bold;color:  black;text-align:right;" type="text" ng-model="target.giaMua" ng-change="robot.changeGiaMua(target)" awnum="number" />
+                </div>
+                <div class="col-lg-6" ng-if="accessList.giamua">
+                    <label style="color: blue;">Giá mua có vat</label>
+                    <input class="form-control" style="font-weight: bold;color:  black;text-align:right;" type="text" ng-model="target.giaMuaVat" ng-change="robot.changeGiaMuaVat(target)" awnum="number" />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col-lg-6" ng-if="accessList.tylelai">
+                    <label style="color: blue;">Tỷ lệ lãi lẻ</label>
+                    <input class="form-control" style="font-weight: bold;color:  black;text-align:right;" type="text" ng-model="target.tyLeLaiLe" ng-change="robot.changeTyLeLaiLe(target);checkTyLeLai(target.tyLeLaiLe)" awnum="number" />
+                    <span style="color : red" ng-show="invalidLL"> Tỷ lệ lãi sai </span>
+                </div>
+                <div class="col-lg-6" ng-if="accessList.giaban">
+                    <label style="color: blue;">Giá bán lẻ</label>
+                    <input class="form-control" style="font-weight: bold;color:  black;text-align:right;" type="text" ng-model="target.giaBanLe" ng-change="robot.changeGiaBanLe(target)" awnum="number" />
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-lg-6" ng-if="accessList.tylelai">
+                    <label style="color: blue;">Tỷ lệ lãi buôn</label>
+                    <input class="form-control" style="font-weight: bold;color:  black;text-align:right;" type="text" ng-model="target.tyLeLaiBuon" ng-change="robot.changeTyLeLaiBuon(target);checkTyLeLai(target.tyLeLaiLe)" awnum="number" />
+                    <span style="color : red" ng-show="invalidLB"> Tỷ lệ lãi sai </span>
+                </div>
+                <div class="col-lg-6" ng-if="accessList.giaban">
+                    <label style="color: blue;">Giá bán buôn</label>
+                    <input class="form-control" style="font-weight: bold;color:  black;text-align:right;" type="text" ng-model="target.giaBanBuon" ng-change="robot.changeGiaBanBuon(target)" awnum="number" />
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-lg-6">
+                    <label style="color: blue;">VAT ra</label>
+                    <select class="form-control" ng-model="target.maVatRa" ng-options="opt.value as opt.text for opt in tempData('taxs')" readonly="">
+                        <option value="0">None</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-lg-6" ng-if="accessList.giaban">
+                    <label style="color: blue;">Giá bán lẻ Vat</label>
+                    <input class="form-control" style="font-weight: bold;color:  black;text-align:right;" type="text" ng-model="target.giaBanLeVat" ng-change="robot.changGiaBanLeVat(target)" awnum="number" />
+                </div>
+                <div class="col-lg-6" ng-if="accessList.giaban">
+                    <label style="color: blue;">Giá bán buôn Vat</label>
+                    <input class="form-control" style="font-weight: bold;color:  black;text-align:right;" type="text" ng-model="target.giaBanBuonVat" ng-change="robot.changeGiaBanBuonVat(target)" awnum="number" />
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button prevent-default type="submit" class="btn btn-primary" ng-disabled="_form.$invalid || invalidLL || invalidLB" ng-click="save()"><i class="fa fa-save"></i>&nbsp;&nbsp;{{config.label.btnSubmit}}</button>
+        <button prevent-default class="btn btn-default" ng-click="cancel()"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;{{config.label.btnCancel}}</button>
+    </div>
+</div>

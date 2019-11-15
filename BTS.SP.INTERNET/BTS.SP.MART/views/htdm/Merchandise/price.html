@@ -1,0 +1,96 @@
+﻿<script>
+	$('.modal-body').resizable({
+    minHeight: 300,
+    minWidth: 300
+	});
+	$('.modal-dialog').draggable();
+	$('#priceModal').on('show.bs.modal', function () {
+		$(this).find('.modal-body').css({
+			'max-height':'100%'
+		});
+	});
+</script>
+<div id="priceModal">
+    <div class="modal-header">
+        <h3 class="modal-title">{{title()}}  {{lbl.lblCreate}}</h3>
+        <div class="button-close" ng-click="cancel()">
+            <i class="fa fa-times-circle"></i>
+        </div>
+    </div>
+    <div class="modal-body">
+        <form role="form" name="_form">
+            <div class="row form-group">
+                <div class="col-lg-6">
+                    <label>Đơn vị</label>
+                    <select class="form-control" ng-model="target.maDonVi" ng-options="opt.value as opt.text for opt in tempData('auDonVis')" ng-disabled="!isGeneralUnit"></select>
+                </div>
+                <div class="col-lg-6">
+                    <label>Giá vốn</label>
+                    <input class="form-control" style="text-align:right" type="text" ng-model="target.giaVon" awnum="number" />
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-lg-6">
+                    <label>VAT vào</label>
+                    <select class="form-control" ng-model="target.maVatVao" ng-options="opt.value as opt.text for opt in tempData('taxs')" disabled>
+                        <option value="0">None</option>
+                    </select>
+                </div>
+
+            </div>
+            <div class="row form-group">
+                <div class="col-lg-6">
+                    <label>Giá mua</label>
+                    <input class="form-control" style="text-align:right" type="text" ng-model="target.giaMua" ng-change="robot.changeGiaMua(target)" awnum="number" />
+                </div>
+                <div class="col-lg-6">
+                    <label>Giá mua có vat</label>
+                    <input class="form-control" style="text-align:right" type="text" ng-model="target.giaMuaVat" ng-change="robot.changeGiaMuaVat(target)" awnum="number" />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col-lg-6">
+                    <label>Tỷ lệ lãi lẻ</label>
+                    <input class="form-control" style="text-align:right" type="text" ng-model="target.tyLeLaiLe" ng-change="robot.changeTyLeLaiLe(target)" awnum="number" />
+                </div>
+                <div class="col-lg-6">
+                    <label>Giá bán lẻ</label>
+                    <input class="form-control" style="text-align:right" type="text" ng-model="target.giaBanLe" ng-change="robot.changeGiaBanLe(target)" awnum="number" />
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-lg-6">
+                    <label>Tỷ lệ lãi buôn</label>
+                    <input class="form-control" style="text-align:right" type="text" ng-model="target.tyLeLaiBuon" ng-change="robot.changeTyLeLaiBuon(target)" awnum="number" />
+                </div>
+                <div class="col-lg-6">
+                    <label>Giá bán buôn</label>
+                    <input class="form-control" style="text-align:right" type="text" ng-model="target.giaBanBuon" ng-change="robot.changeGiaBanBuon(target)" awnum="number" />
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-lg-6">
+                    <label>Loại VAT</label>
+                    <select class="form-control" ng-model="target.maVatRa" ng-options="opt.value as opt.text for opt in tempData('taxs')" disabled>
+                        <option value="0">None</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-lg-6">
+                    <label>Giá bán lẻ Vat</label>
+                    <input class="form-control" style="text-align:right" type="text" ng-model="target.giaBanLeVat" ng-change="robot.changGiaBanLeVat(target)" awnum="number" />
+                </div>
+                <div class="col-lg-6">
+                    <label>Giá bán buôn Vat</label>
+                    <input class="form-control" style="text-align:right" type="text" ng-model="target.giaBanBuonVat" ng-change="robot.changeGiaBanBuonVat(target)" awnum="number" />
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button prevent-default type="submit" class="btn btn-primary" ng-disabled="_form.$invalid" ng-click="save()"><i class="fa fa-save"></i>&nbsp;&nbsp;{{config.label.btnSubmit}}</button>
+        <button prevent-default class="btn btn-default" ng-click="cancel()"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;{{config.label.btnCancel}}</button>
+    </div>
+</div>

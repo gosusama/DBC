@@ -1,0 +1,54 @@
+﻿<div class="panel panel-default">
+    <div class="panel-heading panel-toolbar">
+      <h3 class="modal-title" style="color:blue;">{{title()}}</h3>
+    </div>
+    <div class="panel-heading">
+        <div class="btn-toolbar" role="toolbar">
+            <div class="btn-group">
+            </div>
+            <div class="col-lg-8">
+                <div class="input-group">
+                    <input type="text" class="form-control" ng-model="target.codeMerchandise" ng-enter="doSearch(target.codeMerchandise)">
+                    <div class="input-group-btn">
+                        <button type="button" title="Tìm kiếm tồn mã hàng" ng-click="doSearch(target.codeMerchandise)" class="btn btn-success"><span class="fa fa-search"></span>&ensp;Tìm kiếm</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <table class="table table-bordered">
+            <thead>
+                <tr ng-if="data[0]">
+                    <th>STT</th>
+                    <th ng-repeat="col in data[0] track by $index">{{col}}</th>
+                </tr>
+                <tr ng-if="!data[0]">
+                    <th>STT</th>
+                    <th>Mã vật tư</th>
+                    <th>Tên vật tư</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-if="listTemp.length > 0" ng-repeat="item in listTemp track by $index">
+                    <td>{{$index+1}}</td>
+                    <td ng-repeat="row in item track by $index">{{row !== "" ? row : 0}}</td>
+                </tr>
+                <tr ng-if="!listTemp">
+                    <td col="3">Không tìm thấy số tồn !</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="panel-footer" ng-if="data[0]">
+        <uib-pagination class="no-margin-vertical pagination-sm" ng-model="paged.currentPage"
+                        ng-change="pageChanged()"
+                        items-per-page="paged.itemsPerPage" ng-show="paged.totalItems > 0" total-items="paged.totalItems" max-size="paged.pageSize"
+                        boundary-links="true" num-pages="paged.totalPage"
+                        previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;">
+        </uib-pagination>
+    </div>
+    <div class="panel-footer" style="text-align:right;">
+        <button type="button" class="btn btn-warning" ng-click="cancel()">Đóng lại</button>
+    </div>
+</div>

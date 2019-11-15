@@ -1,0 +1,166 @@
+﻿<style>
+    .modal-body {
+        font-family: Arial;
+        font-size: 14px;
+    }
+</style>
+<div>
+    <div class="modal-header" style="padding: 5px 5px">
+      <h3 class="modal-title" style="color:blue;">{{title()}}</h3>
+        <div class="button-close" ng-click="cancel()">
+            <i class="fa fa-times-circle"></i>
+        </div>
+    </div>
+    <div class="modal-body">
+        <form role="form" name="_form">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-4" style="font-weight:bold;">
+                        <label>Mã bó hàng</label><span style="color: red"> (1*) </span>
+                        <input type="text" class="form-control" ng-model="target.maBoHang" name="_maBoHang" maxlength="50" required>
+                        <span style="color:red" ng-show="_form._maBoHang.$dirty && _form._maBoHang.$invalid">
+                            <span ng-show="_form._maBoHang.$error.required">Không được để trống</span>
+                        </span>
+                    </div>
+                    <div class="col-md-4" style="font-weight:bold;">
+                        <label>Ngày </label>
+                        <div class="add-input-zone">
+                            <input class="form-control" type="text" ng-model="target.ngayCT" placeholder="{{config.dateFormat}}"
+                                   uib-datepicker-popup="{{config.dateFormat}}" is-open="_ngayCT" />
+                            <div class="button-calender" ng-click="_ngayCT = !_ngayCT; config.delegateEvent($event);">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4" style="font-weight:bold;">
+                        <label>Trạng thái</label>
+                        <select class="form-control" ng-init="target.trangThai = 10" ng-model="target.trangThai" ng-options="opt.value as opt.text for opt in tempData('status')"></select>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-12" style="font-weight:bold;">
+                        <label>Tên bó hàng</label><span style="color: red"> (2*)</span>
+                        <textarea class="form-control" rows="1" ng-model="target.tenBoHang" name="_tenBoHang" id="_tenBoHang" maxlength="300" required></textarea>
+                        <span style="color: red" ng-show="_form._tenBoHang.$dirty && _form._tenBoHang.$invalid">
+                            <span ng-show="_form._tenBoHang.$error.required">Không được để trống</span>
+                        </span>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-12" style="font-weight:bold;">
+                        <label>Nội dung chi tiết</label>
+                        <textarea class="form-control" rows="1" ng-model="target.ghiChu" id="comment"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+            </div>
+        </form>
+    </div>
+    <div class="modal-body" style="font-size:14px;">
+        <table class="table table-bordered table-hover table-condensed">
+            <thead>
+                <tr>
+                    <th style="width:2%" class="text-center">STT</th>
+                    <th style="width: 12%;" class="text-center">Mã hàng</th>
+                    <th style="width: 45%;" class="text-center">Tên hàng</th>
+                    <th style="width: 10%;" class="text-center">SL</th>
+                    <th style="width: 14%;" class="text-center">Đơn giá</th>
+                    <th style="width: 4%;" class="text-center">Tỷ lệ CK(%)</th>
+                    <th style="width:6%" class="text-center">Thành tiền</th>
+                    <th style="width:2%"></th>
+                </tr>
+            </thead>
+            <tbody ng-form name="_formAddDetail">
+                <tr style="background:rgba(119, 119, 119, 0.48)" ng-enter="addRow()" style="height:40px;">
+                    <td style="text-align:center;">{{$index + 1}}</td>
+                    <td>
+                        <input type="text" style="width:100%;height:30px;" name="maHang" ng-model="newItem.maHang" id="maHang" ng-blur="selectedMaHang(newItem.maHang)" required />
+                    </td>
+                    <td>
+                        <input type="text" style="text-align:left; width:100%;height:30px;" id="tenHang" ng-model="newItem.tenHang">
+                    </td>
+                    <td>
+                        <input type="text" style="text-align:right; width:100%;height:30px;" id="soluong" ng-model="newItem.soLuong" ng-init="newItem.soLuong = 0" ng-change="robot.changeTyLeSoLuong(newItem)" awnum="number">
+                    </td>
+                    <td>
+                        <input type="text" style="text-align:right; width:100%;height:30px;" id="donGia" ng-model="newItem.donGia" ng-change="robot.changeTyLeCKLe(newItem)" awnum="number" disabled="">
+                    </td>
+                    <td>
+                        <input type="text" name="_tyLeCKLe" style="text-align:right; width:100%;height:30px;" ng-model="newItem.tyLeCKLe" ng-init="newItem.tyLeCKLe = 0" ng-change="robot.changeTyLeCKLe(newItem)" min="0" max="100" awnum="number">
+                        <span ng-show="_formAddDetail._tyLeCKLe.$error.max">Phần trăm nhập từ: 0 đến 100</span>
+                        <span ng-show="_formAddDetail._tyLeCKLe.$error.min">Phần trăm nhập từ: 0 đến 100</span>
+
+
+                    </td>
+                    <td>
+                        <input type="text" style="text-align:right;height:30px;" ng-model="newItem.tongBanLe" ng-change="robot.changeThanhTien(newItem)" awnum="number">
+                    </td>
+                    <td style="white-space: nowrap" class="text-center">
+                        <div class="form-buttons form-inline">
+                            <a>
+                                <span class="fa fa-plus-circle" ng-disabled="_formAddDetail.$invalid" ng-click="addRow()"></span>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+            <tbody ng-form name="_formDetail">
+                <tr ng-if="isLoading">
+                    <td colspan="13"><my-loading></my-loading></td>
+                </tr>
+                <tr ng-repeat="item in data track by $index" style="height:30px;">
+                    <td style="text-align:center;">{{$index + 1}}</td>
+                    <td>
+                        <input type="text" style="width:100%;height:30px;" name="_maHang" ng-model="item.maHang" ng-blur="selectedMaHang(item.maHang)" disabled />
+                    </td>
+                    <td>
+                        <input type="text" style="text-align:left; width:100%;height:30px;" id="tenHang" ng-model="item.tenHang">
+                    </td>
+                    <td>
+                        <input type="text" style="text-align:right; width:100%;height:30px;" ng-model="item.soLuong" ng-change="robot.changeTyLeSoLuong(item)" awnum="number" awnum="number">
+                    </td>
+                    <td>
+                        <input type="text" style="text-align:right; width:100%;height:30px;" ng-model="item.donGia" ng-change="robot.changeTyLeCKLe(item)" awnum="number" disabled="">
+                    </td>
+                    <td>
+                        <input type="text" name="_tyLeCKLe" style="text-align:right; width:100%;height:30px;" ng-model="item.tyLeCKLe" ng-init="newItem.tyLeCKLe = 0" ng-change="robot.changeTyLeCKLe(item)" min="0" max="100" awnum="number">
+                        <span ng-show="_formAddDetail._tyLeCKLe.$invalid">Phần trăm nhập từ: 0 đến 100</span>
+
+                    </td>
+                    <td>
+                        <input type="text" style="text-align:right;height:30px;" ng-model="item.tongBanLe" ng-change="robot.changeThanhTien(item)" awnum="number">
+                    </td>
+                    <td style="white-space: nowrap" class="text-center">
+                        <!-- form -->
+                        <div class="form-buttons form-inline">
+                            <a>
+                                <span style="font-size: 1em;" class="fa fa-times-circle" style="color:red" ng-click="removeItem($index)"></span>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                <tr style="height:30px;">
+                    <td style="width:20%" colspan="5"></td>
+                    <td nowrap style="text-align:right;"><label>Tổng tiền:</label></td>
+                    <td nowrap style="text-align: right; width: 20%"> <span style="color: red; font-weight: bold"><b>{{robot.sum(target.dataDetails, 'tongBanLe') | number}}</b></span></td>
+                    <td nowrap style="text-align:right;"><label></label></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="panel-footer">
+            <uib-pagination class="no-margin-vertical pagination-sm" ng-model="paged.currentPage"
+                            ng-change="pageChanged()"
+                            items-per-page="paged.itemsPerPage" ng-show="paged.totalItems > 0" total-items="paged.totalItems" max-size="paged.pageSize"
+                            boundary-links="true" num-pages="paged.totalPage"
+                            previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;">
+            </uib-pagination>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button prevent-default type="submit" class="btn btn-primary" ng-disabled="_form.$invalid || _formDetail.$invalid" ng-click="save()"><i class="fa fa-save"></i>&nbsp;&nbsp;{{config.label.btnSubmit}}</button>
+        <button prevent-default class="btn btn-default" ng-click="cancel()"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;{{config.label.btnCancel}}</button>
+    </div>
+</div>

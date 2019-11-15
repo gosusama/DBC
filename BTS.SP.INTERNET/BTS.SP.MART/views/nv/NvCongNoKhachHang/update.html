@@ -1,0 +1,114 @@
+﻿<form></form><!-- KHông hiểu sao để thế này thì nó mới không bị lỗi T_T-->
+<style>
+    #myWorkContent {
+        overflow-x: scroll;
+        overflow-y: hidden;
+        white-space: nowrap;
+    }
+        .panel-info{
+        text-align:center;
+        font-weight:bold;
+    }
+</style>
+
+<div>
+    <div class="modal-header">
+      <h3 class="modal-title" style="color:blue;">{{title()}}</h3>
+        <div class="button-close" ng-click="cancel()">
+            <i class="fa fa-times-circle"></i>
+        </div>
+    </div>
+    <div class="modal-body" ng-form name="_form">
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="md-style-label-input">
+                        Số chứng từ <span style="color: red">(*)</span>
+                    </div>
+                    <div class="md-4-style-input">
+                        <input class="input-border-form" type="text" ng-model="target.maChungTu" maxlength="50" name="_maChungTu" required readonly>
+                        <span style="color: red" ng-show="_form._maChungTu.$dirty && _form._maChungTu.$invalid">
+                            <span ng-show="_form._maChungTu.$error.required">Không được để trống</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="md-style-label-input">
+                        Ngày chứng từ <span style="color: red">(*)</span>
+                    </div>
+                    <div class="md-4-style-input">
+                        <div class="add-input-zone">
+                            <input class="input-border-form" type="text" ng-model="target.ngayCT" placeholder="{{config.dateFormat}}"
+                                   uib-datepicker-popup="{{config.dateFormat}}" is-open="_ngayct" datepicker-localdate readonly />
+                            <div class="button-calender" ng-click="_ngayct = !_ngayct; config.delegateEvent($event);">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="md-style-label-input">
+                        Khách hàng <span style="color: red">(*)</span>
+                    </div>
+                    <div class="md-4-style-input">
+                        <div class="add-input-zone">
+                            <input class="input-border-form" name="_makhachHang" type="text" ng-model="target.maKhachHang" typeahead-editable="false" uib-typeahead="opt.value as opt.text for opt in tempData('customers') | filter:$viewValue | limitTo:5" typeahead-on-select="selectedkhachHang(target.maKhachHang)" typeahead-input-formatter="formatLabel($model, 'customers')" required />
+                            <span style="color:red" ng-show="_form._makhachHang.$dirty && _form._makhachHang.$invalid">
+                                <span ng-show="_form._makhachHang.$error.required">Không được để trống</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="md-style-label-input">
+                        Ghi chú
+                    </div>
+                    <div class="md-8-style-input">
+                        <textarea class="input-border-form" style="width: 100%;" ng-model="target.ghiChu" maxlength="300" rows="1"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row form-group">
+
+            <div class="col-md-4">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Số tiền Khách trả</h3>
+                    </div>
+                    <div class="panel-body">
+                        <input class="form-control" name="_SOTIEN" type="text" ng-model="target.thanhTien" awnum="number" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Số tiền Khách cần trả</h3>
+                    </div>
+                    <div class="panel-body">
+                        <p style="">{{target.thanhTienCanTra| awnum:'number'}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Số tiền còn lại</h3>
+                    </div>
+                    <div class="panel-body">
+                        <p style="">{{target.thanhTienCanTra - target.thanhTien | awnum:'number'}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <span ng-show="Loading"><my-loading></my-loading></span>
+        <button prevent-default type="submit" class="btn btn-primary" ng-disabled="_form.$invalid" ng-click="save()">{{config.label.btnSubmit}}</button>
+        <button prevent-default class="btn btn-default" ng-disabled="Loading" ng-click="cancel()"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;{{config.label.btnCancel}}</button>
+    </div>
+</div>

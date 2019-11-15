@@ -1,0 +1,66 @@
+﻿<div>
+    <div class="modal-header">
+        <h3 class="modal-title">{{title()}}  {{lbl.lblCreate}}</h3>
+        <div class="button-close" ng-click="cancel()">
+            <i class="fa fa-times-circle"></i>
+        </div>
+    </div>
+    <div class="modal-body">
+        <form role="form" name="_form">
+            <div class="row form-group">
+                <div class="col-lg-6">
+                    <label>Mã nhân viên</label><span style="color: red"> (1*)</span>
+                    <input type="text" class="form-control" ng-model="target.maNhanVien" name="_maNhanVien" maxlength="50" disabled>
+
+                </div>
+                <div class="col-lg-6">
+                    <label>Tên nhân viên</label><span style="color: red"> (2*)</span>
+                    <input type="text" class="form-control" ng-model="target.tenNhanVien" name="_tenNhanVien" maxlength="200" disabled>
+
+                </div>
+                <div class="col-lg-6">
+                    <label>Số điện thoại</label>
+                    <input type="text" class="form-control" ng-model="target.soDienThoai" name="_soDienThoai" maxlength="20" disabled>
+
+                </div>
+                <div class="col-lg-6">
+                    <label>Số chứng minh thư</label>
+                    <input type="text" class="form-control" ng-model="target.chungMinhThu" name="_chungMinhThu" maxlength="20" disabled>
+
+                </div>
+                <div class="col-lg-6">
+                    <label>Giới tính</label>
+                    <div class="radio">
+                        <label><input type="radio" ng-model="target.gioiTinh" name="_gioiTinh" value="1" disabled>Nam</label>
+                        <label><input type="radio" ng-model="target.gioiTinh" name="_gioiTinh" value="0" disabled>Nữ</label>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-lg-12">
+                    <label>Trạng thái</label>
+                    <select class="form-control" ng-model="target.trangThai" ng-init="target.trangThai = 10" ng-options="opt.value as opt.text for opt in tempData('status')" disabled></select>
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col-lg-12">
+                    <label>Tên đăng nhập</label><span style="color: red"> (1*)</span>
+                    <input type="text" class="form-control" ng-model="target.username" name="_Username" disabled>
+
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col-lg-12">
+                    <label><input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="target.level" disabled>Quản trị viên</label>
+                </div>
+            </div>
+
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button prevent-default class="btn btn-default" ng-click="cancel()"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;{{config.label.btnCancel}}</button>
+    </div>
+</div>

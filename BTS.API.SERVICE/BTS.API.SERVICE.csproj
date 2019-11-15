@@ -1,0 +1,328 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{228FE950-78BD-4CB6-BB09-C4B19316C016}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BTS.API.SERVICE</RootNamespace>
+    <AssemblyName>BTS.API.SERVICE</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=4.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.4.2.1\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EPPlus, Version=4.5.1.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.4.5.1\lib\net40\EPPlus.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Oracle.ManagedDataAccess, Version=4.121.2.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\app\client\AnhNguyen\product\12.1.0\client_1\odp.net\managed\common\Oracle.ManagedDataAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="Oracle.ManagedDataAccess.EntityFramework, Version=6.122.1.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
+      <HintPath>..\packages\Oracle.ManagedDataAccess.EntityFramework.12.2.1100\lib\net45\Oracle.ManagedDataAccess.EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Linq.Dynamic">
+      <HintPath>..\packages\System.Linq.Dynamic.1.0.7\lib\net40\System.Linq.Dynamic.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Authorize\AuDonVi\AuDonViService.cs" />
+    <Compile Include="Authorize\AuDonVi\AuDonViVm.cs" />
+    <Compile Include="Authorize\AuNguoiDungNhomQuyen\AuNguoiDungNhomQuyenService.cs" />
+    <Compile Include="Authorize\AuNguoiDungNhomQuyen\AuNguoiDungNhomQuyenVm.cs" />
+    <Compile Include="Authorize\AuNguoiDungQuyen\AuNguoiDungQuyenService.cs" />
+    <Compile Include="Authorize\AuNguoiDungQuyen\AuNguoiDungQuyenVm.cs" />
+    <Compile Include="Authorize\AuNguoiDung\AuNguoiDungService.cs" />
+    <Compile Include="Authorize\AuNguoiDung\AuNguoiDungVm.cs" />
+    <Compile Include="Authorize\AuNhomQuyenChucNang\AuNhomQuyenChucNangService.cs" />
+    <Compile Include="Authorize\AuNhomQuyenChucNang\AuNhomQuyenChucNangVm.cs" />
+    <Compile Include="Authorize\AuNhomQuyen\AuNhomQuyenService.cs" />
+    <Compile Include="Authorize\AuNhomQuyen\AuNhomQuyenVm.cs" />
+    <Compile Include="Authorize\ClientService.cs" />
+    <Compile Include="Authorize\AuThamSoHeThong\AuThamSoHeThongService.cs" />
+    <Compile Include="Authorize\ClientVm.cs" />
+    <Compile Include="Authorize\AuThamSoHeThong\AuThamSoHeThongVm.cs" />
+    <Compile Include="Authorize\SharedService.cs" />
+    <Compile Include="Authorize\Utils\CustomAuthorizeAttribute.cs" />
+    <Compile Include="AutoMapperConfig.cs" />
+    <Compile Include="BuildQuery\IConverter.cs" />
+    <Compile Include="BuildQuery\Implimentations\QueryBuilder.cs" />
+    <Compile Include="BuildQuery\Implimentations\QueryFilterBase.cs" />
+    <Compile Include="BuildQuery\Implimentations\QueryFilterLinQ.cs" />
+    <Compile Include="BuildQuery\Implimentations\QueryFilterParam.cs" />
+    <Compile Include="BuildQuery\Implimentations\QueryFilterParamSQL.cs" />
+    <Compile Include="BuildQuery\Implimentations\QueryFilterSQL.cs" />
+    <Compile Include="BuildQuery\Implimentations\QueryOrder.cs" />
+    <Compile Include="BuildQuery\IQueryBuilder.cs" />
+    <Compile Include="BuildQuery\IQueryFilter.cs" />
+    <Compile Include="BuildQuery\IQueryFilterParam.cs" />
+    <Compile Include="BuildQuery\IQueryOrder.cs" />
+    <Compile Include="BuildQuery\Log\LogObj.cs" />
+    <Compile Include="BuildQuery\Log\LogState.cs" />
+    <Compile Include="BuildQuery\Message\MessageObj.cs" />
+    <Compile Include="BuildQuery\MiscLinQ\ArrayConverter.cs" />
+    <Compile Include="BuildQuery\MiscLinQ\BooleanConverter.cs" />
+    <Compile Include="BuildQuery\MiscLinQ\ConverterUtilities.cs" />
+    <Compile Include="BuildQuery\MiscLinQ\DateConverter.cs" />
+    <Compile Include="BuildQuery\MiscLinQ\DateTimeConverter.cs" />
+    <Compile Include="BuildQuery\MiscLinQ\DefaultConverter.cs" />
+    <Compile Include="BuildQuery\MiscLinQ\GuidConverter.cs" />
+    <Compile Include="BuildQuery\MiscLinQ\NumberConverter.cs" />
+    <Compile Include="BuildQuery\MiscLinQ\TextConverter.cs" />
+    <Compile Include="BuildQuery\Misc\ArrayConverter.cs" />
+    <Compile Include="BuildQuery\Misc\BooleanConverter.cs" />
+    <Compile Include="BuildQuery\Misc\ConverterUtilities.cs" />
+    <Compile Include="BuildQuery\Misc\DateConverter.cs" />
+    <Compile Include="BuildQuery\Misc\DateTimeConverter.cs" />
+    <Compile Include="BuildQuery\Misc\DefaultConverter.cs" />
+    <Compile Include="BuildQuery\Misc\GuidConverter.cs" />
+    <Compile Include="BuildQuery\Misc\NumberConverter.cs" />
+    <Compile Include="BuildQuery\Misc\TextConverter.cs" />
+    <Compile Include="BuildQuery\Result\FilterObj.cs" />
+    <Compile Include="BuildQuery\Result\PagedObj.cs" />
+    <Compile Include="BuildQuery\Result\ResultObj.cs" />
+    <Compile Include="BuildQuery\Result\Types\ResultState.cs" />
+    <Compile Include="BuildQuery\Types\FilterMethod.cs" />
+    <Compile Include="BuildQuery\Types\OrderMethod.cs" />
+    <Compile Include="Common\DataExportModelAbs.cs" />
+    <Compile Include="Common\ExcelExportService.cs" />
+    <Compile Include="Dashboard\DashboardService.cs" />
+    <Compile Include="Dashboard\DashboardVm.cs" />
+    <Compile Include="DataDto.cs" />
+    <Compile Include="DataInfoDtoVm.cs" />
+    <Compile Include="DCL\CustomerCareVm.cs" />
+    <Compile Include="DCL\CashierVm.cs" />
+    <Compile Include="DCL\CustomerCareService.cs" />
+    <Compile Include="DCL\DoanhSoMoiService.cs" />
+    <Compile Include="DCL\DoanhSoMoiVm.cs" />
+    <Compile Include="DCL\DoanhSoSnService.cs" />
+    <Compile Include="DCL\DoanhSoSnVm.cs" />
+    <Compile Include="DCL\LanDauKhService.cs" />
+    <Compile Include="DCL\LanDauKhVm.cs" />
+    <Compile Include="DCL\SinhNhatKhService.cs" />
+    <Compile Include="DCL\SinhNhatKhVm.cs" />
+    <Compile Include="DCL\TanSuatMuaHangService.cs" />
+    <Compile Include="DCL\TanSuatMuaHangVm.cs" />
+    <Compile Include="DCL\XuatNhapTonChiTietService.cs" />
+    <Compile Include="DCL\DclCloseoutService.cs" />
+    <Compile Include="DCL\DclGeneralLedgerService.cs" />
+    <Compile Include="DCL\DclGeneralLedgerVm.cs" />
+    <Compile Include="DCL\InventoryVm.cs" />
+    <Compile Include="Helper\ChoiceObj.cs" />
+    <Compile Include="Helper\ClassHelper.cs" />
+    <Compile Include="Helper\JObjectClient.cs" />
+    <Compile Include="Helper\MD5Encrypt.cs" />
+    <Compile Include="Helper\MemoryCacheHelper.cs" />
+    <Compile Include="Helper\RequestStringObj.cs" />
+    <Compile Include="Helper\RoleState.cs" />
+    <Compile Include="Helper\StateInfoObj.cs" />
+    <Compile Include="Helper\TransferObj.cs" />
+    <Compile Include="IRepository.cs" />
+    <Compile Include="IService.cs" />
+    <Compile Include="IUnitOfWork.cs" />
+    <Compile Include="MD\MdDistrictsService.cs" />
+    <Compile Include="MD\MdCityService.cs" />
+    <Compile Include="MD\MdDistrictsVm.cs" />
+    <Compile Include="MD\MdXuatXuService .cs" />
+    <Compile Include="MD\MdBoHangService.cs" />
+    <Compile Include="MD\MdCityVm.cs" />
+    <Compile Include="MD\MdXuatXuVm.cs" />
+    <Compile Include="MD\MdBoHangVm.cs" />
+    <Compile Include="MD\MdBuilderService.cs" />
+    <Compile Include="MD\MdChietKhauKhService.cs" />
+    <Compile Include="MD\MdChietKhauKhVm.cs" />
+    <Compile Include="MD\MdContractService.cs" />
+    <Compile Include="MD\MdContractVm.cs" />
+    <Compile Include="MD\MdCurrencyService.cs" />
+    <Compile Include="MD\MdCurrencyVm.cs" />
+    <Compile Include="MD\MdColorService.cs" />
+    <Compile Include="MD\MdDepartmentService.cs" />
+    <Compile Include="MD\MdDepartmentVm.cs" />
+    <Compile Include="MD\MdHangKhService.cs" />
+    <Compile Include="MD\MdHangKhVm.cs" />
+    <Compile Include="MD\MdSizeService.cs" />
+    <Compile Include="MD\MdColorVm.cs" />
+    <Compile Include="MD\MdSizeVm.cs" />
+    <Compile Include="MD\MdSupplierService.cs" />
+    <Compile Include="MD\MdCustomerService.cs" />
+    <Compile Include="MD\MdSupplierVm.cs" />
+    <Compile Include="MD\MdCustomerVm.cs" />
+    <Compile Include="Authorize\AuMenu\AuMenuService.cs" />
+    <Compile Include="Authorize\AuMenu\AuMenuVm.cs" />
+    <Compile Include="MD\MdMerchandisePriceService .cs" />
+    <Compile Include="MD\MdMerchandiseService.cs" />
+    <Compile Include="MD\MdMerchandiseTypeService.cs" />
+    <Compile Include="MD\MdMerchandiseTypeVm.cs" />
+    <Compile Include="MD\MdMerchandisePriceVm.cs" />
+    <Compile Include="MD\MdMerchandiseVm.cs" />
+    <Compile Include="MD\MdNhomVatTuService.cs" />
+    <Compile Include="MD\MdNhomVattuVm.cs" />
+    <Compile Include="MD\MdPackagingService.cs" />
+    <Compile Include="MD\MdPackagingVm.cs" />
+    <Compile Include="MD\MdSellingMachineService.cs" />
+    <Compile Include="MD\MdPeriodService.cs" />
+    <Compile Include="MD\MdSellingMachineVm.cs" />
+    <Compile Include="MD\MdPeriodVm.cs" />
+    <Compile Include="MD\MdShelvesService.cs" />
+    <Compile Include="MD\MdShelvesVm.cs" />
+    <Compile Include="MD\MdDonViTinhService.cs" />
+    <Compile Include="MD\MdTaxService.cs" />
+    <Compile Include="MD\MdDonViTinhVm.cs" />
+    <Compile Include="MD\MdTaxVm.cs" />
+    <Compile Include="MD\MdTypeReasonService .cs" />
+    <Compile Include="MD\MdTypeReasonVm.cs" />
+    <Compile Include="MD\MdWareHouseService.cs" />
+    <Compile Include="MD\MdWareHouseVm.cs" />
+    <Compile Include="NV\CurrentSetting.cs" />
+    <Compile Include="NV\ExcuteProcedure.cs" />
+    <Compile Include="NV\NvKhuyenMaiComboService.cs" />
+    <Compile Include="NV\NvKhuyenMaiBuy1Get1Service.cs" />
+    <Compile Include="NV\NvKhuyenMaiComboVm.cs" />
+    <Compile Include="NV\NvKhuyenMaiTinhTienService.cs" />
+    <Compile Include="NV\NvKhuyenMaiBuy1Get1Vm.cs" />
+    <Compile Include="NV\NvKhuyenMaiTinhTienVm.cs" />
+    <Compile Include="NV\NvKhuyenMaiTichDiemService.cs" />
+    <Compile Include="NV\NvKhuyenMaiVoucherService.cs" />
+    <Compile Include="NV\NvKhuyenMaiDongGiaService.cs" />
+    <Compile Include="NV\NvChuongTrinhKhuyenMaiService.cs" />
+    <Compile Include="NV\NvKhuyenMaiTichDiemVm.cs" />
+    <Compile Include="NV\NvKhuyenMaiVoucherVm.cs" />
+    <Compile Include="NV\NvKhuyenMaiDongGiaVm.cs" />
+    <Compile Include="NV\NvChuongTrinhKhuyenMaiVm.cs" />
+    <Compile Include="NV\NvKiemKeService.cs" />
+    <Compile Include="NV\NvGiaoDichQuayService.cs" />
+    <Compile Include="NV\NvKiemKeVm.cs" />
+    <Compile Include="NV\NvGiaoDichQuayVm.cs" />
+    <Compile Include="NV\NvNgayHetHanHangHoaService.cs" />
+    <Compile Include="NV\NvNgayHetHanHangHoaVm.cs" />
+    <Compile Include="NV\NvNhapHangBanTraLaiService.cs" />
+    <Compile Include="NV\NvNhapHangBanTraLaiVm.cs" />
+    <Compile Include="NV\NvNhapHangMuaService.cs" />
+    <Compile Include="NV\NvNhapHangMuaVm.cs" />
+    <Compile Include="NV\NvCongNoService.cs" />
+    <Compile Include="NV\NvNhapKhacService.cs" />
+    <Compile Include="NV\NvCongNoVm.cs" />
+    <Compile Include="NV\NvNhapKhacVm.cs" />
+    <Compile Include="NV\NvPhieuDatHangNCCService.cs" />
+    <Compile Include="NV\NvPhieuDatHangNCCVm.cs" />
+    <Compile Include="NV\NvPhieuDatHangService.cs" />
+    <Compile Include="NV\NvPhieuDatHangVm.cs" />
+    <Compile Include="NV\NvPhieuDieuChuyenNoiBoService.cs" />
+    <Compile Include="NV\NvPhieuDieuChuyenNoiBoVm.cs" />
+    <Compile Include="NV\NvBanLeService.cs" />
+    <Compile Include="NV\NvTonDauKyService.cs" />
+    <Compile Include="NV\NvTonDauKyVm.cs" />
+    <Compile Include="NV\NvXuatBanLeService.cs" />
+    <Compile Include="NV\NvXuatBanLeVm.cs" />
+    <Compile Include="NV\NvXuatBanService.cs" />
+    <Compile Include="NV\NvXuatBanVm.cs" />
+    <Compile Include="NV\NvXuatKhacService.cs" />
+    <Compile Include="NV\NvXuatKhacVm.cs" />
+    <Compile Include="ProcedureService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository.cs" />
+    <Compile Include="RepositoryProcedure.cs" />
+    <Compile Include="ServiceBase.cs" />
+    <Compile Include="Services\DataInfoServiceBase.cs" />
+    <Compile Include="Services\DetailInfoServiceBase.cs" />
+    <Compile Include="Services\EntityServiceBase.cs" />
+    <Compile Include="Services\IDataInfoService.cs" />
+    <Compile Include="Services\IDataSearch.cs" />
+    <Compile Include="Services\IDetailInfoServiceBase.cs" />
+    <Compile Include="Services\IEntityService.cs" />
+    <Compile Include="UnitOfWork.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BTS.API.ASYNC\BTS.API.ASYNC.csproj">
+      <Project>{031FEFE0-E286-4950-B5F4-1DE05ECDBFC8}</Project>
+      <Name>BTS.API.ASYNC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BTS.API.ENTITY\BTS.API.ENTITY.csproj">
+      <Project>{2bee3908-6263-4ad2-9208-c3779001a2aa}</Project>
+      <Name>BTS.API.ENTITY</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

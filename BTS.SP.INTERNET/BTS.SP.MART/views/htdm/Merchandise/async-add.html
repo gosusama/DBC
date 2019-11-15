@@ -1,0 +1,272 @@
+﻿<style>
+    .img-preview {
+        border: 1px solid #000;
+        border-radius: 5px;
+        height: 150px;
+        width: auto;
+        margin: 0 10px;
+    }
+
+    .modal-body {
+        font-family: Arial;
+        font-size: 12px;
+    }
+</style>
+<script>
+	$(document).on("keypress", ".TabOnEnter" , function(e)
+  {
+    //Only do something when the user presses enter
+    if( e.keyCode ==  13 )
+    {
+       var nextElement = $('[tabindex="' + (this.tabIndex+1)  + '"]');
+        if (nextElement.length)
+            nextElement.focus();
+        else
+            $('[tabindex="1"]').focus();
+    }
+  });
+</script>
+<div>
+    <div class="modal-header">
+        <h3 class="modal-title">{{title()}} {{lbl.lblCreate}}</h3>
+        <div class="button-close" ng-click="cancel()">
+            <i class="fa fa-times-circle"></i>
+        </div>
+    </div>
+    <div class="modal-body">
+        <form role="form" name="_form">
+            <uib-tabset active="active">
+                <uib-tab style="height:35px; margin-right:2px; font-weight: bold;" index="0" heading="Thông tin hàng hóa">
+                    <div class="row form-group" style="margin-top:20px;">
+                        <div class="col-lg-8">
+                            <div class="row form-group" style="padding-bottom:20px;">
+                                <div class="col-lg-3">
+                                    <label style="color: blue;">Mã loại vật tư</label>
+                                    <select style="font-weight: bold;color:  black;" class="form-control edit-width-select" ng-model="target.maLoaiVatTu" ng-options="opt.value as opt.text for opt in tempData('merchandiseTypesRoot')" ng-change="changeLoaiVatTu()"></select>
+                                </div>
+                                <div class="col-lg-3">
+                                    <label style="color: blue;">Mã nhóm vật tư</label>
+                                    <input style="font-weight: bold;color:  black;" class="form-control" name="_maNhomVatTu" type="text" ng-model="target.maNhomVatTu" typeahead-editable="false"
+                                           uib-typeahead="opt.value as opt.text for opt in tempData('nhomVatTusRoot') | filter:$viewValue | limitTo:5"
+                                           typeahead-input-formatter="displayHepler($model, 'nhomVatTusRoot')" />
+                                </div>
+                                <div class="col-lg-3">
+                                    <label style="color: blue;">Gõ barcode và enter</label>
+                                    <input style="font-weight: bold;color:  black;" type="text" class="form-control" placeholder="Gõ barcode và enter" ng-model="target.newBarcode" ng-enter="addBarCode(target)">
+                                </div>
+                                <div class="col-lg-3">
+                                    <label style="color: blue;">DS Barcode</label>
+                                    <input style="font-weight: bold;color:  black;" type="text" class="form-control" ng-model="target.barcode">
+                                </div>
+                            </div>
+                            <div class="row form-group" style="padding-bottom:20px;">
+                                <div class="col-lg-3">
+                                    <label style="color: blue;">Mã hàng hóa/vật tư</label>
+                                    <span style="color: red;font-weight: bold;"> (1*)</span>
+                                    <input style="font-weight: bold;color:  black;" type="text" class="form-control" ng-model="target.maVatTu" name="_maVatTu" maxlength="50" disabled required>
+                                    <span style="color:red" ng-show="_form._maVatTu.$dirty && _form._maVatTu.$invalid">
+                                        <span ng-show="_form._maVatTu.$error.required">Không được để trống</span>
+                                    </span>
+                                </div>
+                                <div class="col-lg-3">
+                                    <label style="color: blue;">Tên hàng hóa/vật tư</label>
+                                    <span style="color: red;font-weight: bold;"> (2*)</span>
+                                    <input style="font-weight: bold;color:  black;" type="text" class="form-control" ng-model="target.tenVatTu" name="_tenHang" ng-change="changedMerchancedise(target.tenVatTu)" maxlength="300" required>
+                                    <span style="color:red" ng-show="_form._tenHang.$dirty && _form._tenHang.$invalid">
+                                        <span ng-show="_form._tenHang.$error.required">Không được để trống</span>
+                                    </span>
+                                </div>
+                                <div class="col-lg-3">
+                                    <label style="color: blue;">Tên viết tắt</label>
+                                    <input style="font-weight: bold;color:  black;" type="text" class="form-control" ng-model="target.tenVietTat">
+                                </div>
+                                <div class="col-lg-3">
+                                    <label style="color: blue;" for="can-dien-tu">Mã cân</label>
+                                    <input id="can-dien-tu" type="checkbox" ng-checked="target.itemCode != null" ng-model="target.isCanDienTu" ng-change="robot.changeCanDienTuRoot(target)" name="_candientu">
+                                    <input style="font-weight: bold;color:  black;" type="text" class="form-control" ng-model="target.itemCode" name="_itemCode" maxlength="50" disabled>
+                                </div>
+                            </div>
+                            <div class="row form-group" style="padding-bottom:20px;">
+                                <div class="col-lg-3">
+                                    <label style="color: blue;">Quy cách</label>
+                                    <input style="font-weight: bold;color:  black;" class="form-control" disabled ng-model="searchMaBaoBi" />
+                                </div>
+                                <div class="col-lg-3">
+                                    <label style="color: blue;">Mã bao bì</label>
+                                    <input style="font-weight: bold;color:  black;" class="form-control" name="_maBaoBi" type="text" ng-model="target.maBaoBi" typeahead-editable="false" uib-typeahead="opt.value as opt.text for opt in tempData('packagingsRoot') | filter:$viewValue | limitTo:5" typeahead-input-formatter="displayHepler($model, 'packagings')" />
+                                </div>
+                                <div class="col-lg-3">
+                                    <label style="color: blue;">Mã NCC</label>
+                                    <span style="color: red;font-weight: bold;"> (3*)</span>
+                                    <input style="font-weight: bold;color:  black;" class="form-control" name="_maKhachHang" type="text" ng-model="target.maKhachHang"  typeahead-editable="false"
+                                           uib-typeahead="opt.value as opt.text for opt in tempData('suppliersRoot') | filter:$viewValue | limitTo:5"
+                                           typeahead-input-formatter="displayHepler($model, 'suppliersRoot')" required/>
+                                </div>
+                                <div class="col-lg-3">
+                                    <label style="color: blue;">Đơn vị tính</label>
+                                    <input style="font-weight: bold;color:  black;" class="form-control" name="_donViTinh" type="text" ng-model="target.donViTinh" typeahead-editable="false"
+                                           uib-typeahead="opt.value as opt.text for opt in tempData('donViTinhsRoot') | filter:$viewValue | limitTo:5"
+                                           typeahead-input-formatter="displayHepler($model, 'donViTinhsRoot')" />
+                                </div>
+                            </div>
+                            <div class="row form-group" style="padding-bottom:20px;">
+                                <div class="col-lg-3">
+                                    <label style="color: blue;">Mã size</label>
+                                    <tags-input ng-model="target.maSizes" track-by-expr="$index" key-property="value" display-property="text" placeholder="Gõ để thêm size">
+                                        <auto-complete source="tempData('sizes')" load-on-focus="true" load-on-empty="true" max-results-to-show="32"></auto-complete>
+                                    </tags-input>
+                                    <div class="add-input-able create-size" style="height: 47% !important;margin-top: 28px;margin-right: 5px;" ng-click="createSize(target, 'maSizes')"></div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <label style="color: blue;">Mã màu</label>
+                                    <tags-input ng-model="target.maColors" track-by-expr="$index" key-property="value" display-property="text" placeholder="Gõ để thêm màu">
+                                        <auto-complete source="tempData('colors')" load-on-focus="true" load-on-empty="true" max-results-to-show="32"></auto-complete>
+                                    </tags-input>
+                                    <div class="add-input-able create-color" style="height: 47% !important;margin-top: 28px;margin-right: 5px;" ng-click="createColor(target, 'maColors')"></div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <label style="color: blue;">Mã kệ hàng</label>
+                                    <input style="font-weight: bold;color:  black;" class="form-control" name="_maKhachHang" type="text" ng-model="target.maKeHang" typeahead-editable="false"  uib-typeahead="opt.value as opt.text for opt in tempData('shelvesRoot') | filter:$viewValue | limitTo:5" typeahead-input-formatter="displayHepler($model, 'shelvesRoot')" />
+                                </div>
+                                <div class="col-lg-3">
+                                    <label style="color: blue;">Trạng thái</label>
+                                    <select style="font-weight: bold;color:  black;" class="form-control" ng-model="target.trangThai" ng-init="target.trangThai = 10" ng-options="opt.value as opt.text for opt in tempData('status')"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4" style="border-left:  1px solid;">
+                            <!---Giá bán-->
+                            <div class="row form-group" style="padding-bottom:10px;">
+                                <div class="col-lg-6">
+                                    <label style="color: blue;">VAT vào</label>
+                                    <span style="color: red">(*)</span>
+                                    <select style="font-weight: bold;color:  black;" class="form-control" ng-model="target.maVatVao"  ng-change="changeVatVao(target.maVatVao);" ng-options="opt.value as opt.text for opt in tempData('taxsRoot')"></select>
+                                </div>
+                            </div>
+                            <div class="row form-group" style="padding-bottom:10px;">
+                                <div class="col-lg-6">
+                                    <label style="color: blue;">Giá mua</label>
+                                    <input style="font-weight: bold;color:  black;text-align:right;" class="form-control" type="text" ng-model="target.giaMua" ng-change="robot.changeGiaMua(target)" awnum="number" />
+                                </div>
+                                <div class="col-lg-6">
+                                    <label style="color: blue;">Giá mua có vat</label>
+                                    <input style="font-weight: bold;color:  black; text-align:right;" class="form-control" ng-model="target.giaMuaVat" ng-change="robot.changeGiaMuaVat(target)" awnum="number" />
+                                </div>
+                            </div>
+
+                            <div class="row form-group" style="padding-bottom:10px;">
+                                <div class="col-lg-6">
+                                    <label style="color: blue;">Tỷ lệ lãi lẻ</label>
+                                    <input style="font-weight: bold;color:  black;text-align:right;" class="form-control" type="text" ng-model="target.tyLeLaiLe" ng-change="robot.changeTyLeLaiLe(target)" awnum="number" />
+                                </div>
+                                <div class="col-lg-6">
+                                    <label style="color: blue;">Giá bán lẻ</label>
+                                    <input style="font-weight: bold;color:  black;text-align:right;" class="form-control" type="text" ng-model="target.giaBanLe" ng-change="robot.changeGiaBanLe(target)" awnum="number" />
+                                </div>
+                            </div>
+                            <div class="row form-group" style="padding-bottom:10px;">
+                                <div class="col-lg-6">
+                                    <label style="color: blue;">Tỷ lệ lãi buôn</label>
+                                    <input style="font-weight: bold;color:  black;text-align:right;" class="form-control" type="text" ng-model="target.tyLeLaiBuon" ng-change="robot.changeTyLeLaiBuon(target)" awnum="number" />
+                                </div>
+                                <div class="col-lg-6">
+                                    <label style="color: blue;">Giá bán buôn</label>
+                                    <input style="font-weight: bold;color:  black;text-align:right;" class="form-control" type="text" ng-model="target.giaBanBuon" ng-change="robot.changeGiaBanBuon(target)" awnum="number" />
+                                </div>
+                            </div>
+                            <div class="row form-group" style="padding-bottom:10px;">
+                                <div class="col-lg-6">
+                                    <label style="color: blue;">VAT ra</label>
+                                    <span style="color: red">(*)</span>
+                                    <select style="font-weight: bold;color:  black;" class="form-control" ng-model="target.maVatRa" ng-change="changeVatRa(target.maVatRa)" ng-options="opt.value as opt.text for opt in tempData('taxsRoot')" ></select>
+                                </div>
+                            </div>
+                            <div class="row form-group" style="padding-bottom:10px;">
+                                <div class="col-lg-6">
+                                    <label style="color: blue;">Giá bán lẻ Vat</label>
+                                    <input style="font-weight: bold;color:  black;text-align:right;" class="form-control" type="text" ng-model="target.giaBanLeVat" ng-change="robot.changGiaBanLeVat(target)" awnum="number" />
+                                </div>
+                                <div class="col-lg-6">
+                                    <label style="color: blue;">Giá bán buôn Vat</label>
+                                    <input style="font-weight: bold;color:  black;text-align:right;" class="form-control" type="text" ng-model="target.giaBanBuonVat" ng-change="robot.changeGiaBanBuonVat(target)" awnum="number" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </uib-tab>
+                <uib-tab index="2" style="height:35px; margin-right:2px; font-weight: bold;" heading="Hình ảnh mặt hàng">
+                    <panel-body>
+                        <div class="row form-group">
+                            <div class="col-md-6">
+                                <label>
+                                    <span style="padding-right: 10px;">Hình ảnh</span>
+                                    <input id="file-input-upload" onchange="angular.element(this).scope().uploadFile(this)" accept="image/*" class="form-control"
+                                           text="Chọn ảnh" type="file" placeholder="Tải ảnh" multiple />
+                                </label>
+                            </div>
+                            <div class="col-md-6">
+                                <label>
+                                    <span style="padding-right: 10px;">Avatar</span>
+                                    <input id="file-input-ava" onchange="angular.element(this).scope().uploadAvatar(this)" accept="image/*" class="form-control"
+                                           text="Chọn ảnh" type="file" placeholder="Tải ảnh" />
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-6">
+
+                                <div class="preview-from-Db" ng-repeat="image in lstImagesSrcFromDb track by $index" style="float: right; float: left; margin: 5px; height: 200px; width: 200px; border: 1px solid #000; border-radius: 5px;">
+                                    <div style="width: 200px; height: 150px; overflow: hidden; border-bottom: 1px solid #000;">
+                                        <img rel="popover" ng-src="{{target.pathImage + image}}" width="200" height="150" />
+                                    </div>
+                                    <div style="width: 200px; height: 50px; text-align: center; padding: 8px;">
+                                        <button class="form-control" style="margin: auto" ng-click="deleteImageFromDb($index)">Remove image {{$index+1}}</button>
+                                    </div>
+                                </div>
+                                <div class="preview-Upload " ng-repeat="image in lstImagesSrc track by $index" style="float: right; float: left; margin: 5px; height: 200px; width: 200px; border: 1px solid #000; border-radius: 5px;">
+                                    <div style="width: 200px; height: 150px; overflow: hidden; border-bottom: 1px solid #000;">
+                                        <img rel="popover" ng-src="{{image}}" width="200" height="150" />
+                                    </div>
+                                    <div style="width: 200px; height: 50px; text-align: center; padding: 8px;">
+                                        <button class="form-control" style="margin: auto" ng-click="deleteImage($index)">Remove image {{lstImagesSrcFromDb.length + $index+1}}</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="preview " ng-if="target.avatar" style="float: right; float: left; margin: 5px; height: 200px; width: 200px; border: 1px solid #000; border-radius: 5px;">
+                                    <div style="width: 200px; height: 150px; overflow: hidden; border-bottom: 1px solid #000;">
+                                        <img ng-src="data:image/JPEG;base64,{{target.avatar}}" style="width: 150px; height: 150px;" />
+                                    </div>
+                                    <div style="width: 200px; height: 50px; text-align: center; padding: 8px;">
+                                        <button class="form-control" style="margin: auto" ng-click="deleteAvatar()">Remove avatar</button>
+                                    </div>
+                                </div>
+                                <div class="preview " ng-if="fileAvatar.src" style="float: right; float: left; margin: 5px; height: 200px; width: 200px; border: 1px solid #000; border-radius: 5px;">
+                                    <div style="width: 200px; height: 150px; overflow: hidden; border-bottom: 1px solid #000;">
+                                        <img rel="popover" ng-src="{{fileAvatar.src}}" width="200" height="150" />
+                                    </div>
+                                    <div style="width: 200px; height: 50px; text-align: center; padding: 8px;">
+                                        <button class="form-control" style="margin: auto" ng-click="deleteAvatar()">Remove avatar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </panel-body>
+                </uib-tab>
+                <uib-tab index="3" style="height:35px; margin-right:2px; font-weight: bold;" heading="Mô tả hàng hóa">
+                    <panel-body>
+                        <textarea ckeditor ng-model="target.title"></textarea>
+                    </panel-body>
+                </uib-tab>
+            </uib-tabset>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button prevent-default type="submit" class="btn btn-primary" ng-disabled="_form.$invalid" ng-click="save()">
+            <i class="fa fa-save"></i>&nbsp;&nbsp;{{config.label.btnSubmit}}
+        </button>
+        <button prevent-default class="btn btn-default" ng-click="cancel()">
+            <i class="fa fa-arrow-left"></i>&nbsp;&nbsp;{{config.label.btnCancel}}
+        </button>
+    </div>
+</div>

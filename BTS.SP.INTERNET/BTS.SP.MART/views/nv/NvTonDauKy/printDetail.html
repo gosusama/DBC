@@ -1,0 +1,165 @@
+﻿
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="button-close" ng-click="goIndex()">
+            <i class="fa fa-times-circle"></i>
+        </div>
+        <div class="btn-group">
+            <button class="btn btn-default" prevent-default title="In danh sách" ng-click="print()"><span class="fa fa-print"></span>&ensp;In</button>
+            <button class="btn btn-default" prevent-default title="In danh sách" ng-click="printExcel()"><span class="fa fa-print"></span>&ensp;Xuất Excel</button>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div>
+            <br />
+            <div id="dataTable">
+                <style>
+                    table, th, td {
+                        border: 1px solid black;
+                        border-collapse: collapse;
+                    }
+
+                    th, td {
+                        padding: 5px;
+                    }
+
+                    table {
+                        margin: 5px auto 5px auto;
+                    }
+                    .title-print
+                    {
+                        margin-bottom: 15px;
+                    }
+                </style>
+                <div class="text-center title-print">
+                    <h3>Danh sách phiếu nhập mua chi tiết</h3>
+                    <br />
+                    <label>Từ ngày {{info.tuNgay | date: "dd/MM/yyyy"}} đến ngày {{info.denNgay | date: "dd/MM/yyyy"}}</label>
+                </div>
+                <table width="100%">
+                    <thead>
+                        <tr>
+                            <th class="text-center">Thông tin</th>
+                            <th class="text-center">Chi tiết</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in printData">
+                            <td class="text-center">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>
+                                                Chứng từ
+                                            </th>
+                                            <th>
+                                                Ngày
+                                            </th>
+
+                                            <th>
+                                                Nội dung
+                                            </th>
+                                            <th>
+                                                Khách hàng
+                                            </th>
+                                            <th>
+                                                Kho xuất
+                                            </th>
+                                            <th>
+                                                Tổng tiền
+                                            </th>
+                                            <th>
+                                                Trạng thái
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tr>
+                                        <td class="text-center">{{$index + 1}}</td>
+                                        <td>{{item.maChungTu}}</td>
+                                        <td>{{item.ngayCT | date : "dd/MM/yyyy"}}</td>
+
+                                        <td>{{item.noiDung}}</td>
+                                        <td>{{displayHepler(item.maKhachHang, 'customers')}}</td>
+
+                                        <td>{{displayHepler(item.maKhoNhap, 'wareHouses')}}</td>
+                                        <td style="text-align:right;">{{item.thanhTienSauVat | number}}</td>
+                                        <td ng-class="item.trangThai == 10 ? 'is-approval' : 'not-approval-yet' ">{{item.trangThai | approval}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td colSpan="6" style="text-align:center; color:red">Tổng tiền</td>
+                                        <td style="text-align:right;">{{robot.sum(printData, 'thanhTienSauVat') | number}}</td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td class="text-center">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">STT</th>
+                                            <th class="text-center">Tên hàng</th>
+                                            <th class="text-center">Số lượng</th>
+                                            <th class="text-center">Đơn giá</th>
+                                            <th class="text-center">Thành tiền</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="detail in item.dataDetails">
+                                            <td>{{$index + 1}}</td>
+                                            <td>
+                                                {{displayHepler(detail.maHang, 'merchandises')}}
+                                            </td>
+                                            <td>
+                                                {{detail.soLuong}}
+                                            </td>
+                                            <td>
+                                                {{detail.donGia}}
+                                            </td>
+                                            <td style="text-align:right;" ng-init="$parent.totalDataDetail = $parent.totalDataDetail + detail.thanhTien">
+                                                {{detail.thanhTien | number}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center" colspan="4" style="color:red">Tổng tiền</td>
+                                            <td style="text-align:right;">{{totalDataDetail | number}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">STT</th>
+                                            <th class="text-center">Tài khoản nợ</th>
+                                            <th class="text-center">Tài khoản có</th>
+                                            <th class="text-center">Đối tượng nợ</th>
+                                            <th class="text-center">Đối tượng có</th>
+                                            <th class="text-center">Số tiền</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="clause in item.dataClauseDetails">
+                                            <td class="text-center">{{$index + 1}}</td>
+                                            <td class="text-center">{{clause.tkNo}}</td>
+                                            <td class="text-center">{{clause.tkCo}}</td>
+                                            <td class="text-center">{{clause.doiTuongNo}}</td>
+                                            <td class="text-center">{{clause.doiTuongCo}}</td>
+                                            <td style="text-align:right;" ng-init="$parent.totalDataClause = clause.totalDataClause + clause.soTien">{{clause.soTien}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center" colspan="5" style="color:red">Tổng tiền</td>
+                                            <td style="text-align:right;">{{totalDataClause | number}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center" style="color:red">Tổng tiền</td>
+                            <td style="text-align:right;">{{sum() | number}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

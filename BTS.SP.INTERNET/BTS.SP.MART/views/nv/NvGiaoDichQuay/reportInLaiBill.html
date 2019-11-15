@@ -1,0 +1,104 @@
+﻿<style>
+    .table_bill_content th, td {
+        border: 1px solid black;
+    }
+</style>
+<div class="row" id="reportBill">
+    <table id='bill_heder' cellpadding='0px' style='width:100%'>
+        <tr>
+            <td style="font-weight:bold;font-size: 14px;text-align:center;">{{formatLabel(target.dataDto.unitCode,'auDonVis').description}}</td>
+        </tr>
+        <tr>
+            <td style="padding-left:5px;font-size: 10px;">ĐỊA CHỈ: {{formatLabel(target.dataDto.unitCode,'auDonVis').extendValue}}</td>
+        </tr>
+        <tr>
+            <td style="padding-left:5px;font-size: 10px;">ĐIỆN THOẠI: {{formatLabel(target.dataDto.unitCode,'auDonVis').referenceDataId}}</td>
+        </tr>
+        <tr>
+            <td style="font-size: 12px;text-align:center"><b>HÓA ĐƠN THANH TOÁN</b></td>
+        </tr>
+        <tr>
+            <td style="font-size: 10px;text-align:center">Mã:{{target.dataDto.maGiaoDich}} - ngày:{{target.dataDto.ngayChungTu | date:'dd-MM-yyyy'}}</td>
+        </tr>
+    </table>
+    <table id='bill_kh' cellpadding='0px' style='width:100%'>
+        <tr>
+            <td style="padding-left:5px;font-size: 10px;">Người bán: {{target.dataDto.maNhanVien}}</td>
+        </tr>
+        <tr>
+            <td style="padding-left:5px;font-size: 10px;">Phone/KH: {{target.dataDto.makh}} - {{mdFormatLabel(target.dataDto.makh,'customers').text}}</td>
+        </tr>
+        <tr>
+            <td style="padding-left:5px;font-size: 10px;">Mã thẻ/Hạng/Điểm: {{target.dataDto.maThe}}/{{target.dataDto.maThe}}/{{target.dataDto.maThe}}</td>
+        </tr>
+    </table>
+    <table id='bill_content' class="table_bill_content" cellpadding='0px' style='width:105%;border:1px solid;left:0px'>
+        <tr style="font-weight:bold;font-size:11px;text-align:center;">
+            <td>MÃ
+            <td>
+            <td>TÊN
+            <td>
+            <td>SL
+            <td>
+            <td>GIÁ
+            <td>
+            <td>CK
+            <td>
+            <td>TIỀN
+            <td>
+        </tr>
+        <tr style="font-size: 12px;text-align:center;" ng-repeat="item in target.dataDetails">
+            <td>{{item.maVatTu}}
+            <td>
+            <td style="text-align:left;">{{item.tenVatTu}}
+            <td>
+            <td>{{item.soLuong | number}}
+            <td>
+            <td>{{item.giaBanLeVat | number}}
+            <td>
+            <td>{{item.tienDuocKhuyenMai | number}}({{item.tyLeLaiLe}}%)
+            <td>
+            <td>{{item.tTienCoVat | number}}
+            <td>
+        </tr>
+    </table>
+    <table id='bill_kh_payment' cellpadding='0px' style='width:100%;font-size: 10px;'>
+        <tr>
+            <td>Tổng tiền hóa đơn</td>
+            <td>{{(target.dataDto.tongTien)| number}}</td>
+        </tr>
+        <tr>
+            <td>Tiền khuyến mại</td>
+            <td>{{target.dataDto.tongTienKhuyenMai | number}}</td>
+        </tr>
+        <tr>
+            <td>Tiền voucher</td>
+            <td>  {{target.dataDto.tienVoucher | number}}</td>
+        </tr>
+        <tr>
+            <td style="font-weight:bold;font-size:11px;">Tiền khách phải trả</td>
+            <td> {{target.dataDto.allSumTienHang | number}}</td>
+        </tr>
+
+        <tr>
+            <td>Tiền thẻ</td>
+            <td>  {{target.dataDto.tienThe | number}}</td>
+        </tr>
+        <tr>
+            <td>Tiền COD</td>
+            <td>  {{target.dataDto.tienCOD | number}}</td>
+        </tr>
+        <tr>
+            <td>Tiền mặt</td>
+            <td>  {{target.dataDto.tienMat | number}}</td>
+        </tr>
+        <tr>
+            <td>Khách đưa</td>
+            <td>  {{target.dataDto.tienKhachDua | number}}</td>
+        </tr>
+        <tr>
+            <td>Tiền trả lại</td>
+            <td> {{target.dataDto.tienThua | number}}</td>
+        </tr>
+    </table>
+</div>

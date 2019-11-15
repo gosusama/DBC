@@ -1,0 +1,233 @@
+﻿<style>
+    .btn {
+        margin-right: 8px;
+    }
+
+    .angular-ui-tree-handle {
+        background: #f8faff;
+        border: 1px solid #dae2ea;
+        color: #7c9eb2;
+        padding: 10px 10px;
+    }
+
+        .angular-ui-tree-handle:hover {
+            color: #438eb9;
+            background: #f4f6f7;
+            border-color: #dce2e8;
+        }
+
+    .angular-ui-tree-placeholder {
+        background: #f0f9ff;
+        border: 2px dashed #bed2db;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    tr.angular-ui-tree-empty {
+        height: 100px;
+    }
+
+    .group-title {
+        background-color: #687074 !important;
+        color: #FFF !important;
+    }
+    /* --- Tree --- */
+    .tree-node {
+        border: 1px solid #dae2ea;
+        background: #f8faff;
+        color: #7c9eb2;
+    }
+
+    .nodrop {
+        background-color: #f2dede;
+    }
+
+    .tree-node-content {
+        margin: 10px;
+    }
+
+    .tree-handle {
+        padding: 10px;
+        background: #428bca;
+        color: #FFF;
+        margin-right: 10px;
+    }
+
+    .angular-ui-tree-handle:hover {
+    }
+
+    .angular-ui-tree-placeholder {
+        background: #f0f9ff;
+        border: 2px dashed #bed2db;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+</style>
+<div>
+    <div class="modal-header">
+        <h3 class="modal-title">{{title}}</h3>
+    </div>
+    <div class="modal-body">
+        <!-- Nested node template -->
+        <script type="text/ng-template" id="nodes_renderer.html">
+            <div ui-tree-handle class="tree-node tree-node-content">
+                <a class="btn btn-success btn-xs" ng-if="node.children && node.children.length > 0" data-nodrag ng-click="toggle(this)">
+                    <span class="fa"
+                          ng-class="{
+				  'fa-angle-double-right': collapsed,
+				  'fa-angle-double-down': !collapsed
+				}"></span>
+                </a>{{node.title}}
+                <a class="pull-right btn btn-danger btn-xs" data-nodrag style="display:none;">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </a>
+                <a class="pull-right btn btn-success btn-xs" data-nodrag ng-click="selectChucNang(node)" style="margin-right: 8px;" title="Chọn chức năng">
+                    <span class="fa fa-angle-double-right"></span>
+                </a>
+            </div>
+            <ol ui-tree-nodes="" ng-model="node.children" ng-class="{hidden: collapsed}">
+                <li ng-repeat="node in node.children" ui-tree-node ng-include="'nodes_renderer.html'">
+                </li>
+            </ol>
+        </script>
+        <div class="row">
+            <div class="col-sm-12">
+                <button ng-click="expandAll()"><i class="fa fa-plus-circle"></i> Mở tất cả</button>
+                <button ng-click="collapseAll()"><i class="fa fa-minus-circle"></i> Đóng tất cả</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4" style="height:600px;">
+                <ul class="list-group" style="height:  600px;overflow:  scroll;">
+                    <div ui-tree id="tree-root">
+                        <ol ui-tree-nodes ng-model="data">
+                            <li ng-repeat="node in data" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+                        </ol>
+                    </div>
+                </ul>
+            </div>
+            <div class="col-lg-8">
+                <script type="text/ng-template" id="nodes_renderer_add.html">
+                    <div ui-tree-handle class="tree-node tree-node-content">
+                        <a class="btn btn-success btn-xs" ng-if="node.children && node.children.length > 0" data-nodrag ng-click="toggle(this)">
+                            <span class="fa"
+                                  ng-class="{
+						  'fa-angle-double-left': collapsed,
+						  'fa-angle-double-down': !collapsed
+						}"></span>
+                        </a>
+                        {{node.title}}
+                        <a class="pull-right btn btn-danger btn-xs" data-nodrag style="display:none;">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </a>
+                        <a class="pull-right fa fa-backspace" data-nodrag ng-click="deSelectChucNang(node)" style="margin-right: 8px;background-color:red;" title="Xóa node">
+                            <span class="fa fa-ban"></span>
+                        </a>
+                        <span style="float: right;" ng-if="node.menuIdCha==''">
+                            <a class="fa fa-plus-circle" ng-Show="!node.isOpenAdd" data-nodrag ng-click="changeShowAdd(node)" title="Mở rộng">
+                            </a>
+                            <a class="fa fa-minus-square" ng-Show="node.isOpenAdd" data-nodrag ng-click="changeShowAdd(node)" title="Thu lại">
+                            </a>
+                            <label ng-show="node.isOpenAdd" ng-if="node.checkState"> <input type="checkbox" data-nodrag class="pull-right" style="margin-top: -5px;font-size:9px;" ng-change="asyncParentToChild(node)" ng-model="node.bantralai" /> Bán trả lại</label>
+                            <label ng-show="node.isOpenAdd" ng-if="node.checkState"><input type="checkbox" data-nodrag class="pull-right" style="margin-top: -5px;font-size:9px;" ng-change="asyncParentToChild(node)" ng-model="node.banbuon" /> Bán buôn</label>
+                            <label ng-show="node.isOpenAdd" ng-if="node.checkState"><input type="checkbox" data-nodrag class="pull-right" style="margin-top: -5px;font-size:9px;" ng-change="asyncParentToChild(node)" ng-model="node.banchietkhau" /> Bán chiết khấu</label>
+                            <label ng-show="node.isOpenAdd" ng-if="node.checkState"><input type="checkbox" data-nodrag class="pull-right" style="margin-top: -5px;font-size:9px;" ng-change="asyncParentToChild(node)" ng-model="node.tylelai" /> Tỷ lệ lãi</label>
+                            <label ng-show="node.isOpenAdd" ng-if="node.checkState"><input type="checkbox" data-nodrag class="pull-right" style="margin-top: -5px;font-size:9px;" ng-change="asyncParentToChild(node)" ng-model="node.giavon" /> Giá vốn</label>
+                            <label ng-show="node.isOpenAdd" ng-if="node.checkState"><input type="checkbox" data-nodrag class="pull-right" style="margin-top: -5px;font-size:9px;" ng-change="asyncParentToChild(node)" ng-model="node.giaban" /> Giá bán</label>
+                            <label ng-show="node.isOpenAdd" ng-if="node.checkState"><input type="checkbox" data-nodrag class="pull-right" style="margin-top: -5px;font-size:9px;" ng-change="asyncParentToChild(node)" ng-model="node.giamua" /> Giá mua</label>
+                            <label><input type="checkbox" data-nodrag class="pull-right" style="margin-top: -5px;font-size:9px;" ng-change="asyncParentToChild(node)" ng-model="node.duyet" /> Duyệt</label>
+                            <label><input type="checkbox" data-nodrag class="pull-right" style="margin-top: -5px;font-size:9px;" ng-change="asyncParentToChild(node)" ng-model="node.xoa" /> Xóa</label>
+                            <label><input type="checkbox" data-nodrag class="pull-right" style="margin-top: -5px;font-size:9px;" ng-change="asyncParentToChild(node)" ng-model="node.sua" /> Sửa</label>
+                            <label><input type="checkbox" data-nodrag class="pull-right" style="margin-top: -5px;font-size:9px;" ng-change="asyncParentToChild(node)" ng-model="node.them" />Thêm</label>
+                            <label><input type="checkbox" data-nodrag class="pull-right" style="margin-top: -5px;font-size:9px;" ng-change="asyncParentToChild(node)" ng-model="node.xem" />Xem</label>
+                        </span>
+                        <span style="float: right;" ng-if="node.menuIdCha!=''">
+                            <a class="fa fa-plus-circle" ng-Show="!node.isOpenAdd" data-nodrag ng-click="changeShowAdd(node)" title="Mở rộng">
+                            </a>
+                            <a class="fa fa-minus-square" ng-Show="node.isOpenAdd" data-nodrag ng-click="changeShowAdd(node)" title="Thu lại">
+                            </a>
+                            <label ng-show="node.isOpenAdd" ng-if="node.checkState"> <input type="checkbox" data-nodrag class="pull-right" style="margin-top: -5px;font-size:9px;" ng-model="node.bantralai" /> Bán trả lại</label>
+                            <label ng-show="node.isOpenAdd" ng-if="node.checkState"><input type="checkbox" data-nodrag class="pull-right" style="margin-top: -5px;font-size:9px;" ng-model="node.banbuon" /> Bán buôn</label>
+                            <label ng-show="node.isOpenAdd" ng-if="node.checkState"><input type="checkbox" data-nodrag class="pull-right" style="margin-top: -5px;font-size:9px;" ng-model="node.banchietkhau" /> Bán chiết khấu</label>
+                            <label ng-show="node.isOpenAdd" ng-if="node.checkState"><input type="checkbox" data-nodrag class="pull-right" style="margin-top: -5px;font-size:9px;" ng-model="node.tylelai" /> Tỷ lệ lãi</label>
+                            <label ng-show="node.isOpenAdd" ng-if="node.checkState"><input type="checkbox" data-nodrag class="pull-right" style="margin-top: -5px;font-size:9px;" ng-model="node.giavon" /> Giá vốn</label>
+                            <label ng-show="node.isOpenAdd" ng-if="node.checkState"><input type="checkbox" data-nodrag class="pull-right" style="margin-top: -5px;font-size:9px;" ng-model="node.giaban" /> Giá bán</label>
+                            <label ng-show="node.isOpenAdd" ng-if="node.checkState"><input type="checkbox" data-nodrag class="pull-right" style="margin-top: -5px;font-size:9px;" ng-model="node.giamua" /> Giá mua</label>
+                            <label><input type="checkbox" data-nodrag class="pull-right" style="margin-top: -5px;font-size:9px;" ng-model="node.duyet" /> Duyệt</label>
+                            <label><input type="checkbox" data-nodrag class="pull-right" style="margin-top: -5px;font-size:9px;" ng-model="node.xoa" /> Xóa</label>
+                            <label><input type="checkbox" data-nodrag class="pull-right" style="margin-top: -5px;font-size:9px;" ng-model="node.sua" /> Sửa</label>
+                            <label><input type="checkbox" data-nodrag class="pull-right" style="margin-top: -5px;font-size:9px;" ng-model="node.them" />Thêm</label>
+                            <label><input type="checkbox" data-nodrag class="pull-right" style="margin-top: -5px;font-size:9px;" ng-model="node.xem" />Xem</label>
+                        </span>
+                    </div>
+                    <ol ui-tree-nodes="" ng-model="node.children" ng-class="{hidden: collapsed}">
+                        <li ng-repeat="node in node.children" ui-tree-node ng-include="'nodes_renderer_add.html'">
+                        </li>
+                    </ol>
+                </script>
+                <ul class="list-group">
+                    <h3 style="margin-bottom: 10px;">Thêm mới</h3>
+                    <div ui-tree id="tree-root">
+                        <ol ui-tree-nodes ng-model="data_add">
+                            <li ng-repeat="node in data_add" ui-tree-node ng-include="'nodes_renderer_add.html'"></li>
+                        </ol>
+                    </div>
+                </ul>
+                <script type="text/ng-template" id="nodes_renderer_update.html">
+                    <div ui-tree-handle class="tree-node tree-node-content">
+                        <a class="btn btn-success btn-xs" ng-if="node.children && node.children.length > 0" data-nodrag ng-click="toggle(this)">
+                            <span class="fa"
+                                  ng-class="{
+						  'fa-angle-double-left': collapsed,
+						  'fa-angle-double-down': !collapsed
+						}"></span>
+                        </a>{{node.tenchucnang}}
+
+                        <a class="pull-right btn btn-danger btn-xs" data-nodrag style="display:none;">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </a>
+                        <a class="pull-right fa fa-backspace" data-nodrag ng-click="deSelectChucNangEdit(node)" style="margin-right: 8px;background-color:red;" title="Xóa node">
+                            <span class="fa fa-ban"></span>
+                        </a>
+                        <span style="float: right;">
+                            <a class="fa fa-plus-circle" ng-Show="!node.isOpenUpdate" data-nodrag ng-click="changeShowUpdate(node)" title="Mở rộng">
+                            </a>
+                            <a class="fa fa-minus-square" ng-Show="node.isOpenUpdate" data-nodrag ng-click="changeShowUpdate(node)" title="Thu lại">
+                            </a>
+                            <label ng-Show="node.isOpenUpdate"><input type="checkbox" data-nodrag class="pull-right" style="margin-top: -5px;font-size:9px;" ng-model="node.bantralai" ng-click="check(node);"/> Bán trả lại</label>
+                            <label ng-Show="node.isOpenUpdate"><input type="checkbox" data-nodrag class="pull-right" style="margin-top: -5px;font-size:9px;" ng-model="node.banbuon" ng-click="check(node);"/> Bán buôn</label>
+                            <label ng-Show="node.isOpenUpdate"><input type="checkbox" data-nodrag class="pull-right" style="margin-top: -5px;font-size:9px;" ng-model="node.banchietkhau" ng-click="check(node);"/> Bán chiết khấu</label>
+                            <label ng-Show="node.isOpenUpdate"><input type="checkbox" data-nodrag class="pull-right" style="margin-top: -5px;font-size:9px;" ng-model="node.tylelai" ng-click="check(node);"/> Tỷ lệ lãi</label>
+                            <label ng-Show="node.isOpenUpdate"><input type="checkbox" data-nodrag class="pull-right" style="margin-top: -5px;font-size:9px;" ng-model="node.giavon" ng-click="check(node);"/> Giá vốn</label>
+                            <label ng-Show="node.isOpenUpdate"><input type="checkbox" data-nodrag class="pull-right" style="margin-top: -5px;font-size:9px;" ng-model="node.giaban" ng-click="check(node);"/> Giá bán</label>
+                            <label ng-Show="node.isOpenUpdate"><input type="checkbox" data-nodrag class="pull-right" style="margin-top: -5px;font-size:9px;" ng-model="node.giamua" ng-click="check(node);"/> Giá mua</label>
+                            <label><input type="checkbox" data-nodrag class="pull-right" style="margin-top: -5px;font-size:9px;" ng-model="node.duyet" ng-click="check(node);"/> Duyệt</label>
+                            <label><input type="checkbox" data-nodrag class="pull-right" style="margin-top: -5px;font-size:9px;" ng-model="node.xoa" ng-click="check(node);"/> Xóa</label>
+                            <label><input type="checkbox" data-nodrag class="pull-right" style="margin-top: -5px;font-size:9px;" ng-model="node.sua" ng-click="check(node);"/> Sửa</label>
+                            <label><input type="checkbox" data-nodrag class="pull-right" style="margin-top: -5px;font-size:9px;" ng-model="node.them" ng-click="check(node);"/>Thêm</label>
+                            <label><input type="checkbox" data-nodrag class="pull-right" style="margin-top: -5px;font-size:9px;" ng-model="node.xem" ng-click="check(node);"/>Xem</label>
+                        </span>
+                    </div>
+                    <ol ui-tree-nodes="" ng-model="node.children" ng-class="{hidden: collapsed}">
+                        <li ng-repeat="node in node.children" ui-tree-node ng-include="'nodes_renderer_update.html'">
+                        </li>
+                    </ol>
+                </script>
+                <ul class="list-group">
+                    <h3 style="margin-bottom: 10px;">Chỉnh sửa</h3>
+                    <div ui-tree id="tree-root">
+                        <ol ui-tree-nodes ng-model="data_update">
+                            <li ng-repeat="node in data_update" ui-tree-node ng-include="'nodes_renderer_update.html'"></li>
+                        </ol>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button prevent-default type="submit" class="btn btn-primary" ng-disabled="_form.$invalid" ng-click="save()">{{config.label.btnSubmit}}</button>
+        <button prevent-default class="btn btn-default" ng-click="cancel()"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;{{config.label.btnCancel}}</button>
+    </div>
+</div>

@@ -1,0 +1,163 @@
+﻿<div class="panel panel-default" style="min-height:100%;">
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <i class="fa fa-shopping-cart fa-5x"></i>
+                            </div>
+                            <div class="col-xs-6 text-right">
+                                <p class="announcement-heading">{{tongMua | awnum:'number'}}</p>
+                                <p class="announcement-text">Tổng mua<br/> &emsp; </p>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#">
+                        <div class="panel-footer announcement-bottom">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    Chi tiết
+                                </div>
+                                <div class="col-xs-6 text-right">
+                                    <i class="fa fa-arrow-circle-right"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <i class="fa fa-shopping-cart fa-5x"></i>
+                            </div>
+                            <div class="col-xs-6 text-right">
+                                <p class="announcement-heading">{{tongBan | awnum:'number'}}</p>
+                                <p class="announcement-text">Tổng bán<br />&emsp;  </p>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#">
+                        <div class="panel-footer announcement-bottom">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    Chi tiết
+                                </div>
+                                <div class="col-xs-6 text-right">
+                                    <i class="fa fa-arrow-circle-right"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <div class="panel panel-danger">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <i class="fa fa-check fa-5x"></i>
+                            </div>
+                            <div class="col-xs-6 text-right">
+                                <p class="announcement-heading">{{soPhieuNhap | awnum:'number'}}</p>
+                                <p class="announcement-text">Phiếu Nhập chưa duyệt</p>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#">
+                        <div class="panel-footer announcement-bottom">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    Chi tiết
+                                </div>
+                                <div class="col-xs-6 text-right">
+                                    <i class="fa fa-arrow-circle-right"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="panel panel-danger">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <i class="fa fa-check fa-5x"></i>
+                            </div>
+                            <div class="col-xs-6 text-right">
+                                <p class="announcement-heading">{{soPhieuXuat | awnum:'number'}}</p>
+                                <p class="announcement-text">Phiếu Xuất chưa duyệt</p>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#">
+                        <div class="panel-footer announcement-bottom">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    Chi tiết
+                                </div>
+                                <div class="col-xs-6 text-right">
+                                    <i class="fa fa-arrow-circle-right"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-lg-12 col-sm-12 ng-scope" id="line-chart">
+                <div class="panel panel-default">
+                    <div class="panel-heading" style="font-weight:bold">Biểu đồ Doanh thu bán lẻ</div>
+                    <div class="panel-body">
+                        <iframe class="chartjs-hidden-iframe" tabindex="-1" style="width: 100%; display: block; border: 0px; height: 0px; margin: 0px; position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px;"></iframe>
+                        <canvas id="line" class="chart chart-line ng-isolate-scope" chart-data="dataLineChart" chart-labels="labelsLineChart" chart-click="onClickLineChart" chart-hover="onHoverLineChart" chart-series="seriesLineChart" chart-options="optionsLineChart" chart-dataset-override="datasetOverrideLineChart" width="523" height="261" style="display: block; width: 523px; height: 261px;"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-lg-4 col-sm-12 ng-scope" id="pie-chart">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Mặt hàng bán chạy</div>
+                    <div class="panel-body">
+                        <iframe class="chartjs-hidden-iframe" tabindex="-1" style="width: 100%; display: block; border: 0px; height: 0px; margin: 0px; position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px;"></iframe>
+                        <canvas id="pie" class="chart chart-pie chart-xs ng-isolate-scope" chart-data="dataPolarChart" chart-labels="labelsPolarChart" chart-options="options1" width="523" height="261" style="display: block; width: 523px; height: 261px;"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-sm-12 ng-scope" id="pie-chart">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Loại hàng bán chạy</div>
+                    <div class="panel-body">
+                        <iframe class="chartjs-hidden-iframe" tabindex="-1" style="width: 100%; display: block; border: 0px; height: 0px; margin: 0px; position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px;"></iframe>
+                        <canvas id="pie" class="chart chart-pie chart-xs ng-isolate-scope" chart-data="merchandiseTypeData" chart-labels="merchandiseTypeLabel" chart-options="options1" width="523" height="261" style="display: block; width: 523px; height: 261px;"></canvas>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-lg-4 col-sm-12 ng-scope" id="pie-chart">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Nhóm hàng bán chạy</div>
+                    <div class="panel-body">
+                        <iframe class="chartjs-hidden-iframe" tabindex="-1" style="width: 100%; display: block; border: 0px; height: 0px; margin: 0px; position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px;"></iframe>
+                        <canvas id="pie" class="chart chart-pie chart-xs ng-isolate-scope" chart-data="merchandiseGroupData" chart-labels="merchandiseGroupLabel" chart-options="options1" width="523" height="261" style="display: block; width: 523px; height: 261px;"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

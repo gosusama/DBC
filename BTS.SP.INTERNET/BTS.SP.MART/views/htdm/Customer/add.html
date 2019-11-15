@@ -1,0 +1,125 @@
+﻿<div>
+    <div class="modal-header">
+        <h3 class="modal-title">{{title()}}  {{lbl.lblCreate}}</h3>
+        <div class="button-close" ng-click="cancel()">
+            <i class="fa fa-times-circle"></i>
+        </div>
+    </div>
+    <div class="modal-body">
+        <form role="form" name="_form">
+            <div class="row form-group">
+                <div class="col-lg-6">
+                    <label>Mã khách hàng</label><span style="color: red">(1*)</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:red;">Bỏ sinh mã</span>&nbsp;&nbsp;<input type="checkbox" ng-model="uncheckAutoGen" ng-click="unAuToGenCode($event)" title="Bỏ sinh mã mới">
+                    <input type="text" class="form-control" ng-model="target.makh" name="_makhachHang" maxlength="50" required ng-disabled="disableGenCode">
+                    <span style="color:red" ng-show="_form._makhachHang.$dirty && _form._makhachHang.$invalid">
+                        <span ng-show="_form._makhachHang.$error.required">Không được để trống</span>
+                    </span>
+                </div>
+                <div class="col-lg-6">
+                    <label>Tên khách hàng</label><span style="color: red"> (2*)</span>
+                    <input type="text" class="form-control" ng-model="target.tenKH" name="_tenkhachHang" maxlength="300" required>
+                    <span style="color:red" ng-show="_form._tenkhachHang.$dirty && _form._tenkhachHang.$invalid">
+                        <span ng-show="_form._tenkhachHang.$error.required">Không được để trống</span>
+                    </span>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-lg-6">
+                    <label>Địa chỉ</label>
+                    <input type="text" class="form-control" ng-model="target.diaChi">
+                </div>
+                <div class="col-lg-6">
+                    <label>Điện thoại</label>
+                    <input type="text" class="form-control" ng-model="target.dienThoai" ng-pattern="/^[0-9]+$/" name="_SoDienThoai">
+                </div>
+
+            </div>
+            <div class="row form-group">
+                <div class="col-lg-6">
+                    <label>Thành phố</label>
+                    <input class="form-control" name="_tinhThanhPho" type="text" ng-model="target.tinhThanhPho" typeahead-editable="false" uib-typeahead="opt.value as opt.text for opt in tempData('citys') | filter:$viewValue | limitTo:5" typeahead-on-select="changeCity(target.tinhThanhPho)" typeahead-input-formatter="displayHepler($model,'citys')" />
+                </div>
+                <div class="col-lg-6">
+                    <label>Quận huyện</label>
+                    <input class="form-control" name="_quanHuyen" type="text" ng-model="target.quanHuyen" typeahead-editable="false" uib-typeahead="opt.value as opt.text for opt in tempData('districts') | filter:$viewValue | limitTo:5" typeahead-on-select="" typeahead-input-formatter="displayHepler($model,'districts')" />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col-md-3">
+                    <label>Ngày sinh</label><span style="color: red"></span>
+                    <input class="form-control" type="date" ng-model="target.ngaySinh" placeholder="dd/MM/yyyy">
+                </div>
+
+                <div class="col-md-3">
+                    <label>Ngày đặc biệt</label>
+                    <input class="form-control" type="date" ng-model="target.ngayDacBiet" placeholder="dd/MM/yyyy">
+                </div>
+                <div class="col-lg-6">
+                    <label>Mã thẻ</label>
+                    <input type="text" class="form-control" ng-model="target.maThe" name="_maThe" maxlength="50">
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-lg-6">
+                    <label>Chứng minh thư</label>
+                    <input type="text" class="form-control" ng-model="target.chungMinhThu" name="_chungMinhThu" maxlength="12">
+                </div>
+                <div class="col-lg-6">
+                    <label>Email</label>
+                    <input type="email" class="form-control" ng-model="target.email" name="_email">
+                    <span style="color:red" ng-show="_form._email.$dirty && _form._email.$invalid">
+                        <span ng-show="_form._email.$error.email">Không hợp lệ <span>(Ví dụ: 123@gmail.com)</span></span>
+                    </span>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-lg-3">
+                    <label>Tiền nguyên giá</label>
+                    <input type="number" class="form-control" ng-model="target.tienNguyenGia" ng-pattern="/^[0-9]+$/" name="_tienNguyenGia">
+                </div>
+                <div class="col-lg-3">
+                    <label>Tiền sale</label>
+                    <input type="number" class="form-control" ng-model="target.tienSale" ng-pattern="/^[0-9]+$/" name="_tienSale">
+                </div>
+                <div class="col-lg-3">
+                    <label>Tổng tiền</label>
+                    <input type="number" class="form-control" ng-model="target.tongTien" ng-pattern="/^[0-9]+$/" name="_tongTien">
+                </div>
+                <div class="col-lg-3">
+                    <label>Số điểm</label>
+                    <input type="number" class="form-control" ng-model="target.soDiem" ng-pattern="/^[0-9]+$/" name="_tienSale">
+                </div>
+
+            </div>
+            <div class="row form-group">
+                <div class="col-md-3">
+                    <label>Ngày cấp thẻ</label>
+                    <input class="form-control" id="date" type="date" ng-model="target.ngayCapThe">
+                </div>
+                <div class="col-md-3">
+                    <label>Ngày hết hạn</label>
+                    <input class="form-control" id="date" type="date" ng-model="target.ngayHetHan" />
+                </div>
+                <div class="col-md-3">
+                    <div class="md-style-label-input">
+                        Hạng khách hàng
+                    </div>
+                    <div class="md-6-style-input">
+                        <select class="form-control" ng-model="target.hangKhachHang" ng-options="opt.value as opt.text for opt in tempData('hangKhs')">
+                            <option value="">-</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <label>Trạng thái</label>
+                    <select class="form-control" ng-init="target.trangThai = 10" ng-model="target.trangThai" ng-options="opt.value as opt.text for opt in tempData('status')"></select>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button prevent-default type="submit" class="btn btn-primary" ng-disabled="_form.$invalid" ng-click="save()"><i class="fa fa-save"></i>&nbsp;&nbsp;{{config.label.btnSubmit}}</button>
+        <button prevent-default class="btn btn-default" ng-click="cancel()"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;{{config.label.btnCancel}}</button>
+    </div>
+</div>

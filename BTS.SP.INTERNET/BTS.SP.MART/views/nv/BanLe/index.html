@@ -1,0 +1,245 @@
+﻿<style>
+    .dropdown-menu > li > a {
+        width: 200px;
+        color: white;
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
+    
+</style>
+<div keyboard="keys">
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="navbar-header">
+            <button type="button" prevent-default class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-left">
+                <i class="fa fa-search"></i>
+                <input type="text" class="search-input" autofocus id="MAVATTUSEARCHFOCUS" placeholder="Tìm kiếm" ng-model="target.maVatTu" ng-blur="filterMerchandise(target.maVatTu);">
+                <input type="text" id="SOLUONGFOCUS" ng-show="allowInputNumber" ng-model="target.soLuong" placeholder="Nhập số lượng" onfocus="this.select()" ng-blur="enterSoLuong(target.soLuong);" min="0" awnum="number">
+                <button class="btn btn-info" prevent-default ng-click="allowEnterNumber();"><i title="Nhập tay" class="fa fa-flask"></i></button>
+                <button class="btn btn-info" prevent-default ng-click="searchMerchandise();"><i title="Tìm kiếm mã hàng" class="fa fa-search-plus"></i></button>
+            </ul>
+            <ul class="nav navbar-nav navbar-left">
+                <uib-tabset>
+                    <uib-tab ng-repeat="tab in tabs" active="tab.active" disable="tab.disabled" style="background-color:white;width:135px;" select="getTab($index)">
+                        <uib-tab-heading>
+                            {{tab.title}} <i class="glyphicon glyphicon-remove-sign" ng-click="removeTab($index)"></i>
+                        </uib-tab-heading>
+                    </uib-tab>
+                </uib-tabset>
+            </ul>
+            <button prevent-default class="addproduct"><i class="fa fa-plus" ng-click="addTab()"></i></button>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="">Tài khoản: {{currentUser.userName}}</a></li>
+                <li><a href="">Tên thu ngân: {{currentUser.tenNhanVien}}</a></li>
+                <li><a href="">Ngày: {{tabs[idTab].dataDto.ngayChungTu | date:'dd-MM-yyyy'}}</a></li>
+                <li><a href="">Mã: {{tabs[idTab].dataDto.maGiaoDich}}</a></li>
+
+                <li title="Danh sách chức năng">
+                    <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <i class=" fa fa-navicon"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-usermenu pull-right">
+                        <li><a href="#" prevent-default ng-click="banTraLaiClick();"><i class="fa fa-gear"></i>Bán trả lại</a></li>
+                        <li><a href="#" prevent-default ng-click="danhSachGiaoDich();"><i class="fa fa-gear"></i>Danh sách giao dịch</a></li>
+                        <li><a href="#" prevent-default ng-click="logOut();"><i class="fa fa-sign-out"></i>Thoát</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="page-wrapper">
+        <div class="page-right">
+            <div class="col-md-12 info" style="padding: 10px 0px;">
+                <div class="form-group">
+                    <div class="row" style="line-height:18px;font-weight: bold;">
+                        <div class="col-md-12" style="font-size:20px;margin-top:10px;">
+                            <div class="col-md-5" style="color:red;margin-top:12px;font-weight:bold;">TIỀN PHẢI TRẢ</div>
+                            <div class="col-md-7" style="color:red;font-weight:bold;font-size:30px;"><input type="text" class="inputtrungtam" style="text-align:right;" onfocus="this.select()" ng-model="tabs[idTab].dataDto.sumTienHang" awnum="number" disabled></div>
+                        </div>
+                        <div class="col-md-12" style="font-size: 16px; margin-top:20px;" ng-if="tabs[idTab].dataDto.loaiGiaoDich === 2">
+                            <div class="col-md-5" style="font-size: 15px; margin-top:10px;">SỐ HÓA ĐƠN</div>
+                            <div class="col-md-7">
+                                <input type="text" class="inputtrungtam" ng-model="tabs[idTab].dataDto.soHoaDon" ng-blur="enterCodeTrade(tabs[idTab].dataDto.soHoaDon);">
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="font-size: 16px; margin-top:20px;">
+                            <div class="col-md-5" style="font-size: 15px; margin-top:10px;">MÃ/PHONE/TÊN &nbsp;&nbsp;<i class="fa fa-plus" aria-hidden="true" ng-click="addCustomer()" prevent-default title="Thêm mới khách hàng"></i></div>
+                            <div class="col-md-7">
+                                <input type="text" class="inputtrungtam" ng-model="tabs[idTab].dataDto.makh" ng-change="filterCustomer(tabs[idTab].dataDto.makh)" ng-disabled="disableMaKhachHang">
+                                <div class="phoneCustomer" ng-show="showResult">
+                                    <ul class="parentCustomer">
+                                        <li class="childrenCustomer" ng-repeat="item in resultCustomer" ng-click="changeCustomer(item);">
+                                            <div class="viewCustomer">({{item.dienThoai}})-{{item.tenKH}}</div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="font-size: 16px; margin-top:20px;">
+                            <div class="col-md-5" style="font-size: 15px; margin-top:10px;">KHÁCH HÀNG&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-info-circle" ng-click="showInfomationCustomer(tabs[idTab].dataDto)" title="Chi tiết khách hàng"></i></div>
+                            <div class="col-md-7"><input type="text" class="inputtrungtam" ng-model="tabs[idTab].dataDto.tenKH" readonly></div>
+                        </div>
+                        <div class="col-md-12" style="font-size: 16px; margin-top:20px;">
+                            <div class="col-md-4" style="padding-right:0; margin-top:10px;">
+                                QUÊN THẺ
+                            </div>
+                            <div class="col-md-1" style="padding-right:0;margin-top:10px;">
+                                <input type="checkbox" ng-click="forgetCard($event);" ng-disabled="tabs[idTab].dataDto.quenthe === ''">
+                            </div>
+                            <div class="col-md-7" style="text-align:right; font-size:16px;">
+                                <input type="text" class="inputtrungtam" style="text-align:right;font-size:20px;font-weight:bold;" ng-value="tabs[idTab].dataDto.quenThe" readonly />
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="font-size: 16px; margin-top:20px;">
+                            <div class="col-md-5" style="font-size: 15px; margin-top:10px;">MÃ VOUCHER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                            <div class="col-md-7" style="text-align:right; font-size:16px;">
+                                <input type="text" class="inputtrungtam" ng-model="tabs[idTab].dataDto.voucher" ng-disabled="!tabs[idTab].dataDto.sumTienHang" ng-change="voucherIsEmpty(tabs[idTab].dataDto.voucher);" ng-blur="enterVoucher(tabs[idTab].dataDto.voucher)" awnum="number">
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="font-size: 16px; margin-top:20px;">
+                            <div class="col-md-5" style="font-size: 15px; margin-top:10px;">MÃ THẺ VIP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                            <div class="col-md-7" style="text-align:right; font-size:16px;">
+                                <input type="text" class="inputtrungtam" ng-model="tabs[idTab].dataDto.maThe" ng-disabled="!tabs[idTab].dataDto.sumTienHang" ng-change="" ng-blur="">
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="font-size: 16px; margin-top:20px;">
+                            <div class="col-md-5" style="font-size: 15px; margin-top:10px;">HẠNG KHÁCH&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                            <div class="col-md-7" style="text-align:right; font-size:16px;">
+                                <input type="text" class="inputtrungtam" ng-model="tabs[idTab].dataDto.hangKhachHang" ng-disabled="!tabs[idTab].dataDto.makh">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 info" style="padding: 3px 0px;">
+                <fieldset class="styleFieldset" style="">
+                    <legend class="styleFieldsetLegend" style="color:red;font-size: 16px;"><b> THÔNG TIN KHÁCH TRẢ </b> </legend>
+                    <div class="form-group" style="margin-top:-30px;padding:0 10px;">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-5" style="margin-top:20px;">TIỀN VOUCHER</div>
+                                <div class="col-md-7"><input type="text" class="inputtrungtam" onfocus="this.select()" ng-model="tabs[idTab].dataDto.tienVoucher" min="0" readonly awnum="number"></div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-5" style="margin-top:20px;">TIỀN THẺ</div>
+                                <div class="col-md-7"><input type="text" class="inputtrungtam" onfocus="this.select()" ng-model="tabs[idTab].dataDto.tienThe" select-on-click awnum="number" min="0" ng-change="enterTienThe(tabs[idTab].dataDto.tienThe)"></div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-5" style="margin-top:20px;">TIỀN COD</div>
+                                <div class="col-md-7"><input type="text" class="inputtrungtam" onfocus="this.select()" ng-model="tabs[idTab].dataDto.tienCOD" select-on-click awnum="number" min="0" ng-change="enterTienCOD(tabs[idTab].dataDto.tienCOD)"></div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-5" style="margin-top:20px;">TIỀN MẶT</div>
+                                <div class="col-md-7"><input type="text" class="inputtrungtam" onfocus="this.select()" ng-model="tabs[idTab].dataDto.tienMat" select-on-click awnum="number" min="0" ng-change="enterTienMat(tabs[idTab].dataDto.tienMat)"></div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="col-md-5" style="margin-top:20px;">TIỀN TRẢ LẠI</div>
+                                <div class="col-md-7"><input type="text" class="inputtrungtam" onfocus="this.select()" ng-model="tabs[idTab].dataDto.tienThua" select-on-click awnum="number" min="0"></div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="col-md-12 info" ng-if="tabs[idTab].dataDto.loaiGiaoDich === 1" ng-click="clickedF1($event)">
+                <button prevent-default class="thanhtoan">THANH TOÁN (F1)</button>
+            </div>
+            <div class="col-md-12 info" ng-if="tabs[idTab].dataDto.loaiGiaoDich === 2" ng-click="clickedF1($event)">
+                <button prevent-default class="thanhtoan" style="background-color:darkmagenta;">THANH TOÁN TRẢ LẠI (F1)</button>
+            </div>
+            <div class="status">
+                <button type="button" prevent-default class="btnPlus" ng-click="clickedPlus($event);" ng-disabled="disablePlus" ng-if="status">+ TĂNG HÀNG</button>
+                <button type="button" prevent-default class="btnMinus" ng-click="clickedMinus($event);" ng-disabled="disableMinus" ng-if="!status">- GIẢM HÀNG</button>
+            </div>
+        </div>
+        <div id="popupMessage" class="popupMessage" style="display:none;">
+            <span class="message">
+                <button type="button" prevent-default class="btn btn-success message">{{message}}</button>
+            </span>
+        </div>
+        <div class="page-left">
+            <div class="col-md-12 item-leftHeader">
+                <div class="col-md-1" style="text-align:center;width:5%;">STT</div>
+                <div class="col-md-1" id="slider" style="text-align:center;width:8%;">MÃ HÀNG</div>
+                <div class="col-md-2" style="text-align:center;width:19%;">TÊN HÀNG</div>
+                <div class="col-md-1" style="text-align:center;width:8%;">SL</div>
+                <div class="col-md-1" style="text-align:center;width:11%;">ĐƠN GIÁ</div>
+                <div class="col-md-1" style="text-align:center;width:6%;">CK(%)&nbsp;&nbsp;&nbsp;<input type="checkbox" ng-model="tabs[idTab].dataDto.chietKhauTay" title="Chiết khấu tay" ng-click="changeChietKhauTay($event)" /></div>
+                <div class="col-md-1" style="text-align:center;width:8%;">TIỀN CK</div>
+                <!-- <div class="col-md-1" style="text-align:right;">KHUYẾN MẠI</div> -->
+                <!--<div class="col-md-1" style="text-align:center;width:13%;">TRƯỚC KM</div>-->
+                <div class="col-md-1" style="text-align:center;width:13%;">GÍA VỐN</div>
+                <div class="col-md-1" style="text-align:center;width:10%;">THÀNH TIỀN</div>
+                <div class="col-md-1" style="text-align: center; width: 6%;">TỒN</div>
+                <div class="col-md-1" style="text-align:center;width:6%;">Bán giá vốn</div>
+            </div>
+            <div class="col-md-12 item-left" ng-repeat="item in tabs[idTab].dataDetails" ng-class="{'selected':$index == selectedRow}">
+                <div class="col-md-1" style="text-align:center;width:5%;">
+                    {{$index+1}}
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true" ng-click="removeMaHang($index);"></span>
+                </div>
+                <div class="col-md-1 showInfo" style="text-align:center;width:8%;">
+                    {{item.maVatTu}}
+                    <div class="infoboard" ng-if="item.avatar"><img ng-src="data:image/JPEG;base64,{{item.avatar}}" /></div>
+                </div>
+                <div class="col-md-2" style="text-align:left;width:19%;">{{item.tenVatTu}}</div>
+                <div class="col-md-1" style="text-align:right;width:8%;"><input type="text" awnum="number" min="0" onfocus="this.select()" ng-model="item.soLuong" ng-change="enterRowSoLuong(item.soLuong,$index);" class="item-input"></div>
+                <div class="col-md-1" style="text-align:right;width:11%;"><input type="text" awnum="number" ng-model="item.giaBanLeVat" class="item-input" disabled=""></div>
+                <div class="col-md-1" style="text-align:right;width:6%;"><input type="text" awnum="number" onfocus="this.select()" ng-model="item.tyLeChietKhau" ng-change="enterTyLeChietKhau(item.tyLeChietKhau,$index)" class="item-input" min="0"></div>
+                <div class="col-md-1" style="text-align:right;width:8%;"><input type="text" awnum="number" onfocus="this.select()" ng-model="item.tienChietKhau" ng-change="enterTienChietKhau(item.tienChietKhau,$index)" class="item-input" min="0" max="100"></div>
+                <!--<div class="col-md-1 showInfo">
+                    <input type="text" awnum="number" ng-model="item.tienDuocKhuyenMai" class="item-input" disabled="">
+                    <div class="infoboard" ng-if="!item.isPromotion">
+                        <div>{{item.noiDungKhuyenMai}}</div>
+                    </div>
+                </div> -->
+                <!--<div class="col-md-1" style="text-align:right;width:13%;"><input type="text" awnum="number" ng-model="item.thanhTienTruocKm" class="item-input important-item" disabled=""></div>-->
+                <div class="col-md-1" style="text-align:right;width:13%;"><input type="text" awnum="number" ng-model="item.giaVon" class="item-input important-item" disabled=""></div>
+                <div class="col-md-1 showInfo" style="text-align:right;width:10%;">
+                    <input type="text" awnum="number" ng-model="item.thanhTien" class="item-input important-item" disabled="">
+                    <div class="infoboard" ng-if="item.hangKhuyenMai">
+                        <div>Thông tin: {{item.thanhTienTruocKm | number}} - {{item.tienDuocKhuyenMai | number}}</div>
+                    </div>
+                </div>
+                <div class="col-md-1" style="text-align: center;">
+                    <input type="text" awnum="number" style="width: 50px;" ng-model="item.tonCuoiKySl" class="item-input important-item" disabled="">&nbsp;&nbsp;<a href="#" ng-click="checkInventory(item)"><i class="fa fa-gear" title="Kiểm tra tồn"></i></a>
+                </div>
+                <div class="col-md-1" style="text-align:center;width:3%;"><input type="checkbox" ng-model="item.choseGiaVon" ng-change="changeBanGiaVon(item)"></div>
+            </div>
+        </div>
+    </div>
+    <nav class="navbar navbar-default navbar-fixed-bottom">
+        <div class="navbar-header">
+            <button type="button" prevent-default class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <!--<a class="navbar-brand" href="#"><img src="imgs/LOGO.png" alt=""></a>-->
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-left">
+                <button type="button" prevent-default class="btn btn-primary" ng-click="clickedF1($event);" ng-disabled="disableF1" style="height: 45px;">F1->Lưu lại & In</button>
+                <button type="button" prevent-default class="btn btn-primary" ng-click="clickedF2($event);" ng-disabled="disableF2" style="height: 45px;">F2->Thêm mới</button>
+                <button type="button" prevent-default class="btn btn-warning" ng-click="clickedF3($event);" ng-disabled="disableF3" style="height: 45px;" pressF3="clickbutton" ng-disabled="disBtnF3">F3->Giảm hàng</button>
+                <button type="button" prevent-default class="btn btn-success" ng-click="clickedF4($event);" ng-disabled="disableF4" style="height: 45px;" ng-model="valuePlus" ng-init="valuePlus = 1">F4->Tăng hàng</button>
+                <button type="button" prevent-default class="btn btn-primary" ng-click="clickedF5($event);" ng-disabled="disableF5" style="height: 45px;">F5->Làm mới</button>
+                <button type="button" prevent-default class="btn btn-primary" ng-click="clickedF6($event);" ng-disabled="disableF6" style="height: 45px;">F6->Thêm tab</button>
+                <button type="button" prevent-default class="btn btn-primary" ng-click="clickedF7($event);" style="height: 45px;">F7->Lịch sử</button>
+                &nbsp;&nbsp;&nbsp;&nbsp;Lấy giá bán buôn
+                <input type="checkbox" ng-model="isBanBuon" ng-click="layGiaBanBuon($event)" />
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <button type="button" prevent-default class="btn btn-success" ng-disabled="disableF4 || disableF3" style="width:200px;height: 45px;font-size:26px !important;" ng-if="tabs[idTab].dataDetails.length > 0" ng-style="{'background-color':status ?  '#5cb85c': '#f0ad4e'}">{{status?'Tăng hàng':'Giảm hàng'}}</button>
+            </ul>
+        </div>
+    </nav>
+</div>

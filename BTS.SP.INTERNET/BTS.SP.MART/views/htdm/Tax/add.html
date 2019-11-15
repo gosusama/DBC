@@ -1,0 +1,54 @@
+﻿<div>
+    <div class="modal-header">
+        <h3 class="modal-title">{{title()}}  {{lbl.lblCreate}}</h3>
+        <div class="button-close" ng-click="cancel()">
+            <i class="fa fa-times-circle"></i>
+        </div>
+    </div>
+    <div class="modal-body">
+        <form role="form" name="_form">
+            <div class="row form-group">
+                <div class="col-lg-6">
+                    <label>Mã loại thuế</label><span style="color: red"> (1*)</span>
+                    <input type="text" class="form-control" ng-model="target.maLoaiThue" name="_maLoaiThue" maxlength="50" required>
+                    <span style="color:red" ng-show="_form._maLoaiThue.$dirty && _form._maLoaiThue.$invalid">
+                        <span ng-show="_form._maLoaiThue.$error.required">Không được để trống </span>
+                    </span>
+                </div>
+                <div class="col-lg-6">
+                    <label>Loại thuế</label><span style="color: red"> (2*)</span>
+                    <input type="text" class="form-control" ng-model="target.loaiThue" maxlength="300" name="_loaiThue">
+                    <span style="color:red" ng-show="_form._loaiThue.$dirty && _form._loaiThue.$invalid">
+                        <span ng-show="_form._loaiThue.$error.required">Không được để trống </span>
+                    </span>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-lg-6">
+                    <label>Tài Khoản Kế Toán</label><span style="color: red"> (3*)</span>
+                    <input type="text" ng-model="target.tkCo"  typeahead-editable="false" uib-typeahead="opt.value as opt.text for opt in tempData.accounts | filter:$viewValue" class="form-control" required />
+                    <span style="color:red" ng-show="_form._taiKhoanKeToan.$dirty && _form._taiKhoanKeToan.$invalid">
+                        <span ng-show="_form._taiKhoanKeToan.$error.required">Không được để trống</span>
+                    </span>
+                </div>
+                <div class="col-lg-6">
+                    <label>Phần trăm</label><span style="color: red"> (4*)</span>
+                    <input type="text" class="form-control" ng-model="target.taxRate" name="_taxRate" required>
+                    <span style="color:red" ng-show="_form._taxRate.$dirty && _form._taxRate.$invalid">
+                        <span ng-show="_form._taxRate.$error.required">Không được để trống </span>
+                    </span>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-lg-6">
+                    <label>Trạng thái</label><span style="color: red"> (5*)</span>
+                    <select class="form-control" ng-init="target.trangThai = 10" ng-model="target.trangThai" ng-options="opt.value as opt.text for opt in tempData('status')"></select>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button prevent-default type="submit" class="btn btn-primary" ng-disabled="_form.invalid" ng-click="save()"><i class="fa fa-save"></i>&nbsp;&nbsp;{{config.label.btnSubmit}}</button>
+        <button prevent-default class="btn btn-default" ng-click="cancel()"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;{{config.label.btnCancel}}</button>
+    </div>
+</div>

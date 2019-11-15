@@ -1,0 +1,371 @@
+﻿<!--<form></form>--><!-- KHông hiểu sao để thế này thì nó mới không bị lỗi T_T-->
+<div class="panel panel-default">
+    <div class="panel-heading panel-toolbar">
+      <h3 class="modal-title" style="color:blue;">{{title()}}</h3>
+        <div class="button-close" ng-click="goHome()">
+            <i class="fa fa-times-circle"></i>
+        </div>
+    </div>
+    <div class="panel-body" style="background-color: #F3F3F3">
+        <div class="form-group row">
+            <div class="col-md-4">
+                <div class="md-style-label-input">
+                    Ngày hạch toán
+                </div>
+                <div class="md-4-style-input">
+                    <input style="line-height:inherit;width:100%" class="input-border-form" ng-model="target.ngayCT" type="date" datepicker-localdate disabled>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="md-style-label-input">
+                    Khách hàng
+                </div>
+                <div class="md-4-style-input">
+                    <div class="add-input-zone">
+                        <input class="input-border-form" name="_makhachHang" type="text" ng-model="target.maKhachHang" typeahead-editable="false" uib-typeahead="opt.value as opt.text for opt in tempData('customers') | filter:$viewValue" typeahead-on-select="selectedkhachHang($item)" typeahead-input-formatter="displayHepler($model, 'customers')" />
+                        <div class="add-input-able" ng-click="createCustomer(target, 'makhachHang')">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-4">
+                <div class="md-style-label-input">
+                    Kho xuất
+                </div>
+                <div class="md-4-style-input">
+                    <select class="input-border-form" style="width:100%;" ng-model="target.maKhoXuat" ng-options="opt.value as opt.text for opt in tempData('wareHouses')">
+                        <option value="">-</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-8">
+                <div class="md-style-label-input">
+                    Nội dung
+                </div>
+                <div class="md-8-style-input">
+                    <textarea focus="true" class="input-border-form" name="_noidung" style="width:100%;" rows="1" ng-model="target.noiDung" placeholder="Nội dung"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-4">
+                <div class="md-style-label-input">
+                    Chiết khấu toàn đơn
+                </div>
+                <div class="md-4-style-input">
+                    <input type="number" value="0" min="0" max="100" class="input-border-form" style="width:100%;" name="_chietKhau" ng-model="target.chietKhau" ng-change="changeChietKhau(target)">
+                    <input ng-model="target.tienChietKhau" disabled hidden>
+                </div>
+            </div>
+            <!-- <div class="col-md-4"> -->
+            <!-- <button prevent-default class="btn btn-default" type="button">Chiết khấu</button> -->
+            <!-- </div> -->
+        </div>
+        <div class="form-group">
+            <div class="col-md-8">Chọn mặt hàng:</div>
+            <table class="table table-bordered table-hover table-condensed">
+                <thead>
+                    <tr>
+                        <th style="width:10%" class="text-center">Barcode</th>
+                        <th style="width:15%" class="text-center">Mã hàng</th>
+                        <th style="width:20%" class="text-center">Tên hàng</th>
+                        <th style="width:15%" class="text-center">Số lượng</th>
+                        <th style="width:10%" class="text-center">Giá bán lẻ</th>
+                        <th style="width:15%" class="text-center">Đơn vị tính</th>
+                        <th style="width:5%">Thêm</th>
+                    </tr>
+                </thead>
+                <tr>
+                    <td>
+                        <input class="input-border-form" ng-model="newItem.barcode" disabled>
+                    </td>
+                    <td>
+                        <!--<label>Mã hàng</label><input class="input-border-form" ng-model="" disabled>-->
+                        <input type="text" class="input-border-form" style="width:100%;" name="_maHang" ng-model="newItem.maHang" ng-blur="selectedMaHang(newItem.maHang)" maxlength="50" placeholder="Mã hàng" />
+                    </td>
+                    <td>
+                        <input class="input-border-form" style="width:100%;" ng-model="newItem.tenHang" disabled>
+                    </td>
+                    <td>
+                        <!--<input class="input-border-form" ng-model="newItem.tenHang" disabled>-->
+                        <input class="input-border-form" type="number" min="0" style="width:100%;" value="0" ng-model="newItem.soLuong">
+                    </td>
+                    <td>
+                        <input class="input-border-form" ng-model="newItem.giaBanLe" disabled>
+                    </td>
+                    <td>
+                        <input class="input-border-form" ng-model="newItem.donViTinh" disabled>
+                    </td>
+                    <td style="text-align:center">
+                        <a ng-click="addToOrder(newItem)"><span class="glyphicon glyphicon-plus" style="color:#0026ff;"></span></a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="form-group">
+            <div class="col-md-8">Danh sách mặt hàng:</div>
+            <table class="data-detail table table-bordered">
+                <thead>
+                    <tr>
+                        <th style="width:8%">Barcode</th>
+                        <th style="width:8%">Mã HH</th>
+                        <th style="width:20%">Tên hàng hóa</th>
+                        <th style="width:10%">Số lượng</th>
+                        <th style="width:8%">Giá bán</th>
+                        <th style="width:8%">CK</th>
+                        <th style="width:8%">Tiền CK</th>
+                        <th style="width:13%">Thành tiền</th>
+                        <th style="width:8%">Mã bó</th>
+                        <th style="width:5%">CTKM</th>
+                        <th style="width:5%">Xóa</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in target.dataDetails" style="text-align:center">
+                        <td>{{item.barcode}}</td>
+                        <td>{{item.maHang}}</td>
+                        <td>{{item.tenHang}}</td>
+                        <td><input class="input-border-form" type="number" min="0" style="width:100%" ng-change="changeSoLuong(item)" ng-model="item.soLuong"></td>
+                        <td>{{item.donGia | number}}</td>
+                        <td><input class="input-border-form" type="number" min="0" max="100" style="width:100%" ng-change="changeGiamGia(item)" ng-model="item.giamGia"></td>
+                        <td>{{item.tienGiamGia | number}}</td>
+                        <td>{{item.thanhTien | number}}</td>
+                        <td>Mã bó</td>
+                        <td>CTKM</td>
+                        <td style="text-align:center"><a ng-click="remove($index)"><span class="glyphicon glyphicon-remove" style="color:#ff0000;"></span></a></td>
+                    </tr>
+                    <tr style="text-align:center">
+                        <td colspan="7" style="color:red; text-align:center">Tổng</td>
+                        <td>{{robot.sum(target.dataDetails, 'thanhTien') | number}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-8">
+            </div>
+            <div class="col-md-4">
+                <table class="caculation-form" style="width:100%">
+                    <tr>
+                        <td><label>Tổng tiền:&nbsp;</label></td>
+                        <td><input class="input-border-form" style="margin-bottom:5px; width:100%;" ng-model="target.thanhTienSauVat" disabled></td>
+                    </tr>
+                    <tr>
+                        <td><label>Tiền khách đưa:&nbsp;</label></td>
+                        <td><input class="input-border-form" style="margin-bottom:5px;width:100%;" ng-change="changeTienKhachDua(target)" ng-model="target.tienKhachDua"></td>
+                    </tr>
+                    <tr>
+                        <td><label>Tiền trả lại:&nbsp;</label></td>
+                        <td><input class="input-border-form" style="margin-bottom:5px;width:100%;" ng-model="target.tienTraLai" disabled></td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+        <div class="form-group" style="text-align:right">
+            <button class="btn btn-default" ng-disabled="target.tienTraLai < 0" prevent-default ng-click="thanhToan(target)" type="button">Thanh toán&nbsp;</button>
+        </div>
+    </div>
+    <div class="panel-footer" style="text-align:right;">
+        <!--<button prevent-default type="submit" class="btn btn-primary" ng-disabled="_form.$invalid || _formDetail.$invalid" ng-click="saveAndKeep()">{{config.label.btnSaveAndKeep}}</button>
+        <button prevent-default type="submit" class="btn btn-primary" ng-disabled="_form.$invalid || _formDetail.$invalid" ng-click="saveAndPrint()">{{config.label.btnSaveAndPrint}}</button>
+        <button prevent-default type="submit" class="btn btn-primary" ng-disabled="_form.$invalid || _formDetail.$invalid" ng-click="save()">{{config.label.btnSubmit}}</button>-->
+        <!-- <button prevent-default class="btn btn-default" ng-click="cancel()"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;{{config.label.btnCancel}}</button> -->
+    </div>
+</div>
+<div id="bill" hidden>
+    <style>
+        .invoice-box {
+            max-width: 800px;
+            margin: auto;
+            padding: 30px;
+            border: 1px solid #eee;
+            box-shadow: 0 0 10px rgba(0, 0, 0, .15);
+            font-size: 16px;
+            line-height: 24px;
+            font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+            color: #555;
+        }
+
+            .invoice-box table {
+                width: 100%;
+                line-height: inherit;
+                text-align: left;
+            }
+
+                .invoice-box table td {
+                    padding: 5px;
+                    vertical-align: top;
+                }
+
+                .invoice-box table tr td:nth-child(2) {
+                    text-align: right;
+                }
+
+                .invoice-box table tr td:nth-child(3) {
+                    text-align: center;
+                }
+
+                .invoice-box table tr td:nth-child(4) {
+                    text-align: right;
+                }
+
+                .invoice-box table tr.top table td {
+                    padding-bottom: 20px;
+                }
+
+                    .invoice-box table tr.top table td.title {
+                        font-size: 45px;
+                        line-height: 45px;
+                        color: #333;
+                    }
+
+                .invoice-box table tr.information table td {
+                    padding-bottom: 40px;
+                }
+
+                .invoice-box table tr.heading td {
+                    background: #eee;
+                    border-bottom: 1px solid #ddd;
+                    font-weight: bold;
+                }
+
+                .invoice-box table tr.details td {
+                    padding-bottom: 20px;
+                }
+
+                .invoice-box table tr.item td {
+                    border-bottom: 1px solid #eee;
+                }
+
+                .invoice-box table tr.item.last td {
+                    border-bottom: none;
+                }
+
+                .invoice-box table tr.total td:nth-child(3) {
+                    border-top: 2px solid #eee;
+                    font-weight: bold;
+                    text-align: right;
+                }
+
+        @media only screen and (max-width: 600px) {
+            .invoice-box table tr.top table td {
+                width: 100%;
+                display: block;
+                text-align: center;
+            }
+
+            .invoice-box table tr.information table td {
+                width: 100%;
+                display: block;
+                text-align: center;
+            }
+        }
+    </style>
+    <div class="invoice-box">
+        <table cellpadding="0" cellspacing="0">
+            <tr class="top">
+                <td colspan="4">
+                    <table>
+                        <tr>
+                            <td style="width:50%" class="title">
+                                <img style="width:100%; max-width:300px;">
+                            </td>
+
+                            <td style="width:50%">
+                                Số hóa đơn #: {{target.maChungTu}}<br>
+                                Created: January 1, 2015<br>
+                                Due: February 1, 2015
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+            <tr class="information">
+                <td colspan="4">
+                    <table>
+                        <tr>
+                            <td>
+                                Next Step Webs, Inc.<br>
+                                Tập đoàn Dabaco<br>
+                                Siêu thị Lý Thái Tổ, Bắc Ninh
+                            </td>
+
+                            <td>
+                                {{target.maKhachHang}}<br>
+                                {{target.tenKhachHang}}<br>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+            <tr class="heading">
+                <td>
+                    Mặt hàng
+                </td>
+
+                <td>
+                    Sl
+                </td>
+                <td>
+                    Đơn giá
+                </td>
+                <td>
+                    Thành tiền
+                </td>
+            </tr>
+            <tr class="item" ng-repeat="item in target.dataDetails">
+                <td>
+                    {{item.tenHang}}
+                </td>
+                <td>
+                    {{item.soLuong}}
+                </td>
+                <td>
+                    {{item.donGia}}
+                </td>
+                <td>
+                    {{item.thanhTien | number}}
+                </td>
+            </tr>
+            <tr class="total">
+                <td colspan="2">
+                    Chiết khấu
+                </td>
+                <td style="text-align:center">
+                    {{target.chietKhau}}%
+                </td>
+                <td>
+                    {{target.tienChietKhau | number}}
+                </td>
+            </tr>
+            <tr class="total">
+                <td colspan="2">
+                    VAT
+                </td>
+                <td style="text-align:center">
+                    10%
+                </td>
+                <td>
+                    {{target.tienVat | number}}
+                </td>
+            </tr>
+            <tr class="total">
+                <td colspan="2">
+                    Tổng tiền
+                </td>
+                <td></td>
+                <td>
+                    {{target.thanhTienSauVat | number}}
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+

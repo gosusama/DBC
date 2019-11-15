@@ -1,0 +1,291 @@
+﻿<form></form>
+<div>
+    <div>
+        <div class="modal-header">
+          <h3 class="modal-title" style="color:blue;">{{title()}}</h3>
+            <div class="button-close" ng-click="cancel()">
+                <i class="fa fa-times-circle"></i>
+            </div>
+        </div>
+        <div class="modal-body" ng-form name="_form">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="md-style-label-input">
+                            Mã phiếu kiểm kê <span style="color: red"></span>
+                        </div>
+                        <div class="md-4-style-input">
+                            <input class="input-border-form" type="text" ng-model="target.maPhieuKiemKe" maxlength="80" name="_maPhieuKiemKe" disabled>
+                            <span style="color: red" ng-show="_form._maPhieuKiemKe.$dirty && _form._maPhieuKiemKe.$invalid">
+                                <span ng-show="_form._maPhieuKiemKe.$error.required">Không được để trống</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="md-style-label-input">
+                            Mã kho kiểm kê
+                        </div>
+                        <div class="md-4-style-input">
+                            <input class="input-border-form" type="text" name="_khoKiemKe" focus="true" ng-model="target.khoKiemKe" maxlength="50" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="md-style-label-input">
+                            Tên kho kiểm kê
+                        </div>
+                        <div class="md-4-style-input">
+                            <input class="input-border-form" type="text" name="_tenKhoKiemKe" focus="true" ng-model="target.tenKhoKiemKe" maxlength="50" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="md-style-label-input">
+                            Ngày kiểm kê
+                        </div>
+                        <div class="md-4-style-input">
+                            <input class="input-border-form" type="text" name="_khoKiemKe" focus="true" ng-model="target.ngayKiemKe" maxlength="50" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="md-style-label-input">
+                            Loại vật tư kiểm kê
+                        </div>
+                        <div class="md-4-style-input">
+                            <input class="input-border-form" type="text" name="_loaiVatTuKK" focus="true" ng-model="target.loaiVatTuKK" maxlength="50" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="md-style-label-input">
+                            Nhóm vật tư kiểm kê
+                        </div>
+                        <div class="md-4-style-input">
+                            <input class="input-border-form" type="text" name="_nhomVatTuKK" focus="true" ng-model="target.nhomVatTuKK" maxlength="50" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="md-style-label-input">
+                            Kệ kiểm kê
+                        </div>
+                        <div class="md-4-style-input">
+                            <input class="input-border-form" type="text" name="_nhomVatTuKK" focus="true" ng-model="target.keKiemKe" disabled />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="md-style-label-input">
+                            Tên kệ kiểm kê
+                        </div>
+                        <div class="md-4-style-input">
+                            <input class="input-border-form" type="text" name="_nhomVatTuKK" focus="true" ng-model="target.keKiemKe" disabled />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="md-style-label-input">
+                            Mã đơn vị kiểm kê
+                        </div>
+                        <div class="md-4-style-input">
+                            <input class="input-border-form" type="text" name="_nhomVatTuKK" focus="true" ng-model="target.maDonVi" disabled />
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="modal-body">
+            <uib-tabset active="active">
+                <uib-tab index="0" heading="Chi tiết">
+                    <div id="myWorkContent">
+                        <table class="table table-bordered table-hover table-condensed">
+                            <thead>
+                                <tr style="font-weight: bold">
+                                    <th class="text-center" style="width: 3%">STT</th>
+                                    <th class="text-center" style="width: 5%">Mã vật tư</th>
+                                    <th class="text-center" style="width: 10%; max-width:150px !important;">Barcode</th>
+                                    <th class="text-center" style="width: 12%">Tên vật tư</th>
+                                    <th class="text-center" style="width: 5%">Kệ vật tư</th>
+                                    <th class="text-center" style="width: 5%">
+                                        <button type="button" class="btn btn-default btn-sm" ng-click="sortBy('soLuongTonMay')">
+                                            <span class="glyphicon glyphicon-filter" ng-show="propertyName === 'soLuongTonMay'" ng-class="{reverse: reverse}"></span> SL tồn máy
+                                        </button>
+                                    </th>
+                                    <th class="text-center" style="width: 5%">SL KK</th>
+                                    <th class="text-center" style="width: 5%; ">SL thừa</th>
+                                    <th class="text-center" style="width: 5%; ">SL thiếu</th>
+                                    <th class="text-center" style="width: 5%; ">Giá vốn</th>
+                                    <th class="text-center" style="width: 5%; ">TT thừa</th>
+                                    <th class="text-center" style="width: 5%;">TT thiếu</th>
+                                    <th class="text-center" style="width: 22%;">Nội dung</th>
+                                    <th class="text-center" style="width: 5%; "></th>
+                                </tr>
+                            </thead>
+                            <tbody ng-form name="_formAddDetail">
+
+                                <tr style="background:rgba(119, 119, 119, 0.48)">
+                                    <td style="text-align:center;"></td>
+                                    <td>
+                                        <input id="_maVatTu" type="text" style="width:100%;" name="_maHang" ng-model="newItem.maVatTu" maxlength="50" /><!--ng-blur="selectedMaHang(newItem.maVatTu)"-->
+                                    </td>
+                                    <td nowrap style="width: 120px; max-width: 150px;">
+                                        <input type="text" style="text-align: center;" ng-model="newItem.barcode" disabled>
+                                    </td>
+                                    <td>
+                                        <input type="text" style="text-align:center; width:100%" ng-model="newItem.tenVatTu" disabled>
+                                    </td>
+                                    <td>
+                                        <input type="text" style="text-align:center; width:100%" ng-model="newItem.keKiemKe" disabled>
+                                    </td>
+                                    <td>
+                                        <input format-number-input="number" style="text-align:center; width:100%" ng-model="newItem.soLuongTonMay" disabled>
+                                    </td>
+                                    <td>
+                                        <input format-number-input="number" style="text-align:right; width:100%" ng-model="newItem.soLuongKiemKe">
+                                    </td>
+                                    <td>
+                                        <input format-number-input="number" style="text-align:right; width:100%" ng-show="newItem.soLuongKiemKe > newItem.soLuongTonMay" ng-value="newItem.soLuongKiemKe - newItem.soLuongTonMay" ng-model="newItem.soLuongThua" disabled>
+                                    </td>
+                                    <td>
+                                        <input format-number-input="number" style="text-align:right; width:100%" ng-show="newItem.soLuongKiemKe < newItem.soLuongTonMay" ng-value="newItem.soLuongTonMay - newItem.soLuongKiemKe" ng-model="newItem.soLuongThieu" disabled>
+                                    </td>
+                                    <td>
+                                        <input format-number-input="number" style="text-align:right; width:100%" ng-model="newItem.giaVon" disabled />
+                                    </td>
+                                    <td>
+                                        <input format-number-input="number" style="text-align: right; width: 100%" ng-show="newItem.soLuongKiemKe > newItem.soLuongTonMay" ng-value="(newItem.soLuongTonMay - newItem.soLuongKiemKe)*newItem.giaVon" ng-model="newItem.ttThua" disabled />
+                                    </td>
+                                    <td>
+                                        <input format-number-input="number" style="text-align:right; width:100%" ng-show="newItem.soLuongKiemKe < newItem.soLuongTonMay" ng-value="(newItem.soLuongKiemKe - newItem.soLuongTonMay)*newItem.giaVon" ng-model="newItem.ttThieu" disabled />
+                                    </td>
+                                    <td>
+                                        <input type="text" style="text-align:left; width:100%" ng-model="newItem.ghiChu" />
+                                    </td>
+                                    <td style="white-space: nowrap" class="text-center">
+                                        <div class="form-buttons form-inline">
+                                            <button prevent-default type="button" ng-disabled="_formAddDetail.$invalid" ng-click="addRow()" class="btn btn-default btn-sm btn-sm-add-item">{{config.label.btnCreate}}</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tbody ng-form name="_formDetail">
+                                <tr ng-if="isLoading">
+                                    <td colspan="16"><my-loading></my-loading></td>
+                                </tr>
+                                <tr ng-repeat="item in target.dataDetails | filter : newItem.maVatTu track by $index " ng-if="item.keKiemKe === target.keKiemKe">
+                                    <td class="text-center">{{$index + 1}}</td>
+                                    <td>
+                                        {{item.maVatTu}}
+                                    </td>
+                                    <td style="word-wrap: break-word;">
+                                        <input type="text" ng-value="item.barcode" disabled="">
+                                    </td>
+                                    <td>
+                                        {{item.tenVatTu}}
+                                    </td>
+                                    <td>
+                                        {{item.keKiemKe}}
+                                    </td>
+                                    <td>
+                                        <input format-number-input="number" style="text-align:right; width:100%" ng-model="item.soLuongTonMay" disabled="" />
+                                    </td>
+                                    <td>
+                                        <input format-number-input="number" style="text-align:right; width:100%" ng-model="item.soLuongKiemKe" />
+                                    </td>
+                                    <td>
+                                        <input format-number-input="number" style="text-align:right; width:100%" ng-show="item.soLuongKiemKe > item.soLuongTonMay" ng-value="item.soLuongKiemKe - item.soLuongTonMay" ng-model="item.soLuongThua" disabled>
+                                    </td>
+                                    <td>
+                                        <input format-number-input="number" style="text-align:right; width:100%" ng-show="item.soLuongTonMay > item.soLuongKiemKe" ng-value="item.soLuongTonMay - item.soLuongKiemKe" ng-model="item.soLuongThieu" disabled>
+                                    </td>
+                                    <td>
+                                        <input format-number-input="number" style="text-align: right; width: 100%" ng-model="item.giaVon" disabled>
+                                    </td>
+                                    <td>
+                                        <input format-number-input="number" style="text-align:right; width:100%" ng-show="item.soLuongKiemKe > item.soLuongTonMay" ng-value="(item.soLuongKiemKe - item.soLuongTonMay)*item.giaVon | number" ng-model="item.thanhTienThua" disabled>
+                                    </td>
+                                    <td>
+                                        <input format-number-input="number" style="text-align:right; width:100%" ng-show="item.soLuongTonMay > item.soLuongKiemKe" ng-value="(item.soLuongTonMay - item.soLuongKiemKe)*item.giaVon | number" ng-model="item.thanhTienThieu" disabled>
+                                    </td>
+                                    <td>
+                                        <input type="text" style="text-align:left; width:100%" ng-model="item.ghiChu">
+                                    </td>
+                                    <td style="white-space: nowrap">
+                                        <!-- form -->
+                                        <div class="form-buttons form-inline">
+                                            <button prevent-default type="button" style="height: 20px; line-height: 2px;background: rgba(255, 213, 93, 0.61);" ng-click="removeItem($index)" class="btn btn-default btn-sm">
+                                                Xóa
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="panel-footer">
+                        <uib-pagination class="no-margin-vertical pagination-sm" ng-model="paged.currentPage"
+                                        ng-change="pageChanged()"
+                                        items-per-page="paged.itemsPerPage" ng-show="paged.totalItems > 0" total-items="paged.totalItems" max-size="paged.pageSize"
+                                        boundary-links="true" num-pages="paged.totalPage"
+                                        previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;">
+                        </uib-pagination>
+                    </div>
+                </uib-tab>
+
+                <uib-tab index="0" heading="Mã không thuộc kệ">
+                    <div>
+                        <table class="table table-bordered table-hover table-condensed">
+                            <thead>
+                                <tr style="font-weight: bold">
+                                    <th class="text-center" style="width: 3%">STT</th>
+                                    <th class="text-center" style="width: 5%">Mã vật tư</th>
+                                    <th class="text-center" style="width: 10%;max-width:150px !important;">Barcode</th>
+                                    <th class="text-center" style="width: 12%">Tên vật tư</th>
+                                    <th class="text-center" style="width: 10%">Đang thuộc kệ</th>
+                                    <th class="text-center" style="width: 10%">Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody ng-form name="_formNotIn">
+                                <tr ng-if="isLoading">
+                                    <td colspan="16"><my-loading></my-loading></td>
+                                </tr>
+                                <tr ng-repeat="item in target.dataDetails | filter : newItem.maVatTu track by $index" ng-if="item.keKiemKe !== target.keKiemKe">
+                                    <td class="text-center">{{$index + 1}}</td>
+                                    <td>
+                                        {{item.maVatTu}}
+                                    </td>
+                                    <td style="word-wrap: break-word;">
+                                        <input type="text" ng-value="item.barcode" disabled="">
+                                    </td>
+                                    <td>
+                                        {{item.tenVatTu}}
+                                    </td>
+                                    <td>
+                                        {{item.keKiemKe}}
+                                    </td>
+                                    <td style="white-space: nowrap">
+                                        <div class="form-buttons form-inline">
+                                            <button prevent-default type="button" style="height: 20px; line-height: 2px;background: rgba(255, 213, 93, 0.61);" ng-click="removeMaHang($index)" class="btn btn-default btn-sm">
+                                                Xóa
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </uib-tab>
+            </uib-tabset>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button prevent-default type="submit" class="btn btn-primary" ng-click="save()">{{config.label.btnSubmit}}</button>
+        <button prevent-default class="btn btn-default" ng-click="cancel()"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;{{config.label.btnCancel}}</button>
+    </div>
+</div>

@@ -1,0 +1,152 @@
+﻿
+<div class="container">
+    <style type="text/css">
+        .row {
+            padding: 10px 0px;
+            font-size: 15px;
+            color: black;
+            margin-left: 40px;
+        }
+
+        .col-6.col-md-2 {
+            width: 17%;
+        }
+
+        .col-6.col-md-1 {
+            width: 5%;
+            margin-top: 5px;
+        }
+    </style>
+
+    <div class="row">
+        <div class="col-md-10">
+            <div class="panel panel-primary" ng-form name="_form">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <span class="glyphicon glyphicon-bookmark"></span> BÁO CÁO TỒN KHO
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-6 col-md-2">
+                            <label for="kho">Đơn vị</label>&nbsp;&nbsp;&nbsp;
+                        </div>
+                        <div class="col-6 col-md-1">
+                        </div>
+                        <div class="col-6 col-md-6">
+                            <select class="form-control" ng-model="target.unitCode" ng-options="opt.value as opt.text for opt in unitUsers" required>
+                                <option value="">-</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6 col-md-2">
+                            <label for="kho">Từ Ngày</label>
+                        </div>
+                        <div class="col-6 col-md-1">
+                        </div>
+                        <div class="col-6 col-md-6">
+                            <div class="add-input-zone">
+                                <input class="form-control" type="text" ng-model="target.toDate" placeholder="{{config.dateFormat}}"
+                                       uib-datepicker-popup="{{config.dateFormat}}" is-open="toDate" datepicker-localdate datepicker-options="options" required />
+                                <div class="button-calender" ng-click="toDate = !toDate; config.delegateEvent($event);">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 col-md-2">
+                            <label for="kho">Đến Ngày</label>
+                        </div>
+                        <div class="col-6 col-md-1">
+                        </div>
+                        <div class="col-6 col-md-6">
+                            <div class="add-input-zone">
+                                <input class="form-control" type="text" ng-model="target.fromDate" placeholder="{{config.dateFormat}}"
+                                       uib-datepicker-popup="{{config.dateFormat}}" is-open="fromDate" datepicker-localdate datepicker-options="options" required />
+                                <div class="button-calender" ng-click="fromDate = !fromDate; config.delegateEvent($event);">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Nhóm theo Trạng thái -->
+                    <div class="row">
+                        <div class="col-6 col-md-2">
+                            <label for="ttdh">Tìm theo trạng thái đặt hàng</label>
+                        </div>
+                        <div class="col-6 col-md-1">
+                            <input id="ttdh" type="radio" ng-model="groupBy" value="1" />
+                        </div>
+                        <div class="col-6 col-md-6">
+                            <select class="form-control" ng-model="target.trangThaiDatHang" ng-options="opt.value as opt.text for opt in tempData('trangThaiDonHang')"></select>
+                        </div>
+                    </div>
+                    <!-- END Nhóm theo Trạng thái -->
+                    <!--Nhóm theo Nhân viên -->
+                    <div class="row">
+                        <div class="col-6 col-md-2">
+                            <label for="nvc">Tìm theo nhân viên thụ hưởng</label>
+                        </div>
+                        <div class="col-6 col-md-1">
+                            <input id="nvc" type="radio" ng-model="groupBy" value="2" />
+                        </div>
+                        <div class="col-6 col-md-6">
+                            <input type="text" class="form-control" tabindex="4" ng-model="nhanVienCodes" placeholder="Ví dụ NV00001,NV00002,NV00003" ng-blur="changeMerchandise(merchandiseCodes);">
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <button type="button" class="btn btn-primary" ng-click="selectNhanVien()">Nhân viên</button>
+                        </div>
+                    </div>
+                    <!-- END Nhóm theo Nhân viên -->
+                    <!--Nhóm Nhà cung cấp -->
+                    <div class="row">
+                        <div class="col-6 col-md-2">
+                            <label for="ncc">Theo Khách hàng</label>
+                        </div>
+                        <div class="col-6 col-md-1">
+                            <input id="ncc" type="radio" ng-model="groupBy" value="4" />
+                        </div>
+                        <div class="col-6 col-md-6">
+                            <input type="text" class="form-control" tabindex="5" ng-model="nhaCungCapCodes" placeholder="Ví dụ KH00001,KH00002,KH00003" ng-blur="changeNhaCungCap(nhaCungCapCodes);">
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <button type="button" class="btn btn-primary" ng-click="selectNhaCungCap()">Nhà cung cấp</button>
+                        </div>
+                    </div>
+                    <!-- END Nhóm Nhà cung cấp -->
+                    <!--Nhóm Hàng hóa -->
+                    <div class="row">
+                        <div class="col-6 col-md-2">
+                            <label for="hang">Hàng hóa</label>
+                        </div>
+                        <div class="col-6 col-md-1">
+                            <input id="hang" type="radio" ng-model="groupBy" value="3" />
+                        </div>
+                        <div class="col-6 col-md-6">
+                            <input type="text" class="form-control" tabindex="4" ng-model="merchandiseCodes" placeholder="Ví dụ A00001,A00002,A00003" ng-blur="changeMerchandise(merchandiseCodes);">
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <button type="button" class="btn btn-primary" ng-click="selectMerchandise()">Hàng hóa</button>
+                        </div>
+                    </div>
+                    <!--END Nhóm Hàng hóa -->
+
+                    <div class="row" style="margin-top:30px;">
+                        <div class="col-6 col-md-3"></div>
+                        <!--<div class="col-6 col-md-2">
+                            <button class="btn btn-primary form-control" prevent-default ng-click="xuLyTonAm()">Xử lý hàng tồn âm</button>
+                        </div>-->
+                        <div class="col-6 col-md-2">
+                            <button class="btn btn-primary form-control" prevent-default ng-click="exportExcel()">Báo cáo chi tiết</button>
+                        </div>
+                        <div class="col-6 col-md-2">
+                            <button class="btn btn-primary form-control" prevent-default ng-click="report()">Báo cáo tổng</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,20 @@
+﻿<div>
+    <div class="modal-header">
+        <h3 class="modal-title">{{title}}</h3>
+    </div>
+    <div class="modal-body">
+        <ul class="list-group">
+            <li class="list-group-item" ng-repeat="item in data">
+                {{item.tenchucnang}}
+                <span class="badge badge-inverse" ng-if="item.duyet">Duyệt</span>
+                <span class="badge badge-error" ng-if="item.xoa">Xóa</span>
+                <span class="badge badge-warning" ng-if="item.sua">Sửa</span>
+                <span class="badge badge-info" ng-if="item.them">Thêm</span>
+                <span class="badge badge-success" ng-if="item.xem">Xem</span>
+            </li>
+        </ul>
+    </div>
+    <div class="modal-footer">
+        <button prevent-default class="btn btn-default" ng-click="cancel()"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;{{config.label.btnCancel}}</button>
+    </div>
+</div>

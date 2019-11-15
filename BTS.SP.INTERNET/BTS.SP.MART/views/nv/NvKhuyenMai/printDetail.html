@@ -1,0 +1,147 @@
+﻿
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="button-close" ng-click="goIndex()">
+            <i class="fa fa-times-circle"></i>
+        </div>
+        <div class="btn-group">
+            <button class="btn btn-default" prevent-default title="In danh sách" ng-click="print()"><span class="fa fa-print"></span>&ensp;In</button>
+            <button class="btn btn-default" prevent-default title="In danh sách" ng-click="printExcel()"><span class="fa fa-print"></span>&ensp;Xuất Excel</button>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div>
+            <br />
+            <div id="dataTable">
+                <style>
+                    table, th, td {
+                        border: 1px solid black;
+                        border-collapse: collapse;
+                    }
+
+                    th, td {
+                        padding: 5px;
+                    }
+
+                    table {
+                        margin: 5px auto 5px auto;
+                    }
+                    .title-print
+                    {
+                        margin-bottom: 15px;
+                    }
+                </style>
+                <div class="text-center title-print">
+                    <h3>Danh sách chi tiết chương trình khuyến mại</h3>
+                    <br />
+                    <label>Từ ngày {{info.tuNgay | date: "dd/MM/yyyy"}} đến ngày {{info.denNgay | date: "dd/MM/yyyy"}}</label>
+                </div>
+                <div>
+                        Loại chương trình:
+                        <br />1: Mua hàng tặng hàng
+                        <br />2: KM loại mặt hàng
+                        <br />3: KM Nhóm hàng
+                        <br />4: KM Nhà cung cấp
+                </div>
+                <table style="width:100%">
+                    <thead>
+                        <tr>
+                            <th class="text-center" style="width:50%">Thông tin</th>
+                            <th class="text-center" style="width:50%">Chi tiết</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in printData">
+                            <td class="text-center">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>
+                                                Mã CT
+                                            </th>
+                                            <th>
+                                                Từ ngày
+                                            </th>
+                                            <th>
+                                                Đến ngày
+                                            </th>
+                                            <th>
+                                                Nội dung
+                                            </th>
+                                            <th>
+                                                Giá trị KM
+                                            </th>
+                                            <th>
+                                                Tỷ lệ KM
+                                            </th>
+                                            <th>
+                                                Mã Kho xuất
+                                            </th>
+                                            <th>
+                                                Mã kho xuất KM
+                                            </th>
+                                            <th>
+                                                Trạng thái
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tr>
+                                        <td class="text-center">{{$index + 1}}</td>
+                                        <td>{{item.maChuongTrinh}}</td>
+                                        <td>{{item.tuNgay | date : "dd/MM/yyyy"}}</td>
+                                        <td>{{item.denNgay | date : "dd/MM/yyyy"}}</td>
+                                        <td>{{item.noiDung}}</td>
+                                        <td>{{item.giaTriKhuyenMai}}</td>
+                                        <td>{{item.tyLeKhuyenMai}}</td>
+                                        <td>{{item.maKhoXuat}}</td>
+                                        <td>{{item.maKhoXuatKhuyenMai}}</td>
+                                        <td ng-class="item.trangThai == 10 ? 'is-approval' : 'not-approval-yet' ">{{item.trangThai | approval}}</td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td class="text-center">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">STT</th>
+                                            <th class="text-center">Loại CT</th>
+                                            <th class="text-center">Mã hàng</th>
+                                            <th class="text-center">Số lượng</th>
+                                            <th class="text-center">Tỷ lệ KM</th>
+                                            <th class="text-center">Mã hàng KM</th>
+                                            <th class="text-center">Số lượng KM</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="detail in item.dataDetails">
+                                            <td>{{$index + 1}}</td>
+                                            <td>
+                                                {{detail.loaiChuongTrinh}}
+                                            </td>
+                                            <td>
+                                                {{detail.maHang}}
+                                            </td>
+                                            <td style="text-align:center;">
+                                                {{detail.soLuong | number}}
+                                            </td>
+                                            <td style="text-align:center;">
+                                                {{detail.tyLeKhuyenMai | number}}
+                                            </td>
+                                            <td>
+                                                {{detail.maHangKhuyenMai}}
+                                            </td>
+                                            <td style="text-align:center;">
+                                                {{detail.soLuongKhuyenMai | number}}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+</tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

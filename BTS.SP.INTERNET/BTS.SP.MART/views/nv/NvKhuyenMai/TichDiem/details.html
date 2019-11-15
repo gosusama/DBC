@@ -1,0 +1,126 @@
+﻿<form></form><!-- KHông hiểu sao để thế này thì nó mới không bị lỗi T_T-->
+<div>
+    <div>
+        <div class="modal-header">
+          <h3 class="modal-title" style="color:blue;">{{title()}}</h3>
+            <div class="button-close" ng-click="cancel()">
+                <i class="fa fa-times-circle"></i>
+            </div>
+        </div>
+        <div class="modal-body" ng-form name="_form">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="md-style-label-input">
+                            Số phiếu <span style="color:red">(*)</span>
+                        </div>
+                        <div class="md-4-style-input">
+                            <input disabled class="input-border-form" type="text" ng-model="target.maChuongTrinh" name="_soPhieu" maxlength="50" required>
+                            <span style="color:red" ng-show="_form._soPhieu.$dirty && _form._soPhieu.$invalid">
+                                <span ng-show="_form._soPhieu.$error.required">Không được để trống</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="md-style-label-input">
+                            Từ Ngày <span style="color:red"></span>
+                        </div>
+                        <div class="md-4-style-input">
+                            <div class="add-input-zone">
+                                <input disabled class="input-border-form" type="text" ng-model="target.tuNgay" placeholder="{{config.dateFormat}}"
+                                       uib-datepicker-popup="{{config.dateFormat}}" is-open="_tuNgay" datepicker-localdate />
+                                <div class="button-calender" ng-click="_tuNgay = !_tuNgay; config.delegateEvent($event);">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="md-style-label-input">
+                            Đến Ngày <span style="color:red"></span>
+                        </div>
+                        <div class="md-4-style-input">
+                            <div class="add-input-zone">
+                                <input disabled class="input-border-form" type="text" ng-model="target.denNgay" placeholder="{{config.dateFormat}}"
+                                       uib-datepicker-popup="{{config.dateFormat}}" is-open="_denNgay" datepicker-localdate />
+                                <div class="button-calender" ng-click="_denNgay = !_denNgay; config.delegateEvent($event);">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="md-style-label-input">
+                            Từ giờ
+                        </div>
+                        <div class="md-4-style-input">
+                            <input disabled class="input-border-form" name="_noiDung" type="text" ng-model="target.tuGio" placeholder="00:00 - 23:59" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="md-style-label-input">
+                            Đến giờ
+                        </div>
+                        <div class="md-4-style-input">
+                            <input disabled class="input-border-form" name="_noiDung" type="text" ng-model="target.denGio" placeholder="00:00 - 23:59" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="md-style-label-input">
+                            Trạng thái <span style="color:red"></span>
+                        </div>
+                        <div class="md-4-style-input">
+                            <select style="width:100%;padding:5px;" class="input-border-form" ng-model="target.trangThai" ng-options="opt.value as opt.text for opt in tempData('status')" disabled></select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="md-style-label-input">
+                            Nội dung
+                        </div>
+                        <div class="md-8-style-input">
+                            <input disabled class="input-border-form" name="_noiDung" type="text" ng-model="target.noiDung" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="md-style-label-input">
+                            Hạng khách hàng
+                        </div>
+                        <div class="md-4-style-input">
+                            <select class="form-control" ng-model="target.hangKhachHang" ng-options="opt.value as opt.text for opt in tempData('hangKhs')" disabled>
+                                <option value="">-</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="md-style-label-input">
+                            Kho KM <span style="color:red">(*)</span>
+
+                        </div>
+                        <div class="md-8-style-input">
+                            <button type="button" style="display:inline" class="btn-primary input-border-form" ng-click="selectWareHouse()">Chọn Kho</button>
+                            <input disabled type="text" class="form-control" style="display:inline; width:500px;" ng-model="target.maKhoXuatKhuyenMai" placeholder="Ví dụ DV1-CH1-K1,DV1-CH1-K2" ng-blur="changewareHouseCodes(wareHouseCodes);">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button prevent-default class="btn btn-default" ng-click="cancel()"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;{{config.label.btnCancel}}</button>
+    </div>
+</div>

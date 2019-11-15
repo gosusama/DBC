@@ -1,0 +1,180 @@
+﻿<style>
+    .img-preview {
+        border: 1px solid #000;
+        border-radius: 5px;
+        height: 150px;
+        width: auto;
+        margin: 0 10px;
+    }
+
+    .modal-body {
+        font-family: Arial;
+        font-size: 12px;
+    }
+</style>
+<div>
+    <div class="modal-header">
+        <h3 class="modal-title">{{title()}} {{lbl.lblCreate}}</h3>
+        <div class="button-close" ng-click="cancel()">
+            <i class="fa fa-times-circle"></i>
+        </div>
+    </div>
+    <div class="modal-body">
+        <form role="form" name="_form">
+            <div class="row form-group" style="margin-top:20px;">
+                <div class="col-lg-8">
+                    <div class="row form-group" style="padding-bottom:20px;">
+                        <div class="col-lg-3">
+                            <label style="color: blue;">Mã loại vật tư</label>
+                            <select style="font-weight: bold;color:  black;" class="form-control edit-width-select" ng-model="target.maLoaiVatTu" ng-options="opt.value as opt.text for opt in tempData('merchandiseTypesRoot')"></select>
+                        </div>
+                        <div class="col-lg-3">
+                            <label style="color: blue;">Mã nhóm vật tư</label>
+                            <select style="font-weight: bold;color:  black;" class="form-control edit-width-select" ng-model="target.maNhomVatTu" ng-options="opt.value as opt.text for opt in tempData('nhomVatTusRoot')"></select>
+                        </div>
+                        <div class="col-lg-3">
+                            <label style="color: blue;">Gõ barcode và enter</label>
+                            <input style="font-weight: bold;color:  black;" type="text" class="form-control" placeholder="Gõ barcode và enter" ng-model="target.newBarcode" disabled=""/>
+                        </div>
+                        <div class="col-lg-3">
+                            <label style="color: blue;">DS Barcode</label>
+                            <input style="font-weight: bold;color:  black;" type="text" class="form-control" ng-model="target.barcode" disabled=""/>
+                        </div>
+                    </div>
+                    <div class="row form-group" style="padding-bottom:20px;">
+                        <div class="col-lg-3">
+                            <label style="color: blue;">Mã hàng hóa/vật tư</label>
+                            <span style="color: red;font-weight: bold;"> (1*)</span>
+                            <input style="font-weight: bold;color:  black;" type="text" class="form-control" ng-model="target.maVatTu" name="_maVatTu" maxlength="50" disabled>
+                            <span style="color:red" ng-show="_form._maVatTu.$dirty && _form._maVatTu.$invalid">
+                                <span ng-show="_form._maVatTu.$error.required">Không được để trống</span>
+                            </span>
+                        </div>
+                        <div class="col-lg-3">
+                            <label style="color: blue;">Tên hàng hóa/vật tư</label>
+                            <span style="color: red;font-weight: bold;"> (2*)</span>
+                            <input style="font-weight: bold;color:  black;" type="text" class="form-control" ng-model="target.tenVatTu" name="_tenHang" maxlength="500" disabled>
+                            <span style="color:red" ng-show="_form._tenHang.$dirty && _form._tenHang.$invalid">
+                                <span ng-show="_form._tenHang.$error.required">Không được để trống</span>
+                            </span>
+                        </div>
+                        <div class="col-lg-3">
+                            <label style="color: blue;">Tên viết tắt</label>
+                            <input style="font-weight: bold;color:  black;" type="text" class="form-control" ng-model="target.tenVietTat">
+                        </div>
+                        <div class="col-lg-3">
+                            <label style="color: blue;" for="can-dien-tu">Mã cân</label>
+                            <input id="can-dien-tu" type="checkbox" ng-checked="target.itemCode != null" ng-model="target.isCanDienTu" name="_candientu">
+                            <input style="font-weight: bold;color:  black;" type="text" class="form-control" ng-value="target.itemCode != 0 ? target.itemCode : '' " name="_itemCode" maxlength="50" disabled>
+                        </div>
+                    </div>
+                    <div class="row form-group" style="padding-bottom:20px;">
+                        <div class="col-lg-3">
+                            <label style="color: blue;">Quy cách</label>
+                            <input style="font-weight: bold;color:  black;" class="form-control" disabled ng-model="searchMaBaoBi" />
+                        </div>
+                        <div class="col-lg-3">
+                            <label style="color: blue;">Mã bao bì</label>
+                            <select style="font-weight: bold;color:  black;" class="form-control" ng-model="target.maBaoBi" ng-options="opt.value as opt.text for opt in tempData('packagingsRoot')" disabled></select>
+                        </div>
+                        <div class="col-lg-3">
+                            <label style="color: blue;">Mã NCC</label>
+                            <span style="color: red;font-weight: bold;"> (3*)</span>
+                            <select style="font-weight: bold;color:  black;" class="form-control" ng-model="target.maKhachHang" ng-options="opt.value as opt.text for opt in tempData('suppliersRoot')" disabled></select>
+                        </div>
+                        <div class="col-lg-3">
+                            <label style="color: blue;">Đơn vị tính</label>
+                            <select style="font-weight: bold;color:  black;" class="form-control" ng-model="target.donViTinh" ng-options="opt.value as opt.text for opt in tempData('donViTinhsRoot')" disabled></select>
+                        </div>
+                    </div>
+                    <div class="row form-group" style="padding-bottom:20px;">
+                        <div class="col-lg-3">
+                            <label style="color: blue;">Mã size</label>
+                            <tags-input ng-model="target.maSizes" track-by-expr="$index" key-property="value" display-property="text" placeholder="Gõ để thêm size">
+                                <auto-complete source="tempData('sizes')" load-on-focus="true" load-on-empty="true" max-results-to-show="32"></auto-complete>
+                            </tags-input>
+                        </div>
+                        <div class="col-lg-3">
+                            <label style="color: blue;">Mã màu</label>
+                            <tags-input ng-model="target.maColors" track-by-expr="$index" key-property="value" display-property="text" placeholder="Gõ để thêm màu">
+                                <auto-complete source="tempData('colors')" load-on-focus="true" load-on-empty="true" max-results-to-show="32"></auto-complete>
+                            </tags-input>
+                        </div>
+                        <div class="col-lg-3">
+                            <label style="color: blue;">Mã kệ hàng</label>
+                            <select style="font-weight: bold;color:  black;" class="form-control" ng-model="target.maKeHang" ng-options="opt.value as opt.text for opt in tempData('shelvesRoot')" disabled></select>
+                        </div>
+                        <div class="col-lg-3">
+                            <label style="color: blue;">Trạng thái</label>
+                            <select style="font-weight: bold;color:  black;" class="form-control" ng-model="target.trangThai" ng-options="opt.value as opt.text for opt in tempData('status')"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4" style="border-left:  1px solid;">
+                    <!---Giá bán-->
+                    <div class="row form-group" style="padding-bottom:10px;">
+                        <div class="col-lg-6">
+                            <label style="color: blue;">VAT vào</label>
+                            <span style="color: red">(*)</span>
+                            <select style="font-weight: bold;color:  black;" class="form-control" ng-model="target.maVatVao"  ng-options="opt.value as opt.text for opt in tempData('taxsRoot')" required></select>
+                        </div>
+                    </div>
+                    <div class="row form-group" style="padding-bottom:10px;">
+                        <div class="col-lg-6">
+                            <label style="color: blue;">Giá mua</label>
+                            <input style="font-weight: bold;color:  black;text-align:right;" class="form-control" type="text" ng-model="target.giaMua" awnum="number" />
+                        </div>
+                        <div class="col-lg-6">
+                            <label style="color: blue;">Giá mua có vat</label>
+                            <input style="font-weight: bold;color:  black; text-align:right;" class="form-control" ng-model="target.giaMuaVat"  awnum="number" />
+                        </div>
+                    </div>
+
+                    <div class="row form-group" style="padding-bottom:10px;">
+                        <div class="col-lg-6">
+                            <label style="color: blue;">Tỷ lệ lãi lẻ</label>
+                            <input style="font-weight: bold;color:  black;text-align:right;" class="form-control" type="text" ng-model="target.tyLeLaiLe"  awnum="number" />
+                        </div>
+                        <div class="col-lg-6">
+                            <label style="color: blue;">Giá bán lẻ</label>
+                            <input style="font-weight: bold;color:  black;text-align:right;" class="form-control" type="text" ng-model="target.giaBanLe" awnum="number" />
+                        </div>
+                    </div>
+                    <div class="row form-group" style="padding-bottom:10px;">
+                        <div class="col-lg-6">
+                            <label style="color: blue;">Tỷ lệ lãi buôn</label>
+                            <input style="font-weight: bold;color:  black;text-align:right;" class="form-control" type="text" ng-model="target.tyLeLaiBuon" awnum="number" />
+                        </div>
+                        <div class="col-lg-6">
+                            <label style="color: blue;">Giá bán buôn</label>
+                            <input style="font-weight: bold;color:  black;text-align:right;" class="form-control" type="text" ng-model="target.giaBanBuon" awnum="number" />
+                        </div>
+                    </div>
+                    <div class="row form-group" style="padding-bottom:10px;">
+                        <div class="col-lg-6">
+                            <label style="color: blue;">VAT ra</label>
+                            <span style="color: red">(*)</span>
+                            <select style="font-weight: bold;color:  black;" class="form-control" ng-model="target.maVatRa"  ng-options="opt.value as opt.text for opt in tempData('taxsRoot')" required></select>
+                        </div>
+                    </div>
+                    <div class="row form-group" style="padding-bottom:10px;">
+                        <div class="col-lg-6">
+                            <label style="color: blue;">Giá bán lẻ Vat</label>
+                            <input style="font-weight: bold;color:  black;text-align:right;" class="form-control" type="text" ng-model="target.giaBanLeVat" awnum="number" />
+                        </div>
+                        <div class="col-lg-6">
+                            <label style="color: blue;">Giá bán buôn Vat</label>
+                            <input style="font-weight: bold;color:  black;text-align:right;" class="form-control" type="text" ng-model="target.giaBanBuonVat"  awnum="number" />
+                        </div>
+                    </div>
+                    <!--End giá bán-->
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button prevent-default class="btn btn-default" ng-click="cancel()">
+            <i class="fa fa-arrow-left"></i>&nbsp;&nbsp;{{config.label.btnCancel}}
+        </button>
+    </div>
+</div>

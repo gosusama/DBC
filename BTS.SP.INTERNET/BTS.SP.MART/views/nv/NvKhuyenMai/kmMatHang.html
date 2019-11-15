@@ -1,0 +1,111 @@
+﻿<style>
+    .modal-body {
+        font-family: Arial;
+        font-size: 18px;
+    }
+</style>
+<form></form><!-- KHông hiểu sao để thế này thì nó mới không bị lỗi T_T-->
+<div>
+    <div>
+        <div class="modal-header">
+          <h3 class="modal-title" style="color:blue;">{{title()}}</h3>
+            <div class="button-close" ng-click="cancel()">
+                <i class="fa fa-times-circle"></i>
+            </div>
+        </div>
+        <div class="modal-body row" ng-form name="_form">
+            <div class="form-groups">
+                <div class="hang-km row" style="padding-left:50px;">
+                    <label>Tải file Excel import khuyến mãi</label>
+                    <div class="row">
+                        <button type="button" ng-click="downloadTemplate()" class="btn btn-success" style="padding: 0px 20px 1px 3px;margin: 0 0 7px 31px;">Tải Template Excel</button>
+                    </div>
+                </div>
+                <br />
+                <div class="hang-km row" style="padding-left:50px;">
+                    <label>Upload file Excel import khuyến mãi</label>
+                    <div class="row" nv-file-drop="" uploader="uploader" filters="queueLimit, customFilter">
+                        <div class="col-md-6">
+                            <input type="file" nv-file-select="" uploader="uploader" /><br />
+                        </div>
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-success btn-xs" ng-click="uploader.queue[0].upload()" ng-disabled="uploader.queue[0].isReady || uploader.queue[0].isUploading || uploader.queue[0].isSuccess">
+                                <span class="glyphicon glyphicon-upload"></span> Upload
+                            </button>
+                            <button type="button" class="btn btn-warning btn-xs" ng-click="uploader.queue[0].cancel()" ng-disabled="!uploader.queue[0].isUploading">
+                                <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+                            </button>
+                            <button type="button" class="btn btn-danger btn-xs" ng-click="uploader.queue[0].remove()">
+                                <span class="glyphicon glyphicon-trash"></span> Remove
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <br />
+            </div>
+            <div class="form-groups">
+                <div class="hang-km row">
+                    <label>Hàng khuyến mãi:</label>
+                    <table class="table table-bordered" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th style="width:1%;text-align:center;">STT</th>
+                                <th style="width:5%;text-align:center;">Mã hàng<span style="color:red;">(*)</span></th>
+                                <th style="width:17%;text-align:center;">Tên hàng<span style="color:red;">(*)</span></th>
+                                <th style="width:6%;text-align:center;">Số lượng<span style="color:red;">(*)</span></th>
+                                <th style="width:6%;text-align:center;">Tỷ lệ KM (%)<span style="color:red;">(*)</span></th>
+                                <th style="width:6%;text-align:center;">Đơn giá KM (VNĐ)<span style="color:red;">(*)</span></th>
+                                <th style="width:2%;text-align:center;"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="background:rgba(119, 119, 119, 0.48)" ng-enter="addRow()">
+                                <th scope="row" style="text-align:center;">*</th>
+                                <td><input style="width:100%" ng-model="newItem.maHang" id="maHang" class="form-control" ng-blur="selectedMaHang(newItem.maHang)" ng-enter="selectedMaHang(newItem.maHang)" maxlength="50" required /></td>
+                                <td><input style="width:100%" class="form-control" id="tenHang" ng-model="newItem.tenHang" disabled /></td>
+                                <td><input style="width:100%;text-align:right;" class="form-control" id="soLuong" ng-model="newItem.soLuong" awnum="number" /></td>
+                                <td><input style="width:100%;text-align:right;" class="form-control" id="tyLeKhuyenMai" ng-model="newItem.tyLeKhuyenMai" ng-change="robot.changeTyLeKhuyenMai(newItem)" awnum="number" /></td>
+                                <td><input style="width:100%;text-align:right;" class="form-control" id="giaTriKhuyenMai" ng-model="newItem.giaTriKhuyenMai" awnum="number" disabled /></td>
+                                <td style="white-space: nowrap" class="text-center">
+                                    <div class="form-buttons form-inline">
+                                        <a>
+                                            <span class="fa fa-plus-circle" ng-disabled="_formAddDetail.$invalid" ng-click="addRow()"></span>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody ng-form name="_parentForm">
+                            <tr ng-repeat="item in data | orderBy:$index : true">
+                                <th scope="row" style="text-align:center;">{{$index+1}}</th>
+                                <td><input ng-model="item.maHang" class="form-control" style="width:100%" disabled /></td>
+                                <td><input ng-model="item.tenHang" class="form-control" style="width:100%;" disabled /></td>
+                                <td><input ng-model="item.soLuong" class="form-control" style="width:100%;text-align:right;" awnum="number" /></td>
+                                <td><input ng-model="item.tyLeKhuyenMai" class="form-control" style="width:100%;text-align:right;" ng-change="robot.changeTyLeKhuyenMai(item)" awnum="number" /></td>
+                                <td><input ng-model="item.giaTriKhuyenMai" class="form-control" style="width:100%;text-align:right;" awnum="number" /></td>
+                                <td style="white-space: nowrap" class="text-center">
+                                    <div class="form-buttons form-inline">
+                                        <a>
+                                            <span style="font-size: 1em;" class="fa fa-times-circle" style="color:red" ng-click="removeItem($index)"></span>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <uib-pagination class="no-margin-vertical pagination-sm" ng-model="paged.currentPage" style="padding-left:30px;"
+                                    ng-change="pageChanged()"
+                                    items-per-page="paged.itemsPerPage" ng-show="paged.totalItems > 0" total-items="paged.totalItems" max-size="paged.pageSize"
+                                    boundary-links="true" num-pages="paged.totalPage"
+                                    previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;">
+                    </uib-pagination>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button prevent-default type="submit" class="btn btn-primary" ng-disabled="_childForm.$invalid || _parentForm.$invalid" ng-click="save()">{{config.label.btnSubmit}}</button>
+        <button prevent-default class="btn btn-default" ng-click="cancel()"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;{{config.label.btnCancel}}</button>
+    </div>
+</div>

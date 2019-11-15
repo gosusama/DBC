@@ -1,0 +1,110 @@
+﻿<div class="panel panel-default">
+    <div class="panel-heading panel-toolbar">
+      <h3 class="modal-title" style="color:blue;">{{title()}}</h3>
+        <div class="button-close" ng-click="goHome()">
+            <i class="fa fa-times-circle"></i>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div id="myWorkContent">
+            <table class="table table-bordered" style="width: 100%;">
+                <thead>
+                    <tr class="headings">
+                        <th class="column-title">
+                            <a class="title" href="" ng-click="sortType = 'soThuTu'; sortReverse = !sortReverse">
+                                STT
+                                <span ng-show="sortType == 'soThuTu' && !sortReverse" class="fa fa-caret-down"></span>
+                                <span ng-show="sortType == 'soThuTu' && sortReverse" class="fa fa-caret-up"></span>
+                            </a>
+                        </th>
+                        <th class="column-title">
+                            <a class="title" href="" ng-click="sortType = 'mancc'; sortReverse = !sortReverse">
+                                Mã Nhà cung cấp
+                                <span ng-show="sortType == 'mancc' && !sortReverse" class="fa fa-caret-down"></span>
+                                <span ng-show="sortType == 'mancc' && sortReverse" class="fa fa-caret-up"></span>
+                            </a>
+                        </th>
+                        <th class="column-title">
+                            <a class="title" href="" ng-click="sortType = 'tenNCC'; sortReverse = !sortReverse">
+                                Tên Nhà cung cấp
+                                <span ng-show="sortType == 'tenNCC' && !sortReverse" class="fa fa-caret-down"></span>
+                                <span ng-show="sortType == 'tenNCC' && sortReverse" class="fa fa-caret-up"></span>
+                            </a>
+                        </th>
+                        <th class="column-title">
+                            <a class="title" href="" ng-click="sortType = 'dienThoai'; sortReverse = !sortReverse">
+                                Điện Thoại
+                                <span ng-show="sortType == 'dienThoai' && !sortReverse" class="fa fa-caret-down"></span>
+                                <span ng-show="sortType == 'dienThoai' && sortReverse" class="fa fa-caret-up"></span>
+                            </a>
+                        </th>
+
+                        <th class="column-title">
+                            <a class="title" href="" ng-click="sortType = 'email'; sortReverse = !sortReverse">
+                                Email
+                                <span ng-show="sortType == 'email' && !sortReverse" class="fa fa-caret-down"></span>
+                                <span ng-show="sortType == 'email' && sortReverse" class="fa fa-caret-up"></span>
+                            </a>
+                        </th>
+
+                        <th class="column-title">
+                            <a class="title" href="" ng-click="sortType = 'trangThai'; sortReverse = !sortReverse">
+                                Trạng thái
+                                <span ng-show="sortType == 'trangThai' && !sortReverse" class="fa fa-caret-down"></span>
+                                <span ng-show="sortType == 'trangThai' && sortReverse" class="fa fa-caret-up"></span>
+                            </a>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="even pointer">
+                        <td class="text-left" colspan="12" style="background-color:  lightgray;">Đơn vị tạo mã: {{displaySieuThi(rootUnitCode,'sieuthi')}}</td>
+                    </tr>
+                    <tr class="even pointer">
+                        <td class="text-center">1</td>
+                        <td class="text-center" style="width:5%">
+                            {{target.maNCC}}
+                        </td>
+                        <td class="text-left" style="width:18%">{{target.tenNCC}}</td>
+                        <td class="text-center" style="width:9%">
+                            {{target.dienThoai}}
+                        </td>
+                        <td class="text-center" style="width:5%">
+                            {{target.email}}
+                        </td>
+                        <td class="text-center" style="width:10%">
+                            {{target.trangThai | status}}
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody>
+                    <tr class="even pointer">
+                        <td class="text-left" colspan="12" style="background-color: lightgray;">Đơn vị hiện tại: {{displaySieuThi(unitCode,'sieuthi')}}</td>
+                    </tr>
+                    <tr class="even pointer">
+                        <td class="text-center">2</td>
+                        <td class="text-center" style="width:5%">
+                            {{targetClient.maNCC}}
+                        </td>
+                        <td class="text-left" style="width:18%">
+                            {{targetClient.tenNCC}}
+                        </td>
+                        <td class="text-center" style="width:9%">
+                            {{targetClient.dienThoai}}
+                        </td>
+                        <td class="text-center" style="width:5%">
+                            {{targetClient.email}}
+                        </td>
+                        <td class="text-center" style="width:10%">
+                            {{targetClient.trangThai | status}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button prevent-default type="submit" class="btn btn-primary" ng-click="asyncCompare()"><i class="fa fa-save"></i>&nbsp;&nbsp;Cập nhật đồng bộ</button>
+        <button prevent-default class="btn btn-default" ng-disabled="Loading" ng-click="cancel()"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;{{config.label.btnCancel}}</button>
+    </div>
+</div>

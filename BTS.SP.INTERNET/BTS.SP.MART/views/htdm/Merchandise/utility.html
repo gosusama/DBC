@@ -1,0 +1,173 @@
+﻿<style>
+    .img-preview {
+        border: 1px solid #000;
+        border-radius: 5px;
+        height: 150px;
+        width: auto;
+        margin: 0 10px;
+    }
+</style>
+<div>
+    <div class="modal-header">
+        <h3 class="modal-title">{{title()}}</h3>
+        <div class="button-close" ng-click="cancel()">
+            <i class="fa fa-times-circle"></i>
+        </div>
+    </div>
+    <div class="modal-body">
+        <form role="form" name="_form">
+            <div class="row form-group">
+                <div class="col-lg-8">
+                    <div class="row form-group">
+                        <div class="col-lg-6">
+                            <span style="color:blue;">Thông tin kho hàng</span>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-lg-4">
+                            <label>Kho hàng</label>
+                            <span style="color: red">(*)</span>
+                            <input class="form-control" name="_maKho" type="text" ng-model="target.maKho" typeahead-editable="false" typeahead-on-select="selectKho();" name="_maKho" id="_maKho" uib-typeahead="opt.value as opt.text for opt in tempData('wareHouses') | filter:$viewValue | limitTo:5" typeahead-input-formatter="displayHepler($model, 'wareHouses')" required />
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-lg-6">
+                            <span style="color:blue;">Thông tin vật tư</span>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-lg-4">
+                            <label>Mã vật tư</label>
+                            <span style="color: red">(*)</span>
+                            <input type="text" class="form-control" ng-model="target.maVatTu" name="_maVatTu" ng-enter="selectedMaHang(target.maVatTu);" ng-blur="selectedMaHang(target.maVatTu);" maxlength="50" id="_maVatTu" tabindex=1 />
+                        </div>
+                        <div class="col-lg-8">
+                            <label>Tên vật tư</label>
+                            <input type="text" class="form-control" ng-model="target.tenVatTu" name="_tenVatTu" disabled="">
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-lg-4">
+                            <label>Mã nhà cung cấp</label>
+                            <input type="text" class="form-control" ng-model="target.maNhaCungCap" name="_maNhaCungCap" maxlength="50" disabled="" />
+                        </div>
+                        <div class="col-lg-8">
+                            <label>Tên nhà cung cấp</label>
+                            <input type="text" class="form-control" ng-model="target.maNhaCungCap" name="_tenNhaCungCap" typeahead-editable="false" typeahead-on-select="" uib-typeahead="opt.value as opt.text for opt in tempData('suppliers') | filter:$viewValue | limitTo:5" typeahead-input-formatter="displayTenNhaCungCap($model,'suppliers')" disabled="">
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-lg-12">
+                            <label>Barcode</label>
+                            <input type="text" class="form-control" ng-model="target.barcode" name="_barcode" disabled="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="row form-group">
+                        <div class="col-lg-6">
+                            <span style="color:blue;">Giá cả vật tư</span>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-lg-6">
+                            <label>Giá mua có VAT</label>
+                            <input type="text" class="form-control" style="text-align:right;" ng-model="target.giaMuaCoVat" ng-change="robot.changeGiaMuaVat(target)" name="_giaMuaCoVat" awnum="number" tabindex=2 />
+                        </div>
+                        <div class="col-lg-6">
+                            <label>VAT mua</label>
+                            <input type="text" class="form-control" style="text-align:right;" ng-model="target.tyLeVatVao" name="_tyLeVatVao" awnum="number" disabled="" />
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-lg-6">
+                            <label>% Lãi bán buôn</label>
+                            <input type="text" class="form-control" style="text-align:right;" ng-model="target.tyLeLaiBuon" ng-change="robot.changeTyLeLaiBuon(target);checkTyLeLai(target.tyLeLaiLe)" name="_tyLeLaiBuon" awnum="number" />
+                        </div>
+                        <div class="col-lg-6">
+                            <label>Giá bán buôn</label>
+                            <input type="text" class="form-control" style="text-align:right;" ng-model="target.giaBanBuonVat" ng-change="robot.changeGiaBanBuonVat(target)" name="_giaBanBuonVat" id="_giaBanBuonVat" ng-enter="enterGiaBanBuonVat();" ng-blur="enterGiaBanBuonVat();" awnum="number" tabindex=3 />
+                            <span style="color : red" ng-show="invalidLB"> Tỷ lệ lãi buôn sai </span>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-lg-6">
+                            <label>% Lãi bán lẻ</label>
+                            <input type="text" class="form-control" style="text-align:right;" ng-model="target.tyLeLaiLe" ng-change="robot.changeTyLeLaiLe(target);checkTyLeLai(target.tyLeLaiLe)" name="_tyLeLaiLe" awnum="number" />
+                            <span style="color : red" ng-show="invalidLL"> Tỷ lệ lãi lẻ sai </span>
+                        </div>
+                        <div class="col-lg-6">
+                            <label>Giá bán lẻ</label>
+                            <input type="text" class="form-control" style="text-align:right;" ng-model="target.giaBanLeVat" ng-change="robot.changGiaBanLeVat(target)" name="_giaBanLeVat" id="_giaBanLeVat" ng-enter="enterGiaBanLeVat();" ng-blur="enterGiaBanLeVat();" awnum="number" tabindex=4 />
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-lg-6">
+                            <label>Số lượng</label>
+                            <input type="text" class="form-control" style="text-align:right;" ng-model="target.soLuong" name="_soLuong" id="_soLuong" ng-enter="enterSoLuong();" ng-blur="enterSoLuong();" awnum="number" tabindex=5 />
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-lg-6">
+                            <button prevent-default type="submit" class="btn btn-primary" ng-disabled="_form.$invalid" id="_save" ng-enter="addRow(target);" ng-click="addRow(target)" tabindex=6>
+                                <i class="fa fa-save"></i>&nbsp;&nbsp;Thêm dòng
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-lg-12">
+                    <table class="table table-bordered table-hover table-condensed">
+                        <thead>
+                            <tr>
+                                <th style="width: 2%" class="text-center">STT</th>
+                                <th style="width: 7%;" class="text-center">Mã vật tư</th>
+                                <th style="width: 30%;" class="text-center">Tên vật tư</th>
+                                <th style="width: 30%;" class="text-center">Barcode</th>
+                                <th style="width: 7%;" class="text-center">Giá bán buôn</th>
+                                <th style="width: 7%;" class="text-center">Giá bán lẻ</th>
+                                <th style="width: 6%" class="text-center">Số lượng</th>
+                                <th style="width: 3%" class="text-center">(*)</th>
+                            </tr>
+                        </thead>
+                        <tbody ng-form name="_formDetail">
+                            <tr ng-repeat="item in data track by $index">
+                                <td style="text-align:center;height:30px;">{{$index + 1}}</td>
+                                <td>
+                                    <input type="text" style="width:100%;height:30px;text-align:center;" name="_maHang" ng-model="item.maVatTu" disabled="" />
+                                </td>
+                                <td>
+                                    <input type="text" style="text-align:left; width:100%;height:30px;" id="tenHang" ng-model="item.tenVatTu" disabled="" />
+                                </td>
+                                <td>
+                                    <input type="text" style="text-align:left; width:100%;height:30px;" ng-model="item.barcode" disabled="" />
+                                </td>
+                                <td>
+                                    <input type="text" style="text-align:right; width:100%;height:30px;" ng-model="item.giaBanBuonVat" awnum="number" disabled="" />
+                                </td>
+                                <td>
+                                    <input type="text" name="_giaBanLeVatItem" style="text-align:right; width:100%;height:30px;" ng-model="item.giaBanLeVat" awnum="number" disabled="" />
+                                </td>
+                                <td>
+                                    <input type="text" style="text-align:right;height:30px;" ng-model="item.soLuong" awnum="number" />
+                                </td>
+                                <td style="white-space: nowrap" class="text-center">
+                                    <div class="form-buttons form-inline">
+                                        <a>
+                                            <span style="font-size: 1em;color:red;" class="fa fa-times-circle" ng-click="removeItem($index)"></span>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button prevent-default type="submit" class="btn btn-primary" ng-disabled="_form.$invalid || invalidLL || invalidLB" id="_update" ng-click="save();"><i class="fa fa-save"></i>&nbsp;&nbsp;Cập nhật và In tem</button>
+        <button prevent-default class="btn btn-default" ng-click="cancel()"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;{{config.label.btnCancel}}</button>
+    </div>
+</div>

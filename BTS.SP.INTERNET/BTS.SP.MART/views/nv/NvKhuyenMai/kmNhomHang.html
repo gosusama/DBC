@@ -1,0 +1,82 @@
+﻿<form></form><!-- KHông hiểu sao để thế này thì nó mới không bị lỗi T_T-->
+<div>
+    <div>
+        <div class="modal-header">
+          <h3 class="modal-title" style="color:blue;">{{title()}}</h3>
+            <div class="button-close" ng-click="cancel()">
+                <i class="fa fa-times-circle"></i>
+            </div>
+        </div>
+        <div class="modal-body" ng-form name="_form">
+            <table class="table table-bordered table-hover table-condensed">
+                <thead>
+                    <tr>
+                        <th style="width:3%" class="text-center">STT</th>
+                        <th style="width:10%" class="text-center">Mã nhóm</th>
+                        <th style="width:10%" class="text-center">Tên nhóm</th>
+                        <th style="width:10%" class="text-center">Tỷ lệ KM</th>
+                        <th style="width:5%" class="text-center"></th>
+                    </tr>
+                </thead>
+                <tbody ng-form name="_formAddDetail">
+                    <tr style="background:rgba(119, 119, 119, 0.48)" ng-enter="addRow()">
+                        <td style="text-align:center;"></td>
+                        <td>
+                            <input id="maHang" type="text" style="width:100%;" name="_maHang" ng-model="newItem.maHang" ng-blur="selectedNhomHang(newItem.maHang)" maxlength="50" />
+                            <span style="color:red" ng-show="_formAddDetail._maHang.$dirty && _formAddDetail._maHang.$invalid">
+                                <span ng-show="_formAddDetail._maHang.$error.required">Không được để trống</span>
+                            </span>
+                        </td>
+                        <td>
+                            {{newItem.tenHang}}
+                        </td>
+                        <td>
+                            <input format-number-input="number" name="_tyLeKhuyenMai" style="text-align:center; width:100%" ng-model="newItem.tyLeKhuyenMai">
+                        </td>
+                        <td style="white-space: nowrap" class="text-center">
+                            <div class="form-buttons form-inline">
+                                <button prevent-default type="button" ng-disabled="_formAddDetail.$invalid" ng-click="addRow()" class="btn btn-default btn-sm btn-sm-add-item">{{config.label.btnCreate}}</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody ng-form name="_formDetail">
+                    <tr ng-if="isLoading">
+                        <td colspan="16"><my-loading></my-loading></td>
+                    </tr>
+                    <tr ng-repeat="item in data track by $index">
+                        <td style="text-align:center;">{{$index + 1}}</td>
+                        <td>
+                            {{item.maHang}}
+                        </td>
+                        <td>
+                            {{item.tenHang}}
+                        </td>
+                        <td>
+                            <input format-number-input="number" name="_tyLeKhuyenMai" style="text-align:right; width:100%" ng-model="item.tyLeKhuyenMai" />
+                        </td>
+
+                        <td style="white-space: nowrap" class="text-center">
+                            <button prevent-default type="button" style="height: 20px; line-height: 2px;background: rgba(255, 213, 93, 0.61);" ng-click="removeItem($index)" class="btn btn-default btn-sm">
+                                Xóa
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="panel-footer">
+                <uib-pagination class="no-margin-vertical pagination-sm" ng-model="paged.currentPage"
+                                ng-change="pageChanged()"
+                                items-per-page="paged.itemsPerPage" ng-show="paged.totalItems > 0" total-items="paged.totalItems" max-size="paged.pageSize"
+                                boundary-links="true" num-pages="paged.totalPage"
+                                previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;">
+                </uib-pagination>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button prevent-default type="submit" class="btn btn-primary" ng-disabled="_form.$invalid || _formDetail.$invalid" ng-click="save()">{{config.label.btnSubmit}}</button>
+        <button prevent-default class="btn btn-default" ng-click="cancel()"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;{{config.label.btnCancel}}</button>
+    </div>
+</div>

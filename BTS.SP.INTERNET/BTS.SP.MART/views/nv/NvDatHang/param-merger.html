@@ -1,0 +1,56 @@
+﻿<!--<div class="form-group">
+    <label>Từ ngày</label>
+    <input style="height:20px; width:150px" type="date" ng-model="target.TuNgay" />
+    <label>Đến ngày</label>
+    <input style="height:20px; width:150px" type="date" ng-model="target.DenNgay" />
+</div>
+<div class="form-group">
+    <label>Tài khoản</label>
+    <select ng-model="target.TaiKhoan" ng-options="opt.Value as opt.Text for opt in tempData.accounts">
+        <option value="">-</option>
+    </select>
+    <label>Đơn vị</label>
+    <select ng-model="target.UnitCode" ng-options="opt.Value as opt.Text for opt in tempData.unitUsers">
+        <option value="">-</option>
+    </select>
+    <button prevent-default ng-click="pdfMaker()">Báo cáo</button>
+</div>
+<hr />-->
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary" ng-form name="_form">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <span class="glyphicon glyphicon-bookmark"></span> Tổng hợp đơn đặt hàng
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Đơn đặt hàng</label>
+                                    <div class="tags">
+                                        <div ng-repeat="item in tagDatHangs" class="tag label label-success">
+                                            {{item.value}}
+                                            <a class="close" href="" ng-click="removeDatHang($index)">×</a>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-primary" ng-click="selectDatHang()">Chọn</button>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-md-offset-10">
+                                <div class="form-group">
+                                    <button class="btn btn-primary form-control"  prevent-default ng-click="merger()">Ghép</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

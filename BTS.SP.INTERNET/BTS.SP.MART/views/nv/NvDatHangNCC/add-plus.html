@@ -1,0 +1,548 @@
+﻿<form></form><!-- KHông hiểu sao để thế này thì nó mới không bị lỗi T_T-->
+<div>
+    <div>
+        <div class="modal-header">
+            <h3 class="modal-title" style="color:blue;">{{title()}}</h3>
+            <div class="button-close" ng-click="cancel()">
+                <i class="fa fa-times-circle"></i>
+            </div>
+        </div>
+        <div class="modal-body" ng-form name="_form">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="md-style-label-input">
+                            Số phiếu <span style="color:red">(*)</span>
+                        </div>
+                        <div class="md-4-style-input">
+                            <input class="form-control" type="text" ng-model="target.soPhieu" maxlength="50" name="_soPhieu" required disabled>
+                            <span style="color: red" ng-show="_form._soPhieu.$dirty && _form._soPhieu.$invalid">
+                                <span ng-show="_form._soPhieu.$error.required">Không được để trống</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="md-style-label-input">
+                            Đơn vị đặt <span style="color:red">(*)</span>
+                        </div>
+                        <div class="md-4-style-input">
+                            <input class="form-control" name="_maDonViDat" type="text" ng-model="target.maDonViDat" ng-change="ClearContent()" typeahead-editable="false" uib-typeahead="opt.value as opt.text for opt in tempData('auDonVis') | filter:$viewValue | limitTo:5" typeahead-input-formatter="formatLabel($model, 'auDonVis')" required />
+                        </div>
+                        <span style="color: red" ng-show="_form._maDonViDat.$dirty && _form._maDonViDat.$invalid">
+                            <span ng-show="_form._maDonViDat.$error.required">Không được để trống</span>
+                        </span>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="md-style-label-input">
+                            Người lập
+                        </div>
+                        <div class="md-4-style-input">
+                            <input class="form-control" type="text" name="_nguoilap" focus="true" ng-model="target.nguoiLap" typeahead-editable="false" uib-typeahead="opt.value as opt.text for opt in tempData('auUsers') | filter:$viewValue | limitTo:5" typeahead-input-formatter="formatLabel($model, 'auUsers')" disabled />
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="md-style-label-input">
+                            Ngày <span style="color:red">(*)</span>
+                        </div>
+                        <div class="md-4-style-input">
+                            <div class="add-input-zone">
+                                <input class="form-control" type="text" name="_ngayct" ng-model="target.ngay" placeholder="{{config.dateFormat}}"
+                                       uib-datepicker-popup="{{config.dateFormat}}" is-open="_ngayct" datepicker-localdate required />
+                                <div class="button-calender" ng-click="_ngayct = !_ngayct; config.delegateEvent($event);">
+                                </div>
+                            </div>
+                            <span style="color: red" ng-show="_form._ngayct.$dirty && _form._ngayct.$invalid">
+                                <span ng-show="_form._ngayct.$error.required">Không được để trống</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="md-style-label-input">
+                            Nhà cung cấp <span style="color:red">(*)</span>
+                        </div>
+                        <div class="md-4-style-input">
+                            <input class="form-control" name="_maNhaCungCap" type="text" ng-model="target.maNhaCungCap" typeahead-editable="false" uib-typeahead="opt.value as opt.text for opt in tempData('suppliers') | filter:$viewValue | limitTo:5" typeahead-input-formatter="formatLabel($model, 'suppliers')" required />
+                            <span style="color: red" ng-show="_form._maNhaCungCap.$dirty && _form._maNhaCungCap.$invalid">
+                                <span ng-show="_form._maNhaCungCap.$error.required">Không được để trống</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="md-style-label-input">
+                            Mã hợp đồng
+                        </div>
+                        <div class="md-4-style-input">
+                            <input class="form-control" ng-disabled="!target.maNhaCungCap" type="text" ng-model="target.maHd" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <table class="table table-bordered">
+                                            <tbody>
+                                                <tr>
+                                                    <td colspan="3" style="
+                                                        font-family Arial;
+                                                        font-size 15px;
+                                                        color blue;
+                                                        font-weight bold;
+                                                        ">
+                                                        Điều kiện lọc
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <a style="padding-left: 17px;cursor: pointer;" ng-click="selectType()">Mã loại &nbsp;&nbsp;&nbsp;&nbsp;<span class="badge">{{tagsTypes.length}}</span></a>
+                                                        <div class="tags">
+                                                            <div ng-repeat="item in tagsTypes" class="tag label label-success">
+                                                                {{item.value}}
+                                                                <a class="close" href="" ng-click="removeType($index)">×</a>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <a style="padding-left: 17px;cursor: pointer;" ng-click="selectGroup()">Mã nhóm &nbsp;&nbsp;&nbsp;&nbsp;<span class="badge">{{tagsGroups.length}}</span></a>
+                                                        <div class="tags">
+                                                            <div ng-repeat="item in tagsGroups" class="tag label label-success">
+                                                                {{item.value}}
+                                                                <a class="close" href="" ng-click="removeGroup($index)">×</a>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <a style="padding-left: 17px;cursor: pointer;" ng-click="selectWarehouse()">Mã kho &nbsp;&nbsp;&nbsp;&nbsp;<span class="badge">{{tagsWarehouses.length}}</span></a>
+                                                        <div class="tags">
+                                                            <div ng-repeat="item in tagsWarehouses" class="tag label label-success">
+                                                                {{item.value}}
+                                                                <a class="close" href="" ng-click="removeWarehouse($index)">×</a>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <div class="col-md-12">
+                                                            <div class="md-style-label-input" style="padding-top: 7px;">
+                                                                Từ Ngày <span style="color:red"></span>
+                                                            </div>
+                                                            <div class="md-4-style-input">
+                                                                <div class="add-input-zone">
+                                                                    <input class="form-control" type="text" ng-model="filtered.advanceData.tuNgay" placeholder="{{config.dateFormat}}"
+                                                                           uib-datepicker-popup="{{config.dateFormat}}" is-open="_tuNgay" datepicker-localdate />
+                                                                    <div class="button-calender" ng-click="_tuNgay = !_tuNgay; config.delegateEvent($event);">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="col-md-12">
+                                                            <div class="md-style-label-input" style="padding-top: 7px;">
+                                                                Đến Ngày <span style="color:red"></span>
+                                                            </div>
+                                                            <div class="md-4-style-input">
+                                                                <div class="add-input-zone">
+                                                                    <input class="form-control" type="text" ng-model="filtered.advanceData.denNgay" placeholder="{{config.dateFormat}}"
+                                                                           uib-datepicker-popup="{{config.dateFormat}}" is-open="_denNgay" datepicker-localdate />
+                                                                    <div class="button-calender" ng-click="_denNgay = !_denNgay; config.delegateEvent($event);">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2">
+                                                        <div class="col-md-12">
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <div class="md-style-label-input" style="padding-top: 7px;">
+                                                                        Lọc số lượng tồn
+                                                                    </div>
+                                                                    <div class="md-4-style-input">
+                                                                        <div class="add-input-zone">
+                                                                            <select ng-init="filterQuantity.operator = '='" class="form-control" ng-model="filterQuantity.operator" ng-options="opt.value as opt.text for opt in operators"></select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="md-4-style-input">
+                                                                        <div class="add-input-zone">
+                                                                            <input type="number" class="form-control" placeholder="Enter" ng-model="filterQuantity.value" name="_sortMenu" ng-enter="filterByQuantity(filterQuantity.operator, filterQuantity.value)">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="col-md-4" style="text-align:center;">
+                                                            <button type="button" class="btn btn-sm btn-primary" ng-click="filterMerchandise()" ng-disabled="!target.ngay || !target.maNhaCungCap">Lọc</button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="md-style-label-input">
+                                        Nội dung <span style="color:red"></span>
+                                    </div>
+                                    <div class="md-8-style-input">
+                                        <textarea class="form-control" style="width:100%;" ng-model="target.noiDung" rows="2"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div ng-if="isLoading">
+            <my-loading></my-loading>
+        </div>
+        <div class="modal-body">
+            <table class="table table-bordered table-hover table-condensed">
+                <thead>
+                    <tr>
+                        <th style="width:2%;font-size:  12px;" class="text-center">STT</th>
+                        <th style="width:12%;font-size: 12px;" class="text-center">Barcode</th>
+                        <th style="width:5%;font-size:  12px;" class="text-center">Mã hàng</th>
+                        <th style="width:17%;font-size:  12px;" class="text-center">Tên hàng</th>
+                        <th style="width:5%;font-size:  12px;" class="text-center">Đơn vị tính</th>
+                        <th style="width:3%;font-size:  12px;" class="text-center">Quy cách</th>
+                        <th style="width:5%" class="text-center">Sl bao</th>
+                        <th style="width:5%" class="text-center">Sl lẻ &nbsp;&nbsp;&nbsp;<i class="fa fa-angle-double-down" title="Các mã có nhập số lượng" style="font-size: 25px;" ng-click="filterFuncSoLuong()"></i></th>
+                        <th style="width:4%;font-size:  12px;" class="text-center">Số lượng</th>
+                        <th style="width:5%;font-size:  12px;" class="text-center">Giá mua</th>
+                        <th style="width:4%;font-size:  12px;" class="text-center">Sl tồn hiện tại</th>
+                        <th style="width:4%;font-size:  12px;" class="text-center">Sl nhập</th>
+                        <th style="width:4%;font-size:  12px;" class="text-center">Sl xuất</th>
+                        <th style="width:4%;font-size:  12px;" class="text-center">VAT Ra</th>
+                        <th style="width:4%;font-size:  12px;" class="text-center">VAT Vào</th>
+                        <th style="width:6%;font-size:  12px;" class="text-center">Thành tiền</th>
+                        <th style="width:10%;font-size:  12px;" class="text-center">Ghi chú</th>
+                        <th style="width:auto"></th>
+                    </tr>
+                </thead>
+                <tbody ng-form name="_formFilter">
+                    <tr>
+                        <td></td>
+                        <td>
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-md-2">
+                                        <i class="fa fa-filter" aria-hidden="true" title="Lọc theo barcode" style="padding: 5px 0 0 9px;"></i>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <input type="text" style="text-align:center;font-size:14px;" ng-model="barcodeFilter" ng-enter="filterFunc()" />
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-md-2">
+                                        <i class="fa fa-filter" aria-hidden="true" title="Lọc theo mã hàng" style="padding: 5px 0 0 9px;"></i>
+                                    </div>
+                                    <div class="col-md-10" style="width:65%;">
+                                        <input type="text" style="text-align:center;font-size:14px;" ng-model="maHangFilter" ng-enter="filterFunc()" />
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-md-2">
+                                        <i class="fa fa-filter" aria-hidden="true" title="Lọc theo tên hàng" style="padding: 5px 0 0 9px;"></i>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <input type="text" style="text-align:center;font-size:14px;" ng-model="tenHangFilter" ng-enter="filterFunc()" />
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-md-2">
+                                        <i class="fa fa-filter" aria-hidden="true" title="Lọc theo số lượng lẻ" style="padding: 5px 0 0 9px;"></i>
+                                    </div>
+                                    <div class="col-md-10" style="width:65%;">
+                                        <input type="text" style="text-align:center;font-size:14px;" ng-model="soLuongLeFilter" ng-enter="filterFunc()" />
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-md-2">
+                                        <i class="fa fa-filter" aria-hidden="true" title="Lọc theo số lượng" style="padding: 5px 0 0 9px;"></i>
+                                    </div>
+                                    <div class="col-md-10" style="width:65%;">
+                                        <input type="text" style="text-align:center;font-size:14px;" ng-model="soLuong" />
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-md-2">
+                                        <i class="fa fa-filter" aria-hidden="true" title="Lọc theo giá mua" style="padding: 5px 0 0 9px;"></i>
+                                    </div>
+                                    <div class="col-md-10" style="width:65%;">
+                                        <input type="text" style="text-align:center;font-size:14px;" ng-model="giaMua" />
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-md-2">
+                                        <i class="fa fa-filter" aria-hidden="true" title="Lọc theo số lượng tồn" style="padding: 5px 0 0 9px;"></i>
+                                    </div>
+                                    <div class="col-md-10" style="width:65%;">
+                                        <input type="text" style="text-align:center;font-size:14px;" ng-model="soLuongTonFilter" ng-enter="filterFunc()" />
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-md-2">
+                                        <i class="fa fa-filter" aria-hidden="true" title="Lọc theo số lượng nhập trong kỳ" style="padding: 5px 0 0 9px;"></i>
+                                    </div>
+                                    <div class="col-md-10" style="width:65%;">
+                                        <input type="text" style="text-align:center;font-size:14px;" ng-model="soLuongNhapTrongKyFilter" ng-enter="filterFunc()" />
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-md-2">
+                                        <i class="fa fa-filter" aria-hidden="true" title="Lọc theo số lượng xuất trong kỳ" style="padding: 5px 0 0 9px;"></i>
+                                    </div>
+                                    <div class="col-md-10" style="width:65%;">
+                                        <input type="text" style="text-align:center;font-size:14px;" ng-model="soLuongXuatTrongKyFilter" ng-enter="filterFunc()" />
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+                <tbody ng-form name="_formAddDetail">
+                    <tr style="background:rgba(119, 119, 119, 0.48)" ng-enter="addRow()">
+                        <td style="text-align:center;"></td>
+                        <td nowrap>
+                            <input type="text" style="text-align:center; width:100%;font-size:16px;" ng-model="newItem.barcode" disabled>
+                        </td>
+                        <td>
+                            <input type="text" style="width:100%;text-align:center;" id="mahang" name="mahang" ng-model="newItem.maHang" ng-blur="selectedMaHang(newItem.maHang)" maxlength="50" />
+                        </td>
+                        <td>
+                            {{newItem.tenHang}}
+                        </td>
+                        <td style="text-align: center;">
+                            <span style="text-align:center;">{{displayHepler(newItem.donViTinh, 'donViTinhs')}}</span>
+                        </td>
+                        <td style="text-align:center;">{{newItem.luongBao}}</td>
+                        <td>
+                            <input type="text" style="text-align:right; width:100%" ng-model="newItem.soLuongBao" ng-change="robot.changeSoLuongBao(newItem)" awnum="number" />
+                        </td>
+                        <td>
+                            <input type="text" style="text-align:right; width:100%" id="soluong" ng-model="newItem.soLuongLe" ng-change="robot.changeSoLuongLe(newItem)" awnum="number" />
+                        </td>
+                        <td>
+                            <input type="text" style="text-align:right; width:100%" ng-model="newItem.soLuong" disabled awnum="number" />
+                        </td>
+                        <td>
+                            <input type="text" style="text-align:right; width:100%" ng-model="newItem.donGia" ng-change="robot.changeDonGia(newItem)" awnum="number" />
+                        </td>
+                        <td>
+                            <input type="text" style="text-align:right; width:100%" ng-model="newItem.soLuongTon" disabled awnum="number" />
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <input type="text" style="text-align:right; width:100%" ng-model="newItem.tyLeVatRa" disabled awnum="number" />
+                        </td>
+                        <td>
+                            <input type="text" style="text-align:right; width:100%" ng-model="newItem.tyLeVatVao" disabled awnum="number" />
+                        </td>
+                        <td>
+                            <div style="text-align:right; width:100%;font-size:16px;" disabled>
+                                <input type="text" style="text-align:right; width:100%;color: red;" ng-model="newItem.thanhTien" awnum="number">
+                            </div>
+                        </td>
+                        <td>
+                            <input type="text" style="text-align:left; width:100%" ng-model="newItem.ghiChu" />
+                        </td>
+                        <td style="white-space: nowrap" class="text-center">
+                            <div class="form-buttons form-inline">
+                                <a>
+                                    <span class="fa fa-plus-circle" ng-disabled="_formAddDetail.$invalid" ng-click="addRow()"></span>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody ng-form name="_formDetail">
+                    <tr ng-repeat="item in data track by $index">
+                        <td style="text-align:center;">{{$index + 1}}</td>
+                        <td>
+                            <input type="text" style="text-align:center; width:100%;" ng-model="item.barcode" disabled>
+                        </td>
+                        <td>
+                            <input type="text" style="width:100%;text-align:center;" ng-model="item.maHang" maxlength="50" />
+                        </td>
+                        <td>
+                            {{item.tenHang}}
+                        </td>
+                        <td style="text-align: center;">
+                            <span style="text-align:center;">{{displayHepler(item.donViTinh, 'donViTinhs')}}</span>
+                        </td>
+                        <td style="text-align:center;">{{item.luongBao}}</td>
+                        <td>
+                            <input type="text" style="text-align:right; width:100%" ng-model="item.soLuongBao" ng-change="robot.changeSoLuongBao(item)" awnum="number" />
+                        </td>
+                        <td>
+                            <input type="text" style="text-align:right; width:100%" ng-model="item.soLuongLe" ng-change="robot.changeSoLuongLe(item)" awnum="number" />
+                        </td>
+                        <td>
+                            <input type="text" style="text-align:right; width:100%" ng-model="item.soLuong" disabled awnum="number" />
+                        </td>
+                        <td>
+                            <input type="text" style="text-align:right; width:100%" ng-model="item.donGia" ng-change="robot.changeDonGia(item)" awnum="number" />
+                        </td>
+                        <td>
+                            <input type="text" style="text-align:right; width:100%" ng-model="item.soLuongTon" disabled awnum="number" />
+                        </td>
+                        <td>
+                            <input type="text" style="text-align:right; width:100%" ng-model="item.soLuongNhapTrongKy" disabled awnum="number" />
+                        </td>
+                        <td>
+                            <input type="text" style="text-align:right; width:100%" ng-model="item.soLuongXuatTrongKy" disabled awnum="number" />
+                        </td>
+                        <td>
+                            <input type="text" style="text-align:right; width:100%" ng-model="item.tyLeVatRa" disabled awnum="number" />
+                        </td>
+                        <td>
+                            <input type="text" style="text-align:right; width:100%" ng-model="item.tyLeVatVao" disabled awnum="number" />
+                        </td>
+                        <td>
+                            <div style="text-align: right">
+                                <input type="text" style="text-align:right; width:100%; color: red;" ng-model="item.thanhTien" awnum="number" disabled>
+                            </div>
+                        </td>
+                        <td>
+                            <input type="text" style="text-align:left; width:100%" ng-model="item.ghiChu" />
+                        </td>
+                        <td style="white-space: nowrap" class="text-center">
+                            <div class="form-buttons form-inline">
+                                <a>
+                                    <span style="font-size: 1em;" class="fa fa-times-circle" style="color:red" ng-click="removeItem($index)"></span>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="15" style="text-align:center; color:red;line-height: 40px;font-size:16px;">Tổng tiền</td>
+                        <td style="text-align:right;color: red;font-size: 16px;">{{robot.sum(data, 'thanhTien') | number}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <uib-pagination class="no-margin-vertical pagination-sm" ng-model="paged.currentPage"
+                            ng-change="pageChanged()"
+                            items-per-page="paged.itemsPerPage" ng-show="paged.totalItems > 0" total-items="paged.totalItems" max-size="paged.pageSize"
+                            boundary-links="true" num-pages="paged.totalPage"
+                            previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;">
+            </uib-pagination>
+            <div class="form-group">
+                <table class="table table-inverse">
+                    <tbody>
+                        <tr>
+                            <td style="width:55%"></td>
+                            <td nowrap style="text-align:center"><label>Thành tiền:</label></td>
+                            <td nowrap></td>
+                            <td style="text-align:right; width:20%">
+                                <span style="color:red;font-weight:bold">
+                                    <b><input type="text" style="text-align:right; width:100%" ng-model="target.thanhTienTruocVat" awnum="number"></b>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width:55%"></td>
+                            <td nowrap style="text-align:center"><label>Chiết khấu:</label></td>
+                            <td style="width:10%; text-align:right">
+                                <input class="form-control" type="text" style="text-align:right; width:100%;border-color:#ababab;" ng-model="target.chietKhau" ng-change="robot.changeChietKhau(target)" awnum="number" />
+                            </td>
+                            <td style="text-align:right">
+                                <input class="form-control" type="text" style="text-align:right;border-color:#ababab;" ng-model="target.tienChietKhau" ng-change="robot.changeTienChietKhau(target)" awnum="number" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width:55%"></td>
+                            <td nowrap style="text-align:center;"><label>Thuế(%):</label><span style="color:red">(*)</span></td>
+                            <td style="width:10%;text-align:right">
+                                <select class="form-control" ng-model="target.vat" required name="_tax" style="width:100%" ng-change="selectedTax(target)" ng-options="opt.value as opt.text for opt in tempData('taxs')"></select>
+                            </td>
+                            <td nowrap style="text-align:right; width:20%">
+                                <span style="color:red;font-weight:bold">
+                                    <b><input type="text" style="text-align:right; width:100%" ng-model="target.tienVat" awnum="number"></b>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width:55%"></td>
+                            <td nowrap style="text-align:center"><label>Tổng tiền:</label></td>
+                            <td></td>
+                            <td nowrap style="text-align:right; width:20%">
+                                <span style="color:red;font-weight:bold">
+                                    <b><input type="text" style="text-align:right; width:100%" ng-model="target.thanhTienSauVat" awnum="number"></b>
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button prevent-default type="submit" class="btn btn-primary" ng-disabled="_form.$invalid || _formDetail.$invalid" ng-click="save()">{{config.label.btnSubmit}}</button>
+        <button prevent-default class="btn btn-default" ng-click="cancel()"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;{{config.label.btnCancel}}</button>
+    </div>
+</div>

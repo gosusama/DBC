@@ -1,0 +1,178 @@
+﻿<style type="text/css">
+    .container-fluid.menu {
+        background-color: #af1515;
+    }
+
+    .dropdown-menu > li > a {
+        width: 280px;
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
+
+    .dropdown-submenu > .dropdown-menu {
+        top: 0;
+        left: 100%;
+        margin-top: -6px;
+        margin-left: -1px;
+        -webkit-border-radius: 0 6px 6px 6px;
+        -moz-border-radius: 0 6px 6px;
+        border-radius: 0 6px 6px 6px;
+    }
+
+    .dropdown-submenu:hover > .dropdown-menu {
+        display: block;
+    }
+
+    .container-fluid.menu a:hover {
+        background-color: antiquewhite;
+    }
+
+    .dropdown-submenu > a:after {
+        display: block;
+        content: " ";
+        float: right;
+        width: 0;
+        height: 0;
+        border-color: transparent;
+        border-style: solid;
+        border-width: 5px 0 5px 5px;
+        border-left-color: #ccc;
+        margin-top: 5px;
+        margin-right: -10px;
+    }
+
+    .dropdown-submenu:hover > a:after {
+        border-left-color: #fff;
+    }
+
+    .dropdown-submenu.pull-left {
+        float: none;
+    }
+
+        .dropdown-submenu.pull-left > .dropdown-menu {
+            left: -100%;
+            margin-left: 10px;
+            -webkit-border-radius: 6px 0 6px 6px;
+            -moz-border-radius: 6px 0 6px 6px;
+            border-radius: 6px 0 6px 6px;
+        }
+
+    .navbar {
+        min-height: 38px !important;
+        border: 0px !important;
+    }
+
+    #loading-bar .bar {
+        position: fixed !important;
+        top: 5px !important;
+    }
+
+    .navbar-custom-menu {
+        float: left;
+    }
+
+    .showInfo > .infoboard {
+        position: absolute;
+        display: none;
+        top: 60px;
+        right: 17px;
+        padding: 10px;
+        background-color: white;
+        box-shadow: 1px 1px 10px rgba(0,0,0,0.5);
+        z-index: 2000;
+    }
+
+    .showInfo:hover > .infoboard {
+        display: block;
+    }
+
+    div.infoboard {
+        width: 200px;
+        height: 200px;
+        float: right !important;
+        font-size: 13px !important;
+    }
+</style>
+<!--Navigation-->
+<div class="container-fluid top-hd ng-scope" style="height: 53px;background-color: #fff;">
+    <div class="container">
+        <div class="container">
+            <img src="../BTS.SP.MART/img/BTLogo.png" width="65px" />
+            <a ui-sref="home"><span class="brand" style="font-size: 17px; font-weight: bold; color: darkslateblue;">PHẦN MỀM QUẢN LÝ BÁN HÀNG</span></a>
+            <div class="pull-right" ng-if="currentUser" style="padding-top:10px;">
+                <span ng-if="!isCompare" class="brand showInfo" style="color:  darkslateblue;">Ngày khóa sổ : {{target.toDate | date:'dd-MM-yyyy'}}<a class="btn btn-default" ng-click="nextPeriod(target)" style="border-color: #fff;">Chuyển kỳ</a>{{dateNow | date:'dd-MM-yyyy'}}</span>
+                <span ng-if="isCompare" class="brand">Ngày làm việc : {{target.toDate | date:'dd-MM-yyyy'}}</span>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End Nav-->
+<!-- MENU---->
+<div class="collapse navbar-collapse">
+    <nav class="navbar navbar-inverse" style="background:  #17a6cc;">
+        <div class="container menu">
+            <div class="navbar-header" ng-if="currentUser" style="height: 38px;">
+                <ul class="nav navbar-nav">
+                    <li dropdown ng-repeat="data in treeMenu.children">
+                        <a href="#" dropdown-toggle>{{data.text}}<b ng-if="data.children && data.children.length>0" class='caret'> </b></a>
+                        <tree ng-if="data.children && data.children.length>0" tree='data.children'></tree>
+                    </li>
+                </ul>
+            </div>
+            <div ng-if="currentUser">
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+
+                        <li class="dropdown tasks-menu" title="Tin nhắn đến">
+                            <a ui-sref="tinNhanKhachHang"><i class="fa fa-envelope"><span class="label label-danger" ng-if="countMessage>0">{{countMessage}}</span></i> </a>
+                        </li>
+                        <li class="dropdown user user-menu">
+                            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                <div data-toggle="tooltip" data-placement="left" title="Thông tin tài khoản">
+                                    <span class="glyphicon glyphicon-user"></span>&nbsp;
+                                </div>
+                            </a>
+                            <ul class="dropdown-menu" style="margin: -7px -96px; font-size: 13px; padding: 13px 19px; color: #333;">
+                                <li class="user-header">
+                                    <p><i class="fa fa-user" aria-hidden="true" title="Tài khoản">&nbsp;&nbsp;&nbsp;{{currentUser.userName}}</i></p>
+                                    <p><i class="fa fa-user" aria-hidden="true" title="Tên đầy đủ">&nbsp;&nbsp;&nbsp;{{currentUser.fullName}}</i></p>
+                                    <p><i class="fa fa-envelope" aria-hidden="true" title="Mã nhân viên">&nbsp;&nbsp;&nbsp;{{currentUser.code}}</i></p>
+                                    <p><i class="fa fa-phone" aria-hidden="true" title="Liên lạc">&nbsp;&nbsp;&nbsp;{{currentUser.phone}}</i></p>
+                                    <p><i class="fa fa-bookmark" aria-hidden="true" title="Đơn vị">&nbsp;&nbsp;&nbsp;{{currentUser.unitCode}}</i></p>
+                                    <p><i class="fa fa-bookmark" aria-hidden="true" title="Đơn vị cha">&nbsp;&nbsp;&nbsp;{{currentUser.parentUnitCode}}</i></p>
+                                    <p style="float: left;">
+                                        <a ng-click="changePass()" class="btn btn-warning btn-xs"><span class="fa fa-key ng-scope"></span>&nbsp;Đổi mật khẩu</a>
+                                    </p>
+                                    <p style="float: left;">
+                                        <a ng-click="logOut()" class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-off"></span>&nbsp;Đăng xuất</a>
+                                    </p>
+
+                                </li>
+                                <li class="user-footer">
+                                    <div class="pull-left"></div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown tasks-menu">
+                            <a ui-sref="phieuDatHang"><i class="fa fa-ambulance"><span class="label label-danger" ng-if="countOrderNew>0">{{countOrderNew}}</span></i></a>
+                            <!-- <a class="dropdown-toggle" data-toggle="dropdown"> -->
+                            <!-- <div data-toggle="tooltip" data-placement="left" title="Phiếu cần xử lý"> -->
+                            <!-- <!--<span class="label label-danger">{{count}}</span>-->
+                            <!-- </div> -->
+                            <!-- </a> -->
+                            <!-- <ul class="dropdown-menu"> -->
+                            <!-- <li class="header">Bạn có {{countOrderNew}} phiếu đặt hàng</li> -->
+                            <!-- <li class="body"> -->
+                            <!-- --------------------------- -->
+                            <!-- </li> -->
+                            <!-- </ul> -->
+                        </li>
+                        <li ng-show="false" class="dropdown glyphicon glyphicon-download-alt" ng-click="downloadApp();" role="button" tabindex="0" style="margin:  10px 0px;color:  white;" title="Tải phần mềm bán lẻ">
+                            <a href="{{linkDownload}}"></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>

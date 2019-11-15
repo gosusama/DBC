@@ -1,0 +1,180 @@
+﻿<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="button-close" ng-click="goIndex()">
+            <i class="fa fa-times-circle"></i>
+        </div>
+        <div class="btn-group">
+            <button class="btn btn-default" prevent-default=prevent-default title="In danh sách" ng-click="print()"><span class="fa fa-print"></span>&ensp;In</button>
+            <button class="btn btn-default" prevent-default=prevent-default title="In danh sách" ng-click="printExcel()"><span class="fa fa-print"></span>&ensp;Xuất Excel</button>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div id="main-report">
+
+            <style type="text/css">
+                body {
+                    line-height: 108%;
+                    font-family: 'Times New Roman';
+                    font-size: 11pt;
+                }
+
+                p {
+                    margin: 0pt 0pt 8pt;
+                }
+
+                table {
+                    margin-top: 0pt;
+                    margin-bottom: 8pt;
+                }
+            </style>
+            <div>
+                <p style="margin-bottom:6pt; text-align:center; line-height:normal">
+                    <strong>CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</strong>
+                </p>
+                <p style="margin-bottom:6pt; text-align:center; line-height:normal">
+                    <strong>Độc lập – Tự do – Hạnh phúc</strong>
+                </p>
+                <p style="margin-bottom:6pt; text-align:center; line-height:normal">
+                    **********0o0**********
+                </p>
+                <p style="margin-bottom:6pt; text-align:right">
+                    Bắc Ninh, ngày … tháng … năm 2017
+                </p>
+                <p style="margin-bottom:6pt; text-align:center; line-height:108%; font-size:18pt">
+                    <strong>BIÊN BẢN GIAO NHẬN HÀNG HÓA</strong>
+                </p>
+                <p style="margin-bottom:6pt">
+                    Bên A: {{target.nhaCungCap.maNCC}}
+                </p>
+                <p style="margin-bottom:6pt">
+                    Địa chỉ: {{target.nhaCungCap.diaChi}}
+                </p>
+                <p style="margin-bottom:6pt">
+                    Người giao:                                                                                        SĐT:
+                </p>
+                <p style="margin-bottom:6pt">
+                    Bên B ( Bên mua):{{target.donVi.tenDonVi}}
+                </p>
+
+                <p style="margin-bottom:6pt">
+                    Địa chỉ: {{target.donVi.diaChi}}
+                </p>
+                <p style="margin-bottom:6pt">
+                    Địa điểm giao: 
+                </p>
+                <p style="margin-bottom:6pt">
+                    Họ và tên:{{target.nhanVien.tenNhanVien}}                                Bộ phận: {{formatLabel(target.nhanVien.maPhong,'phongBans')}}
+                </p>
+                <p style="margin-bottom:6pt">
+                    Họ và tên:…………………….......                                 Bộ phận: P. Kế toán
+                </p>
+                <p style="margin-bottom:6pt">
+                    Họ và tên:…………………….......                                 Bộ phận: P. Thủ kho
+                </p>
+                <p style="margin-bottom:6pt">
+                    Họ và tên:…………………….......                                 Bộ phận: P. Người nhận hàng
+                </p>
+                <p style="margin-bottom:6pt">
+                    Hai bên thống nhất giao nhận hàng hóa với những sản phẩm sau:
+                </p>
+                <table cellspacing="0" cellpadding="0" style="margin-bottom:0pt; border-collapse:collapse">
+                    <tr style="height:15.4pt">
+                        <td style="width:31.5pt; border:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle">
+                            <p style="margin-bottom:6pt; text-align:center; line-height:normal">
+                                <strong>STT</strong>
+                            </p>
+                        </td>
+                        <td style="width:45.9pt; border:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle">
+                            <p style="margin-bottom:6pt; text-align:center; line-height:normal">
+                                <strong>Mã ST</strong>
+                            </p>
+                        </td>
+                        <td style="width:98.25pt; border:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle">
+                            <p style="margin-bottom:6pt; text-align:center; line-height:normal">
+                                <strong>Tên SP</strong>
+                            </p>
+                        </td>
+                        <td style="width:85.7pt; border:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle">
+                            <p style="margin-bottom:6pt; text-align:center; line-height:normal">
+                                <strong>Quy cách</strong>
+                            </p>
+                        </td>
+                        <td style="width:52.95pt; border:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle">
+                            <p style="margin-bottom:6pt; text-align:center; line-height:normal">
+                                <strong>ĐVT</strong>
+                            </p>
+                        </td>
+                        <td style="width:37pt; border:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle">
+                            <p style="margin-bottom:6pt; text-align:center; line-height:normal">
+                                <strong>SL đặt</strong>
+                            </p>
+                        </td>
+                        <td style="width:47.75pt; border:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle">
+                            <p style="margin-bottom:6pt; text-align:center; line-height:normal">
+                                <strong>Thực tế kho nhận</strong>
+                            </p>
+                        </td>
+                        <td style="width:69.35pt; border:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle">
+                            <p style="margin-bottom:6pt; text-align:center; line-height:normal">
+                                <strong>Ghi chú</strong>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr style="height:17.9pt"  ng-repeat="item in target.dataReportDetails track by $index">
+                        <td style="width:31.5pt; border:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top">
+                            <p style="margin-bottom:6pt; line-height:normal">
+                                {{$index + 1}}
+                            </p>
+                        </td>
+                        <td style="width:45.9pt; border:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top">
+                            <p style="margin-bottom:6pt; line-height:normal">
+                                {{item.maHang}}
+                            </p>
+                        </td>
+                        <td style="width:98.25pt; border:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top">
+                            <p style="margin-bottom:6pt; line-height:normal">
+                                {{item.tenHang}}
+                            </p>
+                        </td>
+                        <td style="width:85.7pt; border:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top">
+                            <p style="margin-bottom:6pt; line-height:normal">
+                                {{item.luongBao}}
+                            </p>
+                        </td>
+                        <td style="width:52.95pt; border:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top">
+                            <p style="margin-bottom:6pt; line-height:normal">
+                                {{formatLabel(item.donViTinh,'donViTinhs')}}
+                            </p>
+                        </td>
+                        <td style="width:37pt; border:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top">
+                            <p style="margin-bottom:6pt; line-height:normal">
+                                {{item.soLuong}}
+                            </p>
+                        </td>
+                        <td style="width:47.75pt; border:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top">
+                            <p style="margin-bottom:6pt; line-height:normal">
+                                {{item.soLuongThucTe}}
+                            </p>
+                        </td>
+                        <td style="width:69.35pt; border:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top">
+                            <p style="margin-bottom:6pt; line-height:normal">
+                                &#xa0;
+                            </p>
+                        </td>
+                    </tr>
+
+                </table>
+                <p style="margin-bottom:6pt">
+                    &#xa0;
+                </p>
+                <p style="margin-bottom:6pt">
+                    <strong>           Bên giao                      Bên nhận                         Thủ kho                         Kế toán                                  Kinh doanh</strong>
+                </p>
+                <p style="margin-bottom:6pt">
+                    <strong>&#xa0;</strong>
+                </p>
+            </div>
+
+        </div>
+    </div>
+</div>

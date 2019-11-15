@@ -1,0 +1,69 @@
+﻿<form></form><!-- KHông hiểu sao để thế này thì nó mới không bị lỗi T_T-->
+<div>
+    <div class="modal-header">
+      <h3 class="modal-title" style="color:blue;">{{title()}}</h3>
+        <div class="button-close" ng-click="cancel()">
+            <i class="fa fa-times-circle"></i>
+        </div>
+    </div>
+    <div class="modal-body" ng-form>
+            <table class="table table-striped table-hover no-margin-vertical">
+                <thead>
+                    <tr class="headings">
+                        <th class="column-title">#</th>
+                        <th class="column-title">
+                            <a class="title" href="" ng-click="sortType = 'soPhieu'; sortReverse = !sortReverse">
+                                Số phiếu
+                                <span ng-show="sortType == 'soPhieu' && !sortReverse" class="fa fa-caret-down"></span>
+                                <span ng-show="sortType == 'soPhieu' && sortReverse" class="fa fa-caret-up"></span>
+                            </a>
+                        </th>
+
+                        <th class="column-title">
+                            <a class="title" href="" ng-click="sortType = 'ngay'; sortReverse = !sortReverse">
+                                Ngày
+                                <span ng-show="sortType == 'ngay' && !sortReverse" class="fa fa-caret-down"></span>
+                                <span ng-show="sortType == 'ngay' && sortReverse" class="fa fa-caret-up"></span>
+                            </a>
+                        </th>
+                        <th class="column-title">
+                            <a class="title" href="" ng-click="sortType = 'nhaCungCap'; sortReverse = !sortReverse">
+                                Nhà cung cấp
+                                <span ng-show="sortType == 'nhaCungCap' && !sortReverse" class="fa fa-caret-down"></span>
+                                <span ng-show="sortType == 'nhaCungCap' && sortReverse" class="fa fa-caret-up"></span>
+                            </a>
+                        </th>
+                        <th class="column-title">
+                            <a class="title" href="" ng-click="sortType = 'trangThai'; sortReverse = !sortReverse">
+                                Trạng thái
+                                <span ng-show="sortType == 'trangThai' && !sortReverse" class="fa fa-caret-down"></span>
+                                <span ng-show="sortType == 'trangThai' && sortReverse" class="fa fa-caret-up"></span>
+                            </a>
+                        </th>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="even pointer" ng-repeat="item in target ">
+                        <td style="width:10%">{{$index + 1}}</td>
+                        <td style="width:15%">{{item.soPhieuPk}}</td>
+                        <td style="width:10%">{{item.ngay | date : "dd/MM/yyyy"}}</td>
+                        <td style="width:30%">{{formatLabel(item.maNhaCungCap,'suppliers')}}</td>
+                        <td style="width:20%" ng-class="item.trangThai == 30 ? 'is-complete' : 'not-approval-yet'">{{item.trangThai | statusDatHangNCC}}</td>
+                        <td>
+                            <a class="glyphicon glyphicon-info-sign" ng-click="details(item)" data-toggle="tooltip" data-placement="top" title="Chi tiết"></a> &nbsp;&nbsp;
+                            <a class="glyphicon glyphicon-transfer" ng-click="receive(item)" data-toggle="tooltip" data-placement="top" title="Giao nhận"></a> &nbsp;&nbsp;
+                            <a ui-sref="printDonDatHangNCC({id: item.id})" class="glyphicon glyphicon-print" data-toggle="tooltip" data-placement="top"
+                               title="In đơn đặt hàng"></a> &nbsp;&nbsp;
+                            <a ui-sref="printBienBanNCC({id: item.id})" class="glyphicon glyphicon-tasks" data-toggle="tooltip" data-placement="top"
+                               title="In biên bản Giao Nhận"></a> &nbsp;&nbsp;
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+    </div>
+    <div class="modal-footer">
+        <button prevent-default class="btn btn-default" ng-click="cancel()"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;{{config.label.btnCancel}}</button>
+    </div>
+</div>

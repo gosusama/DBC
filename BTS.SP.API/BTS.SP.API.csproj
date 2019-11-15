@@ -1,0 +1,921 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.Net.Compilers.2.7.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.7.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6557594A-1011-4B70-AD86-BB9EEF7A886E}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BTS.SP.API</RootNamespace>
+    <AssemblyName>BTS.SP.API</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
+    <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="AutoMapper, Version=4.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.4.2.1\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CommonServiceLocator, Version=2.0.1.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.2.0\lib\net45\CommonServiceLocator.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EPPlus, Version=4.5.1.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.4.5.1\lib\net40\EPPlus.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.DependencyCollector, Version=2.5.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.5.1\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.PerfCounterCollector, Version=2.5.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.5.1\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.5.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.5.1\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.Web, Version=2.5.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.2.5.1\lib\net45\Microsoft.AI.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.WindowsServer, Version=2.5.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.2.5.1\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.5.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.2.5.1\lib\net45\Microsoft.ApplicationInsights.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.TelemetryCorrelation, Version=1.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.TelemetryCorrelation.1.0.1\lib\net45\Microsoft.AspNet.TelemetryCorrelation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.8.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.3.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Cors, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Cors.3.1.0\lib\net45\Microsoft.Owin.Cors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.1.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.1.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.3.1.0\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.3.1.0\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.1.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.3.1.0\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Oracle.ManagedDataAccess, Version=4.121.2.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Oracle.ManagedDataAccess.12.2.1100\lib\net40\Oracle.ManagedDataAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="Oracle.ManagedDataAccess.EntityFramework, Version=6.122.1.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\app\client\AnhNguyen\product\12.1.0\client_1\odp.net\managed\common\EF6\Oracle.ManagedDataAccess.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.2.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.4.1\lib\net45\System.Diagnostics.DiagnosticSource.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Linq.Dynamic, Version=1.0.5840.25917, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Linq.Dynamic.1.0.6\lib\net40\System.Linq.Dynamic.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.3\lib\net45\System.Web.Cors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.Cors, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Cors.5.0.0\lib\net45\System.Web.Http.Cors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.Owin, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Owin.5.2.3\lib\net45\System.Web.Http.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Telerik.Reporting, Version=11.0.17.118, Culture=neutral, PublicKeyToken=a9d7983dfcc261be, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Telerik\Reporting R1 2017\Bin\Telerik.Reporting.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Reporting.Services.WebApi, Version=11.0.17.118, Culture=neutral, PublicKeyToken=a9d7983dfcc261be, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Telerik\Reporting R1 2017\Bin\Telerik.Reporting.Services.WebApi.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.2.0\lib\net45\Unity.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Unity.Configuration, Version=5.0.3.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.2.0\lib\net45\Unity.Configuration.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Unity.Container, Version=5.2.0.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.2.0\lib\net45\Unity.Container.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Unity.Interception, Version=5.0.4.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.2.0\lib\net45\Unity.Interception.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Unity.Interception.Configuration, Version=5.0.4.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.2.0\lib\net45\Unity.Interception.Configuration.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Unity.RegistrationByConvention, Version=2.0.2.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.2.0\lib\net45\Unity.RegistrationByConvention.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Unity.ServiceLocation, Version=2.0.3.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.2.0\lib\net45\Unity.ServiceLocation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Unity.WebApi, Version=5.3.0.0, Culture=neutral, PublicKeyToken=43da31bc42a85347, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.WebAPI.5.3.0\lib\net45\Unity.WebApi.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Api\AC\AcController.cs" />
+    <Compile Include="Api\AC\AcDatHangController.cs" />
+    <Compile Include="Api\AC\CustomerCareController.cs" />
+    <Compile Include="Api\AC\DoanhSoMoiController.cs" />
+    <Compile Include="Api\AC\DoanhSoSnController.cs" />
+    <Compile Include="Api\AC\LanDauKhController.cs" />
+    <Compile Include="Api\AC\SinhNhatKhController.cs" />
+    <Compile Include="Api\AC\TanSuatMuaHangController.cs" />
+    <Compile Include="Api\AC\XuatNhapTonChiTietController.cs" />
+    <Compile Include="Api\AC\CloseoutController.cs" />
+    <Compile Include="Api\AC\ImportExportController.cs" />
+    <Compile Include="Api\AC\TheoNhaCungCapController.cs" />
+    <Compile Include="Api\Authorize\AuDonVi\AuDonViController.cs" />
+    <Compile Include="Api\Authorize\AuMenu\AuMenuController.cs" />
+    <Compile Include="Api\Authorize\AuNguoiDungNhomQuyen\AuNguoiDungNhomQuyenController.cs" />
+    <Compile Include="Api\Authorize\AuNguoiDungQuyen\AuNguoiDungQuyenController.cs" />
+    <Compile Include="Api\Authorize\AuNguoiDung\AuNguoiDungController.cs" />
+    <Compile Include="Api\Authorize\AuNhomQuyenChucNang\AuNhomQuyenChucNangController.cs" />
+    <Compile Include="Api\Authorize\AuNhomQuyen\AuNhomQuyenController.cs" />
+    <Compile Include="Api\Authorize\AuThamSoHeThong\AuThamSoHeThongController.cs" />
+    <Compile Include="Api\Authorize\RefreshTokensController.cs" />
+    <Compile Include="Api\Authorize\Shared\SharedController.cs" />
+    <Compile Include="Api\DashboardController.cs" />
+    <Compile Include="Api\MD\BoHangController.cs" />
+    <Compile Include="Api\MD\ChietKhauKhController.cs" />
+    <Compile Include="Api\MD\DistrictsController.cs" />
+    <Compile Include="Api\MD\ContractController.cs" />
+    <Compile Include="Api\MD\CurrencyController.cs" />
+    <Compile Include="Api\MD\ColorController.cs" />
+    <Compile Include="Api\MD\CityController.cs" />
+    <Compile Include="Api\MD\SizeController.cs" />
+    <Compile Include="Api\MD\TaxController.cs" />
+    <Compile Include="Api\MD\XuatXuController.cs" />
+    <Compile Include="Api\MD\DepartmentController.cs" />
+    <Compile Include="Api\MD\HangKhController.cs" />
+    <Compile Include="Api\MD\SupplierController.cs" />
+    <Compile Include="Api\MD\CustomerController.cs" />
+    <Compile Include="Api\MD\MerchandiseController.cs" />
+    <Compile Include="Api\MD\MerchandiseTypeController.cs" />
+    <Compile Include="Api\MD\NhomVatTuController.cs" />
+    <Compile Include="Api\MD\PackagingController.cs" />
+    <Compile Include="Api\MD\SellingMachineController.cs" />
+    <Compile Include="Api\MD\PeriodController.cs" />
+    <Compile Include="Api\MD\ShelvesController.cs" />
+    <Compile Include="Api\MD\DonViTinhController.cs" />
+    <Compile Include="Api\MD\TypeReasonController.cs" />
+    <Compile Include="Api\MD\WareHouseController.cs" />
+    <Compile Include="Api\NV\DatHangNCCController.cs" />
+    <Compile Include="Api\NV\NhapHangMuaController.cs" />
+    <Compile Include="Api\NV\NvCongNoController.cs" />
+    <Compile Include="Api\NV\NvNgayHetHanHangHoaController.cs" />
+    <Compile Include="Api\NV\TraTonController.cs" />
+    <Compile Include="Api\NV\ChuongTrinhKhuyenMaiController.cs" />
+    <Compile Include="Api\NV\KhuyenMaiComboController.cs" />
+    <Compile Include="Api\NV\KhuyenMaiBuy1Get1Controller.cs" />
+    <Compile Include="Api\NV\KhuyenMaiTinhTienController.cs" />
+    <Compile Include="Api\NV\KhuyenMaiTichDiemController.cs" />
+    <Compile Include="Api\NV\KhuyenMaiVoucherController.cs" />
+    <Compile Include="Api\NV\KiemKeController.cs" />
+    <Compile Include="Api\NV\KhuyenMaiDongGiaController.cs" />
+    <Compile Include="Api\NV\DatHangController.cs" />
+    <Compile Include="Api\NV\DieuChuyenNoiBoController.cs" />
+    <Compile Include="Api\NV\GiaoDichQuayController.cs" />
+    <Compile Include="Api\NV\NhapHangBanTraLaiController.cs" />
+    <Compile Include="Api\NV\NhapKhacController.cs" />
+    <Compile Include="Api\NV\BanLeController.cs" />
+    <Compile Include="Api\NV\TonDauKyController.cs" />
+    <Compile Include="Api\NV\XuatBanLeController.cs" />
+    <Compile Include="Api\NV\XuatBanController.cs" />
+    <Compile Include="Api\NV\XuatKhacController.cs" />
+    <Compile Include="Api\Reports\ReportsController.cs" />
+    <Compile Include="App_Start\UnityApiConfig.cs" />
+    <Compile Include="App_Start\UnityConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
+    <Compile Include="Areas\HelpPage\App_Start\HelpPageConfig.cs" />
+    <Compile Include="Areas\HelpPage\Controllers\HelpController.cs" />
+    <Compile Include="Areas\HelpPage\HelpPageAreaRegistration.cs" />
+    <Compile Include="Areas\HelpPage\HelpPageConfigurationExtensions.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\CollectionModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ComplexTypeModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\DictionaryModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\EnumTypeModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\EnumValueDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\IModelDocumentationProvider.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\KeyValuePairModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ModelDescriptionGenerator.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ModelNameAttribute.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ModelNameHelper.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ParameterAnnotation.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ParameterDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\SimpleTypeModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\Models\HelpPageApiModel.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\HelpPageSampleGenerator.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\HelpPageSampleKey.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\ImageSample.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\InvalidSample.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\ObjectGenerator.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
+    <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\ClientsController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\ApplicationOAuthProvider.cs" />
+    <Compile Include="Reports\BANLE_AND_BANBUON_QUAYTHUNGAN\BANLE_AND_BANBUON_QUAYTHUNGAN_CHITIET.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\BANLE_AND_BANBUON_QUAYTHUNGAN\BANLE_AND_BANBUON_QUAYTHUNGAN_CHITIET.Designer.cs">
+      <DependentUpon>BANLE_AND_BANBUON_QUAYTHUNGAN_CHITIET.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\BANLE_AND_BANBUON_QUAYTHUNGAN\BANLE_AND_BANBUON_QUAYTHUNGAN_TONGHOP.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\BANLE_AND_BANBUON_QUAYTHUNGAN\BANLE_AND_BANBUON_QUAYTHUNGAN_TONGHOP.Designer.cs">
+      <DependentUpon>BANLE_AND_BANBUON_QUAYTHUNGAN_TONGHOP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\BBQTHUNGAN\BBQTHUNGAN_TONGHOP.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\BBQTHUNGAN\BBQTHUNGAN_TONGHOP.Designer.cs">
+      <DependentUpon>BBQTHUNGAN_TONGHOP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\BBQTHUNGAN\BBQTHUNGAN_CHITIET.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\BBQTHUNGAN\BBQTHUNGAN_CHITIET.Designer.cs">
+      <DependentUpon>BBQTHUNGAN_CHITIET.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\CONGNO\CNKH_CHITIET.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\CONGNO\CNKH_CHITIET.Designer.cs">
+      <DependentUpon>CNKH_CHITIET.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\CONGNO\CNKH_TONGHOP.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\CONGNO\CNKH_TONGHOP.Designer.cs">
+      <DependentUpon>CNKH_TONGHOP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\CONGNO\CNNCC_CHITIET.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\CONGNO\CNNCC_CHITIET.Designer.cs">
+      <DependentUpon>CNNCC_CHITIET.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\CONGNO\CNNCC_TONGHOP.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\CONGNO\CNNCC_TONGHOP.Designer.cs">
+      <DependentUpon>CNNCC_TONGHOP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\GIAODICHQUAY\GIAODICHQUAY.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\GIAODICHQUAY\GIAODICHQUAY.Designer.cs">
+      <DependentUpon>GIAODICHQUAY.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\KIEMKE\KIEMKE_TONGHOP.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\KIEMKE\KIEMKE_TONGHOP.Designer.cs">
+      <DependentUpon>KIEMKE_TONGHOP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\NGAYHETHANHANGHOA\NGAYHETHANHANGHOA.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\NGAYHETHANHANGHOA\NGAYHETHANHANGHOA.Designer.cs">
+      <DependentUpon>NGAYHETHANHANGHOA.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\NHAPBANBUONTRALAI\NHAPBANBUONTRALAI_CHITIET.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\NHAPBANBUONTRALAI\NHAPBANBUONTRALAI_CHITIET.Designer.cs">
+      <DependentUpon>NHAPBANBUONTRALAI_CHITIET.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\NHAPBANBUONTRALAI\NHAPBANBUONTRALAI_TONGHOP.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\NHAPBANBUONTRALAI\NHAPBANBUONTRALAI_TONGHOP.Designer.cs">
+      <DependentUpon>NHAPBANBUONTRALAI_TONGHOP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\NHAPBANLETRALAI\NBANLETRALAI_CHITIET.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\NHAPBANLETRALAI\NBANLETRALAI_CHITIET.Designer.cs">
+      <DependentUpon>NBANLETRALAI_CHITIET.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\NHAPBANLETRALAI\NBANLETRALAI_TONGHOP.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\NHAPBANLETRALAI\NBANLETRALAI_TONGHOP.Designer.cs">
+      <DependentUpon>NBANLETRALAI_TONGHOP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\NHAPDIEUCHUYENNOIBO\NHAPDIEUCHUYENNOIBO_CHITIET.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\NHAPDIEUCHUYENNOIBO\NHAPDIEUCHUYENNOIBO_CHITIET.Designer.cs">
+      <DependentUpon>NHAPDIEUCHUYENNOIBO_CHITIET.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\NHAPDIEUCHUYENNOIBO\NHAPDIEUCHUYENNOIBO_TONGHOP.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\NHAPDIEUCHUYENNOIBO\NHAPDIEUCHUYENNOIBO_TONGHOP.Designer.cs">
+      <DependentUpon>NHAPDIEUCHUYENNOIBO_TONGHOP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\NHAPKHAC\NHAPKHAC_CHITIET.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\NHAPKHAC\NHAPKHAC_CHITIET.Designer.cs">
+      <DependentUpon>NHAPKHAC_CHITIET.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\NHAPKHAC\NHAPKHAC_TONGHOP.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\NHAPKHAC\NHAPKHAC_TONGHOP.Designer.cs">
+      <DependentUpon>NHAPKHAC_TONGHOP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\NHAPMUA\NHAPMUA_CHITIET.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\NHAPMUA\NHAPMUA_CHITIET.Designer.cs">
+      <DependentUpon>NHAPMUA_CHITIET.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\NHAPMUA\NHAPMUA_TONGHOP.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\NHAPMUA\NHAPMUA_TONGHOP.Designer.cs">
+      <DependentUpon>NHAPMUA_TONGHOP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\PRINTBILL\BILL_BANLE_QUEVO.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\PRINTBILL\BILL_BANLE_QUEVO.Designer.cs">
+      <DependentUpon>BILL_BANLE_QUEVO.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\TONKHO\TONKHO_CHITIET.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\TONKHO\TONKHO_CHITIET.Designer.cs">
+      <DependentUpon>TONKHO_CHITIET.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\TONKHO\TONKHO_TONGHOP.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\TONKHO\TONKHO_TONGHOP.Designer.cs">
+      <DependentUpon>TONKHO_TONGHOP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\XUATBANBUON\XBAN_CHITIET.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\XUATBANBUON\XBAN_CHITIET.Designer.cs">
+      <DependentUpon>XBAN_CHITIET.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\XUATBANBUON\XBAN_TONGHOP.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\XUATBANBUON\XBAN_TONGHOP.Designer.cs">
+      <DependentUpon>XBAN_TONGHOP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\XUATBANLE\XBANLE_CHITIET.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\XUATBANLE\XBANLE_CHITIET.Designer.cs">
+      <DependentUpon>XBANLE_CHITIET.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\XUATBANLE\XBANLE_TONGHOP.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\XUATBANLE\XBANLE_TONGHOP.Designer.cs">
+      <DependentUpon>XBANLE_TONGHOP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\XUATDIEUCHUYEN\DCX_CHITIET.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\XUATDIEUCHUYEN\DCX_CHITIET.Designer.cs">
+      <DependentUpon>DCX_CHITIET.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\XUATDIEUCHUYEN\DCX_TONGHOP.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\XUATDIEUCHUYEN\DCX_TONGHOP.Designer.cs">
+      <DependentUpon>DCX_TONGHOP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\XUATKHAC\XKHAC_CHITIET.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\XUATKHAC\XKHAC_CHITIET.Designer.cs">
+      <DependentUpon>XKHAC_CHITIET.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\XUATKHAC\XKHAC_TONGHOP.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\XUATKHAC\XKHAC_TONGHOP.Designer.cs">
+      <DependentUpon>XKHAC_TONGHOP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\XUATNHAPTON\XUATNHAPTON_CHITIET.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\XUATNHAPTON\XUATNHAPTON_CHITIET.Designer.cs">
+      <DependentUpon>XUATNHAPTON_CHITIET.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\XUATNHAPTON\XUATNHAPTON_TONGHOP.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\XUATNHAPTON\XUATNHAPTON_TONGHOP.Designer.cs">
+      <DependentUpon>XUATNHAPTON_TONGHOP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\XUATNHAPTON_CHITIET\XUATNHAPTON_CHITIET_CHITIET.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\XUATNHAPTON_CHITIET\XUATNHAPTON_CHITIET_CHITIET.Designer.cs">
+      <DependentUpon>XUATNHAPTON_CHITIET_CHITIET.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\XUATNHAPTON_CHITIET\XUATNHAPTON_CHITIET_TONGHOP.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\XUATNHAPTON_CHITIET\XUATNHAPTON_CHITIET_TONGHOP.Designer.cs">
+      <DependentUpon>XUATNHAPTON_CHITIET_TONGHOP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Startup.cs" />
+    <Compile Include="Utils\WriteLogs.cs" />
+    <Compile Include="Utils\UnityResolver.cs" />
+    <Compile Include="Utils\Utils.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\HelpPage\HelpPage.css" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Reports\BANLE_AND_BANBUON_QUAYTHUNGAN\BANLE_AND_BANBUON_QUAYTHUNGAN_CHITIET.sql" />
+    <Content Include="Reports\BANLE_AND_BANBUON_QUAYTHUNGAN\BANLE_AND_BANBUON_QUAYTHUNGAN_TONGHOP.sql" />
+    <Content Include="Reports\SCRIPT_UPDATE_ALL.sql" />
+    <Content Include="Reports\BBQTHUNGAN\BBQTHUNGAN_TONGHOP.sql" />
+    <Content Include="Reports\BBQTHUNGAN\BAOCAO_BBQTHUNGAN_CHITIET.sql" />
+    <Content Include="Reports\CONGNO\BAOCAO_CNNCC_TONGHOP.sql" />
+    <Content Include="Reports\CONGNO\BAOCAO_CNKH_TONGHOP.sql" />
+    <Content Include="Reports\CONGNO\BAOCAO_CNNCC_CHITIET.sql" />
+    <Content Include="Reports\CONGNO\BAOCAO_CNKH_CHITIET.sql" />
+    <Content Include="Reports\GIAODICHQUAY\BAOCAO_TOMTATTHUNGAN.sql" />
+    <Content Include="Reports\GIAODICHQUAY\BAOCAO_QUAYGD_TONGHOP.sql" />
+    <Content Include="Reports\GIAODICHQUAY\BAOCAO_GIAODICHQUAY.sql" />
+    <Content Include="Reports\KIEMKE\BAOCAO_KIEMKE_TONGHOP.sql" />
+    <Content Include="Reports\NGAYHETHANHANGHOA\BAOCAO_NHHHH_CHITIET.sql" />
+    <Content Include="Reports\NHAPBANBUONTRALAI\NHAPBANBUONTRALAICHITIET.sql" />
+    <Content Include="Reports\NHAPBANBUONTRALAI\NHAPBANBUONTRALAITONGHOP.sql" />
+    <Content Include="Reports\NHAPBANLETRALAI\NBANLETRALAI_TONGHOP.sql" />
+    <Content Include="Reports\NHAPBANLETRALAI\NBANLETRALAI_CHITIET.sql" />
+    <Content Include="Reports\NHAPDIEUCHUYENNOIBO\BAOCAO_DCN_CHITIET.sql" />
+    <Content Include="Reports\NHAPDIEUCHUYENNOIBO\BAOCAO_DCN_TONGHOP.sql" />
+    <Content Include="Reports\NHAPKHAC\BAOCAO_NKHAC_CHITIET.sql" />
+    <Content Include="Reports\NHAPKHAC\BAOCAO_NKHAC_TONGHOP.sql" />
+    <Content Include="Reports\NHAPMUA\NHAPMUACHITIET.sql" />
+    <Content Include="Reports\NHAPMUA\NHAPMUATONGHOP.sql" />
+    <Content Include="Reports\XUATBANLE\BAOCAO_XBANLE_CHITIET.sql" />
+    <Content Include="Reports\XUATBANLE\BAOCAO_XBANLE_TONGHOP.sql" />
+    <Content Include="Reports\TONKHO\TONKHO_TONGHOP.sql" />
+    <Content Include="Reports\TONKHO\TONKHO_CHITIET.sql" />
+    <Content Include="Reports\XUATBANBUON\XUATBANBUON_CHITIET.sql" />
+    <Content Include="Reports\XUATBANBUON\XUATBANBUON_TONGHOP.sql" />
+    <Content Include="Reports\XUATDIEUCHUYEN\BAOCAO_DCX_CHITIET.sql" />
+    <Content Include="Reports\XUATDIEUCHUYEN\BAOCAO_DCX_TONGHOP.sql" />
+    <Content Include="Reports\XUATKHAC\BAOCAO_XKHAC_CHITIET.sql" />
+    <Content Include="Reports\XUATKHAC\BAOCAO_XKHAC_TONGHOP.sql" />
+    <Content Include="Reports\XUATNHAPTON\XUATNHAPTON_CHITIET.sql" />
+    <Content Include="Reports\XUATNHAPTON\XUATNHAPTON_TONGHOP.sql" />
+    <Content Include="Reports\XUATNHAPTON_CHITIET\BAOCAO_XNTNEW_CHITIET.sql" />
+    <Content Include="Reports\XUATNHAPTON_CHITIET\BAOCAO_XNTNEW_TONGHOP.sql" />
+    <Content Include="ApplicationInsights.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Web.config" />
+    <Content Include="Areas\HelpPage\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\Index.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\TextSample.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\Samples.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\Parameters.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\InvalidSample.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ImageSample.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\HelpPageApiModel.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\ResourceModel.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\SimpleTypeModelDescription.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ModelDescriptionLink.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\KeyValuePairModelDescription.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\EnumTypeModelDescription.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\DictionaryModelDescription.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ComplexTypeModelDescription.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
+    <None Include="Properties\PublishProfiles\API_LYTHAITO.pubxml" />
+    <None Include="Properties\PublishProfiles\BANHANG.pubxml" />
+    <None Include="Properties\PublishProfiles\HUYNQ.SS.pubxml" />
+    <None Include="Properties\PublishProfiles\HUY_BANHANGAPI.pubxml" />
+    <None Include="Properties\PublishProfiles\ILOVEVN_API.pubxml" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Content\Site.css" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Upload\Barcode\Barcode1.xls" />
+    <Content Include="Upload\Barcode\macandientu.xlsx" />
+    <Content Include="Upload\Barcode\TemPlateBoHang.xls" />
+    <Content Include="Upload\Barcode\TemPlateNhapMua.xls" />
+    <Content Include="Upload\Barcode\TemPlateNhapMua.xlsx" />
+    <Content Include="Template\TemPlateBoHang.xlsx" />
+    <Content Include="Upload\Barcode\TemPlateBoHang.xlsx" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BTS.API.ASYNC\BTS.API.ASYNC.csproj">
+      <Project>{031FEFE0-E286-4950-B5F4-1DE05ECDBFC8}</Project>
+      <Name>BTS.API.ASYNC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BTS.API.ENTITY\BTS.API.ENTITY.csproj">
+      <Project>{2bee3908-6263-4ad2-9208-c3779001a2aa}</Project>
+      <Name>BTS.API.ENTITY</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BTS.API.SERVICE\BTS.API.SERVICE.csproj">
+      <Project>{228fe950-78bd-4cb6-bb09-c4b19316c016}</Project>
+      <Name>BTS.API.SERVICE</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Reports\BANLE_AND_BANBUON_QUAYTHUNGAN\BANLE_AND_BANBUON_QUAYTHUNGAN_CHITIET.resx">
+      <DependentUpon>BANLE_AND_BANBUON_QUAYTHUNGAN_CHITIET.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\BANLE_AND_BANBUON_QUAYTHUNGAN\BANLE_AND_BANBUON_QUAYTHUNGAN_TONGHOP.resx">
+      <DependentUpon>BANLE_AND_BANBUON_QUAYTHUNGAN_TONGHOP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\BBQTHUNGAN\BBQTHUNGAN_TONGHOP.resx">
+      <DependentUpon>BBQTHUNGAN_TONGHOP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\BBQTHUNGAN\BBQTHUNGAN_CHITIET.resx">
+      <DependentUpon>BBQTHUNGAN_CHITIET.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\CONGNO\CNKH_CHITIET.resx">
+      <DependentUpon>CNKH_CHITIET.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\CONGNO\CNKH_TONGHOP.resx">
+      <DependentUpon>CNKH_TONGHOP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\CONGNO\CNNCC_CHITIET.resx">
+      <DependentUpon>CNNCC_CHITIET.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\CONGNO\CNNCC_TONGHOP.resx">
+      <DependentUpon>CNNCC_TONGHOP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\GIAODICHQUAY\GIAODICHQUAY.resx">
+      <DependentUpon>GIAODICHQUAY.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\KIEMKE\KIEMKE_TONGHOP.resx">
+      <DependentUpon>KIEMKE_TONGHOP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\NGAYHETHANHANGHOA\NGAYHETHANHANGHOA.resx">
+      <DependentUpon>NGAYHETHANHANGHOA.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\NHAPBANBUONTRALAI\NHAPBANBUONTRALAI_CHITIET.resx">
+      <DependentUpon>NHAPBANBUONTRALAI_CHITIET.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\NHAPBANBUONTRALAI\NHAPBANBUONTRALAI_TONGHOP.resx">
+      <DependentUpon>NHAPBANBUONTRALAI_TONGHOP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\NHAPBANLETRALAI\NBANLETRALAI_CHITIET.resx">
+      <DependentUpon>NBANLETRALAI_CHITIET.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\NHAPBANLETRALAI\NBANLETRALAI_TONGHOP.resx">
+      <DependentUpon>NBANLETRALAI_TONGHOP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\NHAPDIEUCHUYENNOIBO\NHAPDIEUCHUYENNOIBO_CHITIET.resx">
+      <DependentUpon>NHAPDIEUCHUYENNOIBO_CHITIET.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\NHAPDIEUCHUYENNOIBO\NHAPDIEUCHUYENNOIBO_TONGHOP.resx">
+      <DependentUpon>NHAPDIEUCHUYENNOIBO_TONGHOP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\NHAPKHAC\NHAPKHAC_CHITIET.resx">
+      <DependentUpon>NHAPKHAC_CHITIET.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\NHAPKHAC\NHAPKHAC_TONGHOP.resx">
+      <DependentUpon>NHAPKHAC_TONGHOP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\NHAPMUA\NHAPMUA_CHITIET.resx">
+      <DependentUpon>NHAPMUA_CHITIET.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\NHAPMUA\NHAPMUA_TONGHOP.resx">
+      <DependentUpon>NHAPMUA_TONGHOP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\PRINTBILL\BILL_BANLE_QUEVO.resx">
+      <DependentUpon>BILL_BANLE_QUEVO.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\TONKHO\TONKHO_CHITIET.resx">
+      <DependentUpon>TONKHO_CHITIET.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\TONKHO\TONKHO_TONGHOP.resx">
+      <DependentUpon>TONKHO_TONGHOP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\XUATBANBUON\XBAN_CHITIET.resx">
+      <DependentUpon>XBAN_CHITIET.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\XUATBANBUON\XBAN_TONGHOP.resx">
+      <DependentUpon>XBAN_TONGHOP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\XUATBANLE\XBANLE_CHITIET.resx">
+      <DependentUpon>XBANLE_CHITIET.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\XUATBANLE\XBANLE_TONGHOP.resx">
+      <DependentUpon>XBANLE_TONGHOP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\XUATDIEUCHUYEN\DCX_CHITIET.resx">
+      <DependentUpon>DCX_CHITIET.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\XUATDIEUCHUYEN\DCX_TONGHOP.resx">
+      <DependentUpon>DCX_TONGHOP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\XUATKHAC\XKHAC_CHITIET.resx">
+      <DependentUpon>XKHAC_CHITIET.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\XUATKHAC\XKHAC_TONGHOP.resx">
+      <DependentUpon>XKHAC_TONGHOP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\XUATNHAPTON\XUATNHAPTON_CHITIET.resx">
+      <DependentUpon>XUATNHAPTON_CHITIET.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\XUATNHAPTON\XUATNHAPTON_TONGHOP.resx">
+      <DependentUpon>XUATNHAPTON_TONGHOP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\XUATNHAPTON_CHITIET\XUATNHAPTON_CHITIET_CHITIET.resx">
+      <DependentUpon>XUATNHAPTON_CHITIET_CHITIET.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\XUATNHAPTON_CHITIET\XUATNHAPTON_CHITIET_TONGHOP.resx">
+      <DependentUpon>XUATNHAPTON_CHITIET_TONGHOP.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <Target Name="CopyRoslynFiles" AfterTargets="AfterBuild" Condition="!$(Disable_CopyWebApplication) And '$(OutDir)' != '$(OutputPath)'">
+    <ItemGroup>
+      <RoslynFiles Include="$(CscToolPath)\*" />
+    </ItemGroup>
+    <MakeDir Directories="$(WebProjectOutputDir)\bin\roslyn" />
+    <Copy SourceFiles="@(RoslynFiles)" DestinationFolder="$(WebProjectOutputDir)\bin\roslyn" SkipUnchangedFiles="true" Retries="$(CopyRetryCount)" RetryDelayMilliseconds="$(CopyRetryDelayMilliseconds)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>51944</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:44915/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.7.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.7.0\build\Microsoft.Net.Compilers.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

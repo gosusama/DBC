@@ -1,0 +1,109 @@
+﻿<div>
+    <div class="modal-header" style="padding: 5px 5px">
+      <h3 class="modal-title" style="color:blue;">{{title()}}</h3>
+        <div class="button-close" ng-click="cancel()">
+            <i class="fa fa-times-circle"></i>
+        </div>
+    </div>
+    <div class="modal-body">
+        <form role="form" name="_form">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>Mã bó hàng</label><span style="color: red"> (1*) </span>
+                        <input type="text" class="form-control" ng-model="target.mabohang" name="_maBoHang" maxlength="50" required disabled>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label>Tên bó hàng</label><span style="color: red"> (2*)</span>
+                        <input type="text" class="form-control" ng-model="target.tenbo" name="_tenBoHang" maxlength="300" required disabled>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>Ngày</label>
+                        <div class="add-input-zone">
+                            <input class="form-control" type="text" ng-model="target.ngaytao" placeholder="{{config.dateFormat}}"
+                                   uib-datepicker-popup="{{config.dateFormat}}" is-open="_ngayCT" disabled />
+                            <div class="button-calender" ng-click="_ngayCT = !_ngayCT; config.delegateEvent($event);">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label>Trạng thái</label>
+                        <select class="form-control" ng-model="target.trangthai" ng-init="target.trangThai = 10" ng-options="opt.value as opt.text for opt in tempData('status')" disabled></select>
+                    </div>
+                    <div class="col-md-8">
+                        <label>Nội dung chi tiết</label>
+                        <input type="text" class="form-control" ng-model="target.ghichu" disabled />
+                    </div>
+
+                </div>
+            </div>
+            <div class="form-group">
+            </div>
+        </form>
+    </div>
+    <div class="modal-body">
+        <table class="table table-bordered table-hover table-condensed">
+            <thead>
+                <tr>
+                    <th style="width:3%" class="text-center">STT</th>
+                    <th style="width:15%" class="text-center">Mã hàng</th>
+                    <th style="width:27%" class="text-center">Tên hàng</th>
+                    <th style="width:10%" class="text-center">Số lượng</th>
+                    <th style="width:10%" class="text-center">Đơn giá</th>
+                    <th style="width:10%" class="text-center">Tỷ lệ chiết khấu</th>
+                    <th style="width:20%" class="text-center">Thành tiền</th>
+                    <th style="width:5%"></th>
+                </tr>
+            </thead>
+            <tbody ng-form name="_formDetail">
+                <tr ng-if="isLoading">
+                    <td colspan="8"><my-loading></my-loading></td>
+                </tr>
+                <tr ng-repeat="item in data track by $index">
+                    <td style="text-align:center;">{{$index + 1}}</td>
+                    <td>
+                        <input type="text" style="width:100%;" name="_maHang" ng-model="item.masieuthi" ng-blur="selectedMaHang(item.masieuthi)" disabled />
+                    </td>
+                    <td>
+                        {{item.tenhang}}
+                    </td>
+                    <td>
+                        <input format-number-input="number" style="text-align:center; width:100%" ng-model="item.soluong" ng-change="" disabled>
+                    </td>
+                    <td>
+                        <input format-number-input="number" style="text-align:center; width:100%" ng-model="item.dongia" ng-change="" disabled>
+                    </td>
+
+                    <td>
+                        <input format-number-input="number" style="text-align:center; width:100%" ng-model="item.tylechietkhaule" ng-change="" disabled>
+                    </td>
+                    <td>
+                        <input format-number-input="number" style="text-align:center; width:100%" ng-model="item.tongtienbanle" disabled>
+                    </td>
+                    <td style="white-space: nowrap" class="text-center">
+                        <button prevent-default type="button" style="height: 20px; line-height: 2px;background: rgba(255, 213, 93, 0.61);" ng-click="removeItem($index)" class="btn btn-default btn-sm">
+                            Xóa
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="panel-footer">
+            <uib-pagination class="no-margin-vertical pagination-sm" ng-model="paged.currentPage"
+                            ng-change="pageChanged()"
+                            items-per-page="paged.itemsPerPage" ng-show="paged.totalItems > 0" total-items="paged.totalItems" max-size="paged.pageSize"
+                            boundary-links="true" num-pages="paged.totalPage"
+                            previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;">
+            </uib-pagination>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button prevent-default type="submit" class="btn btn-primary" ng-disabled="_form.$invalid || _formDetail.$invalid" ng-click="save()">{{config.label.btnSubmit}}</button>
+        <button prevent-default class="btn btn-default" ng-click="cancel()"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;{{config.label.btnCancel}}</button>
+    </div>
+</div>

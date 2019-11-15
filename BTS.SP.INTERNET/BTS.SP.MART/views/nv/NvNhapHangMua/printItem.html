@@ -1,0 +1,68 @@
+﻿<style>
+    .table thead th {
+        text-align: center;
+    }
+
+    td {
+        text-align: center;
+    }
+</style>
+<form></form><!-- KHông hiểu sao để thế này thì nó mới không bị lỗi T_T-->
+<div>
+    <div class="modal-header">
+      <h3 class="modal-title" style="color:blue;">{{title()}}</h3>
+        <div class="button-close" ng-click="cancel()">
+            <i class="fa fa-times-circle"></i>
+        </div>
+    </div>
+    <div class="modal-body" ng-form name="_form">
+        <div id="tableToExport">
+            <table style="text-align:center" class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th  class="text-center">STT</th>
+                        <th  class="text-center" style="width:10%">Mã vật tư</th>
+                        <th  class="text-center" style="width:20%">Tên vật tư</th><!-- ten hang hoa-->
+                        <th  class="text-center">Barcode</th>
+                        <th  class="text-center" style="width:10%">Giá buôn (VAT)</th>
+                        <th  class="text-center" style="width:10%">Giá lẻ (VAT)</th>
+                        <th  class="text-center">Mã nhà cung cấp</th><!-- nha cung cap-->
+                        <th  class="text-center">Số lượng</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in lstMerchandise">
+                    <th class="text-center" scope="row">{{$index + 1}}</th>
+                    <td class="text-center">
+                        <div>{{item.maHang}}</div></td>
+                    <td class="text-left">{{item.tenHang}}</td>
+                    <td class="text-left">
+                        <input type="text" style="text-align: left; width: 100%;" ng-model="item.barcode" disabled>
+                    </td>
+                    <td class="text-right">{{item.giaBanLe | number}} VND</td><!-- gia buon cos vat-->
+                    <td class="text-right">{{item.giaBanLe | number}} VND</td><!-- gia le cos vat-->
+                    <td class="text-center">{{dataHangHoa.maKhachHang}}</td><!-- nha cung cap-->
+                    <td class="text-right">
+                        <div class="soLuong ng-binding" style="display: none; text-align: right">{{item.soLuong}}</div>
+                        <div class="md-4-style-input">
+                            <input class="input-border-form" type="number" style="text-align: right" ng-model="item.soLuong" maxlength="50">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-right" colspan="7" style="font-weight: bold; padding-right: 100px;">Tổng số lượng</td>
+                    <td class="text-right">
+                        <div class="md-4-style-input">
+                            <input class="input-border-form" type="number" style="text-align: right;font-weight: bold;" ng-value="sum()" maxlength="50">
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button prevent-default type="submit" class="btn btn-primary" ng-disabled="_form.$invalid || Loading" ng-click="exportToExcel()">Tải temp Excel</button>
+        <button prevent-default class="btn btn-default" ng-disabled="Loading" ng-click="cancel()"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;{{config.label.btnCancel}}</button>
+    </div>
+</div>

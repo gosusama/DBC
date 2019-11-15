@@ -1,0 +1,203 @@
+﻿<form></form>
+<!-- KHông hiểu sao để thế này thì nó mới không bị lỗi T_T-->
+<div>
+    <div class="modal-header">
+      <h3 class="modal-title" style="color:blue;">{{title()}}</h3>
+        <div class="button-close" ng-click="cancel()">
+            <i class="fa fa-times-circle"></i>
+        </div>
+    </div>
+    <div class="modal-body">
+        <form role="form" name="_formThu" class="form-validation">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="md-style-label-input">
+                            Số chứng từ <span style="color:red">(*)</span>
+                        </div>
+                        <div class="md-4-style-input">
+                            <input class="input-border-form" type="text" ng-model="target.maChungTu" required>
+                            <span style="color:red" ng-show="_formThu._maChungTu.$dirty && _formThu._maChungTu.$invalid">
+                                <span ng-show="_formThu._maChungTu.$error.required">Không được để trống</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="md-style-label-input">
+                            Ngày chứng từ 
+                        </div>
+                        <div class="md-4-style-input">
+                            <div class="add-input-zone">
+                                <input class="input-border-form" type="text" ng-model="target.ngayCT" placeholder="{{config.dateFormat}}"
+                                       uib-datepicker-popup="{{config.dateFormat}}" is-open="_ngayct" datepicker-localdate/>
+                                <div class="button-calender" ng-click="_ngayct = !_ngayct; config.delegateEvent($event);">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="md-style-label-input">
+                            Nội dung
+                        </div>
+                        <div class="md-12-style-input">
+                            <textarea class="input-border-form" focus="true" name="_noidung" style="width:100%;" rows="1" ng-model="target.noiDung"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="md-style-label-input">
+                            Đơn vị nhận<span style="color:red">(*)</span>
+                        </div>
+                        <div class="md-4-style-input">
+                            <input class="input-border-form" name="_maDonViNhan" type="text" ng-model="target.maDonViNhan" typeahead-editable="false" uib-typeahead="opt.value as opt.text for opt in tempData.unitUsers | filter:$viewValue" typeahead-input-formatter="formatLabel($model, 'unitUsers')"
+                                   typeahead-on-select="target.maDonViNhan = $item.value" required />
+                            <span style="color:red" ng-show="_formThu._maDonViNhan.$dirty && _formThu._maDonViNhan.$invalid">
+                                <span ng-show="_formThu._maDonViNhan.$error.required">Không được để trống</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="md-style-label-input">
+                            Kho nhập <span style="color:red">(*)</span>
+                        </div>
+                        <div class="md-4-style-input">
+                            <div class="add-input-zone">
+                                <input class="input-border-form" name="_khoNhap" type="text" ng-model="target.maKhoNhap" typeahead-editable="false" typeahead-on-select="selectedKhoNhap($item)" typeahead-input-formatter="displayHepler($model, 'wareHouses')"
+                                       uib-typeahead="opt.value as opt.text for opt in tempData('wareHouses') | filter:$viewValue" required />
+                                <div class="add-input-able" ng-click="createWareHouse()">
+                                </div>
+                            </div>
+                            <span style="color:red" ng-show="_formThu._khoNhap.$dirty && _formThu._khoNhap.$invalid">
+                                <span style="color:red">Không được để trống</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-body">
+        <uib-tabset active="active">
+            <uib-tab index="0" heading="Chi tiết">
+                <div>
+                    <form name="_tableForm">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover table-condensed" arrow-selector data-item-target="dataDetails">
+                                <thead>
+                                    <tr>
+                                        <th style="width:3%" class="text-center">STT</th>
+                                        <th style="width:15%" class="text-center">Tên hàng</th>
+                                        <th style="width:15%" class="text-center">Loại bao bì</th>
+                                        <th style="width:10%" class="text-center">Sl bao</th>
+                                        <th style="width:5%" class="text-center">Sl</th>
+                                        <th style="width:10%"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in target.dataDetails" enter-key="addRow()" delete-key="removeRow(item)" ng-click="setIndex($index)">
+                                        <td style="text-align:center">{{$index + 1}}</td>
+                                        <td>
+                                            <div class="add-input-zone">
+                                                <input autocomplete="off" ng-focus="setIndex($index)" type="text" style="width:100%;" name="_maHang_{{$index}}" ng-model="item.maHang" typeahead-editable="false" uib-typeahead="opt.value as opt.text for opt in tempData.merchandises | filter:$viewValue" typeahead-on-select="selectedMaHang($model, $item)" typeahead-input-formatter="formatLabel($model, 'merchandises')" required />
+                                                <div class="add-input-able" ng-click="createMerchandise()">
+                                                </div>
+                                            </div>
+
+                                            <span style="color:red" ng-show="_tableForm['_maHang_{{$index}}'].$dirty && _tableForm['_maHang_{{$index}}'].$invalid">
+                                                <span style="color:red; font-size:10px">Không hợp lệ</span>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <div class="add-input-zone">
+                                                <input autocomplete="off" ng-focus="setIndex($index)" type="text" style="width:100%;" ng-model="item.maBaoBi" name="_maBaoBi_{{$index}}" typeahead-editable="false" uib-typeahead="opt.value as opt.text for opt in tempData('packagings') | filter:$viewValue" typeahead-on-select="item.maBaoBi = $item.value;selectedMaBaoBi($model, $item, $index)" typeahead-input-formatter="displayHepler($model, 'packagings')" required />
+                                                <div class="add-input-able" ng-click="createPackage()">
+                                                </div>
+                                            </div>
+
+                                            <span style="color:red" ng-show="_tableForm['_maBaoBi_{{$index}}'].$dirty && _tableForm['_maBaoBi_{{$index}}'].$invalid">
+                                                <span style="color:red; font-size:10px">Không hợp lệ</span>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <input ng-focus="setIndex($index)" format-number-input="number" style="text-align:center; width:100%" ng-change="changeSoLuongBao(item)" ng-model="item.soLuongBao">
+                                        </td>
+                                        <td>
+                                            <input ng-focus="setIndex($index)" format-number-input="number" style="text-align:center; width:100%" ng-model="item.soLuong" disabled>
+                                        </td>
+                                        <td style="white-space: nowrap" class="text-center">
+                                            <!-- form -->
+                                            <div class="form-buttons form-inline">
+                                                <button prevent-default type="button" style="height: 20px; line-height: 2px;background: rgba(255, 213, 93, 0.61);" ng-click="removeRow($index)" class="btn btn-default btn-sm">
+                                                    Xóa
+                                                </button>
+                                                <button prevent-default type="button" class="btn btn-default btn-sm btn-sm-add-item" ng-click="addRow()">{{config.label.btnCreate}}</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
+                </div>
+
+            </uib-tab>
+            <uib-tab heading="Định khoản">
+                <div>
+                    <form name="_tableForm">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th style="width:2%" class="text-center">STT</th>
+                                        <th style="width:10%" class="text-center">Tài khoản nợ</th>
+                                        <th style="width:10%" class="text-center">Tài khoản có</th>
+                                        <th style="width:20%" class="text-center">Đối tượng nợ</th>
+                                        <th style="width:20%" class="text-center">Đối tượng có</th>
+                                        <th style="width:20%" class="text-center">Số tiền</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in target.dataClauseDetails">
+                                        <td style="text-align:center">{{$index + 1}}</td>
+                                        <td>
+                                            <input style="width:100%;" type="text" ng-model="item.tkNo" typeahead-editable="false" uib-typeahead="opt.value as opt.text for opt in tempData.accounts | filter:$viewValue" />
+                                        </td>
+                                        <td>
+                                            <input style="width:100%;" type="text" ng-model="item.tkCo" typeahead-editable="false" uib-typeahead="opt.value as opt.text for opt in tempData.accounts | filter:$viewValue" />
+                                        </td>
+                                        <td>
+                                            <input style="width:100%;" type="text" ng-model="item.doiTuongNo" typeahead-editable="false" uib-typeahead="opt.value as opt.text for opt in tempData('customers') | filter:$viewValue"
+                                                   typeahead-input-formatter="displayHepler($model, 'customers')" disabled />
+                                        </td>
+                                        <td>
+                                            <input style="width:100%;" type="text" ng-model="item.doiTuongCo" typeahead-editable="false" uib-typeahead="opt.value as opt.text for opt in tempData('wareHouses') | filter:$viewValue"
+                                                   typeahead-input-formatter="displayHepler($model, 'wareHouses')" disabled />
+                                        </td>
+                                        <td>
+                                            <input format-number-input="number" style="width:100%;" ng-model="item.soTien" disabled />
+                                        </td>
+                                    </tr>
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </form>
+                </div>
+
+            </uib-tab>
+        </uib-tabset>
+    </div>
+
+    <div class="modal-footer">
+        <button prevent-default type="submit" class="btn btn-primary" ng-disabled="_tableForm.$invalid || _formThu.$invalid" ng-click="saveAndPrint()">{{config.label.btnSaveAndPrint}}</button>
+        <button prevent-default type="submit" class="btn btn-primary" ng-disabled="_tableForm.$invalid || _formThu.$invalid" ng-click="save()">{{config.label.btnSubmit}}</button>
+        <button prevent-default class="btn btn-default" ng-click="cancel()"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;{{config.label.btnCancel}}</button>
+    </div>
+</div>

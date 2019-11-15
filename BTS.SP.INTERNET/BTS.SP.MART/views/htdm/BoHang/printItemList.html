@@ -1,0 +1,61 @@
+﻿<form></form><!-- KHông hiểu sao để thế này thì nó mới không bị lỗi T_T-->
+<div>
+    <div class="modal-header">
+      <h3 class="modal-title" style="color:blue;">{{title()}}</h3>
+        <div class="button-close" ng-click="cancel()">
+            <i class="fa fa-times-circle"></i>
+        </div>
+    </div>
+    <div class="modal-body" ng-form name="_form">
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="md-style-label-input">
+                        Số lượng <span style="color:red">(*)</span>
+                    </div>
+                    <div class="md-4-style-input">
+                        <input class="input-border-form" type="number" name="_maHoaDon" ng-model="dataHangHoa.soLuongIn" maxlength="50" required />
+                        <span style="color:red" ng-show="_form._maHoaDon.$dirty && _form._maHoaDon.$invalid">
+                            <span ng-show="_form._maHoaDon.$error.required">Không được để trống</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="tableToExport">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Tensieuthi</th>
+                        <th>Mancc</th>
+                        <th>Tennganhhang</th>
+                        <th>Mabohang</th>
+                        <th>Tenmathang</th>
+                        <th>Soluong</th>
+                        <th>dongia</th>
+                        <th>Thutuin</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>DABACO MART</td>
+                        <td></td>
+                        <td></td>
+                        <td>{{dataHangHoa.maBoHang}}</td>
+                        <td>{{dataHangHoa.tenBoHang}}</td>
+                        <td>
+                            {{dataHangHoa.soLuongIn}}
+                        </td>
+                        <td>{{donGia | number}}</td>
+                        <td>1</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button prevent-default type="submit" class="btn btn-primary" ng-disabled="_form.$invalid || Loading" ng-click="exportToExcel('#tableToExport')">{{config.label.btnExport}}</button>
+        <a class="btn btn-primary" ng-href="{{hrefTem}}" >Tải xuống </a>
+        <button prevent-default class="btn btn-default" ng-disabled="Loading" ng-click="cancel()"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;{{config.label.btnCancel}}</button>
+    </div>
+</div>

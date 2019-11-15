@@ -1,0 +1,64 @@
+﻿<div>
+    <div class="modal-header">
+      <h3 class="modal-title" style="color:blue;">{{title()}}</h3>
+        <div class="button-close" ng-click="cancel()">
+            <i class="fa fa-times-circle"></i>
+        </div>
+    </div>
+    <div class="modal-body">
+        <form role="form" name="_form">
+            <div class="row form-group">
+                <div class="col-lg-6">
+                    <label>Mã chiết khấu KH</label><span style="color: red"> (1*)</span>
+                    <input type="text" class="form-control" ng-model="target.maChietKhau" name="_maChietKhau" maxlength="50" disabled>
+                    <span style="color:red" ng-show="_form._maChietKhau.$dirty && _form._maChietKhau.$invalid">
+                        <span ng-show="_form._maChietKhau.$error.required">Không được để trống </span>
+                    </span>
+                </div>
+                <div class="col-lg-6">
+
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-lg-6">
+                    <label>Tiền từ</label><span style="color: red"> (2*)</span>
+                    <input type="number" class="form-control" ng-model="target.tienTu" name="_tienTu" min="0" ng-blur="checktien(target.tienDen,target.tienTu)" required>
+                    <span style="color:red" ng-show="_form._tienTu.$dirty && _form._tienTu.$invalid">
+                        <span ng-show="_form._tienTu.$error.required">Không được để trống </span>
+                        <span ng-show="_form._tienTu.$error.number">Chỉ được nhập số </span>
+
+                    </span>
+                </div>
+                <div class="col-lg-6">
+                    <label>Tiền đến</label><span style="color: red"> (3*)</span>
+                    <input type="number" class="form-control" ng-model="target.tienDen" name="_tienDen" min="0" ng-blur="checktien(target.tienDen,target.tienTu)" required>
+                    <span style="color:red" ng-show="_form._tienDen.$dirty && _form._tienDen.$invalid">
+                        <span ng-show="_form._tienDen.$error.required">Không được để trống </span>
+                        <span ng-show="_form._tienDen.$error.number">Chỉ được nhập số </span>
+
+                    </span>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-lg-6">
+                    <label>Tỷ lệ chiết khấu</label><span style="color: red"> (4*)</span>
+                    <input type="number" class="form-control" ng-model="target.tyLeChietKhau" name="_tyLeChietKhau" min="0" max="100" required>
+                    <span style="color:red" ng-show="_form._tyLeChietKhau.$dirty && _form._tyLeChietKhau.$invalid">
+                        <span ng-show="_form._tyLeChietKhau.$error.required">Không được để trống </span>
+                        <span ng-show="_form._tyLeChietKhau.$error.number">Chỉ được nhập số </span>
+                        <span ng-show="_form._tyLeChietKhau.$invalid">Phần trăm nhập từ: 0 đến 100</span>
+                    </span>
+                </div>
+                <div class="col-lg-6">
+                    <label>Trạng thái</label>
+                    <select class="form-control" ng-model="target.trangThai" ng-init="target.trangThai = 10" ng-options="opt.value as opt.text for opt in tempData('status')"></select>
+                </div>
+            </div>
+
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button prevent-default type="submit" class="btn btn-primary" ng-disabled="_form.$invalid || disabledSave" ng-click="save()">{{config.label.btnSubmit}}</button>
+        <button prevent-default class="btn btn-default" ng-click="cancel()"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;{{config.label.btnCancel}}</button>
+    </div>
+</div>

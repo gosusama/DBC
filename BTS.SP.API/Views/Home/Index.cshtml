@@ -1,0 +1,12 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Index", "Home"))
+{
+    <h2>Export the Excel file in web API Application</h2><br />
+    <input type="submit" value="Export" title="Export An Excel File" />
+}
+

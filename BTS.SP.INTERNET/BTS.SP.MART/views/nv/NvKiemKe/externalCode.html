@@ -1,0 +1,139 @@
+﻿<form></form><!-- KHông hiểu sao để thế này thì nó mới không bị lỗi T_T-->
+<div>
+    <div>
+        <div class="modal-header">
+          <h3 class="modal-title" style="color:blue;">{{title()}}</h3>
+            <div class="button-close" ng-click="cancel()">
+                <i class="fa fa-times-circle"></i>
+            </div>
+        </div>
+        <span>{{target.count | number}} bản ghi</span>
+        <div class="modal-body" style="font-size: 15px;">
+            <uib-tabset active="active">
+                <uib-tab index="0" heading="Chi tiết">
+                    <div class="panel-heading">
+                        <div class="btn-toolbar" role="toolbar">
+                            <div class="btn-group">
+                                <button ng-if="accessList.add" prevent-default class="btn btn-primary" title="create new item." ng-click="create()"><i class="fa fa-plus"></i>&ensp;{{config.label.btnCreate}}</button>
+                            </div>
+                            <div class="col-lg-10">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" ng-model="target.merchandiseCodes" ng-enter="doSearch()">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-default" prevent-default title="search" ng-click="doSearch()"><span class="fa fa-search"></span>&ensp;{{config.label.btnSearch}}</button>
+                                        <button type="button" class="btn btn-default" title="show search advance" ng-click="filtered.isAdvance = !filtered.isAdvance">
+                                            <span class="fa"
+                                                  ng-class="{
+                                                  'fa-search-minus' : filtered.isAdvance,
+                                                  'fa-search-plus' : !filtered.isAdvance
+                                                  }">
+                                            </span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-show="filtered.isAdvance">
+                        <br>
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="">Mã nhà cung cấp</label>
+                                    <input ng-model="target.nhaCungCapCodes" type="text" class="input-border-form">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="">Mã loại vật tư</label>
+                                    <input ng-model="target.merchandiseTypeCodes" type="text" class="input-border-form">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="">Mã kệ</label>
+                                    <input ng-model="target.keHangCodes" type="text" class="input-border-form">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="">Mã nhóm</label>
+                                    <input ng-model="target.merchandiseGroupCodes" type="text" class="input-border-form">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table table-bordered table-hover table-condensed">
+                        <thead>
+                            <tr style="font-weight: bold">
+                                <th style="width:3%" class="text-center">STT</th>
+                                <th style="width:6%" class="text-center">Mã vật tư</th>
+                                <th style="width:10%" class="text-center">Tên vật tư</th>
+                                <th style="width:10%" class="text-center">Barcode</th>
+                                <th style="width:5%" class="text-center">Mã kệ</th>
+                                <th style="width:5%" class="text-center">Mã loại vật tư</th>
+                                <th style="width:5%" class="text-center">Mã nhóm vật tư</th>
+                                <th style="width: 5%" class="text-center">Mã nhà cung cấp</th>
+                                <th style="width: 6%" class="text-center">Mã kho</th>
+                                <th style="width: 5%" class="text-center">Tồn đầu SL</th>
+                                <th style="width: 5%" class="text-center">Tồn đầu GT</th>
+                                <th style="width: 5%" class="text-center">Nhập SL</th>
+                                <th style="width: 5%" class="text-center">Nhập GT</th>
+                                <th style="width: 5%" class="text-center">Xuất SL</th>
+                                <th style="width: 5%" class="text-center">Xuất GT</th>
+                                <th style="width: 5%" class="text-center">Tồn cuối SL</th>
+                                <th style="width:5%" class="text-center">Tồn cuối GT</th>
+                                <th style="width:5%" class="text-center">Giá vốn</th>
+                            </tr>
+                        </thead>
+
+                        <tbody ng-form name="_formDetail">
+                            <tr ng-if="isLoading">
+                                <td colspan="15"><my-loading></my-loading></td>
+                            </tr>
+                            <tr ng-repeat="item in data track by $index">
+                                <td class="text-center">{{$index + 1}}</td>
+                                <td style="text-align:center;">{{item.maVatTu}}</td>
+                                <td style="text-align:center;">{{item.tenVatTu}}</td>
+                                <td style="text-align:center;"><input type="text" ng-value="item.barcode" disabled=""></td>
+                                <td style="text-align:center;">{{item.maKeHang}}</td>
+                                <td style="text-align:center;">{{item.maLoaiVatTu}}</td>
+                                <td style="text-align:center;">{{item.maNhomVatTu}}</td>
+                                <td style="text-align:center;">{{item.maKhachHang}}</td>
+                                <td style="text-align:center;">{{item.maKho}}</td>
+                                <td style="text-align:right;">{{item.tonDauKySl | number}}</td>
+                                <td style="text-align:right;">{{item.tonDauKyGt | number}}</td>
+                                <td style="text-align:right;">{{item.nhapSl | number}}</td>
+                                <td style="text-align:right;">{{item.nhapGt | number}}</td>
+                                <td style="text-align:right;">{{item.xuatSl | number}}</td>
+                                <td style="text-align:right;">{{item.xuatGt | number}}</td>
+                                <td style="text-align:right;">{{item.tonCuoiKySl | number}}</td>
+                                <td style="text-align:right;">{{item.tonCuoiKyGt | number}}</td>
+                                <td style="text-align:right;">{{item.giaVon | number}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="panel-footer">
+                        <uib-pagination class="no-margin-vertical pagination-sm" ng-model="paged.currentPage"
+                                        ng-change="pageChanged()"
+                                        items-per-page="paged.itemsPerPage" ng-show="paged.totalItems > 0" total-items="paged.totalItems" max-size="paged.pageSize"
+                                        boundary-links="true" num-pages="paged.totalPage"
+                                        previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;">
+                        </uib-pagination>
+                    </div>
+                </uib-tab>
+            </uib-tabset>
+            <div class="form-group">
+                <table class="table table-inverse">
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button prevent-default class="btn btn-default" ng-click="exportData()" data-toggle="tooltip" data-placement="top" title="Kết xuất"><span>Kết xuất</span></button>&nbsp;&nbsp;&nbsp;
+        <button prevent-default class="btn btn-default" ng-click="cancel()"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;{{config.label.btnCancel}}</button>
+    </div>
+</div>

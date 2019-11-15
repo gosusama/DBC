@@ -1,0 +1,154 @@
+﻿<form></form><!-- KHông hiểu sao để thế này thì nó mới không bị lỗi T_T-->
+<div>
+    <div>
+        <div class="modal-header">
+          <h3 class="modal-title" style="color:blue;">{{title()}}</h3>
+            <div class="button-close" ng-click="cancel()">
+                <i class="fa fa-times-circle"></i>
+            </div>
+        </div>
+        <div class="modal-body" ng-form name="_form">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="md-style-label-input">
+                            Số phiếu <span style="color: red">(*)</span>
+                        </div>
+                        <div class="md-4-style-input">
+                            <input class="input-border-form" type="text" ng-model="target.soPhieu" name="_soPhieu" maxlength="50" required>
+                            <span style="color: red" ng-show="_form._soPhieu.$dirty && _form._soPhieu.$invalid">
+                                <span ng-show="_form._soPhieu.$error.required">Không được để trống</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="md-style-label-input">
+                            Đơn vị đặt <span style="color:red">(*)</span>
+                        </div>
+                        <div class="md-4-style-input">
+                            <input class="input-border-form" name="_maDonViDat" type="text" ng-model="target.maDonViDat" ng-change="ClearContent()" typeahead-editable="false" uib-typeahead="opt.value as opt.text for opt in tempData('auDonVis') | filter:$viewValue | limitTo:5" typeahead-input-formatter="formatLabel($model, 'auDonVis')" required />
+                        </div>
+                        <span style="color: red" ng-show="_form._maDonViDat.$dirty && _form._maDonViDat.$invalid">
+                            <span ng-show="_form._maDonViDat.$error.required">Không được để trống</span>
+                        </span>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="md-style-label-input">
+                            Ngày <span style="color:red">(*)</span>
+                        </div>
+                        <div class="md-4-style-input">
+                            <div class="add-input-zone">
+                                <input class="input-border-form" type="text" name="_ngayct" ng-model="target.ngay" placeholder="{{config.dateFormat}}"
+                                       uib-datepicker-popup="{{config.dateFormat}}" is-open="_ngayct" datepicker-localdate required />
+                                <div class="button-calender" ng-click="_ngayct = !_ngayct; config.delegateEvent($event);">
+                                </div>
+                            </div>
+                            <span style="color: red" ng-show="_form._ngayct.$dirty && _form._ngayct.$invalid">
+                                <span ng-show="_form._ngayct.$error.required">Không được để trống</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="md-style-label-input">
+                            Người lập
+                        </div>
+                        <div class="md-4-style-input">
+                            <input class="input-border-form" type="text" name="_nguoilap" focus="true" ng-model="target.nguoiLap" typeahead-editable="false" uib-typeahead="opt.value as opt.text for opt in tempData('auUsers') | filter:$viewValue | limitTo:5" typeahead-input-formatter="formatLabel($model, 'auUsers')" disabled />
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="md-style-label-input">
+                            Nhà cung cấp <span style="color:red">(*)</span>
+                        </div>
+                        <div class="md-4-style-input">
+                            <input class="input-border-form" name="_maNhaCungCap" type="text" ng-model="target.maNhaCungCap" typeahead-editable="false" uib-typeahead="opt.value as opt.text for opt in tempData('suppliers') | filter:$viewValue | limitTo:5" typeahead-input-formatter="formatLabel($model, 'suppliers')" required />
+                            <span style="color: red" ng-show="_form._maNhaCungCap.$dirty && _form._maNhaCungCap.$invalid">
+                                <span ng-show="_form._maNhaCungCap.$error.required">Không được để trống</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="md-style-label-input">
+                            Mã hợp đồng
+                        </div>
+                        <div class="md-4-style-input">
+                            <input class="input-border-form" ng-disabled="!target.maNhaCungCap" type="text" ng-model="target.maHd" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="md-style-label-input">
+                            Nội dung <span style="color:red"></span>
+                        </div>
+                        <div class="md-8-style-input">
+                            <textarea class="input-border-form" style="width:100%;" ng-model="target.noiDung" rows="1"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-body">
+            <table class="table table-bordered table-hover table-condensed">
+                <thead>
+                    <tr>
+                        <th style="width:auto" class="text-center">STT</th>
+                        <th style="width:auto" class="text-center">Mã hàng</th>
+                        <th style="width:auto" class="text-center">Tên hàng</th>
+                        <th style="width:auto" class="text-center">ĐVT</th>
+                        <th style="width:auto" class="text-center">Loại bao bì</th>
+                        <th style="width:auto" class="text-center">Quy cách</th>
+                        <th style="width:auto" class="text-center">SL đặt</th>
+                        <th style="width:auto" class="text-center">SL thực tế</th>
+                    </tr>
+                </thead>
+                <tbody ng-form name="_formDetail">
+                    <tr ng-if="isLoading">
+                        <td colspan="16"><my-loading></my-loading></td>
+                    </tr>
+                    <tr ng-repeat="item in data track by $index">
+                        <td style="text-align:center;">{{$index + 1}}</td>
+                        <td>
+                            <input type="text" style="text-align:center; width:100%" ng-model="item.barcode" disabled>
+                        </td>
+                        <td>
+                            {{item.maHang}}
+                        </td>
+                        <td>
+                            {{item.tenHang}}
+                        </td>
+                        <td>{{item.donViTinh}}</td>
+                        <td>
+                            <input autocomplete="off" type="text" style="width:100%;" ng-model="item.maBaoBi" name="_maBaoBi_{{$index}}" typeahead-editable="false" uib-typeahead="opt.value as opt.text for opt in tempData('packagings') | filter:$viewValue | limitTo:5" typeahead-on-select="selectedMaBaoBi(item, $item)" typeahead-input-formatter="formatLabel($model, 'packagings')" />
+                        </td>
+                        <td style="text-align:center;">{{item.luongBao}}</td>
+                        <td>
+                            <input format-number-input="number" style="text-align:center; width:100%" ng-model="item.soLuong" disabled>
+                        </td>
+                        <td>
+                            <input format-number-input="number" style="text-align:right; width:100%" ng-model="item.soLuongThucTe"  />
+                        </td>>
+                    </tr>
+                </tbody>
+            </table>
+            <uib-pagination class="no-margin-vertical pagination-sm" ng-model="paged.currentPage"
+                            ng-change="pageChanged()"
+                            items-per-page="paged.itemsPerPage" ng-show="paged.totalItems > 0" total-items="paged.totalItems" max-size="paged.pageSize"
+                            boundary-links="true" num-pages="paged.totalPage"
+                            previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;">
+            </uib-pagination>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button prevent-default type="submit" class="btn btn-primary" ng-disabled="_form.$invalid || _formDetail.$invalid" ng-click="save()">{{config.label.btnSubmit}}</button>
+        <button prevent-default class="btn btn-default" ng-click="cancel()"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;{{config.label.btnCancel}}</button>
+    </div>
+</div>

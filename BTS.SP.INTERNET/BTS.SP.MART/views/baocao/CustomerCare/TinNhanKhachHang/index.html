@@ -1,0 +1,106 @@
+﻿
+<style>
+    #message:hover {
+        cursor: pointer;
+    }
+
+    .form-chat {
+        padding: 0px 0px 0px 20px;
+        border: solid 1px beige;
+        border-radius: 10px;
+        height: 370px;
+        overflow-y: auto;
+    }
+
+    #chatbox {
+        display: block;
+        width: 350px;
+        border-radius: 5px;
+    }
+
+    .form-chat #groupInput {
+        position: absolute;
+        bottom: 40px;
+        display: inline;
+        left: 50px;
+    }
+
+    #content-chat {
+        height: 300px;
+        overflow: auto;
+    }
+
+    input.form-control {
+        width: 600px !important;
+    }
+
+    #form-body-chat {
+        padding: 5px 15px 5px 15px;
+    }
+
+    #time-message {
+        font-style: italic;
+        font-size: 12px;
+    }
+
+    #message-from {
+        padding-left: 20px;
+        font-size: 15px;
+        font-weight: bold;
+    }
+
+    #basic-addon2:hover {
+        cursor: pointer;
+    }
+</style>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading"><h3>Tin nhắn</h3></div>
+                <div class="panel-body">
+                    <p ng-repeat="item in lstMessage" style="height: 30px;" id="message" ng-click="selectMessage(item)">
+                        <span style="font-size: 15px ; font-weight: bold;">{{item._id}}</span>
+                        <span class="badge" ng-if="item.count!=0">{{item.count}}</span>
+                    </p>
+                    <hr />
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="panel panel-default">
+                <div class="panel-heading"><h3>{{titleMessage}}</h3></div>
+                <div class="panel-body">
+                    <div class="form-chat">
+                        <div id="content-chat">
+                            <div class="row" ng-repeat="item in lstMessageDetail">
+                                <div id="$index" ng-if="item.Receive!=='cskh'" style="float:right;margin-top:10px;text-align:right;">
+                                    <div id="form-body-chat">
+                                        <span id="time-message">({{displayDate(item)| date:'dd-MM-yyyy HH:mm'}})</span>&nbsp;&nbsp;<span id="message-from">Bạn</span>
+                                        <div id="chatbox" style="text-align:left !important; background-color: #0d92b5;color: #e8e8e8;text-align:right;padding:5px 5px 5px 5px;"><span>{{item.ContentMessage}}</span></div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div id="$index" ng-if="item.Receive==='cskh'" style="float:left;margin-top:10px;">
+                                    <span id="message-from"> {{item.SendBy}}</span>&nbsp;&nbsp; <span id="time-message">({{displayDate(item)| date:'dd-MM-yyyy HH:mm'}})</span>
+                                    <div id="form-body-chat">
+                                        <div id="chatbox" style="text-align:right; background-color: #e8e8e8;color:black;padding:5px 5px 5px 5px;"><span>{{item.ContentMessage}}</span></div>
+                                        <div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="groupInput">
+                                    <div class="input-group" style="text-align:center">
+                                        <input type="text" class="form-control" placeholder="Nhập tin nhắn" ng-model="messageContent" aria-describedby="basic-addon2">
+                                        <span class="input-group-addon" id="basic-addon2" ng-click="sendMessage(messageContent)">Gửi</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

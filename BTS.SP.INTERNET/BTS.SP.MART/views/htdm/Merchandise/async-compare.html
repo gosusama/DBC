@@ -1,0 +1,156 @@
+﻿<div class="panel panel-default">
+    <div class="panel-heading panel-toolbar">
+      <h3 class="modal-title" style="color:blue;">{{title()}}</h3>
+        <div class="button-close" ng-click="goHome()">
+            <i class="fa fa-times-circle"></i>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div id="myWorkContent">
+            <table class="table table-bordered" style="width: 100%;">
+                <thead>
+                    <tr class="headings">
+                        <th class="text-center">
+                            <a class="title" href="" ng-click="sortType = 'soThuTu'; sortReverse = !sortReverse">
+                                STT
+                                <span ng-show="sortType == 'soThuTu' && !sortReverse" class="fa fa-caret-down"></span>
+                                <span ng-show="sortType == 'soThuTu' && sortReverse" class="fa fa-caret-up"></span>
+                            </a>
+                        </th>
+                        <th class="text-center" style="width:5%">
+                            <a class="title" href="" ng-click="sortType = 'maHang'; sortReverse = !sortReverse">
+                                Mã vật tư
+                                <span ng-show="sortType == 'maHang' && !sortReverse" class="fa fa-caret-down"></span>
+                                <span ng-show="sortType == 'maHang' && sortReverse" class="fa fa-caret-up"></span>
+                            </a>
+                        </th>
+                        <th class="text-center" style="width:18%">
+                            <a class="title" href="" ng-click="sortType = 'tenHang'; sortReverse = !sortReverse">
+                                Tên vật tư
+                                <span ng-show="sortType == 'tenHang' && !sortReverse" class="fa fa-caret-down"></span>
+                                <span ng-show="sortType == 'tenHang' && sortReverse" class="fa fa-caret-up"></span>
+                            </a>
+                        </th>
+                        <th class="text-center" style="width:9%">
+                            <a class="title" href="" ng-click="sortType = 'maLoai'; sortReverse = !sortReverse">
+                                Mã loại
+                                <span ng-show="sortType == 'maLoai' && !sortReverse" class="fa fa-caret-down"></span>
+                                <span ng-show="sortType == 'maLoai' && sortReverse" class="fa fa-caret-up"></span>
+                            </a>
+                        </th>
+                        <th class="text-center" style="width:5%">
+                            <a class="title" href="" ng-click="sortType = 'maNhom'; sortReverse = !sortReverse">
+                                Mã nhóm
+                                <span ng-show="sortType == 'maNhom' && !sortReverse" class="fa fa-caret-down"></span>
+                                <span ng-show="sortType == 'maNhom' && sortReverse" class="fa fa-caret-up"></span>
+                            </a>
+                        </th>
+                        <th class="text-center" style="width:10%">
+                            <a class="title" href="" ng-click="sortType = 'tenKhachHang'; sortReverse = !sortReverse">
+                                Nhà cung cấp
+                                <span ng-show="sortType == 'tenKhachHang' && !sortReverse" class="fa fa-caret-down"></span>
+                                <span ng-show="sortType == 'tenKhachHang' && sortReverse" class="fa fa-caret-up"></span>
+                            </a>
+                        </th>
+                        <th class="text-center" style="width:4%">
+                            <a class="title" href="" ng-click="sortType = 'donViTinh'; sortReverse = !sortReverse">
+                                Đơn vị tính
+                                <span ng-show="sortType == 'donViTinh' && !sortReverse" class="fa fa-caret-down"></span>
+                                <span ng-show="sortType == 'donViTinh' && sortReverse" class="fa fa-caret-up"></span>
+                            </a>
+                        </th>
+                        <th class="text-center">Giá mua</th>
+                        <th class="text-center">Giá mua(VAT)</th>
+                        <th class="text-center">Giá bán lẻ</th>
+                        <th class="text-center">Giá bán buôn</th>
+                        <th class="text-center">Barcode</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="even pointer">
+                        <td class="text-left" colspan="12" style="background-color:  lightgray;">Đơn vị tạo mã: {{displaySieuThi(rootUnitCode,'sieuthi')}}</td>
+                    </tr>
+                    <tr class="even pointer">
+                        <td class="text-center">1</td>
+                        <td class="text-center" style="width:5%">
+                            {{target.maVatTu}}
+                        </td>
+                        <td class="text-left" style="width:18%">{{target.tenVatTu}}</td>
+                        <td class="text-center" style="width:9%">
+                            {{displayHepler(target.maLoaiVatTu,'merchandiseTypesRoot')}}
+                        </td>
+                        <td class="text-center" style="width:5%">
+                            {{displayHepler(target.maNhomVatTu,'nhomVatTusRoot')}}
+                        </td>
+                        <td class="text-center" style="width:10%">
+                            {{displayHepler(target.maKhachHang,'suppliersRoot')}}
+                        </td>
+                        <td class="text-center" style="width:4%">
+                            {{displayHepler(target.donViTinh,'donViTinhsRoot')}}
+                        </td>
+                        <td style="text-align: right;">
+                            <input type="text" style="text-align:right; width:100%" ng-model="target.giaMua" awnum="number" readonly>
+                        </td>
+                        <td style="text-align: right;">
+                            <input type="text" style="text-align:right; width:100%" ng-model="target.giaMuaVat" awnum="number" readonly>
+                        </td>
+                        <td style="text-align: right;">
+                            <input type="text" style="text-align:right; width:100%" ng-model="target.giaBanLeVat" awnum="number" readonly>
+                        </td>
+                        <td style="text-align: right;">
+                            <input type="text" style="text-align:right; width:100%" ng-model="target.giaBanBuonVat" awnum="number" readonly>
+                        </td>
+                        <td class="text-center">
+                            <input type="text" style="text-align:left; width:100%;" ng-model="target.barcode" readonly>
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody>
+                    <tr class="even pointer">
+                        <td class="text-left" colspan="12" style="background-color: lightgray;">Đơn vị hiện tại: {{displaySieuThi(unitCode,'sieuthi')}}</td>
+                    </tr>
+                    <tr class="even pointer">
+                        <td class="text-center">2</td>
+                        <td class="text-center" style="width:5%">
+                            {{targetClient.maVatTu}}
+                        </td>
+                        <td class="text-left" style="width:18%">
+                            {{targetClient.tenVatTu}}
+                        </td>
+                        <td class="text-center" style="width:9%">
+                            {{displayHepler(targetClient.maLoaiVatTu,'merchandiseTypes')}}
+                        </td>
+                        <td class="text-center" style="width:5%">
+                            {{displayHepler(targetClient.maNhomVatTu,'nhomVatTus')}}
+                        </td>
+                        <td class="text-center" style="width:10%">
+                            {{displayHepler(targetClient.maKhachHang,'suppliers')}}
+                        </td>
+                        <td class="text-center" style="width:4%">
+                            {{displayHepler(targetClient.donViTinh,'donViTinhs')}}
+                        </td>
+                        <td style="text-align: right;">
+                            <input type="text" style="text-align:right; width:100%" ng-model="targetClient.giaMua" awnum="number" readonly>
+                        </td>
+                        <td style="text-align: right;">
+                            <input type="text" style="text-align:right; width:100%" ng-model="targetClient.giaMuaVat" awnum="number" readonly>
+                        </td>
+                        <td style="text-align: right;">
+                            <input type="text" style="text-align:right; width:100%" ng-model="targetClient.giaBanLeVat" awnum="number" readonly>
+                        </td>
+                        <td style="text-align: right;">
+                            <input type="text" style="text-align:right; width:100%" ng-model="targetClient.giaBanBuonVat" awnum="number" readonly>
+                        </td>
+                        <td class="text-center">
+                            <input type="text" style="text-align:left; width:100%;" ng-model="targetClient.barcode" readonly>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button prevent-default type="submit" class="btn btn-primary" ng-click="asyncCompare()"><i class="fa fa-save"></i>&nbsp;&nbsp;Cập nhật đồng bộ</button>
+        <button prevent-default class="btn btn-default" ng-disabled="Loading" ng-click="cancel()"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;{{config.label.btnCancel}}</button>
+    </div>
+</div>

@@ -1,0 +1,219 @@
+﻿<div class="panel panel-default">
+    <div class="panel-heading panel-toolbar">
+      <h3 class="modal-title" style="color:blue;">{{title()}}</h3>
+        <div class="button-close" ng-click="goHome()">
+            <i class="fa fa-times-circle" ></i>
+        </div>
+    </div>
+    <div class="panel-heading">
+        <div class="btn-toolbar" role="toolbar">
+            <div class="btn-group">
+                <button prevent-default class="btn btn-primary" title="create new item." ng-click="create()"><i class="fa fa-plus"></i>&ensp;{{config.label.btnCreate}}</button>
+
+            </div>
+            <div class="col-lg-10">
+                <div class="input-group">
+                    <input type="text" class="form-control" ng-model="filtered.summary" ng-enter="doSearch()">
+                    <div class="input-group-btn">
+                    <a class="btn btn-default" title="show search advance" ng-click="filtered.isAdvance = !filtered.isAdvance">
+                        <span class="fa"
+                              ng-class="{
+                                  'fa-search-minus' : filtered.isAdvance,
+                                  'fa-search-plus' : !filtered.isAdvance
+                                  }">
+                        </span>
+                    </a>
+                        <button class="btn btn-default" prevent-default title="search" ng-click="doSearch()"><span class="fa fa-search"></span>&ensp;{{config.label.btnSearch}}</button>
+                        <button class="btn btn-default" prevent-default title="refresh page" ng-click="refresh()"><span class="fa fa-retweet"></span>&ensp;{{config.label.btnRefresh}}</button>
+                        <button class="btn btn-default" prevent-default title="refresh page" ng-click="goHome()"><span class="fa fa-undo"></span>&ensp;{{config.label.btnBack}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-show="filtered.isAdvance">
+        <br>
+        <div class="form-group">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="">Từ ngày Ký</label>
+                    <div>
+                        <div class="add-input-zone">
+                            <input class="input-border-form" type="text" ng-model="filtered.advanceData.tungayKy" placeholder="{{config.dateFormat}}"
+                                   uib-datepicker-popup="{{config.dateFormat}}" is-open="_tungayKy" datepicker-localdate/>
+                            <div class="button-calender" ng-click="_tungayKy = !_tungayKy; config.delegateEvent($event);">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="">Đến ngày Ký</label>
+                    <div>
+                        <div class="add-input-zone">
+                            <input class="input-border-form" type="text" ng-model="filtered.advanceData.tungayKy" placeholder="{{config.dateFormat}}"
+                                   uib-datepicker-popup="{{config.dateFormat}}" is-open="_denngayKy" datepicker-localdate/>
+                            <div class="button-calender" ng-click="_denngayKy = !_denngayKy; config.delegateEvent($event);">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="">Từ ngày Thanh lý</label>
+                    <div >
+                        <div class="add-input-zone">
+                            <input class="input-border-form" type="text" ng-model="filtered.advanceData.tuNgayHetHan" placeholder="{{config.dateFormat}}"
+                                   uib-datepicker-popup="{{config.dateFormat}}" is-open="_tuNgayHetHan" datepicker-localdate/>
+                            <div class="button-calender" ng-click="_tuNgayHetHan = !_tuNgayHetHan; config.delegateEvent($event);">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="">Đến ngày Thanh lý</label>
+                    <div>
+                        <div class="add-input-zone">
+                            <input class="input-border-form" type="text" ng-model="filtered.advanceData.denNgayHetHan" placeholder="{{config.dateFormat}}"
+                                   uib-datepicker-popup="{{config.dateFormat}}" is-open="_denNgayHetHan" datepicker-localdate/>
+                            <div class="button-calender" ng-click="_denNgayHetHan = !_denNgayHetHan; config.delegateEvent($event);">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="">Mã hợp đồng</label>
+                    <input ng-model="filtered.advanceData.maHd" type="text" class="input-border-form">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="">Người lập</label>
+                    <input ng-model="filtered.advanceData.tenHd" type="text" class="input-border-form">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="">Người thực hiện</label>
+                    <input ng-model="filtered.advanceData.nguoiThucHien" type="text" class="input-border-form">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <table class="table table-striped table-hover no-margin-vertical">
+            <thead>
+                <tr class="headings">
+                    <th class="column-title">#</th>
+                    <th class="column-title">
+                        <a class="title" href="" ng-click="sortType = 'soHopDong'; sortReverse = !sortReverse">
+                            Số hợp đồng
+                            <span ng-show="sortType == 'soHopDong' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortType == 'soHopDong' && sortReverse" class="fa fa-caret-up"></span>
+                        </a>
+                    </th>
+                    <th class="column-title">
+                        <a class="title" href="" ng-click="sortType = 'tenHopDong'; sortReverse = !sortReverse">
+                            Tên hợp đồng
+                            <span ng-show="sortType == 'tenHopDong' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortType == 'tenHopDong' && sortReverse" class="fa fa-caret-up"></span>
+                        </a>
+                    </th>
+                    <th class="column-title">
+                        <a class="title" href="" ng-click="sortType = 'ngayKy'; sortReverse = !sortReverse">
+                            Ngày ký
+                            <span ng-show="sortType == 'ngayKy' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortType == 'ngayKy' && sortReverse" class="fa fa-caret-up"></span>
+                        </a>
+                    </th>
+                    <th class="column-title">
+                        <a class="title" href="" ng-click="sortType = 'giaTriHD'; sortReverse = !sortReverse">
+                            Giá trị hợp đồng
+                            <span ng-show="sortType == 'giaTriHD' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortType == 'giaTriHD' && sortReverse" class="fa fa-caret-up"></span>
+                        </a>
+                    </th>
+
+                    <th class="column-title">
+                        <a class="title" href="" ng-click="sortType = 'khachHang'; sortReverse = !sortReverse">
+                            Khách hàng
+                            <span ng-show="sortType == 'khachHang' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortType == 'khachHang' && sortReverse" class="fa fa-caret-up"></span>
+                        </a>
+                    </th>
+
+                    <th class="column-title">
+                        <a class="title" href="" ng-click="sortType = 'diaChi'; sortReverse = !sortReverse">
+                            Địa chỉ
+                            <span ng-show="sortType == 'diaChi' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortType == 'diaChi' && sortReverse" class="fa fa-caret-up"></span>
+                        </a>
+                    </th>
+
+                    <th class="column-title">
+                        <a class="title" href="" ng-click="sortType = 'nguoiThucHien'; sortReverse = !sortReverse">
+                            Người thực hiện
+                            <span ng-show="sortType == 'nguoiThucHien' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortType == 'nguoiThucHien' && sortReverse" class="fa fa-caret-up"></span>
+                        </a>
+                    </th>
+
+                    <th class="column-title">
+                        <a class="title" href="" ng-click="sortType = 'ngayThanhLy'; sortReverse = !sortReverse">
+                            Ngày thanh lý / Hủy bỏ
+                            <span ng-show="sortType == 'ngayThanhLy' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortType == 'ngayThanhLy' && sortReverse" class="fa fa-caret-up"></span>
+                        </a>
+                    </th>     
+
+                </tr>
+            </thead>
+            <tbody>
+            <tr ng-show="data==NULL ||data.length<=0">
+                <td colspan="10" style="background-color: #e2e2e2;">
+                    <p>Không có dữ liệu</p>
+                </td>
+            </tr>
+            <tr ng-show="isLoading">
+                <td colspan="10"><my-loading></my-loading></td>
+            </tr>
+            <tr class="even pointer" ng-repeat="item in data | orderBy:sortType:sortReverse" ng-dblclick="details(item)">
+                <td>{{$index + 1}}</td>
+                <td>{{item.maHd}}</td>
+                <td>{{item.tenHd}}</td>
+                <td>{{item.ngayKy | date: "dd/MM/yyyy" }}</td>
+                <td style="text-align: right;">{{item.giaTriHD | number}}</td>
+                <td>{{displayHepler(item.khachHang, 'customers')}}</td>
+                <td>{{item.diaChi}}</td>
+                <td>{{item.nguoiThucHien}}</td>
+                <td>{{item.ngayThanhLy | date: "dd/MM/yyyy" }}</td>
+                <td class="table-control btn-group">
+                    <a class="glyphicon glyphicon-info-sign" ng-click="details(item)" data-toggle="tooltip" data-placement="top" title="Chi tiết"></a> &nbsp;&nbsp;&nbsp;
+                    <a class="glyphicon glyphicon-pencil" ng-click="update(item)" data-toggle="tooltip" data-placement="top" title="Sửa"></a> &nbsp;&nbsp;&nbsp;
+                    <a ui-sref="reportContract({id: item.id})" class="glyphicon glyphicon-print" data-toggle="tooltip" data-placement="top"
+                       title="In phiếu"></a> &nbsp;&nbsp;&nbsp;
+                    <a class="glyphicon glyphicon-trash" ng-click="deleteItem($event, item)" data-toggle="tooltip" data-placement="top" title="Xóa"></a> &nbsp;&nbsp;&nbsp;
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="panel-footer">
+        <uib-pagination class="no-margin-vertical pagination-sm" ng-model="paged.currentPage"
+                        ng-change="pageChanged()"
+                        items-per-page="paged.itemsPerPage" ng-show="paged.totalItems > 0" total-items="paged.totalItems" max-size="paged.pageSize"
+                        boundary-links="true" num-pages="paged.totalPage"
+                        previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;">
+        </uib-pagination>
+    </div>
+</div>

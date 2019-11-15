@@ -1,0 +1,226 @@
+﻿
+<form></form><!-- KHông hiểu sao để thế này thì nó mới không bị lỗi T_T-->
+<div>
+    <div class="modal-header" style="padding: 5px 5px">
+      <h3 class="modal-title" style="color:blue;">{{title()}}</h3>
+        <div class="button-close" ng-click="cancel()">
+            <i class="fa fa-times-circle"></i>
+        </div>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="md-style-label-input">
+                        Loại lý do
+                    </div>
+                    <div class="md-4-style-input">
+                        <select class="input-border-form" ng-model="target.maLyDo" ng-options="opt.value as opt.text for opt in tempData('typeReasons')" disabled></select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="md-style-label-input">
+                        Số hóa đơn
+                    </div>
+                    <div class="md-4-style-input">
+                        <input class="input-border-form" type="text" name="_maHoaDon" ng-model="target.maHoaDon" maxlength="50" disabled/>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="md-style-label-input">
+                        Ngày chứng từ
+                    </div>
+                    <div class="md-4-style-input">
+                        <div class="add-input-zone">
+                            <input class="input-border-form" type="text" ng-model="target.ngayCT" placeholder="{{config.dateFormat}}"
+                                   uib-datepicker-popup="{{config.dateFormat}}" is-open="_ngayct" disabled datepicker-localdate/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-4" ng-if="target.maLyDo != 'X11'">
+                    <div class="md-style-label-input">
+                        Nhà cung cấp
+                    </div>
+                    <div class="md-4-style-input">
+                        <input class="input-border-form" name="_maNhaCungCap" type="text" ng-model="target.maKhachHang" typeahead-editable="false" uib-typeahead="opt.value as opt.text for opt in tempData('suppliers') | filter:$viewValue" typeahead-input-formatter="displayHepler($model, 'suppliers')" disabled />
+                    </div>
+                </div>
+                <div class="col-md-4" ng-if="target.maLyDo == 'X11'">
+                    <div class="md-style-label-input">
+                        Khách hàng
+                    </div>
+                    <div class="md-4-style-input">
+                        <input class="input-border-form" name="_maKhachHang" type="text" ng-model="target.maKhachHang" typeahead-editable="false" uib-typeahead="opt.value as opt.text for opt in tempData('customers') | filter:$viewValue" typeahead-input-formatter="displayHepler($model, 'customers')" disabled />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="md-style-label-input">
+                        Mã số thuế
+                    </div>
+                    <div class="md-4-style-input">
+                        <input class="input-border-form" name="_maSoThue" type="text" ng-model="target.maSoThue" disabled/>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="md-style-label-input">
+                        Kho xuất
+                    </div>
+                    <div class="md-4-style-input">
+                        <input class="input-border-form" name="_khoXuat" type="text" ng-model="target.maKhoXuat" typeahead-editable="false" typeahead-on-select="selectedKhoXuat($item)" uib-typeahead="opt.value as opt.text for opt in tempData('wareHouses') | filter:$viewValue" typeahead-input-formatter="displayHepler($model, 'wareHouses')" required disabled/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md12">
+                    <div class="md-style-label-input">
+                        Nội dung
+                    </div>
+                    <div class="md-8-style-input">
+                        <textarea class="input-border-form" focus="true" name="_noidung" style="width:100%;" rows="1" ng-model="target.noiDung" disabled></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-body">
+        <uib-tabset active="active">
+            <uib-tab index="0" heading="Chi tiết">
+                <table class="table table-bordered table-hover table-condensed" arrow-selector data-item-target="dataDetails">
+                    <thead>
+                        <tr>
+                            <th style="width:3%" class="text-center">STT</th>
+                            <th style="width:10%" class="text-center">Barcode</th>
+                            <th style="width:10%" class="text-center">Mã hàng</th>
+                            <th style="width:10%" class="text-center">Tên hàng</th>
+                            <th style="width:5%" class="text-center">ĐVT</th>
+                            <th style="width:10%" class="text-center">Loại bao bì</th>
+                            <th style="width:5%" class="text-center">Quy cách</th>
+                            <th style="width:5%" class="text-center">Sl bao</th>
+                            <th style="width:5%" class="text-center">Sl lẻ</th>
+                            <th style="width:5%" class="text-center">Sl</th>
+                            <th style="width:10%" class="text-center">Giá vốn</th>
+                            <th style="width:7%" class="text-center">% VAT</th>
+                            <th style="width: 7%" class="text-center">
+                                Giá mua
+                                <br /> (Có VAT)
+                            </th>
+                            <th style="width:10%" class="text-center">G.Giá</th>
+                            <th style="width:10%" class="text-center">Tiền G.Giá</th>
+                            <th style="width:15%" class="text-center">Thành tiền</th>
+                        </tr>
+                    </thead>
+
+                    <tbody ng-form name="_formDetail">
+                        <tr ng-repeat="item in data track by $index">
+                            <td style="text-align:center;">{{$index + 1}}</td>
+                            <td>
+                                <input type="text" style="text-align:center; width:100%" ng-model="item.barcode" disabled>
+                            </td>
+                            <td>
+                                {{item.maHang}}
+                            </td>
+                            <td>
+                                {{item.tenHang}}
+                            </td>
+                            <td>{{item.donViTinh}}</td>
+                            <td>
+                                <input autocomplete="off" type="text" style="width:100%;" ng-model="item.maBaoBi" name="_maBaoBi_{{$index}}" typeahead-editable="false" uib-typeahead="opt.value as opt.text for opt in tempData('packagings') | filter:$viewValue | limitTo:5" typeahead-on-select="selectedMaBaoBi(item, $item)" typeahead-input-formatter="formatLabel($model, 'packagings')" disabled />
+                            </td>
+                            <td style="text-align:center;">{{item.luongBao}}</td>
+                            <td>
+                                <input format-number-input="number" style="text-align:center; width:100%" ng-model="item.soLuongBao" disabled>
+                            </td>
+                            <td>
+                                <input format-number-input="number" style="text-align:center; width:100%" ng-model="item.soLuongLe" disabled>
+                            </td>
+                            <td>
+                                <input format-number-input="number" style="text-align:center; width:100%" ng-model="item.soLuong" disabled>
+                            </td>
+                            <td>
+                                <input format-number-input="number" style="text-align:right; width:100%" ng-model="item.donGia" disabled />
+                            </td>
+                            <td style="text-align:center;">{{displayHepler(item.vat,'taxRate')}}%</td>
+                            <td>
+                                <input type="text" style="text-align:right; width:100%" ng-model="item.giaMuaCoVat" ng-change="robot.changeGiaMuaDonGia(item)" awnum="number" />
+                            </td>
+                            <td>
+                                <input format-number-input="number" style="text-align:right; width:100%" ng-model="item.giamGia" disabled />
+                            </td>
+                            <td>
+                                <input format-number-input="number" style="text-align:right; width:100%" ng-model="item.tienGiamGia" disabled />
+                            </td>
+                            <td>
+                                <div style="text-align:right; width:100%" disabled>
+                                    {{item.thanhTienVAT | number}}
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </uib-tab>
+
+        </uib-tabset>
+        <div class="form-group">
+            <table class="table table-inverse">
+                <tbody>
+                    <tr>
+                        <td style="width:20%"></td>
+                        <td nowrap style="text-align:right;"><label>Giảm giá:</label></td>
+                        <td nowrap style="width:10%"></td>
+                        <td style="width:10%; text-align:right;">
+                            <span style="color:red;font-weight:bold"><b>{{target.tongTienGiamGia | number}}</b> </span>
+                        </td>
+                        <td nowrap style="text-align:right"><label>Thành tiền:</label></td>
+                        <td style="text-align:right; width:20%">
+                            <span style="color:red;font-weight:bold"><b>{{target.thanhTienTruocVat | number}}</b></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width:20%"></td>
+                        <td nowrap style="text-align:right;"><label>Tỷ lệ CK/Giảm giá(%) :</label></td>
+                        <td style="width:10%; text-align:right">
+
+                            <input class="input-border-form" format-number-input="number" style="text-align:right; width:50%" ng-model="target.chietKhau" disabled />
+                        </td>
+                        <td>
+                            <input class="input-border-form" format-number-input="number" style="text-align:right;" ng-model="target.tienChietKhau" disabled />
+                        </td>
+
+
+                        <td nowrap style="text-align:right;"><label>Tổng tiền:</label></td>
+                        <td nowrap style="text-align:right; width:20%"> <span style="color:red;font-weight:bold"><b>{{target.thanhTienSauVat | number}}</b></span></td>
+                    </tr>
+                    <tr ng-show="false">
+                        <td style="width:20%"></td>
+                        <td nowrap style="text-align:right;"><label>Thuế(%):</label></td>
+                        <td style="width:10%; text-align:right;">
+                            <input class="input-border-form" name="_tax" type="text" ng-model="target.vat" typeahead-editable="false" typeahead-on-select="selectedTax(target, $item)" uib-typeahead="opt.value as opt.text for opt in tempData('taxs') | filter:$viewValue" typeahead-input-formatter="displayHepler($model, 'taxs')" disabled />
+                        </td>
+                        <td nowrap style="text-align:right; width:10%"> <span style="color:red;font-weight:bold"><b>{{target.tienVat| number}}</b></span></td>
+                        <td nowrap style="text-align:right;"><label>Tổng tiền:</label></td>
+                        <td nowrap style="text-align:right; width:20%"> <span style="color:red;font-weight:bold"><b>{{target.thanhTienSauVat | number}}</b></span></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="panel-footer">
+                <uib-pagination class="no-margin-vertical pagination-sm" ng-model="paged.currentPage"
+                                ng-change="pageChanged()"
+                                items-per-page="paged.itemsPerPage" ng-show="paged.totalItems > 0" total-items="paged.totalItems" max-size="paged.pageSize"
+                                boundary-links="true" num-pages="paged.totalPage"
+                                previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;">
+                </uib-pagination>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button prevent-default class="btn btn-primary" ng-if="target.trangThai != 10" ng-click="approval()">Duyệt</button>
+        <button prevent-default class="btn btn-default" ng-click="cancel()"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;{{config.label.btnCancel}}</button>
+    </div>
+</div>
+

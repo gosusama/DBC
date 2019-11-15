@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <style>
+        #wrap {
+            margin: 50px;
+        }
+
+        .title {
+            font-size: 24px;
+            color: brown;
+            margin-left: 255px;
+            margin-bottom: 33px;
+        }
+
+        .content .table tr th {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div class="header">
+            <div class="title">{{title()}}</div>
+        </div>
+        <div class="content">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Mã vật tư</th>
+                        <th>Tên vật tư</th>
+                        <th>Đơn giá</th>
+                        <th>Số lượng</th>
+                        <th>Khuyến mại</th>
+                        <th>Thành tiền</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in target.lstData">
+                        <td style="text-align: center;">{{item.maVatTu}}</td>
+                        <td style="text-align: center;">{{item.tenVatTu}}</td>
+                        <td style="text-align: center;">{{item.donGia}}</td>
+                        <td style="text-align: center;">{{item.soLuong}}</td>
+                        <td style="text-align: center;">{{item.khuyenMai!=null ? item.khuyenMai : 0}}</td>
+                        <td style="text-align: center;">{{item.thanhTien}}</td>
+                        <td><span class="glyphicon glyphicon-remove" ng-click="removeItem($index)"></span></p></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="footer">
+            <div class="btn">
+                <button class="btn success" autofocus ng-enter="DoWork()">Thanh toán</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

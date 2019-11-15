@@ -1,0 +1,86 @@
+﻿<form></form><!-- KHông hiểu sao để thế này thì nó mới không bị lỗi T_T-->
+<div>
+    <div class="modal-header">
+      <h3 class="modal-title" style="color:blue;">{{title()}}</h3>
+        <div class="button-close" ng-click="cancel()">
+            <i class="fa fa-times-circle"></i>
+        </div>
+    </div>
+    <div class="modal-body" style="font-size: 15px;">
+        <uib-tabset active="active">
+            <uib-tab>
+                <span>Tìm thấy {{data.length | number}} bản ghi</span>
+                <table class="table table-bordered table-hover table-condensed">
+                    <thead>
+                        <tr style="font-weight: bold">
+                            <th style="width:2%" class="text-center">STT</th>
+                            <th style="width:5%" class="text-center">Mã vật tư</th>
+                            <th style="width:10%" class="text-center">Tên vật tư</th>
+                            <th style="width:10%" class="text-center">Barcode</th>
+                            <th style="width:5%" class="text-center">Mã kệ</th>
+                            <th style="width:5%" class="text-center">Mã loại vật tư</th>
+                            <th style="width:5%" class="text-center">Mã nhóm vật tư</th>
+                            <th style="width:10%" class="text-center">Tên nhà cung cấp</th>
+                            <th style="width:4%" class="text-center">Tỷ lệ VAT Ra</th>
+                            <th style="width:4%" class="text-center">Giá vốn</th>
+                            <th style="width:4%" class="text-center">Số lượng</th>
+                            <th style="width:4%" class="text-center">Giá trị</th>
+                        </tr>
+                    </thead>
+
+                    <tbody ng-form name="_formDetail">
+                        <tr ng-if="isLoading">
+                            <td colspan="15"><my-loading></my-loading></td>
+                        </tr>
+                        <tr ng-repeat="item in lstVatTu track by $index">
+                            <td class="text-center">{{$index + 1}}</td>
+                            <td style="text-align:center;">{{item.maHang}}</td>
+                            <td style="text-align:center;">{{item.tenHang}}</td>
+                            <td style="text-align:center;"><input type="text" ng-value="item.barcode" disabled=""></td>
+                            <td style="text-align:center;">{{item.maKeHang}}</td>
+                            <td style="text-align:center;">{{item.maLoaiVatTu}}</td>
+                            <td style="text-align:center;">{{item.maNhomVatTu}}</td>
+                            <td style="text-align:center;">{{item.tenNhaCungCap}}</td>
+                            <td style="text-align:center;">{{item.tyLeVatRa}}</td>
+                            <td style="text-align:right;">{{item.donGia | number}}</td>
+                            <td style="text-align:right;">{{item.soLuong | number}}</td>
+                            <td style="text-align:right;">{{item.thanhTien | number}}</td>
+                        </tr>
+                    </tbody>
+                    <tbody class="tong-hop">
+                        <tr></tr>
+                        <tr>
+                            <td colspan="10" right;" class="name-tong-hop">Tổng bán âm từng trang: </td>
+                            <td class="value-tong-hop" style="text-align:right">{{robot.sum(lstVatTu, 'soLuong') | number}}</td>
+                            <td class="value-tong-hop" style="text-align:right">{{robot.sum(lstVatTu,'thanhTien') | number}}</td>
+                        </tr>
+                    </tbody>
+                    <tbody class="tong-hop">
+                        <tr></tr>
+                        </tr>
+                        <tr>
+                            <td colspan="10" right;" class="name-tong-hop">Tổng bán âm toàn phiếu: </td>
+                            <td class="value-tong-hop" style="text-align:right">{{robot.sum(data, 'soLuong') | number}}</td>
+                            <td class="value-tong-hop" style="text-align:right">{{robot.sum(data,'thanhTien') | number}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </uib-tab>
+        </uib-tabset>
+        <div class="panel-footer">
+            <uib-pagination class="no-margin-vertical pagination-sm" ng-model="paged.currentPage"
+                            ng-change="pageChanged()"
+                            items-per-page="paged.itemsPerPage" ng-show="paged.totalItems > 0" total-items="paged.totalItems" max-size="paged.pageSize"
+                            boundary-links="true" num-pages="paged.totalPage"
+                            previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;">
+            </uib-pagination>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="taoPhieuNhapAm()">Tạo phiếu nhập</button>
+        <button type="button" class="btn btn-warning" ng-click="cancel()">Quay lại</button>
+    </div>
+</div>
+
+
+

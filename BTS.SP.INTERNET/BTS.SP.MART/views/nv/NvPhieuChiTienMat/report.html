@@ -1,0 +1,116 @@
+﻿<div id="test">
+    <style>
+        .myTable {
+            width: 80%;
+            height: 70%;
+            margin: 0px auto;
+            margin-bottom: 10px;
+        }
+
+        .myTable p {
+                margin-top: 5px;
+        }
+		
+
+        .mySign {
+            width: 80%;
+            margin: 0px auto;
+        }
+
+        .colmn-title {
+            padding-left: 15px;
+        }
+
+        .colmn-detail {
+            text-align: center;
+        }
+
+        .header {
+            margin-left: 50px;
+        }
+
+        #row {
+            text-align: center;
+            font-weight: bold;
+        }
+
+        p.signed {
+            font-style: italic;
+            font-weight: bold;
+        }
+
+        p.signed2 {
+            font-style: oblique;
+        }
+
+        span.appear {
+            font-style: oblique;
+        }
+    </style>
+
+    <div class="header">
+        <p><h3>Tập đoàn DABACO Việt Nam</h3></p>
+    </div>
+    <div>
+        <center><h2>Phiếu chi tiền mặt</h2></center>
+
+        <table class="myTable" cellpadding="0" cellspacing="0" border="1|0">
+            <tr>
+                <td colspan="3" class="colmn-title">
+                    <p>Người nhận tiền :&nbsp;&nbsp;<span class="appear">{{target.doiTuong}}</span></p>
+                    <p>Địa chỉ :</p>
+                    <p>Lý do :&nbsp;&nbsp; <span class="appear">{{target.lyDo}}</span></p>
+                </td>
+                <td colspan="2" class="colmn-title">
+                    <p>Số : {{target.maChungTu}}</p>
+                    <p>Ngày : {{target.ngay | date : "dd/MM/yyyy"}}</p>
+                    <p>Tài khoản : {{target.tkNo}}</p>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3" class="colmn-title" style="border-right:none">
+                    <p>Số tài khoản đơn vị thụ hưởng :</p>
+                    <p>Số tiền:&nbsp;&nbsp;<span class="appear"> {{target.tongTien | number}}</span></p>
+                    <p>Số tiền bằng chữ...........................{{target.tongTien | jsCurrency}}.....................................................................</p>
+                </td>
+                <td colspan="2" class="colmn-title" style="border-left:none">
+                    <p></p>
+                    <p></p>
+                    <p style="padding-bottom: 10px; float: left;">Loại tiền : VNĐ</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="colmn-detail">Diễn giải</td>
+                <td class="colmn-detail">Số tiền nguyên tệ (VND)</td>
+                <td class="colmn-detail">Số tiền (VND)</td>
+                <td class="colmn-detail">Ghi nợ</td>
+                <td class="colmn-detail">Ghi có</td>
+            </tr>
+            <tr ng-repeat="item in target.dataReportDetails">
+                <td class="colmn-detail">{{item.tenKhachHang}}</td>
+                <td class="colmn-detail">{{item.soTien | number}}</td>
+                <td class="colmn-detail">{{item.soTien | number}}</td>
+                <td class="colmn-detail">{{item.tkNo}}</td>
+                <td class="colmn-detail">{{item.tkCo}}</td>
+            </tr>
+        </table>
+
+        <table class="mySign">
+            <tr>
+                <td class="colmn-detail"><p class="signed">Giám đốc</p></td>
+                <td class="colmn-detail"><p class="signed">Kế toán trưởng</p></td>
+                <td class="colmn-detail"><p class="signed">Người lập phiếu</p></td>
+                <td class="colmn-detail"><p class="signed">Người nhận tiền</p></td>
+                <td class="colmn-detail"><p class="signed">Thủ quỹ</p></td>
+            </tr>
+            <tr>
+                <td class="colmn-detail"><p class="signed2">(Ký, họ tên, đóng dấu)</p></td>
+                <td class="colmn-detail"><p class="signed2">(Ký, họ tên)</p></td>
+                <td class="colmn-detail"><p class="signed2">(Ký, họ tên)</p></td>
+                <td class="colmn-detail"><p class="signed2">(Ký, họ tên)</p></td>
+                <td class="colmn-detail"><p class="signed2">(Ký, họ tên)</p></td>
+            </tr>
+        </table>
+    </div>
+
+</div>

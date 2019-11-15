@@ -1,0 +1,107 @@
+﻿<div>
+    <div class="modal-header">
+      <h3 class="modal-title" style="color:blue;">{{title()}}</h3>
+        <div class="button-close" ng-click="cancel()">
+            <i class="fa fa-times-circle"></i>
+        </div>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="md-style-label-input">
+                        Số chứng từ
+                    </div>
+                    <div class="md-4-style-input">
+                        <input class="input-border-form" type="text" ng-model="target.maChungTu" disabled>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="md-style-label-input">
+                        Ngày chứng từ 
+                    </div>
+                    <div class="md-4-style-input">
+                        <input class="input-border-form" style="width: 100%; float:left;" type="text" ng-model="target.ngay" placeholder="{{config.dateFormat}}"
+                               uib-datepicker-popup="{{config.dateFormat}}" is-open="_ngaynhan1" disabled datepicker-localdate />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="md-style-label-input">
+                        Trả cho
+                    </div>
+                    <div class="md-8-style-input">
+                        <textarea class="input-border-form" focus="true" name="_doituong" style="width:100%;" rows="1" ng-model="target.doiTuong" disabled></textarea>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="md-style-label-input">
+                        Số hợp đồng
+                    </div>
+                    <div class="md-4-style-input">
+                        <input class="input-border-form" type="text" ng-model="target.soHd" typeahead-editable="false" uib-typeahead="opt.value as opt.text for opt in tempData.contracts | filter:$viewValue" typeahead-input-formatter="formatLabel($model, 'contracts')" disabled/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="md-style-label-input">
+                        Địa chỉ 
+                    </div>
+                    <div class="md-12-style-input">
+                        <textarea class="input-border-form" style="width:100%;" name="_diachi" ng-model="target.diaChi" rows="1" disabled></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="md-style-label-input">
+                        Lý do
+                    </div>
+                    <div class="md-12-style-input">
+                        <textarea class="input-border-form" style="width:100%;" ng-model="target.lyDo" rows="1" disabled></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-body">
+        <div>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover table-condensed">
+                    <thead>
+                        <tr style="font-weight: bold">
+                            <th style="width:5%" class="text-center">TT</th>
+                            <th style="width:10%" class="text-center">Nợ tài khoản</th>
+                            <th style="width:35%" class="text-center">Khách hàng</th>
+                            <th style="width:20%" class="text-center">Số tiền</th>
+                            <th style="width:5%" class="text-center">CT</th>
+                            <th style="width:20%"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in target.dataDetails">
+                            <td class="text-center">{{$index +1}}</td>
+                            <td>{{item.tkNo}}</td>
+                            <td><input type="text" style="width:100%;" ng-model="item.maKhachHang" typeahead-editable="false" uib-typeahead="opt.value as opt.text for opt in tempData('customers') | filter:$viewValue" typeahead-input-formatter="displayHepler($model, 'customers')" disabled /></td>
+                            <td style="text-align:right">{{item.soTien | number}}</td>
+                            <td>{{item.maKhoanMuc}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button prevent-default class="btn btn-primary" ng-if="target.trangThai != 10" ng-click="approval()">Duyệt</button>
+        <button prevent-default class="btn btn-default" ng-click="cancel()"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;{{config.label.btnCancel}}</button>
+    </div>
+</div>

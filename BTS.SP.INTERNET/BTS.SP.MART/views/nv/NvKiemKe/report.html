@@ -1,0 +1,300 @@
+﻿<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="button-close" ng-click="goIndex()">
+            <i class="fa fa-times-circle"></i>
+        </div>
+        <div class="btn-group">
+            <button class="btn btn-default" prevent-default title="In danh sách" ng-click="print()"><span class="fa fa-print"></span>&ensp;In</button>
+            <button class="btn btn-default" prevent-default title="In danh sách" ng-click="printExcel()" style="margin-right: 5px;"><span class="fa fa-print"></span>&ensp;Xuất Excel</button>
+            <select class="form-control" style="width: 300px; margin-top: -1px;"
+                    ng-change="selectAction(myOption)"
+                    ng-model="myOption"
+                    ng-options="opt.value as opt.text for opt in typeReportKiemKe">
+                <option>--</option>
+            </select>
+            <button class="btn btn-default" prevent-default="" title="Lọc" ng-click="filter()" style="float: right;margin-top: -34px;margin-left: 13px;">
+                <span class="fa fa-print"></span>&ensp;Lọc
+            </button>
+        </div>
+    </div>
+    <div class="panel-body">
+        <h4>HỆ THỐNG SIÊU THỊ DABACO</h4>
+        <div id="main-report">
+            <br />
+            <style>
+                .date-time,
+                th,
+                td,
+                span {
+                    font-size: 14px;
+                    font-family: 'Times New Roman';
+                }
+
+                th,
+                td {
+                    padding: 2px;
+                }
+
+                .header-report {
+                    margin-bottom: 30px;
+                }
+
+                    .header-report table,
+                    .infor-report table {
+                        width: 100%;
+                        padding-left: 20px;
+                        border: 0;
+                    }
+
+                .infor-report {
+                    padding-left: 10px;
+                }
+
+                .data-report table {
+                    width: 100%;
+                    border: 1px solid;
+                    border-collapse: collapse;
+                }
+
+                    .data-report table thead tr th,
+                    .data-report table tbody.data-detail tr td {
+                        border: 1px solid;
+                    }
+
+                    .data-report table tbody.data-detail tr td {
+                        font-size: 13px !important;
+                    }
+
+                .infor-report table tr td {
+                    position: relative;
+                }
+
+                .dotted-description {
+                    position: absolute;
+                    width: calc(100% - 110px);
+                    border-bottom: 1px dotted;
+                }
+
+                .signature-place table {
+                    width: 100%;
+                }
+
+                .signature-place .date-time {
+                    float: right;
+                    font-style: italic;
+                    padding: 10px 30px 5px 10px;
+                }
+
+                .signature-place table thead tr th {
+                    text-align: center;
+                }
+
+                .signature-place table tbody tr td {
+                    text-align: center;
+                }
+
+                .end-page {
+                    height: 100px;
+                }
+
+                .label-info-report {
+                    float: left;
+                    font-weight: bold;
+                }
+
+                .info-company-top-left {
+                    float: left;
+                    text-align: left;
+                    font-weight: bold;
+                }
+
+                .info-datereport-top-right {
+                    float: right;
+                    text-align: right;
+                    font-style: italic;
+                }
+
+                .name-report {
+                    text-align: center;
+                    font-weight: bold;
+                    font-size: 22px !important;
+                    padding: 5px;
+                }
+
+                .info-contract-attachment {
+                    text-align: center;
+                    font-style: italic;
+                }
+
+                .text-center {
+                    text-align: center;
+                    font-weight: bold;
+                }
+
+                .name-tong-hop {
+                    text-align: right;
+                    font-weight: bold;
+                }
+
+                .value-tong-hop {
+                    font-weight: bold;
+                    text-align: right;
+                }
+            </style>
+            <div id="inpTrangThai" style="display:none;">{{target.trangThai}}</div>
+
+            <div id="dataTable">
+                <div class="header-report">
+                    <table>
+                        <center><h3><b>PHIẾU KIỂM KÊ HÀNG HÓA ({{lstKiemKe.soPhieuKiemKe == "1" ? 'Hàng đủ' : lstKiemKe.soPhieuKiemKe == "2" ? 'Hàng thừa' : 'Hàng thiếu'}})</b></h3></center>
+                        <center><h4>Ngày kiểm kê:{{lstKiemKe.ngayKiemKe | date : "dd/MM/yyyy"}} </h4></center>
+                        <center><h4>Số phiếu:{{lstKiemKe.maPhieuKiemKe}}<i>(Lưu tạm)</i></h4></center>
+                        <tr>
+                            <td class="info-datereport-top-right">
+                                Ngày in: {{lstKiemKe.ngayIn | date : "dd/MM/yyyy"}}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="infor-report">
+                    <table>
+                        <tr>
+                            <td colspan="2">
+                                <div class="label-info-report"><b>Kho kiểm kê:</b></div>
+                                <span class="">&nbsp;{{lstKiemKe.khoKiemKe}}</span>
+                                <br />
+                                <div class="label-info-report"><b>Loại vật tư kiểm kê: </b></div>
+                                <span class="">&nbsp;{{lstKiemKe.loaiVatTu}}</span>
+                                <br />
+                                <div class="label-info-report"><b>Nhóm kiểm kê: </b></div>
+                                <span class="">&nbsp;{{lstKiemKe.nhomVatTu}}</span>
+                                <br />
+                                <div class="label-info-report"><b>Kệ hàng kiểm kê:</b></div>
+                                <span class="">&nbsp;{{lstKiemKe.keKiemKe}}</span>
+                            </td>
+                        </tr>
+                        <tr></tr>
+                    </table>
+                </div>
+            </div>
+            <br>
+            <div class="data-report">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="text-center" style="width: 3%">TT</th>
+                            <th class="text-center" style="width: 5%">Mã vật tư</th>
+                            <th class="text-center" style="width: 25%;max-width:150px !important;">Barcode</th>
+                            <th class="text-center" style="width: 18%">Tên vật tư</th>
+                            <th class="text-center" style="width: 5%">SL máy</th>
+                            <th class="text-center" style="width: 5%">SL KK</th>
+                            <th class="text-center" style="width: 5%; ">SL thừa</th>
+                            <th class="text-center" style="width: 5%; ">SL thiếu</th>
+                            <th class="text-center" style="width: 5%; ">SL TT</th>
+                            <th class="text-center" style="width: 8%; ">Giá vốn</th>
+                            <th class="text-center" style="width: 9%; ">TT thừa</th>
+                            <th class="text-center" style="width: 10%; ">TT thiếu</th>
+                        </tr>
+                    </thead>
+                    <tbody class="data-detail">
+                        <tr ng-repeat="item in lstKiemKe.dataDetails">
+                            <td style="text-align:center;">{{$index + 1}}</td>
+                            <td>
+                                <span>{{item.maVatTu}}</span>
+                            </td>
+                            <td style="width: 10%;max-width:150px !important;  word-wrap: break-word;">
+                                <span>{{item.barcode}}</span>
+                            </td>
+                            <td>
+                                <span>{{item.tenVatTu}}</span>
+                            </td>
+                            <td style="text-align:right;">
+                                <span>{{item.soLuongTonMay}}</span>
+                            </td>
+                            <td style="text-align:right;">
+                                <span>{{item.soLuongKiemKe}}</span>
+                            </td>
+                            <td style="text-align:right;">
+                                <span ng-if="lstKiemKe.soPhieuKiemKe == '2'">{{(item.soLuongKiemKe -  item.soLuongTonMay)| number}}</span>
+                            </td>
+                            <td style="text-align:right;">
+                                <span ng-if="lstKiemKe.soPhieuKiemKe == '3'">{{(item.soLuongTonMay - item.soLuongKiemKe) | number}}</span>
+                            </td>
+                            <td style="text-align:right;"></td>
+                            <td style="text-align:right;">
+                                <span>{{item.giaVon | number}}</span>
+                            </td>
+                            <td style="text-align:right;">
+                                <span ng-if="lstKiemKe.soPhieuKiemKe == '2'">{{(item.soLuongKiemKe - item.soLuongTonMay)*item.giaVon | number}}</span>
+                            </td>
+                            <td style="text-align:right;">
+                                <span ng-if="lstKiemKe.soPhieuKiemKe == '3'">{{(item.soLuongTonMay - item.soLuongKiemKe)*item.giaVon | number}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" style="text-align: center;font-weight: bold;">
+                                <span>Tổng</span>
+                            </td>
+                            <td style="text-align:right;">
+                                <span>{{sumSoLuongMay | number}}</span>
+                            </td>
+                            <td style="text-align:right;">
+                                <span>{{sumKiemKe | number}}</span>
+                            </td>
+                            <td style="text-align:right;">
+                                <span ng-if="lstKiemKe.soPhieuKiemKe == '2'">{{sumKiemKe - sumSoLuongMay | number}}</span>
+                            </td>
+                            <td style="text-align:right;">
+                                <span ng-if="lstKiemKe.soPhieuKiemKe == '3'">{{sumSoLuongMay - sumKiemKe | number}}</span>
+                            </td>
+                            <td style="text-align:right;"></td>
+                            <td style="text-align:right;">
+                                <span>{{sumGiaVon | number}}</span>
+                            </td>
+                            <td style="text-align:right;">
+                                <span ng-if="lstKiemKe.soPhieuKiemKe == '2'">{{thanhTienThua | number}}</span>
+                            </td>
+                            <td style="text-align:right;">
+                                <span ng-if="lstKiemKe.soPhieuKiemKe == '3'">{{thanhTienThieu | number}}</span>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+            <div class="signature-place">
+
+
+                <div class="date-time">Ngày.....tháng.....năm.......</div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Người lập biểu</th>
+                            <th>Trưởng quầy</th>
+                            <th>Quản lý khu vực</th>
+                            <th>Kế toán</th>
+                            <th>Thủ trưởng đơn vị</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><i>(Ký, họ tên)</i></td>
+                            <td><i>(Ký, họ tên)</i></td>
+                            <td><i>(Ký, họ tên)</i></td>
+                            <td><i>(Ký, họ tên)</i></td>
+                            <td><i>(Ký, họ tên)</i></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><br /><br /><br /><br />{{target.nameNhanVienCreate}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class=end-page></div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,86 @@
+﻿<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary" ng-form name="_form">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <span class="glyphicon glyphicon-bookmark"></span> Báo cáo xuất nhập tồn Nhà cung cấp
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Đơn vị</label>
+                                    <select class="form-control" ng-model="target.unitCode" ng-options="opt.value as opt.text for opt in unitUsers" required>
+                                        <option value="">-</option>
+                                    </select>
+
+                                </div>
+                                <div class="form-group">
+                                    <!--<label for="kho">Nhóm theo Kho</label>
+                                    <input id="kho" type="radio" ng-model="target.groupBy" value="1" />
+                                    <label for="kho">Nhóm Loại hàng</label>
+                                    <input id="kho" type="radio" ng-model="target.groupBy" value="2" />
+                                    <label for="kho">Nhóm Nhóm hàng</label>
+                                    <input id="kho" type="radio" ng-model="target.groupBy" value="3" />-->
+                                    <label for="kho">Nhóm Hàng hóa</label>
+                                    <input id="kho" type="radio" ng-model="target.groupBy" value="4" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Từ ngày</label>
+                                    <div class="add-input-zone">
+                                        <input class="input-border-form" type="text" ng-model="target.fromDate" placeholder="{{config.dateFormat}}"
+                                               uib-datepicker-popup="{{config.dateFormat}}" is-open="fromDate" datepicker-localdate datepicker-options="options" required />
+                                        <div class="button-calender" ng-click="fromDate = !fromDate; config.delegateEvent($event);">
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Đến ngày</label>
+                                    <div class="add-input-zone">
+                                        <input class="input-border-form" type="text" ng-model="target.toDate" placeholder="{{config.dateFormat}}"
+                                               uib-datepicker-popup="{{config.dateFormat}}" is-open="toDate" datepicker-localdate datepicker-options="options" required />
+                                        <div class="button-calender" ng-click="toDate = !toDate; config.delegateEvent($event);">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Nhà cung cấp</label>
+                                    <div class="tags">
+                                        <div ng-repeat="item in tagWareHouses" class="tag label label-success">
+                                            {{item.value}}
+                                            <a class="close" href="" ng-click="removeWareHouse($index)">×</a>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-primary" ng-click="selectWareHouse()">Nhà cung cấp</button>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-2 col-md-offset-10">
+                                <div class="form-group">
+                                    <button class="btn btn-primary form-control" ng-disabled="_form.$invalid" prevent-default ng-click="exportExcel()">Xuất Excel theo hàng</button>
+                                </div>
+                                <!--<div class="form-group">
+                                    <!--<button class="btn btn-primary form-control" ng-disabled="_form.$invalid" prevent-default ng-click="exportExcelByNCC()">Xuất Excel theo NCC</button>
+                                </div>-->
+
+                                <div class="form-group">
+                                    <button class="btn btn-primary form-control" ng-disabled="_form.$invalid" prevent-default ng-click="report()">Báo cáo</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

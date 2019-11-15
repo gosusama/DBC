@@ -1,0 +1,135 @@
+﻿<div class="panel panel-default">
+    <div class="panel-heading panel-toolbar">
+      <h3 class="modal-title" style="color:blue;">{{title()}}</h3>
+        <div ng-show="stateIsRunning">
+            <h3 style="color:red;" class="modal-title">Đang trong quá trình khóa sổ</h3>
+            <my-loading></my-loading>
+        </div>
+        <div ng-show="updateGiaVonIsRunning">
+            <h3 style="color:red;" class="modal-title">Đang cập nhật giá vốn</h3>
+            <my-loading></my-loading>
+        </div>
+        <div class="button-close" ng-click="goHome()">
+            <i class="fa fa-times-circle"></i>
+        </div>
+    </div>
+    <div class="panel-heading">
+        <div class="btn-toolbar" role="toolbar">
+            <div class="btn-group">
+                <button ng-if="accessList.add" prevent-default class="btn btn-primary" title="create new item." ng-click="create()"><i class="fa fa-plus"></i>&ensp;{{config.label.btnCreate}}</button>
+            </div>
+            <div class="col-lg-5">
+                <div class="input-group">
+                    <input type="text" class="form-control" ng-model="filtered.summary" ng-enter="doSearch()">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" prevent-default title="search" ng-click="doSearch()"><span class="fa fa-search"></span>&ensp;{{config.label.btnSearch}}</button>
+                        <button class="btn btn-default" prevent-default title="refresh page" ng-click="refresh()"><span class="fa fa-retweet"></span>&ensp;{{config.label.btnRefresh}}</button>
+                        <button class="btn btn-default" prevent-default title="refresh page" ng-click="goHome()"><span class="fa fa-undo"></span>&ensp;{{config.label.btnBack}}</button>
+                    </div>
+                </div>
+            </div>
+            <div class="btn-group">
+                <button access-level="isView" prevent-default class="btn btn-primary" title="Kỳ hiện tại" ng-disabled="isCreateDisabled" ng-click="currentPeriod()">&ensp;Kỳ hiện tại</button>
+            </div>
+            <div class="btn-group">
+                <button access-level="isEdit" prevent-default class="btn btn-primary" title="Cài đặt kỳ làm việc" ng-disabled="isCreateDisabled" ng-click="settingPeriod()">&ensp;Kỳ làm việc</button>
+            </div>
+            <div class="btn-group">
+                <button access-level="isAdvance" prevent-default class="btn btn-primary" title="Thêm kỳ kế toán" ng-disabled="isCreateDisabled" ng-click="save()">&ensp;Thêm kỳ mới</button>
+            </div>
+            <div class="col-lg-2">
+                <select class="form-control" ng-model="target.year" ng-options="opt.value as opt.text for opt in collectionYears" ng-change="changeYear(target.year)"></select>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <table class="table table-striped table-hover no-margin-vertical">
+            <thead>
+                <tr class="headings">
+                    <th class="column-title">#</th>
+                    <th class="column-title" width="10%">
+                        <a class="title" href="" ng-click="sortType = 'period'; sortReverse = !sortReverse">
+                            Kỳ kế toán
+                            <span ng-show="sortType == 'period' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortType == 'period' && sortReverse" class="fa fa-caret-up"></span>
+                        </a>
+                    </th>
+                    <th class="column-title">
+                        <a class="title" href="" ng-click="sortType = 'name'; sortReverse = !sortReverse">
+                            Tên kỳ kế toán
+                            <span ng-show="sortType == 'name' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortType == 'name' && sortReverse" class="fa fa-caret-up"></span>
+                        </a>
+                    </th>
+                    <th class="column-title" width="10%">
+                        <a class="title" href="" ng-click="sortType = 'fromDate'; sortReverse = !sortReverse">
+                            Từ ngày
+                            <span ng-show="sortType == 'fromDate' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortType == 'fromDate' && sortReverse" class="fa fa-caret-up"></span>
+                        </a>
+                    </th>
+                    <th class="column-title" width="10%">
+                        <a class="title" href="" ng-click="sortType = 'toDate'; sortReverse = !sortReverse">
+                            Đến ngày
+                            <span ng-show="sortType == 'toDate' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortType == 'toDate' && sortReverse" class="fa fa-caret-up"></span>
+                        </a>
+                    </th>
+                    <th class="column-title" width="10%">
+                        <a class="title" href="" ng-click="sortType = 'year'; sortReverse = !sortReverse">
+                            Năm
+                            <span ng-show="sortType == 'year' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortType == 'year' && sortReverse" class="fa fa-caret-up"></span>
+                        </a>
+                    </th>
+                    <th class="column-title" width="10%">
+                        <a class="title" href="" ng-click="sortType = 'trangThai'; sortReverse = !sortReverse">
+                            Trạng thái
+                            <span ng-show="sortType == 'trangThai' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortType == 'trangThai' && sortReverse" class="fa fa-caret-up"></span>
+                        </a>
+                    </th>
+                    <th class="column-title">
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-show="data==NULL ||data.length<=0">
+                    <td colspan="7" style="background-color: #e2e2e2;">
+                        <p>Không có dữ liệu</p>
+                    </td>
+                </tr>
+                <tr ng-show="isLoading">
+                    <td colspan="7"><my-loading></my-loading></td>
+                </tr>
+                <tr class="even pointer" ng-repeat="item in data | orderBy : 'period' " ng-dblclick="details(item)">
+                    <td>{{$index + 1}}</td>
+                    <td>{{item.period}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.fromDate | date: 'dd/MM/yyyy'}}</td>
+                    <td>{{item.toDate | date: 'dd/MM/yyyy'}}</td>
+                    <td>{{item.year}}</td>
+                    <td>{{item.trangThai | closedFilter}}</td>
+                    <td class="table-control">
+                        <a ng-if="accessList.view" class="glyphicon glyphicon-info-sign" ng-click="details(item)" data-toggle="tooltip" data-placement="top" title="Chi tiết"></a> &nbsp;&nbsp;&nbsp;
+                        <a ng-if="accessList.edit" class="glyphicon glyphicon-pencil" ng-show="!stateIsRunning" ng-click="update(item)" data-toggle="tooltip" data-placement="top" title="Sửa"></a> &nbsp;&nbsp;&nbsp;
+                        <a class="glyphicon glyphicon-circle-arrow-up" ng-click="updateGiaVon(item)" data-toggle="tooltip" data-placement="top" ng-show="(!updateGiaVonIsRunning && item.trangThai == 10)" title="Cập nhật giá vốn"></a> &nbsp;&nbsp;&nbsp;
+                        <a class="btn btn-xs" ng-click="approval(item)" ng-class="{'btn-success': !stateIsRunning, 'btn-danger': stateIsRunning}" ng-disabled="isDisabled || stateIsRunning" data-toggle="tooltip" data-placement="top" title="Duyệt" ng-show="item.trangThai != 10"><span ng-show="!stateIsRunning">Khóa sổ</span><span ng-show="stateIsRunning">Đang khóa sổ</span></a>&nbsp;&nbsp;&nbsp;
+                        <a class="btn btn-xs" ng-click="approvalMutiple(item)" ng-class="{'btn-success': !stateIsRunning, 'btn-danger': stateIsRunning}" ng-disabled="isDisabled || stateIsRunning" data-toggle="tooltip" data-placement="top" title="Khóa sổ nhiều kỳ" ng-show="item.trangThai != 10"><span ng-show="!stateIsRunning">Khóa sổ đến {{item.toDate | date: 'dd/MM/yyyy'}}</span><span ng-show="stateIsRunning">Đang khóa sổ ...</span></a>&nbsp;&nbsp;&nbsp;
+                        <a class="btn btn-xs" ng-show="!item.isLog && item.trangThai === 10" ng-click="openApproval(item,$event)" ng-class="{'btn-warning': !stateIsRunning, 'btn-danger': stateIsRunning}" ng-disabled="isDisabled || stateIsRunning" data-toggle="tooltip" data-placement="top" title="Mở khóa sổ" ng-show="item.trangThai != 10">
+                            <span ng-show="!stateIsRunning">Mở khóa sổ</span><span ng-show="stateIsRunning">Đang mở khóa sổ</span>
+                        </a>&nbsp;&nbsp;&nbsp;
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="panel-footer">
+        <uib-pagination class="no-margin-vertical pagination-sm" ng-model="paged.currentPage"
+                        ng-change="pageChanged()"
+                        items-per-page="paged.itemsPerPage" ng-show="paged.totalItems > 0" total-items="paged.totalItems" max-size="paged.pageSize"
+                        boundary-links="true" num-pages="paged.totalPage"
+                        previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;">
+        </uib-pagination>
+    </div>
+</div>

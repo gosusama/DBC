@@ -1,0 +1,130 @@
+﻿<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary" ng-form name="_form">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <span class="glyphicon glyphicon-bookmark"></span> Danh sách sinh nhật khách hàng
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <!--<div class="row form-group">
+                        <div class="col-md-12">
+                            <div class="md-style-label-input">
+                                Kho KM <span style="color:red">(*)</span>
+                            </div>
+                            <div class="md-12-style-input">
+                                <button type="button" style="display:inline" class="btn-primary input-border-form" ng-click="selectWareHouse()">Chọn Kho</button>
+                                <input type="text" class="form-control" style="display:inline; width:850px;" ng-model="wareHouseCodes" placeholder="Ví dụ DV1-CH1-K1,DV1-CH1-K2" ng-blur="changewareHouseCodes(wareHouseCodes);">
+                            </div>
+                        </div>
+                    </div>-->
+
+                    <div class="row form-group">
+                        <div class="col-md-8">
+                            <div class="md-style-label-input">
+                                Đơn vị
+                            </div>
+                            <div class="md-8-style-input">
+                                <select class="form-control" ng-model="target.unitcode" ng-options="opt.value as opt.text for opt in unitUsers" required>
+                                    <option value="">-</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--<div class="row form-group">
+                        <div class="col-md-8">
+                            <div class="md-style-label-input">
+                                Cửa hàng
+                            </div>
+                            <div class="md-8-style-input">
+                                <button type="button" style="display:inline" class="btn-primary input-border-form" ng-click="selectDonVi()">Chọn cửa hàng</button>
+                                <input type="text" class="form-control" style="display:inline; " ng-model="donViCodes" placeholder="Ví dụ DV1-CH1,DV1-CH1" ng-blur="changeDonViCodes(donViCodes);">
+                            </div>
+                        </div>
+                    </div>-->
+
+                    <div class="row form-group">
+                        <div class="col-md-4">
+                            <div class="md-style-label-input">
+                                Tháng <span style="color:red"></span>
+                            </div>
+                            <div class="md-4-style-input">
+                                <div class="add-input-zone">
+                                    <input class="input-border-form" name="_thang" type="text" ng-model="target.monthOfBirth" />
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-4">
+                            <div class="md-style-label-input">
+                                Từ Ngày <span style="color:red"></span>
+                            </div>
+                            <div class="md-4-style-input">
+                                <div class="add-input-zone">
+                                    <input class="input-border-form" name="_tungay" type="text" ng-model="target.fromDay" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="md-style-label-input">
+                                Đến Ngày <span style="color:red"></span>
+                            </div>
+                            <div class="md-4-style-input">
+                                <div class="add-input-zone">
+                                    <input class="input-border-form" name="_denngay" type="text" ng-model="target.toDay" />
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-4">
+                            <div class="md-style-label-input">
+                                Từ số tiền
+                            </div>
+                            <div class="md-4-style-input">
+                                <div class="add-input-zone">
+
+                                    <input class="input-border-form" name="_giaTien" type="text" ng-model="target.fromMoney" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="md-style-label-input">
+                                Đến số tiền
+                            </div>
+                            <div class="md-4-style-input">
+                                <div class="add-input-zone">
+
+                                    <input class="input-border-form" name="_giaTien" type="text" ng-model="target.toMoney" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label>
+                                <input type="radio" ng-model="target.stateTypeMoney" value="1">
+
+                            </label>
+                            Tìm theo tổng tiền
+                            <label>
+                                <input type="radio" ng-model="target.stateTypeMoney" value="2">
+
+                            </label>
+                            Tiền không sale
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-2 col-md-offset-10">
+                        <div class="form-group">
+                            <button class="btn btn-primary form-control" ng-disabled="_form.$invalid" prevent-default ng-click="report()">Báo cáo</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

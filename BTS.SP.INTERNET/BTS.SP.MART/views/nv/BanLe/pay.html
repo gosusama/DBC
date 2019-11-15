@@ -1,0 +1,254 @@
+﻿<div class="container" style="height:100%;">
+    <style>
+        @container.row {
+            size: A5;
+            margin: 0;
+            left: 0px;
+        }
+
+        @media print {
+            .container.row {
+                margin: 0;
+                border: initial;
+                border-radius: initial;
+                width: initial;
+                min-height: initial;
+                box-shadow: initial;
+                background: initial;
+                page-break-after: always;
+            }
+        }
+    </style>
+    <div class="container row" id="reportBill" style="width: 100%;height:100%;display:none;">
+        <table id='bill_heder' cellpadding='0px' style='width:100%'>
+            <tr>
+                <td style="font-weight:bold;font-size: 14px;text-align:center;">HỆ THỐNG SIÊU THỊ DABACO</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td style="padding-left:5px;font-size: 10px;" colspan="2">Địa chỉ: Xã Phượng Mao - Huyện Quế Võ - Tỉnh Bắc Ninh</td>
+            </tr>
+            <tr>
+                <td style="padding-left:5px;font-size: 10px;" colspan="2">Điện thoại: 0222 3787 668</td>
+            </tr>
+            <tr>
+                <td style="font-size: 14px; text-align: center; font-weight: bold" colspan="2"><b>DABACO MART</b></td>
+            </tr>
+            <tr>
+                <td style="font-size: 11px; text-align: center;" colspan="2">Ngày: {{target.DateNow | date:'dd-MM-yyyy h:mm:ss a'}}</td>
+            </tr>
+            <tr>
+                <td style="font-size: 10px;text-align:center" colspan="2">Mã: {{target.dataDto.maGiaoDich}}</td>
+            </tr>
+        </table>
+        <table id='bill_kh' cellpadding='0px' style='width:100%'>
+            <tr>
+                <td style="padding-left:5px;font-size: 10px;">Người bán: {{target.dataDto.tenNhanVien}}</td>
+            </tr>
+            <tr>
+                <td style="padding-left:5px;font-size: 10px;">Khách hàng: {{target.dataDto.makh}}</td>
+            </tr>
+            <tr>
+                <td style="padding-left:5px;font-size: 10px;">Mã thẻ/Hạng/Điểm: {{target.dataDto.maThe}}/{{target.dataDto.hangKhachHang}}/{{target.dataDto.soDiem}}</td>
+            </tr>
+        </table>
+        <table style=";margin-left:0px;padding-left:0px;left:0px;border:none; width:102%;">
+            <thead>
+                <tr style="font-weight:bold;font-size:11px;text-align:center;">
+                    <td style="border: 1px solid black;cellspacing=0;cellpadding=0;">
+                        STT
+                    </td>
+                    <td style="border: 1px solid black;cellspacing=0;cellpadding=0;">
+                        MÃ
+                    </td>
+                    <td colspan="2" style="border: 1px solid black;cellspacing=0;cellpadding=0;">
+                        TÊN
+                    </td>
+                    <td style="border: 1px solid black;cellspacing=0;cellpadding=0;">
+                        SL
+                    </td>
+                    <td style="border: 1px solid black;cellspacing=0;cellpadding=0;">
+                        GIÁ
+                    </td>
+                    <td style="border: 1px solid black;cellspacing=0;cellpadding=0;">
+                        TIỀN
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="font-size: 9px; text-align: center;" ng-repeat="item in target.dataDetails">
+                    <td style="border: 1px solid black;">
+                        {{$index + 1}}
+                    </td>
+                    <td style="border: 1px solid black;">
+                        {{item.maVatTu}}
+                    </td>
+                    <td colspan="2" style="text-align: left; width: 30%;border: 1px solid black;">
+                        {{item.tenVatTu}}
+                    </td>
+                    <td style="border: 1px solid black;">
+                        {{item.soLuong | number}}
+                    </td>
+                    <td style="border: 1px solid black;">
+                        {{item.giaBanLeVat | number}}
+                    </td>
+                    <td style="border: 1px solid black;">
+                        {{item.thanhTien | number}}
+                    </td>
+                </tr>
+            </tbody>
+            <tbody style='width:100%;font-size: 10px;'>
+                <tr>
+                    <td colspan="6">Tổng tiền hóa đơn</td>
+                    <td>{{(target.dataDto.allSumTienHang)| number}}</td>
+                </tr>
+                <tr>
+                    <td colspan="6">Tiền khuyến mại</td>
+                    <td>{{target.dataDto.allSumTienKhuyenMai | number}}</td>
+                </tr>
+                <tr>
+                    <td colspan="6">Tiền voucher</td>
+                    <td>  {{target.dataDto.tienVoucher | number}}</td>
+                </tr>
+                <tr>
+                    <td style="font-weight:bold;font-size:11px;" colspan="6">Tiền khách phải trả</td>
+                    <td style="font-weight:bold;">{{(target.dataDto.allSumTienHang - target.dataDto.allSumTienKhuyenMai -target.dataDto.tienVoucher) | number}}</td>
+                </tr>
+                <tr>
+                    <td colspan="6">Tiền thẻ</td>
+                    <td>  {{target.dataDto.tienThe | number}}</td>
+                </tr>
+                <tr>
+                    <td colspan="6">Tiền COD</td>
+                    <td>  {{target.dataDto.tienCOD | number}}</td>
+                </tr>
+                <tr>
+                    <td colspan="6">Tiền mặt</td>
+                    <td>  {{target.dataDto.tienMat | number}}</td>
+                </tr>
+                <tr>
+                    <td colspan="6">Tiền trả lại</td>
+                    <td> {{target.dataDto.tienThua | number}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <p style="font-size:12px;text-align: center;font-weight:bold">Xin chân thành cảm ơn quý khách</p>
+        <p style="font-size:12px; text-align: center;font-weight:bold">Hóa đơn chỉ có giá trị trong ngày</p>
+        <p style="font-size:10px; text-align: center;">Phần mềm được cung cấp bởi Công Ty BTSOFTVN - ĐT : 0916 374 000</p>
+        <br />
+    </div>
+    <div class="row">
+        <div class="col-md-9">
+            <div class="alert alert-info" ng-if="target.dataDto.loaiGiaoDich == 1" style="color:red;width: 90%;">Xác nhận thanh toán hóa đơn: {{target.dataDto.maGiaoDich}}</div>
+            <div class="alert alert-info" ng-if="target.dataDto.loaiGiaoDich == 2" style="color: red;width: 90%;">Xác nhận trả lại hóa đơn: {{target.dataDto.maGiaoDich}}</div>
+            <table id='bill_confirm' class="table" style="width: 90%;">
+                <thead>
+                    <tr>
+                        <th>
+                            Mã hàng
+                        </th>
+                        <th style="width: 20%">
+                            Tên hàng
+                        </th>
+                        <th style="text-align: center">
+                            Số lượng
+                        </th>
+                        <th style="text-align: center">
+                            Đơn giá
+                        </th>
+                        <th style="text-align: center">
+                            Khuyến mại
+                        </th>
+                        <th style="text-align: center">
+                            Thành tiền
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="success" ng-repeat="item in target.dataDetails">
+                        <td style="text-align:left;">
+                            {{item.maVatTu}}
+                        </td>
+                        <td style="text-align:left; width: 20%;">
+                            {{item.tenVatTu}}
+                        </td>
+                        <td style="text-align:center;">
+                            {{item.soLuong | number}}
+                        </td>
+                        <td style="text-align:right;">
+                            {{item.giaBanLeCoVat | number}}
+                        </td>
+                        <td style="text-align:center;">
+                            {{item.tienDuocKhuyenMai | number}}
+                        </td>
+                        <td style="text-align:right">
+                            {{item.thanhTien | number}}
+                        </td>
+                    </tr>
+                    <tr class="info">
+                        <td>Mã khách</td>
+                        <td colspan="2">{{target.dataDto.makh}}</td>
+                        <td></td>
+                        <td>Tổng tiền hóa đơn</td>
+                        <td style="text-align:right;">
+                            {{target.dataDto.allSumTienHang | number}}
+                        </td>
+                    </tr>
+                    <tr class="info">
+                        <td>Tên khách</td>
+                        <td colspan="2">{{target.dataDto.tenKH}}</td>
+                        <td></td>
+                        <td>Tiền sale off</td>
+                        <td style="text-align:right;">
+                            {{target.dataDto.allSumTienKhuyenMai | number}}
+                        </td>
+                    </tr>
+                    <tr class="info">
+                        <td>Điện thoại</td>
+                        <td colspan="2">{{target.dataDto.dienThoai}}</td>
+                        <td></td>
+                        <td>Tiền voucher</td>
+                        <td style="text-align:right;">
+                            {{target.dataDto.tienVoucher | number}}
+                        </td>
+                    </tr>
+                    <tr class="info">
+                        <td>Mã thẻ</td>
+                        <td colspan="2">{{target.dataDto.maThe}}</td>
+                        <td></td>
+                        <td>Tiền hóa đơn</td>
+                        <td style="text-align:right;">
+                            {{target.dataDto.allSumTienHang - target.dataDto.allSumTienKhuyenMai -target.dataDto.tienVoucher | number}}
+                        </td>
+                    </tr>
+                    <tr class="info">
+                        <td>Ngày cấp thẻ</td>
+                        <td colspan="2">{{target.dataDto.ngayCapThe | date:'dd-MM-yyyy'}}</td>
+                        <td></td>
+                        <td>Tiền khách đưa</td>
+                        <td style="text-align:right;">
+                            {{target.dataDto.tienMat | number}}
+                        </td>
+                    </tr>
+                    <tr class="info">
+                        <td></td>
+                        <td colspan="2"></td>
+                        <td></td>
+                        <td>Tiền trả lại</td>
+                        <td style="text-align:right;">
+                            {{target.dataDto.tienThua | number}}
+                        </td>
+                    </tr>
+                    <tr class="danger" ng-enter="payBill();printDiv('reportBill')">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><button type="button" class="btn btn-danger" ng-click="payBill();printDiv('reportBill')" style="width: 150px;height: 50px;font-size: 20px;">Thanh toán</button>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

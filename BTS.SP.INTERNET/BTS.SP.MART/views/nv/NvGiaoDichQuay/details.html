@@ -1,0 +1,226 @@
+﻿<form></form><!-- KHông hiểu sao để thế này thì nó mới không bị lỗi T_T-->
+<style>
+    #myWorkContent {
+        overflow-x: scroll;
+        overflow-y: hidden;
+        white-space: nowrap;
+    }
+</style>
+
+<div>
+    <div>
+        <div class="modal-header">
+          <h3 class="modal-title" style="color:blue;">{{title()}}</h3>
+            <div class="button-close" ng-click="cancel()">
+                <i class="fa fa-times-circle"></i>
+            </div>
+        </div>
+        <div class="modal-body" ng-form name="_form">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="md-style-label-input">
+                            Số giao dịch
+                        </div>
+                        <div class="md-4-style-input">
+                            <input class="input-border-form" type="text" ng-model="target.maGiaoDich" maxlength="50" name="_maChungTu" disabled>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="md-style-label-input">
+                            Ngày tạo
+                        </div>
+                        <div class="md-4-style-input">
+                            <div class="add-input-zone">
+                                <input class="input-border-form" type="text" ng-model="target.ngayTao" placeholder="{{config.dateFormat}}"
+                                       uib-datepicker-popup="{{config.dateFormat}}" is-open="_ngayct" datepicker-localdate disabled />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="md-style-label-input">
+                            Ngày phát sinh
+                        </div>
+                        <div class="md-4-style-input">
+                            <div class="add-input-zone">
+                                <input class="input-border-form" type="text" ng-model="target.ngayPhatSinh" placeholder="{{config.dateFormat}}"
+                                       uib-datepicker-popup="{{config.dateFormat}}" is-open="_ngayHoaDon" datepicker-localdate disabled />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="md-style-label-input">
+                            Người tạo
+                        </div>
+                        <div class="md-4-style-input">
+                            <input class="input-border-form" type="text" name="_maHoaDon" focus="true" ng-model="target.nguoiTao" maxlength="50" disabled />
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="md-style-label-input">
+                            Máy bán
+                        </div>
+                        <div class="md-4-style-input">
+                            <input class="input-border-form" type="text" ng-model="target.maQuayBan" name="_tkCo" typeahead-editable="false" uib-typeahead="opt.value as opt.text for opt in tempData.accounts | filter:$viewValue | limitTo:5" typeahead-on-select="selectedTkCo($item)" disabled />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="md-style-label-input">
+                            Loại giao dịch
+                        </div>
+                        <div class="md-4-style-input">
+                            <input class="input-border-form" name="_loaiGiaoDich" type="text" ng-model="target.loaiGiaoDich" disabled />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="md-style-label-input">
+                            Thời gian
+                        </div>
+                        <div class="md-4-style-input">
+                            <input class="input-border-form" name="_thoiGian" type="text" ng-model="target.thoiGian" disabled />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="md-style-label-input">
+                            Mã khách hàng
+                        </div>
+                        <div class="md-4-style-input">
+                            <input class="input-border-form" name="_maKh" type="text" ng-model="target.maKhachHang" disabled />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="md-style-label-input">
+                            Tên khách hàng
+                        </div>
+                        <div class="md-4-style-input">
+                            <input class="input-border-form" name="_tenKh" type="text" ng-value="formatLabel(target.maKhachHang,'customers')" disabled />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-body">
+            <uib-tabset active="active">
+                <uib-tab index="0" heading="Chi tiết">
+                    <div id="myWorkContent">
+                        <table class="table table-bordered table-hover table-condensed">
+                            <thead>
+                                <tr style="font-weight: bold">
+                                    <th style="width:45px" class="text-center">STT</th>
+                                    <th style="width:100px;max-width:150px" class="text-center">Barcode</th>
+                                    <th style="width:60px" class="text-center">Mã hàng</th>
+                                    <th style="width:170px" class="text-center">Tên hàng</th>
+                                    <th style="width:50px" class="text-center">Số lượng</th>
+                                    <th style="width: 60px" class="text-center">Đơn giá</th>
+                                    <th style="width:70px" class="text-center">Tiền khuyến mại</th>
+                                    <th style="width:100px" class="text-center">Thành tiền <br /></th>
+                            </thead>
+                            <tbody ng-form name="_formDetail">
+                                <tr ng-if="isLoading">
+                                    <td colspan="15"><my-loading></my-loading></td>
+                                </tr>
+                                <tr ng-repeat="item in data track by $index">
+                                    <td class="text-center">{{$index + 1}}</td>
+                                    <td nowrap style="width:120px;max-width:150px;">
+                                        <input type="text" style="text-align:center;" ng-model="item.barcode" disabled>
+                                    </td>
+                                    <td>
+                                        {{item.maVatTu}}
+                                    </td>
+                                    <td>
+                                        {{item.tenDayDu}}
+                                    </td>
+                                    <td>
+                                        <input type="text" style="text-align:right; width:100%" ng-model="item.soLuong" format="number" disabled>
+                                    </td>
+                                    <td>
+                                        <input style="text-align:right; width: 100%;" type="text" ng-model="item.giaBanLeCoVat" format="number" disabled />
+                                    </td>
+                                    <td>
+                                        <input style="text-align:right; width:100%;" type="text" ng-value="item.tienKhuyenMai === null ? 0 : item.tienKhuyenMai" format="number" disabled />
+                                    </td>
+                                    <td>
+                                        <div style="text-align:right" disabled>
+                                            {{item.tTienCoVat | number}}
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="panel-footer">
+                        <uib-pagination class="no-margin-vertical pagination-sm" ng-model="paged.currentPage"
+                                        ng-change="pageChanged()"
+                                        items-per-page="paged.itemsPerPage" ng-show="paged.totalItems > 0" total-items="paged.totalItems" max-size="paged.pageSize"
+                                        boundary-links="true" num-pages="paged.totalPage"
+                                        previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;">
+                        </uib-pagination>
+                    </div>
+                </uib-tab>
+
+            </uib-tabset>
+            <div class="form-group">
+                <table class="table table-inverse">
+                    <tbody>
+                        <tr>
+                            <td style="width:55%"></td>
+                            <td nowrap style="text-align:left"><label>Tiền phải trả:</label></td>
+                            <td nowrap></td>
+                            <td style="text-align:right; width:20%"><span style="color:red;font-weight:bold"><b>{{target.tTienCoVat | number}}</b></span></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 55%"></td>
+                            <td nowrap style="text-align: left"><label>Tiền khuyến mại:</label></td>
+                            <td></td>
+                            <td nowrap style="text-align: right; width: 20%"> <span style="color: red; font-style: bold"><b>{{target.tienKhuyenMai === null ? 0 : target.tienKhuyenMai| number}}</b></span></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 55%"></td>
+                            <td nowrap style="text-align: left;"><label>Tiền voucher:</label></td>
+                            <td></td>
+                            <td nowrap style="text-align: right; width: 20%"> <span style="color: red; font-style: bold"><b>{{target.tienVoucher| number}}</b></span></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 55%"></td>
+                            <td nowrap style="text-align: left;"><label>Tiền voucher:</label></td>
+                            <td></td>
+                            <td nowrap style="text-align: right; width: 20%"> <span style="color:red; font-style: bold"><b>{{target.tienThe === null ? 0 : target.tienThe | number}}</b></span></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 55%"></td>
+                            <td nowrap style="text-align: left;"><label>Tiền COD:</label></td>
+                            <td></td>
+                            <td nowrap style="text-align: right; width: 20%"> <span style="color: red; font-style: bold"><b>{{target.tienCOD === null ? 0 : target.tienCOD | number}}</b></span></td>
+                        </tr>
+                        <tr>
+                            <td style="width:55%"></td>
+                            <td nowrap style="text-align:left;"><label>Tiền mặt:</label></td>
+                            <td></td>
+                            <td nowrap style="text-align:right; width:20%"> <span style="color:red;font-style:bold"><b>{{target.tienMat === null ? 0 : target.tienMat | number}}</b></span></td>
+                        </tr>
+                        <tr>
+                            <td style="width:55%"></td>
+                            <td nowrap style="text-align:left"><label>Tiền trả lại:</label></td>
+                            <td></td>
+                            <td nowrap style="text-align:right; width:20%"> <span style="color:red;font-style:bold"><b>{{target.tienThua === null ? 0 : target.tienThua | number}}</b></span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button prevent-default class="btn btn-default" ng-click="cancel()"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;{{config.label.btnCancel}}</button>
+        </div>
+    </div>
+
+
+

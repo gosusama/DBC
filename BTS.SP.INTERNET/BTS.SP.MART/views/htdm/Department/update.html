@@ -1,0 +1,46 @@
+﻿<div>
+    <div class="modal-header">
+      <h3 class="modal-title" style="color:blue;">{{title()}}</h3>
+        <div class="button-close" ng-click="cancel()">
+            <i class="fa fa-times-circle"></i>
+        </div>
+    </div>
+    <div class="modal-body">
+        <form role="form" name="_form">
+            <div class="row form-group">
+                <div class="col-lg-6">
+                    <label>Mã Phòng</label><span style="color: red"> (1*)</span>
+                    <input type="text" class="form-control" ng-model="target.maPhong" name="_maPhong" maxlength="50" disabled>
+                    <span style="color:red" ng-show="_form._maPhong.$dirty && _form._maPhong.$invalid">
+                        <span ng-show="_form._maPhong.$error.required">Không được để trống </span>
+                    </span>
+                </div>
+                <div class="col-lg-6">
+                    <label>Tên Phòng</label><span style="color: red"> (2*)</span>
+                    <input type="text" class="form-control" ng-model="target.tenPhong" maxlength="200" name="_tenPhong" required>
+                    <span style="color:red" ng-show="_form._tenPhong.$dirty && _form._tenPhong.$invalid">
+                        <span ng-show="_form._tenPhong.$error.required">Không được để trống </span>
+                    </span>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-lg-6">
+                    <label>Thông tin bổ sung</label>
+                    <input type="text" class="form-control" ng-model="target.thongTinBoSung" name="_thongTinBoSung" maxlength="200" >
+                    <span style="color:red" ng-show="_form._thongTinBoSung.$dirty && _form._thongTinBoSung.$invalid">
+                        <span ng-show="_form._thongTinBoSung.$error.required">Không được để trống </span>
+                    </span>
+                </div>
+                <div class="col-lg-6">
+                    <label>Trạng thái</label>
+                    <select class="form-control" ng-model="target.trangThai" ng-init="target.trangThai = 10" ng-options="opt.value as opt.text for opt in tempData('status')"></select>
+                </div>
+            </div>
+
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button prevent-default type="submit" class="btn btn-primary" ng-disabled="_form.$invalid" ng-click="save()">{{config.label.btnSubmit}}</button>
+        <button prevent-default class="btn btn-default" ng-click="cancel()"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;{{config.label.btnCancel}}</button>
+    </div>
+</div>

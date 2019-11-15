@@ -1,0 +1,48 @@
+﻿<div>
+    <div class="modal-header">
+      <h3 class="modal-title" style="color:blue;">{{title()}}</h3>
+        <div class="button-close" ng-click="cancel()">
+            <i class="fa fa-times-circle"></i>
+        </div>
+    </div>
+    <div class="modal-body">
+        <form role="form" name="_form">
+            <div class="row form-group">
+                <div class="col-lg-6">
+                    <label>Mã cha</label><span style="color: red"> (1)</span>
+                    <select class="form-control" ng-model="target.maCha" ng-options="opt.value as opt.text for opt in tempData('typeReasons')" disabled></select>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-lg-6">
+                    <label>Mã lý do</label><span style="color: red"> (2*)</span>
+                    <input type="text" class="form-control" ng-model="target.maLyDo" name="_maLyDo" maxlength="50" disabled>
+                    <span style="color:red" ng-show="_form._maLyDo.$dirty && _form._maLyDo.$invalid">
+                        <span ng-show="_form._maLyDo.$error.required">Không được để trống</span>
+                    </span>
+                </div>
+                <div class="col-lg-6">
+                    <label>Tên lý do</label><span style="color: red"> (3*)</span>
+                    <input type="text" class="form-control" ng-model="target.tenLyDo" name="_tenLyDo" maxlength="300" required>
+                    <span style="color:red" ng-show="_form._tenLyDo.$dirty && _form._tenLyDo.$invalid">
+                        <span ng-show="_form._tenLyDo.$error.required">Không được để trống</span>
+                    </span>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-lg-6">
+                    <label>Loại</label><span style="color: red"> (4*)</span>
+                    <select class="form-control" ng-model="target.loai" ng-options="opt.value as opt.text for opt in tempData('typeXKs')"></select>
+                </div>
+                <div class="col-lg-6">
+                    <label>Trạng thái</label><span style="color: red"> (5*)</span>
+                    <select class="form-control" ng-model="target.trangThai" ng-options="opt.value as opt.text for opt in tempData('status')"></select>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button prevent-default type="submit" class="btn btn-primary" ng-disabled="_form.$invalid" ng-click="save()">{{config.label.btnSubmit}}</button>
+        <button prevent-default class="btn btn-default" ng-click="cancel()"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;{{config.label.btnCancel}}</button>
+    </div>
+</div>

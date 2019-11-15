@@ -1,0 +1,18 @@
+	
+> add-migration MyNewMigration
+[Console output of the command]
+> update-database -Script
+[Console output of the command]
+> update-database
+[Console output of the command]
+Update-Database –TargetMigration: $InitialDatabase
+
+
+Delete the state: Delete the migrations folder in your project; And
+Delete the __MigrationHistory table in your database (may be under system tables); Then
+Run the following command in the Package Manager Console:
+
+Enable-Migrations -EnableAutomaticMigrations -Force
+Use with or without -EnableAutomaticMigrations
+And finally, you can run:
+Add-Migration Initial

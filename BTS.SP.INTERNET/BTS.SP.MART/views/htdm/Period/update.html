@@ -1,0 +1,72 @@
+﻿<div>
+    <div class="modal-header">
+      <h3 class="modal-title" style="color:blue;">{{title()}}</h3>
+        <div class="button-close" ng-click="cancel()">
+            <i class="fa fa-times-circle"></i>
+        </div>
+    </div>
+    <div class="modal-body">
+        <form role="form" name="_form">
+            <div class="row form-group">
+                <input type="hidden" ng-model="target.id"/>
+                <div class="col-lg-6">
+                    <label>Kỳ kế toán</label><span style="color: red"> (1*)</span>
+                    <input type="number" class="form-control" ng-model="target.period" name="_period" maxlength="50" required disabled>
+                    <span style="color:red" ng-show="_form._period.$dirty && _form._period.$invalid">
+                        <span ng-show="_form._period.$error.required">Không được để trống</span>
+                    </span>
+                </div>
+                <div class="col-lg-6">
+                    <label>Tên kỳ kế toán</label><span style="color: red"> (2*)</span>
+                    <input type="text" class="form-control" ng-model="target.name" name="_name" maxlength="500" required disabled="">
+                    <span style="color:red" ng-show="_form._name.$dirty && _form._name.$invalid">
+                        <span ng-show="_form._name.$error.required">Không được để trống</span>
+                    </span>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-lg-6">
+                    <label>Từ ngày</label><span style="color: red"> (3*)</span>
+                    <div class="add-input-zone">
+                        <input class="form-control" type="text" ng-model="target.fromDate" placeholder="{{config.dateFormat}}" name="_fromDate"
+                               uib-datepicker-popup="{{config.dateFormat}}" is-open="_fromDate" datepicker-localdate required disabled=""/>
+                        <div class="button-calender" ng-click="_fromDate = !_fromDate; config.delegateEvent($event);" disabled="">
+                        </div>
+                        <span style="color:red" ng-show="_form._fromDate.$dirty && _form._fromDate.$invalid">
+                            <span ng-show="_form._fromDate.$error.required">Không được để trống</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <label>Từ ngày</label><span style="color: red"> (4*)</span>
+                    <div class="add-input-zone">
+                        <input class="form-control" type="text" ng-model="target.toDate" placeholder="{{config.dateFormat}}" name="_toDate"
+                               uib-datepicker-popup="{{config.dateFormat}}" is-open="_toDate" datepicker-localdate required disabled=""/>
+                        <div class="button-calender" ng-click="_toDate = !_toDate; config.delegateEvent($event);" disabled="">
+                        </div>
+                        <span style="color:red" ng-show="_form._toDate.$dirty && _form._toDate.$invalid">
+                            <span ng-show="_form._toDate.$error.required">Không được để trống</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-lg-6">
+                    <label>Năm</label><span style="color: red"> (5*)</span>
+                    <input type="number" class="form-control" ng-model="target.year" name="_year" maxlength="50" required disabled>
+                    <span style="color:red" ng-show="_form._year.$dirty && _form._year.$invalid">
+                        <span ng-show="_form._year.$error.required">Không được để trống</span>
+                    </span>
+                </div>
+                <div class="col-lg-6">
+                    <label>Trạng thái</label><span style="color: red"> (5*)</span>
+                    <select class="form-control" ng-model="target.trangThai" ng-options="opt.value as opt.text for opt in tempData('status')"></select>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button prevent-default type="submit" class="btn btn-primary" ng-disabled="_form.$invalid" ng-click="save()">{{config.label.btnSubmit}}</button>
+        <button prevent-default class="btn btn-default" ng-click="cancel()"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;{{config.label.btnCancel}}</button>
+    </div>
+</div>

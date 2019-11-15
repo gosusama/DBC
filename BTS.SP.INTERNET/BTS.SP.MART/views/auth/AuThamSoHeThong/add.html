@@ -1,0 +1,52 @@
+﻿<div>
+    <div class="modal-header">
+        <h3 class="modal-title">{{title()}}  {{lbl.lblCreate}}</h3>
+        <div class="button-close" ng-click="cancel()">
+            <i class="fa fa-times-circle"></i>
+        </div>
+    </div>
+    <div class="modal-body">
+        <form role="form" name="_form">
+            <div class="row form-group">
+                <div class="col-lg-6">
+                    <label>Mã tham số</label><span style="color: red"> (1*)</span>
+                    <input type="text" class="form-control" ng-model="target.maThamSo" name="_maThamSo" maxlength="200" required>
+                    <span style="color:red" ng-show="_form._maThamSo.$touched && _form._maThamSo.$invalid">
+                        <span ng-show="_form._maThamSo.$error.required">Mã không được để trống</span>
+                    </span>
+                </div>
+                <div class="col-lg-6">
+                    <label>Tên tham số</label><span style="color: red"> (2*)</span>
+                    <input type="text" class="form-control" ng-model="target.tenThamSo" name="_tenThamSo" maxlength="300" required>
+                    <span style="color:red" ng-show="_form._tenThamSo.$touched && _form._tenThamSo.$invalid">
+                        <span ng-show="_form._tenThamSo.$error.required">Tên không được để trống</span>
+                    </span>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-lg-6">
+                    <label>Giá trị</label><span style="color: red"> (3*)</span>
+                    <input type="text" class="form-control" ng-model="target.giaTri" name="_giaTri" maxlength="200" required>
+                    <span style="color:red" ng-show="_form._giaTri_giaTri.$touched && _form._giaTri.$invalid">
+                        <span ng-show="_form._giaTri.$error.required">Giá trị không được để trống</span>
+                    </span>
+                </div>
+                <div class="col-lg-3">
+                    <label>Kiểu dữ liệu</label><span style="color: red"> (4*)</span>
+                    <input type="number" class="form-control" ng-model="target.kieuDuLieu" name="_kieuDuLieu" required>
+                    <span style="color:red" ng-show="_form._kieuDuLieu.$touched && _form._kieuDuLieu.$invalid">
+                        <span ng-show="_form._kieuDuLieu.$error.required">Không được để trống</span>
+                    </span>
+                </div>
+                <div class="col-lg-3">
+                    <label>Được sửa</label><span style="color: red">(5*)</span>
+                    <input type="checkbox" class="form-control" ng-model="target.isEdit" name="_isEdit" required>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button prevent-default type="submit" ng-disabled="_form.$invalid" class="btn btn-primary" ng-click="save()">{{config.label.btnSubmit}}</button>
+        <button prevent-default class="btn btn-default" ng-click="cancel()"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;{{config.label.btnCancel}}</button>
+    </div>
+</div>

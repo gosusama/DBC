@@ -1,0 +1,80 @@
+﻿
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="button-close" ng-click="goIndex()">
+            <i class="fa fa-times-circle"></i>
+        </div>
+        <div class="btn-group">
+            <button class="btn btn-default" prevent-default title="In danh sách" ng-click="print()"><span class="fa fa-print"></span>&ensp;In</button>
+            <button class="btn btn-default" prevent-default title="In danh sách" ng-click="printExcel()"><span class="fa fa-print"></span>&ensp;Xuất Excel</button>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div>
+            <br />
+            <div id="dataTable">
+                <style>
+                    table, th, td {
+                        border: 1px solid black;
+                        border-collapse: collapse;
+                    }
+
+                    th, td {
+                        padding: 5px;
+                    }
+
+                    table {
+                        margin: 0 auto;
+                    }
+                    .title-print
+                    {
+                        margin-bottom: 15px;
+                    }
+                </style>
+                <div class="text-center title-print">
+                    <h3>Danh sách phiếu đặt hàng</h3>
+                    <br />
+                    <label>Từ ngày {{info.tuNgay | date: "dd/MM/yyyy"}} đến ngày {{info.denNgay | date: "dd/MM/yyyy"}}</label>
+                </div>
+                <table width="100%">
+                    <tr>
+                        <th>#</th>
+                        <th>
+                            Số phiếu
+                        </th>
+                        <th>
+                            Ngày
+                        </th>
+                        <th>
+                            Nội dung
+                        </th>
+                        <th>
+                            Người lập
+                        </th>
+                        <th >
+                            Tổng tiền
+                        </th>
+                        <th>
+                            Trạng thái
+                        </th>
+                    </tr>
+                    <tbody>
+                        <tr class="even pointer" ng-repeat="item in printData">
+                            <td class="text-center">{{$index + 1}}</td>
+                            <td>{{item.soPhieu}}</td>
+                            <td>{{item.ngay | date : "dd/MM/yyyy"}}</td>
+                            <td>{{item.noiDung}}</td> 
+                            <td>{{item.nguoiLap}}</td>
+                            <td style="text-align:right;">{{item.thanhTien | number}}</td>
+                            <td ng-class="item.trangThai == 10 ? 'is-complete' : item.trangThai == 20 ? 'is-approval' : 'not-approval-yet' ">{{item.trangThai | approval}}</td>
+                        </tr>
+                        <tr>
+                            <td colSpan="5" style="text-align:center; color:red">Tổng tiền</td>
+                            <td style="text-align:right;">{{robot.sum(printData, 'thanhTien') | number}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

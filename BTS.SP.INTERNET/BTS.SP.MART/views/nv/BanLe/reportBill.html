@@ -1,0 +1,149 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+</head>
+<body>
+    <div id="report">
+        <style>
+            .app-modal-window .modal-dialog {
+                width: 500px;
+            }
+
+            #report {
+                position: fixed;
+                left: 0px;
+            }
+
+            .title {
+                font-size: 20px;
+                text-align: center;
+                margin-bottom: 5px;
+            }
+
+            .nameMart {
+                font-size: 20px;
+                text-align: center;
+                margin-bottom: 5px;
+                font-weight: bold;
+            }
+
+            .infoPay table, .taxPay table {
+                width: 100%;
+            }
+
+            .footer p {
+                text-align: center;
+            }
+
+            .bill {
+                position: fixed;
+                left: 0px;
+                font-size: 9px;
+                width: 100%;
+                height: 100%;
+            }
+        </style>
+        <div class="bill">
+            <div class="head">
+                <div class="title">
+                    HỆ THỐNG SIÊU THỊ DABACO MART
+                </div>
+                <div class="idfoMart" style="margin-left:3px;">
+                    <p style="margin-bottom:3px;">Điện thoại : 123456789</p>
+                    <p>Địa chỉ : Tiên Du - Bắc Ninh</p>
+                </div>
+                <div class="logo"></div>
+                <div class="nameMart">
+                    DABACO MART
+                </div>
+                <div class="info"></div>
+            </div>
+            <div class="content">
+                <div class="lstHang" style="margin-bottom:5px">
+                    <table style="border:1px solid;border-spacing :0px;">
+                        <thead style="background-color: darkgray;">
+                            <tr style="border:1px solid">
+                                <th style="border:1px solid;text-align:center;">STT</th>
+                                <th style="border:1px solid;text-align:center;">Mã sản phẩm</th>
+                                <th style="border:1px solid;text-align:center;">Tên sản phẩm</th>
+                                <th style="border:1px solid;text-align:center;">Đơn giá</th>
+                                <th style="border:1px solid;text-align:center;">Số lượng</th>
+                                <th style="border:1px solid;text-align:center;">Thành tiền</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in listHangHoa.listHangHoaChiTiet">
+                                <td style="border:1px solid;text-align:center;">{{$index + 1}}</td>
+                                <td style="border:1px solid;text-align:center;">{{item.maVatTu}}</td>
+                                <td style="border:1px solid;text-align:center;">{{item.tenDayDu}}</td>
+                                <td style="border:1px solid;text-align:right;">{{item.giaBanLeCoVat | number}}</td>
+                                <td style="border:1px solid;text-align:right;">{{item.soLuong | number}}</td>
+                                <td style="border:1px solid;text-align:right;">{{item.tTienCoVat | number}}</td>
+                            </tr>
+                            <tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="infoPay" style="margin-bottom:5px">
+                    <table style="border-spacing :0px">
+                        <tbody>
+                            <tr>
+                                <td style="width: 32%">Tổng số lượng:</td>
+                                <td style="width: 18%">{{listHangHoa.tongSoLuong | number}}</td>
+                                <td style="width: 32%;text-align:right;">Tiền hàng:</td>
+                                <td style="width: 18%;text-align:right !important;">{{listHangHoa.tTienCoVat | number}}</td>
+                            </tr>
+                            <tr>
+                                <td>Tổng tiền bằng chữ:</td>
+                                <td></td>
+                                <td style="text-align:right;">Chiết khấu:</td>
+                                <td style="text-align:right !important;">{{listHangHoa.tongTienKhuyenMai | number}}</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="3" colspan="2">{{listHangHoa.tTienCoVat | words }}</td>
+                                <td style="text-align:right;">Tổng tiền:</td>
+                                <td style="text-align:right !important;">{{listHangHoa.tTienCoVat | number}}</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align:right;">Tiền khách trả:</td>
+                                <td style="text-align:right !important;">{{listHangHoa.tienKhachTra | number}}</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align:right;">Còn lại:</td>
+                                <td style="text-align:right !important;">{{listHangHoa.tienKhachTra - listHangHoa.tTienCoVat | number}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="taxPay" style="margin-bottom:5px;">
+                    <table style="margin:0 auto">
+                        <tbody>
+                            <tr>
+                                <td style="width: 33%;text-align:center;">Thuế xuất</td>
+                                <td style="width: 33%;text-align:center;">Chưa có GTGT</td>
+                                <td style="width: 33%;text-align:center;">Thuế GTGT</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align:center;">10%</td>
+                                <td style="text-align:center;">5000</td>
+                                <td style="text-align:center;">500</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <hr/>
+            <div class="footer">
+                <p style="margin-bottom:3px;">Xin chân thành cảm ơn quý khách</p>
+                <p>Công ty trách nhiệm hữa hạn giải pháp công nghệ B&T</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

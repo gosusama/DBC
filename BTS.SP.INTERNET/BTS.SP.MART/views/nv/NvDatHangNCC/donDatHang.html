@@ -1,0 +1,334 @@
+﻿<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="button-close" ng-click="goIndex()">
+            <i class="fa fa-times-circle"></i>
+        </div>
+        <div class="btn-group">
+            <button class="btn btn-default" prevent-default=prevent-default title="In danh sách" ng-click="print()"><span class="fa fa-print"></span>&ensp;In</button>
+            <button class="btn btn-default" prevent-default=prevent-default title="In danh sách" ng-click="printExcel()"><span class="fa fa-print"></span>&ensp;Xuất Excel</button>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div id="main-report">
+            <style type="text/css">
+                body {
+                    line-height: 108%;
+                    font-family: 'Times New Roman';
+                    font-size: 13pt;
+                }
+
+                p {
+                    margin: 0pt 0pt 8pt;
+                }
+
+                li, table {
+                    margin-top: 0pt;
+                    margin-bottom: 8pt;
+                }
+
+                .ListParagraph {
+                    margin-left: 36pt;
+                    margin-bottom: 8pt;
+                    line-height: 108%;
+                    font-family: 'Times New Roman';
+                    font-size: 13pt;
+                }
+            </style>
+            <div>
+                <p style="text-align:center; line-height:normal; font-size:11pt">
+                    <strong>CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</strong>
+                </p>
+                <p style="text-align:center; line-height:normal; font-size:11pt">
+                    <strong>Độc lập – Tự do – Hạnh phúc</strong>
+                </p>
+                <p style="text-align:center; line-height:normal; font-size:11pt">
+                    **********0o0**********
+                </p>
+                <p style="line-height:normal; font-size:11pt">
+                    <strong>Đơn vị mua: <span style="text-transform: uppercase;">{{target.donVi.tenDonVi}}</span></strong>
+                </p>
+                <table>
+                    <tr>
+                        <td colspan="2">
+                            <div class="label-info-report">Tên khách hàng: </div>
+                            <span>&nbsp;{{target.maKhachHang}} - {{target.tenKhachHang}}</span>
+                        </td>
+                        <td colspan="2">
+                            <div class="label-info-report">Số phiếu xuất: </div>
+                            <span>&nbsp;{{target.maChungTuPk}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class="label-info-report">Số điện thoại: </div>
+                            <span>&nbsp;{{target.dienThoai}}</span>
+                        </td>
+                        <td colspan="2">
+                            <div class="label-info-report">Ngày giao dịch: </div>
+                            <span>&nbsp;{{target.ngayCT | date : "dd/MM/yyyy"}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class="label-info-report">Địa chỉ:</div>
+                            <span>
+                                &nbsp;{{target.diaChiKhachHang}}
+                            </span>
+                        </td>
+                        <td colspan="2">
+                            <div class="label-info-report">Mã kho:</div>
+                            <span>&nbsp;{{target.maKhoNhap}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class="label-info-report">Ghi chú:</div>
+                            <span>
+                                &nbsp;{{target.noiDung}}
+                            </span>
+                        </td>
+                        <td colspan="2">
+                            <div class="label-info-report">Tên kho:</div>
+                            <span>&nbsp;{{target.tenKho}}</span>
+                        </td>
+                    </tr>
+                </table>
+                <p style="line-height:normal; font-size:11pt">
+                    Địa chỉ: {{target.donVi.diaChi}}
+                </p>
+                <p style="line-height:normal; font-size:11pt">
+                    MST: 00300223
+                </p>
+                <p style="line-height:normal; font-size:11pt">
+                    TK: 2600201006 Tại Ngân hàng NN và PTNT Chi nhánh tỉnh Bắc Ninh
+                </p>
+                <p style="line-height:normal; font-size:11pt">
+                    <strong>Mã phòng giao dịch: TRUNG TÂM THƯƠNG MẠI DABACO LÝ THÁI TỔ</strong>
+                </p>
+                <p style="line-height:normal; font-size:11pt">
+                    Địa chỉ: Đường Lý Thái Tổ - TP Bắc Ninh
+                </p>
+                <p style="line-height:normal; font-size:11pt">
+                    Điện thoại: 0241.3737 668                                                                     Email: dabacomart@gmail.com
+                </p>
+                <p style="line-height:normal; font-size:11pt">
+                    <strong>Người đặt: {{target.nhanVien.tenNhanVien}}</strong>                                                   Ngành hàng: {{target.nhanVien.chucVu}}
+                </p>
+                <p style="text-align:center; line-height:normal; font-size:18pt">
+                    <strong>ĐƠN ĐẶT HÀNG</strong>
+                </p>
+                <p style="line-height:normal; font-size:11pt">
+                    <strong>Nhà cung cấp:  <span style="text-transform: uppercase;">{{target.nhaCungCap.tenNCC}}</span></strong>
+                </p>
+                <p style="line-height:normal; font-size:11pt">
+                    <strong>Mã NCC:          {{target.nhaCungCap.maNCC}}</strong>
+                </p>
+                <p style="line-height:normal; font-size:11pt">
+                    Địa chỉ: {{target.nhaCungCap.diaChi}}
+                </p>
+                <p style="line-height:normal; font-size:11pt">
+                    Điện thoại: {{target.nhaCungCap.dienThoai}}                            Fax: {{target.nhaCungCap.fax}}                                                      Email: {{target.nhaCungCap.email}}
+                </p>
+                <p style="line-height:normal; font-size:11pt">
+                    MST: {{target.nhaCungCap.maSoThue}}
+                </p>
+                <p style="line-height:normal; font-size:11pt">
+                    Số tài khoản:      {{target.nhaCungCap.taiKhoan_NganHang}} Ngân hàng: {{target.nhaCungCap.thongTin_NganHang}}
+                </p>
+                <p style="line-height:normal; font-size:11pt">
+                    <strong><em>Chúng tôi đề nghị mua của quý Công ty những mặt hàng với các điều kiện sau:</em></strong>
+                </p>
+                <table cellspacing="0" cellpadding="0" style="width:560.45pt; margin-bottom:0pt; border-collapse:collapse">
+                    <tr style="height:25.3pt">
+                        <td style="width:23.15pt; border:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle">
+                            <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:11pt">
+                                <strong>STT</strong>
+                            </p>
+                        </td>
+                        <td style="width:33pt; border:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle">
+                            <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:11pt">
+                                <strong>Mã ST</strong>
+                            </p>
+                        </td>
+                        <td style="width:88.4pt; border:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle">
+                            <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:11pt">
+                                <strong>Tên sản phẩm</strong>
+                            </p>
+                        </td>
+                        <td style="width:31.75pt; border:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle">
+                            <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:11pt">
+                                <strong>Quy cách</strong>
+                            </p>
+                        </td>
+                        <td style="width:31.7pt; border:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle">
+                            <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:11pt">
+                                <strong>ĐVT</strong>
+                            </p>
+                        </td>
+                        <td style="width:17.55pt; border:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle">
+                            <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:11pt">
+                                <strong>SL đặt</strong>
+                            </p>
+                        </td>
+                        <td style="width:60.1pt; border:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle">
+                            <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:11pt">
+                                <strong>Đơn giá CK 5% cố định</strong>
+                            </p>
+                        </td>
+                        <td style="width:52.95pt; border:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle">
+                            <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:11pt">
+                                <strong>Thành tiền</strong>
+                            </p>
+                        </td>
+                        <td style="width:45.9pt; border:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle">
+                            <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:11pt">
+                                <strong>Giá bán đề xuất</strong>
+                            </p>
+                        </td>
+                        <td style="width:67.2pt; border:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle">
+                            <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:11pt">
+                                <strong>Tăng giảm giá + KM</strong>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr style="height:25.3pt" ng-repeat="item in target.dataReportDetails track by $index">
+                        <td style="width:23.15pt; border:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top">
+                            <p style="margin-bottom:0pt; line-height:normal; font-size:11pt">
+                                {{$index + 1}}
+                            </p>
+                        </td>
+                        <td style="width:33pt; border:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top">
+                            <p style="margin-bottom:0pt; line-height:normal; font-size:11pt">
+                                {{item.maHang}}
+                            </p>
+                        </td>
+                        <td style="width:88.4pt; border:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top">
+                            <p style="margin-bottom:0pt; line-height:normal; font-size:11pt">
+                                {{item.tenHang}}
+                            </p>
+                        </td>
+                        <td style="width:31.75pt; border:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top">
+                            <p style="margin-bottom:0pt; line-height:normal; font-size:11pt">
+                                {{item.luongBao}}
+                            </p>
+                        </td>
+                        <td style="width:31.7pt; border:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top">
+                            <p style="margin-bottom:0pt; line-height:normal; font-size:11pt">
+                                {{formatLabel(item.donViTinh,'donViTinhs')}}
+                            </p>
+                        </td>
+                        <td style="width:17.55pt; border:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top">
+                            <p style="margin-bottom:0pt; line-height:normal; font-size:11pt">
+                                {{item.soLuong}}
+                            </p>
+                        </td>
+                        <td style="width:60.1pt; border:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top">
+                            <p style="margin-bottom:0pt; line-height:normal; font-size:11pt">
+                                {{item.donGia}}
+                            </p>
+                        </td>
+                        <td style="width:52.95pt; border:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top">
+                            <p style="margin-bottom:0pt; line-height:normal; font-size:11pt">
+                                {{item.thanhTien}}
+                            </p>
+                        </td>
+                        <td style="width:45.9pt; border:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top">
+                            <p style="margin-bottom:0pt; line-height:normal; font-size:11pt">
+                                &#xa0;
+                            </p>
+                        </td>
+                        <td style="width:67.2pt; border:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top">
+                            <p style="margin-bottom:0pt; line-height:normal; font-size:11pt">
+                                &#xa0;
+                            </p>
+                        </td>
+                    </tr>
+                    <tr style="height:25.3pt">
+                        <td colspan="3" style="width:166.15pt; border:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle">
+                            <p class="ListParagraph" style="margin-left:15.95pt; margin-bottom:0pt; text-indent:-15.95pt; line-height:normal; font-size:11pt">
+                                <span style="font-family:Wingdings"></span><span style="font:7pt 'Times New Roman'">&#xa0;&#xa0;&#xa0;&#xa0; </span>Hình thức thanh toán: TM/CK
+                            </p>
+                        </td>
+                        <td colspan="7" style="width:371.95pt; border:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle">
+                            <p style="margin-bottom:0pt; line-height:normal; font-size:11pt">
+                                &gt;&gt; Thời hạn thanh toán:Thanh toán vào 20 – 25
+                            </p>
+                        </td>
+                    </tr>
+                    <tr style="height:25.3pt">
+                        <td colspan="3" style="width:166.15pt; border:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle">
+                            <p class="ListParagraph" style="margin-left:14.2pt; margin-bottom:0pt; text-indent:-14.2pt; line-height:normal; font-size:11pt">
+                                <span style="font-family:Wingdings"></span><span style="font:7pt 'Times New Roman'">&#xa0;&#xa0;&#xa0; </span>Ngày giao hàng:  tháng   năm 2017
+                            </p>
+                        </td>
+                        <td colspan="7" style="width:371.95pt; border:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle">
+                            <p style="margin-bottom:0pt; line-height:normal; font-size:11pt">
+                                <strong>&gt;&gt; Địa điểm giao hàng: TT THƯƠNG MẠI DABACO – LÝ THÁI TỔ - BN</strong>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr style="height:25.3pt">
+                        <td colspan="3" style="width:166.15pt; border:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle">
+                            <p class="ListParagraph" style="margin-left:8.85pt; margin-bottom:0pt; text-align:center; line-height:normal; font-size:11pt">
+                                NGƯỜI LIÊN HỆ
+                            </p>
+                        </td>
+                        <td colspan="7" style="width:371.95pt; border:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle">
+                            <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:11pt">
+                                <strong>LH: Lành 0964.638.821</strong>
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+                <p style="margin-top:12pt; line-height:50%; font-size:11pt">
+                    <strong><em>Chúng tôi có quyền không nhận hàng nếu như:</em></strong>
+                </p>
+                <p class="ListParagraph" style="margin-top:12pt; margin-left:28.35pt; margin-bottom:0pt; text-indent:-18pt; line-height:50%; font-size:11pt">
+                    <em><span style="font-family:Wingdings; font-style:normal"></span></em></span><span style="font:7pt 'Times New Roman'">&#xa0;&#xa0;&#xa0;&#xa0;&#xa0; </span><em>Nhà Cung cấp không giao hàng đúng như trên thỏa thuận trong đơn đặt hàng ảnh hưởng đến việc kinh doanh Siêu thị.</em>
+                </p>
+                <p class="ListParagraph" style="margin-left:28.35pt; margin-bottom:0pt; text-indent:-18pt; line-height:normal; font-size:11pt">
+                    <em><span style="font-family:Wingdings; font-style:normal"></span></em></span><span style="font:7pt 'Times New Roman'">&#xa0;&#xa0;&#xa0;&#xa0;&#xa0; </span><em>Hàng hóa không đúng quy cách, số lượng như đã thỏa thuận trong đơn đặt hàng.</em>
+                </p>
+                <p class="ListParagraph" style="margin-left:28.35pt; margin-bottom:0pt; text-indent:-18pt; line-height:normal; font-size:11pt">
+                    <em><span style="font-family:Wingdings; font-style:normal"></span></em></span><span style="font:7pt 'Times New Roman'">&#xa0;&#xa0;&#xa0;&#xa0;&#xa0; </span><em>Hàng hóa quá 1/3 hạn sử dụng.</em>
+                </p>
+                <p class="ListParagraph" style="margin-bottom:0pt; line-height:normal; font-size:11pt">
+                    &#xa0;
+                </p>
+                <p class="ListParagraph" style="text-align:right; line-height:normal; font-size:11pt">
+                    Bắc Ninh, ngày…tháng…năm….
+                </p>
+                <p style="line-height:normal; font-size:11pt">
+                    <strong>          Xác nhận NCC                  Người lập                        P.Kinh doanh – XNK</strong>                               <strong>   Giám Đốc</strong>
+                </p>
+                <p style="line-height:normal; font-size:11pt">
+                    <strong>&#xa0;</strong>
+                </p>
+                <p style="line-height:normal; font-size:11pt">
+                    <strong>&#xa0;</strong>
+                </p>
+                <p style="line-height:normal; font-size:11pt">
+                    <strong>&#xa0;</strong>
+                </p>
+                <p style="line-height:normal; font-size:11pt">
+                    <strong>&#xa0;</strong>
+                </p>
+                <p style="line-height:normal; font-size:11pt">
+                    <strong>&#xa0;</strong>
+                </p>
+                <p style="line-height:normal; font-size:11pt">
+                    <strong>&#xa0;</strong>
+                </p>
+                <p style="line-height:normal; font-size:11pt">
+                    <strong>&#xa0;</strong>
+                </p>
+                <p style="line-height:normal; font-size:11pt">
+                    <strong>&#xa0;</strong>
+                </p>
+                <p style="line-height:normal; font-size:11pt">
+                    &#xa0;
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
