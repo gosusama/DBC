@@ -202,12 +202,13 @@ namespace BTS.SP.API.Api.Authorize.AuNhomQuyen
             }
             try
             {
-                var result = new TransferObj<AU_NHOMQUYEN>();
-                _service.Delete(instance.Id);
-                _service.UnitOfWork.Save();
-                result.Status = true;
-                result.Message = "Xóa thành công.";
-                return Ok(result);
+                if (_service.DeleteNhomQuyen(Id))
+                {
+                    _service.Delete(instance.Id);
+                    _service.UnitOfWork.Save();
+                    return Ok(instance);
+                }
+                return InternalServerError();
             }
             catch (Exception)
             {

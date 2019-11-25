@@ -81,9 +81,9 @@
                         </div>
                         <div class="md-8-style-input">
                             <button type="button" style="display:inline" class="btn-primary input-border-form" ng-click="selectWareHouse()">Chọn Kho</button>
-                            <input type="text" class="form-control" style="display: inline; width: 216px;" name="_wareHouseCodes" ng-model="wareHouseCodes" placeholder="Ví dụ DV1-CH1-K1,DV1-CH1-K2" ng-blur="changewareHouseCodes(wareHouseCodes);" required="">
-                            <span style="color: red" ng-show="_form._wareHouseCodes.$dirty && _form._wareHouseCodes.$invalid">
-                                <span ng-show="_form._wareHouseCodes.$error.required">Không được để trống</span>
+                            <input type="text" class="form-control" style="display: inline; width: 216px;" name="_maKhoXuatKhuyenMai" ng-model="target.maKhoXuatKhuyenMai" placeholder="Ví dụ DV1-CH1-K1,DV1-CH1-K2" required readonly>
+                            <span style="color: red" ng-show="_form._maKhoXuatKhuyenMai.$dirty && _form._maKhoXuatKhuyenMai.$invalid">
+                                <span ng-show="_form._maKhoXuatKhuyenMai.$error.required">Không được để trống</span>
                             </span>
                         </div>
                     </div>

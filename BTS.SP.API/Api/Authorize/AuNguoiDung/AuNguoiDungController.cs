@@ -13,6 +13,8 @@ using BTS.API.SERVICE.Helper;
 using Newtonsoft.Json.Linq;
 using BTS.API.SERVICE.Authorize.Utils;
 using BTS.API.SERVICE.BuildQuery.Query.Types;
+using Oracle.ManagedDataAccess.Client;
+using System.Data;
 
 namespace BTS.SP.API.Api.Authorize.AuNguoiDung
 {
@@ -280,9 +282,13 @@ namespace BTS.SP.API.Api.Authorize.AuNguoiDung
             }
             try
             {
-                _service.Delete(instance.Id);
-                await _service.UnitOfWork.SaveAsync();
-                return Ok(instance);
+                if (_service.DeleteUser(id))
+                {
+                    _service.Delete(instance.Id);
+                    _service.UnitOfWork.Save();
+                    return Ok(instance);
+                }
+                return InternalServerError();
             }
             catch (Exception)
             {

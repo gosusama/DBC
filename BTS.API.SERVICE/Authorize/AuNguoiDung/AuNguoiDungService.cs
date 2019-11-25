@@ -24,6 +24,7 @@ namespace BTS.API.SERVICE.Authorize.AuNguoiDung
         List<RefreshToken> GetAllRefreshTokens();
         string BuildCodeByParent(string unitCode);
         string SaveCodeByParent(string unitCode);
+        bool DeleteUser(string id);
     }
     public class AuNguoiDungService : DataInfoServiceBase<AU_NGUOIDUNG>, IAuNguoiDungService
     {
@@ -186,6 +187,30 @@ namespace BTS.API.SERVICE.Authorize.AuNguoiDung
         public List<RefreshToken> GetAllRefreshTokens()
         {
             return UnitOfWork.Repository<RefreshToken>().DbSet.ToList();
+        }
+
+        public bool DeleteUser(string id)
+        {
+            var insatance = UnitOfWork.Repository<AU_NGUOIDUNG>().DbSet.Where(x => x.Id == id).FirstOrDefault();
+            if (insatance == null)
+            {
+                return false;
+            }
+
+            var auNguoiDungQuyen = UnitOfWork.Repository<AU_NGUOIDUNG_QUYEN>().DbSet.Where(o => o.USERNAME == insatance.Username).ToList();
+            foreach (AU_NGUOIDUNG_QUYEN andq in auNguoiDungQuyen)
+            {
+                andq.ObjectState = ObjectState.Deleted;
+            }
+
+            var auNguoiDungNhomQuyen = UnitOfWork.Repository<AU_NGUOIDUNG_NHOMQUYEN>().DbSet.Where(o => o.USERNAME == insatance.Username).ToList();
+            foreach (AU_NGUOIDUNG_NHOMQUYEN andnq in auNguoiDungNhomQuyen)
+            {
+                andnq.ObjectState = ObjectState.Deleted;
+            }
+
+            return true;
+
         }
     }
 }

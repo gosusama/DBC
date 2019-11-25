@@ -9,12 +9,15 @@ using BTS.API.SERVICE.Services;
 using BTS.API.SERVICE;
 using BTS.API.SERVICE.Helper;
 using System.Configuration;
+using System.Linq;
+using BTS.API.ENTITY;
 
 namespace BTS.API.SERVICE.Authorize.AuNhomQuyen
 {
     public interface IAuNhomQuyenService : IDataInfoService<AU_NHOMQUYEN>
     {
         Task<TransferObj<List<ChoiceObj>>> GetNhomQuyenConfigByUsername(string phanhe, string username);
+        bool DeleteNhomQuyen(string id);
     }
     public class AuNhomQuyenService : DataInfoServiceBase<AU_NHOMQUYEN>, IAuNhomQuyenService
     {
@@ -68,6 +71,30 @@ namespace BTS.API.SERVICE.Authorize.AuNhomQuyen
                 response.Message = ex.Message;
             }
             return response;
+        }
+
+        public bool DeleteNhomQuyen(string id)
+        {
+            var insatance = UnitOfWork.Repository<AU_NHOMQUYEN>().DbSet.Where(x => x.Id == id).FirstOrDefault();
+            if (insatance == null)
+            {
+                return false;
+            }
+
+            var auNhomQuyenChucNang = UnitOfWork.Repository<AU_NHOMQUYEN_CHUCNANG>().DbSet.Where(o => o.MANHOMQUYEN == insatance.MANHOMQUYEN).ToList();
+            foreach (AU_NHOMQUYEN_CHUCNANG anqcn in auNhomQuyenChucNang)
+            {
+                anqcn.ObjectState = ObjectState.Deleted;
+            }
+
+            var auNguoiDungNhomQuyen = UnitOfWork.Repository<AU_NGUOIDUNG_NHOMQUYEN>().DbSet.Where(o => o.MANHOMQUYEN == insatance.MANHOMQUYEN).ToList();
+            foreach (AU_NGUOIDUNG_NHOMQUYEN andnq in auNguoiDungNhomQuyen)
+            {
+                andnq.ObjectState = ObjectState.Deleted;
+            }
+
+            return true;
+
         }
     }
 }

@@ -1630,6 +1630,7 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
                 }
             }
             function F5(key, ev) {
+                debugger;
                 var currentTab = $scope.tabs[$scope.tabHienTai];
                 if (key === 116 && currentTab.dataDetails.length === 0 && currentTab.dataDto.maGiaoDich !== '') {
 
@@ -1657,7 +1658,7 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
             }
             function F6(key, ev) {
                 var currentTab = $scope.tabs[$scope.tabHienTai];
-                if (key === 117 && $scope.disableF2 === 1) {
+                if (key === 117 && $scope.disableF2 == true) {
                     var len = $scope.tabs.length + 1;
                     var numLbl = '' + ((len > 9) ? '' : '0') + String(len);
                     var lstvattu = [];

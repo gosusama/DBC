@@ -343,8 +343,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js'], func
         }]);
 
     /* wareHouse Select Data Controller */
-    app.controller('wareHouseSelectDataController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'wareHouseService', 'tempDataService', '$filter', '$uibModal', '$log', 'ngNotify', 'filterObject', 'serviceSelectData',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, ngNotify, filterObject, serviceSelectData) {
+    app.controller('wareHouseSelectDataController', ['$scope', '$uibModalInstance', 'configService', 'wareHouseService', 'filterObject', 'serviceSelectData',
+        function ($scope, $uibModalInstance, configService, service, filterObject, serviceSelectData) {
             $scope.config = angular.copy(configService);;
             $scope.paged = angular.copy(configService.pageDefault);
             $scope.filtered = angular.copy(configService.filterDefault);
@@ -353,9 +353,6 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js'], func
             var lstTemp = [];
             $scope.modeClickOneByOne = true;
             $scope.title = function () { return 'Danh sách kho hàng'; };
-            $scope.selecteItem = function (item) {
-                $uibModalInstance.close(item);
-            }
             $scope.isLoading = false;
             $scope.sortType = 'maKho'; // set the default sort type
             $scope.sortReverse = false;  // set the default sort order
@@ -367,7 +364,6 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js'], func
                     $scope.isLoading = false;
                     if (response.status) {
                         $scope.data = response.data.data.data;
-                        //console.log($scope.data);
                         angular.forEach($scope.data, function (v, k) {
                             var isSelected = $scope.listSelectedData.some(function (element, index, array) {
                                 if (!element) return false;

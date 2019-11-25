@@ -86,8 +86,8 @@
     }]);
     /* controller list */
     app.controller('acKiemKeController', [
-        '$scope', '$location', '$http', 'configService', 'acKiemKeService', 'tempDataService', '$filter', '$uibModal', '$log', 'ngNotify', 'securityService', '$rootScope', 'toaster', 'periodService', 'merchandiseService', 'customerService', 'merchandiseTypeService', 'nhomVatTuService', 'supplierService', 'wareHouseService', 'packagingService', 'taxService', 'donViTinhService', '$state', 'userService', 'AuDonViService', 'shelvesService',
-        function ($scope, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, ngNotify, securityService, $rootScope, toaster, servicePeriod, serviceMerchandise, serviceCustomer, serviceMerchandiseType, serviceNhomVatTu, serviceSupplier, serviceWareHouse, servicePackaging, serviceTax, serviceDonViTinh, $state, serviceAuthUser, AuDonViService, shelvesService) {
+        '$scope', 'configService', 'acKiemKeService', 'tempDataService', '$filter', '$uibModal', '$log', 'ngNotify', 'securityService', 'toaster', 'periodService', 'merchandiseService', 'customerService', 'merchandiseTypeService', 'nhomVatTuService', 'supplierService', 'wareHouseService', 'userService', 'AuDonViService', 'shelvesService',
+        function ($scope, configService, service, tempDataService, $filter, $uibModal, $log, ngNotify, securityService, toaster, servicePeriod, serviceMerchandise, serviceCustomer, serviceMerchandiseType, serviceNhomVatTu, serviceSupplier, serviceWareHouse, serviceAuthUser, AuDonViService, shelvesService) {
             var currentUser = serviceAuthUser.GetCurrentUser();
             $scope.config = angular.copy(configService);
             $scope.paged = angular.copy(configService.pageDefault);
