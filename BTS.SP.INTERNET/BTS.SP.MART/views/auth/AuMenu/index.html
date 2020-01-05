@@ -87,7 +87,7 @@
                     <td>{{item.trangthai | status}}</td>
                     <td class="table-control btn-group">
                         <a access-level="isView" class="glyphicon glyphicon-info-sign" ng-if="accessList.view" ng-click="details(item)" data-toggle="tooltip" data-placement="top" title="Chi tiết"></a> &nbsp;&nbsp;&nbsp;
-                        <a access-level="isEdit" class="glyphicon glyphicon-pencil" ng-if="accessList.edit" ng-click="update(item)" data-toggle="tooltip" data-placement="top" title="Sửa"></a> &nbsp;&nbsp;&nbsp;
+                        <a access-level="isEdit" class="glyphicon glyphicon-pencil" ng-if="accessList.edit" ng-click="edit(item)" data-toggle="tooltip" data-placement="top" title="Sửa"></a> &nbsp;&nbsp;&nbsp;
                         <a access-level="isDelete" class="glyphicon glyphicon-trash" ng-if="accessList.delete" ng-click="deleteItem($event, item)" data-toggle="tooltip" data-placement="top" title="Xóa"></a> &nbsp;&nbsp;&nbsp;
                     </td>
                 </tr>

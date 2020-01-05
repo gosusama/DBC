@@ -7,8 +7,8 @@
 /BTS.SP.API/bin
 /BTS.SP.INTERNET/bin
 /BTS.SP.INTERNET/obj
-/BTS.API.SERVICE/bin
-/BTS.API.SERVICE/obj
 /.vs/BTS.SP.WCF/config
 /.vs/BTS.SP.WCF/v16/Server/sqlite3
 /.vs/BTS.SP.WCF/v16
+/BTS.API.SERVICE/bin
+/BTS.API.SERVICE/obj
