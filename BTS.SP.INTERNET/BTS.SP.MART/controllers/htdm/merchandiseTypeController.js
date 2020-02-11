@@ -311,13 +311,12 @@ define(['ui-bootstrap'], function () {
             $scope.save = function () {
                 service.deleteItem($scope.target).then(function (successRes) {
                     if (successRes && successRes.status === 200) {
-                        ngNotify.set(successRes.data.message, { type: 'success' });
+                        ngNotify.set("Xóa thành công 1 bản ghi", { type: 'success' });
                         $uibModalInstance.close($scope.target);
                     } else {
                         ngNotify.set(successRes.data.message, { duration: 3000, type: 'error' });
                     }
-                },
-                function (errorRes) {
+                }, function (errorRes) {
                     console.log('errorRes', errorRes);
                 });
             };
