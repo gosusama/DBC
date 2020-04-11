@@ -11,10 +11,10 @@
                 return $http.post(serviceUrl + '/Insert', data);
             },
             update: function (params) {
-                return $http.put(serviceUrl + '/' + params.ID, params);
+                return $http.put(serviceUrl + '/' + params.id, params);
             },
-            deleteItem: function (params) {
-                return $http.put(serviceUrl + '/DeleteItem/' + params.ID, params);
+            deleteItem: function (id) {
+                return $http.delete(serviceUrl + '/' + id);
             },
             getMenu: function (data) {
                 return $http.get(serviceUrl + '/GetMenu/' + data);
@@ -189,20 +189,17 @@
             };
         }]);
     /* controller delete */
-    app.controller('AuMenuDelete', ['$scope', '$uibModalInstance', 'configService', 'AuMenuService', 'targetData', 'ngNotify',
-        function ($scope, $uibModalInstance, configService, service, targetData, ngNotify) {
-            $scope.config = angular.copy(configService);
-            $scope.targetData = angular.copy(targetData);
-            $scope.target = targetData;
+    app.controller('AuMenuDelete', ['$scope', '$uibModalInstance', 'AuMenuService', 'targetData', 'ngNotify',
+        function ($scope, $uibModalInstance, service, targetData, ngNotify) {
+            $scope.target = angular.copy(targetData);
             $scope.isLoading = false;
             $scope.title = function () { return 'Xoá thành phần'; };
             $scope.save = function () {
-                service.deleteItem($scope.target).then(function (successRes) {
+                service.deleteItem($scope.target.id).then(function (successRes) {
                     if (successRes && successRes.status === 200) {
                         ngNotify.set('Xóa thành công', { type: 'success' });
                         $uibModalInstance.close($scope.target);
                     } else {
-                        console.log('deleteItem successRes ', successRes);
                         ngNotify.set(successRes.data.message, { duration: 3000, type: 'error' });
                     }
                 }, function (errorRes) {
@@ -230,7 +227,6 @@
                         ngNotify.set(successRes.data.message, { type: 'success' });
                         $uibModalInstance.close($scope.target);
                     } else {
-                        console.log('addNew successRes', successRes);
                         ngNotify.set(successRes.data.message, { duration: 3000, type: 'error' });
                     }
                 }, function (errorRes) {
@@ -252,11 +248,10 @@
 
             $scope.save = function () {
                 service.update($scope.target).then(function (successRes) {
-                    if (successRes && successRes.status === 201 && successRes.data.status) {
-                        ngNotify.set(successRes.data.message, { type: 'success' });
+                    if (successRes && successRes.status === 200 && successRes.data.status) {
+                        ngNotify.set("Cập nhật thành công", { type: 'success' });
                         $uibModalInstance.close($scope.target);
                     } else {
-                        console.log('addNew successRes', successRes);
                         ngNotify.set(successRes.data.message, { duration: 3000, type: 'error' });
                     }
                 }, function (errorRes) {

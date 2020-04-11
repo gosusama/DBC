@@ -95,10 +95,10 @@
         </table>
     </div>
     <div class="panel-footer">
-        <uib-pagination class="no-margin-vertical pagination-sm" ng-model="paged.CurrentPage"
+        <uib-pagination class="no-margin-vertical pagination-sm" ng-model="paged.currentPage"
                         ng-change="pageChanged()"
-                        items-per-page="paged.ItemsPerPage" ng-show="paged.TotalItems > 0" total-items="paged.TotalItems" max-size="paged.PageSize"
-                        boundary-links="true" num-pages="paged.TotalPage"
+                        items-per-page="paged.itemsPerPage" ng-show="paged.totalItems > 0" total-items="paged.totalItems" max-size="paged.pageSize"
+                        boundary-links="true" num-pages="paged.totalPage"
                         previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;">
         </uib-pagination>
     </div>

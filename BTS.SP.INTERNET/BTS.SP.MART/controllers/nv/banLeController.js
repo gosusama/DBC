@@ -72,8 +72,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
     }]);
     /* controller list */
     app.controller('banLeController', [
-        '$scope', '$location', '$http', 'configService', 'banLeService', 'tempDataService', '$filter', '$uibModal', '$log', 'ngNotify', 'securityService', '$rootScope', 'toaster', 'periodService', 'merchandiseService', 'customerService', 'merchandiseTypeService', 'nhomVatTuService', 'supplierService', 'wareHouseService', 'packagingService', 'taxService', 'donViTinhService', 'userService', 'giaoDichQuayService', 'keyCodes', 'accountService', 'AuDonViService',
-        function ($scope, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, ngNotify, securityService, $rootScope, toaster, servicePeriod, serviceMerchandise, serviceCustomer, serviceMerchandiseType, serviceNhomVatTu, serviceSupplier, serviceWareHouse, servicePackaging, serviceTax, serviceDonViTinh, serviceAuthUser, serviceGiaoDichQuay, keyCodes, accountService, serviceAuthDonVi) {
+        '$scope', 'configService', 'banLeService', 'tempDataService', '$filter', '$uibModal', '$log', 'ngNotify', 'securityService', '$rootScope', 'toaster', 'periodService', 'merchandiseService', 'customerService', 'merchandiseTypeService', 'nhomVatTuService', 'supplierService', 'wareHouseService', 'packagingService', 'taxService', 'donViTinhService', 'userService', 'giaoDichQuayService', 'keyCodes', 'accountService', 'AuDonViService',
+        function ($scope, configService, service, tempDataService, $filter, $uibModal, $log, ngNotify, securityService, $rootScope, toaster, servicePeriod, serviceMerchandise, serviceCustomer, serviceMerchandiseType, serviceNhomVatTu, serviceSupplier, serviceWareHouse, servicePackaging, serviceTax, serviceDonViTinh, serviceAuthUser, serviceGiaoDichQuay, keyCodes, accountService, serviceAuthDonVi) {
             $scope.currentUser = serviceAuthUser.GetCurrentUser();
             $scope.keys = keyCodes;
             $scope.khongBanAm = true;
@@ -185,48 +185,48 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
                 }
             };
             $scope.tabs = [
-            {
-                title: 'Bán hàng 01',
-                dataDto: {
-                    maNhanVien: $scope.currentUser.userName,
-                    tenNhanVien: $scope.currentUser.fullName,
-                    userName: $scope.currentUser.userName,
-                    chucVu: $scope.currentUser.chucVu,
-                    gioiTinh: $scope.currentUser.gioiTinh,
-                    soDienThoai: $scope.currentUser.soDienThoai,
-                    unitCode: $scope.currentUser.unitCode,
-                    ngayChungTu: '',
-                    maGiaoDich: '',
-                    loaiGiaoDich: 1,
-                    ngayPhatSinh: '',
-                    ghiChu: '',
-                    sumSoLuong: 0,
-                    sumTienHang: 0,
-                    tienVoucher: 0,
-                    khachCanTra: 0,
-                    tienKhachDua: 0,
-                    tienThua: 0,
-                    tienKhuyenMai: 0,
-                    makh: '',
-                    tenKH: '',
-                    theNhanTien: '',
-                    voucher: '',
-                    dienThoai: '',
-                    phieuDatCoc: '',
-                    ngaySinh: '',
-                    tienDatCoc: 0,
-                    email: '',
-                    maThe: '',
-                    diaChi: '',
-                    ngayHetHan: '',
-                    ngayDacBiet: '',
-                    quenThe: 0,
-                    tienThe: 0,
-                    tienCOD: 0,
-                    tienMat: 0
-                },
-                dataDetails: []
-            }];
+                {
+                    title: 'Bán hàng 01',
+                    dataDto: {
+                        maNhanVien: $scope.currentUser.userName,
+                        tenNhanVien: $scope.currentUser.fullName,
+                        userName: $scope.currentUser.userName,
+                        chucVu: $scope.currentUser.chucVu,
+                        gioiTinh: $scope.currentUser.gioiTinh,
+                        soDienThoai: $scope.currentUser.soDienThoai,
+                        unitCode: $scope.currentUser.unitCode,
+                        ngayChungTu: '',
+                        maGiaoDich: '',
+                        loaiGiaoDich: 1,
+                        ngayPhatSinh: '',
+                        ghiChu: '',
+                        sumSoLuong: 0,
+                        sumTienHang: 0,
+                        tienVoucher: 0,
+                        khachCanTra: 0,
+                        tienKhachDua: 0,
+                        tienThua: 0,
+                        tienKhuyenMai: 0,
+                        makh: '',
+                        tenKH: '',
+                        theNhanTien: '',
+                        voucher: '',
+                        dienThoai: '',
+                        phieuDatCoc: '',
+                        ngaySinh: '',
+                        tienDatCoc: 0,
+                        email: '',
+                        maThe: '',
+                        diaChi: '',
+                        ngayHetHan: '',
+                        ngayDacBiet: '',
+                        quenThe: 0,
+                        tienThe: 0,
+                        tienCOD: 0,
+                        tienMat: 0
+                    },
+                    dataDetails: []
+                }];
             if ($scope.currentUser.maMayBan) {
                 console.log('Đã chọn máy bán');
             };
@@ -580,11 +580,11 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
                         combo.push({ soLuongCombo: groupName, giaTriCombo: 0 });
                     }
                     for (var groupGiaTri in groups2) {
-                        combo2.push({ groupGiaTri});
-                        }
-                      var index = combo.findIndex(x => x.soLuongCombo === 0 && x.giaTriCombo === 0);
-                      if(index != -1) combo.splice(index, 1);
-                      var index2 = combo2.findIndex(x => x.soLuongCombo === 0 && x.giaTriCombo === 0);
+                        combo2.push({ groupGiaTri });
+                    }
+                    var index = combo.findIndex(x => x.soLuongCombo === 0 && x.giaTriCombo === 0);
+                    if (index != -1) combo.splice(index, 1);
+                    var index2 = combo2.findIndex(x => x.soLuongCombo === 0 && x.giaTriCombo === 0);
                     if (index2 != -1) combo2.splice(index2, 1);
                     for (var b = 0; b < combo.length; b++) {
                         combo[b].giaTriCombo = combo2[b].groupGiaTri;
@@ -592,7 +592,7 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
                 }
                 if (left.countL > 0 && right.countR > 0) {
                     var number = left.countL + right.countR;
-                    for (var c = 0; c < combo.length ; c++) {
+                    for (var c = 0; c < combo.length; c++) {
                         switch (parseInt(combo[c].soLuongCombo, 10)) {
                             case number:
                                 //console.log('nhay vao ' + combo[c].giaTriCombo);
@@ -685,61 +685,61 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
                             if (response && response.status === 200 && response.data.status) {
                                 $scope.dataMerchandise = response.data.data;
                                 obj =
-                                {
-                                    maVatTu: $scope.dataMerchandise.maVatTu,
-                                    tenVatTu: $scope.dataMerchandise.tenVatTu,
-                                    soLuong: $scope.soLuong === null ? 1 : $scope.soLuong,
-                                    giaBanLeVat: (banLe == true ? $scope.dataMerchandise.giaBanLeVat : $scope.dataMerchandise.giaBanBuonVat),
-                                    donGia: (banLe == true ? $scope.dataMerchandise.giaBanLeVat : $scope.dataMerchandise.giaBanBuonVat),
-                                    thanhTien: $scope.soLuong * (banLe == true ? $scope.dataMerchandise.giaBanLeVat : $scope.dataMerchandise.giaBanBuonVat),
-                                    maLoaiVatTu: $scope.dataMerchandise.maLoaiVatTu,
-                                    maNhomVatTu: $scope.dataMerchandise.maNhomVatTu,
-                                    maDonVi: $scope.dataMerchandise.maDonVi,
-                                    giaVon: $scope.dataMerchandise.giaVon,
-                                    maColor: $scope.dataMerchandise.maColor,
-                                    tyLeVatRa: $scope.dataMerchandise.tyLeVatRa,
-                                    tyLeVatVao: $scope.dataMerchandise.tyLeVatVao,
-                                    maVatRa: $scope.dataMerchandise.maVatRa,
-                                    maVatVao: $scope.dataMerchandise.maVatVao,
-                                    donViTinh: $scope.dataMerchandise.donViTinh,
-                                    avatar: $scope.dataMerchandise.avatar,
-                                    image: $scope.dataMerchandise.image,
-                                    path_image: $scope.dataMerchandise.path_image,
-                                    trangThaiCon: $scope.dataMerchandise.trangThaiCon,
-                                    giaTriKhuyenMai: $scope.dataMerchandise.giaTriKhuyenMai,
-                                    tyLeKhuyenMai: $scope.dataMerchandise.tyLeKhuyenMai,
-                                    noiDungKhuyenMai: $scope.dataMerchandise.noiDungKhuyenMai,
-                                    maChuongTrinhKhuyenMai: $scope.dataMerchandise.maChuongTrinhKhuyenMai,
-                                    soLuongKhuyenMai: $scope.dataMerchandise.soLuong_KhuyenMai,
-                                    maKhoKhuyenMai: $scope.dataMerchandise.maKhoKhuyenMai,
-                                    loaiKhuyenMai: $scope.dataMerchandise.loaiKhuyenMai,
-                                    tyLeChietKhau: 0,
-                                    tienChietKhau: 0,
-                                    chietKhau: 0,
-                                    tienThe: 0,
-                                    tienCOD: 0,
-                                    tienDuocKhuyenMai: 0,
-                                    giaTriKhuyenMai_ChietKhau: $scope.dataMerchandise.giaTriKhuyenMai_ChietKhau,
-                                    giaTriKhuyenMai_DongGia: $scope.dataMerchandise.giaTriKhuyenMai_DongGia,
-                                    giaTriKhuyenMai_TichDiem: $scope.dataMerchandise.giaTriKhuyenMai_TichDiem,
-                                    giaTriKhuyenMai_TinhTien: $scope.dataMerchandise.giaTriKhuyenMai_TinhTien,
-                                    giaTriKhuyenMai_Voucher: $scope.dataMerchandise.giaTriKhuyenMai_Voucher,
-                                    maHang_Km_Buy1Get1: $scope.dataMerchandise.maHang_Km_Buy1Get1,
-                                    tenHang_Km_Buy1Get1: $scope.dataMerchandise.tenHang_Km_Buy1Get1,
-                                    soLuong_Km_Buy1Get1: $scope.dataMerchandise.soLuong_Km_Buy1Get1,
-                                    tyLeKhuyenMai_ChietKhau: $scope.dataMerchandise.tyLeKhuyenMai_ChietKhau,
-                                    tyLeKhuyenMai_DongGia: $scope.dataMerchandise.tyLeKhuyenMai_DongGia,
-                                    tyLeKhuyenMai_TichDiem: $scope.dataMerchandise.tyLeKhuyenMai_TichDiem,
-                                    tyLeKhuyenMai_TinhTien: $scope.dataMerchandise.tyLeKhuyenMai_TinhTien,
-                                    tyLeKhuyenMai_Voucher: $scope.dataMerchandise.tyLeKhuyenMai_Voucher,
-                                    tyLeBatDau_TinhTien: $scope.dataMerchandise.tyLeBatDau_TinhTien,
-                                    tuGio: $scope.dataMerchandise.tuGio,
-                                    denGio: $scope.dataMerchandise.denGio,
-                                    tonCuoiKySl: $scope.dataMerchandise.tonCuoiKySl === null ? 0 : $scope.dataMerchandise.tonCuoiKySl,
-                                    isBanAm: $scope.dataMerchandise.isBanAm,
-                                    isTichDiem: $scope.dataMerchandise.isTichDiem
-                                };
-                                if (currentTab.dataDetails.filter(x=>x.maVatTu === updatedData.maVatTu).length === 0) {
+                                    {
+                                        maVatTu: $scope.dataMerchandise.maVatTu,
+                                        tenVatTu: $scope.dataMerchandise.tenVatTu,
+                                        soLuong: $scope.soLuong === null ? 1 : $scope.soLuong,
+                                        giaBanLeVat: (banLe == true ? $scope.dataMerchandise.giaBanLeVat : $scope.dataMerchandise.giaBanBuonVat),
+                                        donGia: (banLe == true ? $scope.dataMerchandise.giaBanLeVat : $scope.dataMerchandise.giaBanBuonVat),
+                                        thanhTien: $scope.soLuong * (banLe == true ? $scope.dataMerchandise.giaBanLeVat : $scope.dataMerchandise.giaBanBuonVat),
+                                        maLoaiVatTu: $scope.dataMerchandise.maLoaiVatTu,
+                                        maNhomVatTu: $scope.dataMerchandise.maNhomVatTu,
+                                        maDonVi: $scope.dataMerchandise.maDonVi,
+                                        giaVon: $scope.dataMerchandise.giaVon,
+                                        maColor: $scope.dataMerchandise.maColor,
+                                        tyLeVatRa: $scope.dataMerchandise.tyLeVatRa,
+                                        tyLeVatVao: $scope.dataMerchandise.tyLeVatVao,
+                                        maVatRa: $scope.dataMerchandise.maVatRa,
+                                        maVatVao: $scope.dataMerchandise.maVatVao,
+                                        donViTinh: $scope.dataMerchandise.donViTinh,
+                                        avatar: $scope.dataMerchandise.avatar,
+                                        image: $scope.dataMerchandise.image,
+                                        path_image: $scope.dataMerchandise.path_image,
+                                        trangThaiCon: $scope.dataMerchandise.trangThaiCon,
+                                        giaTriKhuyenMai: $scope.dataMerchandise.giaTriKhuyenMai,
+                                        tyLeKhuyenMai: $scope.dataMerchandise.tyLeKhuyenMai,
+                                        noiDungKhuyenMai: $scope.dataMerchandise.noiDungKhuyenMai,
+                                        maChuongTrinhKhuyenMai: $scope.dataMerchandise.maChuongTrinhKhuyenMai,
+                                        soLuongKhuyenMai: $scope.dataMerchandise.soLuong_KhuyenMai,
+                                        maKhoKhuyenMai: $scope.dataMerchandise.maKhoKhuyenMai,
+                                        loaiKhuyenMai: $scope.dataMerchandise.loaiKhuyenMai,
+                                        tyLeChietKhau: 0,
+                                        tienChietKhau: 0,
+                                        chietKhau: 0,
+                                        tienThe: 0,
+                                        tienCOD: 0,
+                                        tienDuocKhuyenMai: 0,
+                                        giaTriKhuyenMai_ChietKhau: $scope.dataMerchandise.giaTriKhuyenMai_ChietKhau,
+                                        giaTriKhuyenMai_DongGia: $scope.dataMerchandise.giaTriKhuyenMai_DongGia,
+                                        giaTriKhuyenMai_TichDiem: $scope.dataMerchandise.giaTriKhuyenMai_TichDiem,
+                                        giaTriKhuyenMai_TinhTien: $scope.dataMerchandise.giaTriKhuyenMai_TinhTien,
+                                        giaTriKhuyenMai_Voucher: $scope.dataMerchandise.giaTriKhuyenMai_Voucher,
+                                        maHang_Km_Buy1Get1: $scope.dataMerchandise.maHang_Km_Buy1Get1,
+                                        tenHang_Km_Buy1Get1: $scope.dataMerchandise.tenHang_Km_Buy1Get1,
+                                        soLuong_Km_Buy1Get1: $scope.dataMerchandise.soLuong_Km_Buy1Get1,
+                                        tyLeKhuyenMai_ChietKhau: $scope.dataMerchandise.tyLeKhuyenMai_ChietKhau,
+                                        tyLeKhuyenMai_DongGia: $scope.dataMerchandise.tyLeKhuyenMai_DongGia,
+                                        tyLeKhuyenMai_TichDiem: $scope.dataMerchandise.tyLeKhuyenMai_TichDiem,
+                                        tyLeKhuyenMai_TinhTien: $scope.dataMerchandise.tyLeKhuyenMai_TinhTien,
+                                        tyLeKhuyenMai_Voucher: $scope.dataMerchandise.tyLeKhuyenMai_Voucher,
+                                        tyLeBatDau_TinhTien: $scope.dataMerchandise.tyLeBatDau_TinhTien,
+                                        tuGio: $scope.dataMerchandise.tuGio,
+                                        denGio: $scope.dataMerchandise.denGio,
+                                        tonCuoiKySl: $scope.dataMerchandise.tonCuoiKySl === null ? 0 : $scope.dataMerchandise.tonCuoiKySl,
+                                        isBanAm: $scope.dataMerchandise.isBanAm,
+                                        isTichDiem: $scope.dataMerchandise.isTichDiem
+                                    };
+                                if (currentTab.dataDetails.filter(x => x.maVatTu === updatedData.maVatTu).length === 0) {
                                     currentTab.dataDetails.push(obj);
                                     var index = currentTab.dataDetails.findIndex(x => x.maVatTu === obj.maVatTu);
                                     $scope.selectedRow = 0;
@@ -812,60 +812,60 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
                             if (response && response.status === 200 && response.data.status) {
                                 $scope.dataMerchandise = response.data.data;
                                 obj =
-                                {
-                                    maVatTu: $scope.dataMerchandise.maVatTu,
-                                    tenVatTu: $scope.dataMerchandise.tenVatTu,
-                                    soLuong: $scope.soLuong,
-                                    giaBanLeVat: (banLe == true ? $scope.dataMerchandise.giaBanLeVat : $scope.dataMerchandise.giaBanBuonVat),
-                                    thanhTien: $scope.soLuong * (banLe == true ? $scope.dataMerchandise.giaBanLeVat : $scope.dataMerchandise.giaBanBuonVat),
-                                    maLoaiVatTu: $scope.dataMerchandise.maLoaiVatTu,
-                                    maNhomVatTu: $scope.dataMerchandise.maNhomVatTu,
-                                    maDonVi: $scope.dataMerchandise.maDonVi,
-                                    giaVon: $scope.dataMerchandise.giaVon,
-                                    maColor: $scope.dataMerchandise.maColor,
-                                    tyLeVatRa: $scope.dataMerchandise.tyLeVatRa,
-                                    tyLeVatVao: $scope.dataMerchandise.tyLeVatVao,
-                                    maVatRa: $scope.dataMerchandise.maVatRa,
-                                    maVatVao: $scope.dataMerchandise.maVatVao,
-                                    donViTinh: $scope.dataMerchandise.donViTinh,
-                                    avatar: $scope.dataMerchandise.avatar,
-                                    image: $scope.dataMerchandise.image,
-                                    path_image: $scope.dataMerchandise.path_image,
-                                    trangThaiCon: $scope.dataMerchandise.trangThaiCon,
-                                    giaTriKhuyenMai: $scope.dataMerchandise.giaTriKhuyenMai,
-                                    tyLeKhuyenMai: $scope.dataMerchandise.tyLeKhuyenMai,
-                                    noiDungKhuyenMai: $scope.dataMerchandise.noiDungKhuyenMai,
-                                    maChuongTrinhKhuyenMai: $scope.dataMerchandise.maChuongTrinhKhuyenMai,
-                                    soLuongKhuyenMai: $scope.dataMerchandise.soLuong_KhuyenMai,
-                                    maKhoKhuyenMai: $scope.dataMerchandise.maKhoKhuyenMai,
-                                    loaiKhuyenMai: $scope.dataMerchandise.loaiKhuyenMai,
-                                    tyLeChietKhau: 0,
-                                    tienChietKhau: 0,
-                                    chietKhau: 0,
-                                    tienThe: 0,
-                                    tienCOD: 0,
-                                    tienDuocKhuyenMai: 0,
-                                    giaTriKhuyenMai_ChietKhau: $scope.dataMerchandise.giaTriKhuyenMai_ChietKhau,
-                                    giaTriKhuyenMai_DongGia: $scope.dataMerchandise.giaTriKhuyenMai_DongGia,
-                                    giaTriKhuyenMai_TichDiem: $scope.dataMerchandise.giaTriKhuyenMai_TichDiem,
-                                    giaTriKhuyenMai_TinhTien: $scope.dataMerchandise.giaTriKhuyenMai_TinhTien,
-                                    giaTriKhuyenMai_Voucher: $scope.dataMerchandise.giaTriKhuyenMai_Voucher,
-                                    maHang_Km_Buy1Get1: $scope.dataMerchandise.maHang_Km_Buy1Get1,
-                                    tenHang_Km_Buy1Get1: $scope.dataMerchandise.tenHang_Km_Buy1Get1,
-                                    soLuong_Km_Buy1Get1: $scope.dataMerchandise.soLuong_Km_Buy1Get1,
-                                    tyLeKhuyenMai_ChietKhau: $scope.dataMerchandise.tyLeKhuyenMai_ChietKhau,
-                                    tyLeKhuyenMai_DongGia: $scope.dataMerchandise.tyLeKhuyenMai_DongGia,
-                                    tyLeKhuyenMai_TichDiem: $scope.dataMerchandise.tyLeKhuyenMai_TichDiem,
-                                    tyLeKhuyenMai_TinhTien: $scope.dataMerchandise.tyLeKhuyenMai_TinhTien,
-                                    tyLeKhuyenMai_Voucher: $scope.dataMerchandise.tyLeKhuyenMai_Voucher,
-                                    tyLeBatDau_TinhTien: $scope.dataMerchandise.tyLeBatDau_TinhTien,
-                                    tuGio: $scope.dataMerchandise.tuGio,
-                                    denGio: $scope.dataMerchandise.denGio,
-                                    tonCuoiKySl: $scope.dataMerchandise.tonCuoiKySl === null ? 0 : $scope.dataMerchandise.tonCuoiKySl,
-                                    isBanAm: $scope.dataMerchandise.isBanAm,
-                                    isTichDiem: $scope.dataMerchandise.isTichDiem
-                                };
-                                if (currentTab.dataDetails.filter(x=>x.maVatTu === updatedData.maVatTu).length === 0) {
+                                    {
+                                        maVatTu: $scope.dataMerchandise.maVatTu,
+                                        tenVatTu: $scope.dataMerchandise.tenVatTu,
+                                        soLuong: $scope.soLuong,
+                                        giaBanLeVat: (banLe == true ? $scope.dataMerchandise.giaBanLeVat : $scope.dataMerchandise.giaBanBuonVat),
+                                        thanhTien: $scope.soLuong * (banLe == true ? $scope.dataMerchandise.giaBanLeVat : $scope.dataMerchandise.giaBanBuonVat),
+                                        maLoaiVatTu: $scope.dataMerchandise.maLoaiVatTu,
+                                        maNhomVatTu: $scope.dataMerchandise.maNhomVatTu,
+                                        maDonVi: $scope.dataMerchandise.maDonVi,
+                                        giaVon: $scope.dataMerchandise.giaVon,
+                                        maColor: $scope.dataMerchandise.maColor,
+                                        tyLeVatRa: $scope.dataMerchandise.tyLeVatRa,
+                                        tyLeVatVao: $scope.dataMerchandise.tyLeVatVao,
+                                        maVatRa: $scope.dataMerchandise.maVatRa,
+                                        maVatVao: $scope.dataMerchandise.maVatVao,
+                                        donViTinh: $scope.dataMerchandise.donViTinh,
+                                        avatar: $scope.dataMerchandise.avatar,
+                                        image: $scope.dataMerchandise.image,
+                                        path_image: $scope.dataMerchandise.path_image,
+                                        trangThaiCon: $scope.dataMerchandise.trangThaiCon,
+                                        giaTriKhuyenMai: $scope.dataMerchandise.giaTriKhuyenMai,
+                                        tyLeKhuyenMai: $scope.dataMerchandise.tyLeKhuyenMai,
+                                        noiDungKhuyenMai: $scope.dataMerchandise.noiDungKhuyenMai,
+                                        maChuongTrinhKhuyenMai: $scope.dataMerchandise.maChuongTrinhKhuyenMai,
+                                        soLuongKhuyenMai: $scope.dataMerchandise.soLuong_KhuyenMai,
+                                        maKhoKhuyenMai: $scope.dataMerchandise.maKhoKhuyenMai,
+                                        loaiKhuyenMai: $scope.dataMerchandise.loaiKhuyenMai,
+                                        tyLeChietKhau: 0,
+                                        tienChietKhau: 0,
+                                        chietKhau: 0,
+                                        tienThe: 0,
+                                        tienCOD: 0,
+                                        tienDuocKhuyenMai: 0,
+                                        giaTriKhuyenMai_ChietKhau: $scope.dataMerchandise.giaTriKhuyenMai_ChietKhau,
+                                        giaTriKhuyenMai_DongGia: $scope.dataMerchandise.giaTriKhuyenMai_DongGia,
+                                        giaTriKhuyenMai_TichDiem: $scope.dataMerchandise.giaTriKhuyenMai_TichDiem,
+                                        giaTriKhuyenMai_TinhTien: $scope.dataMerchandise.giaTriKhuyenMai_TinhTien,
+                                        giaTriKhuyenMai_Voucher: $scope.dataMerchandise.giaTriKhuyenMai_Voucher,
+                                        maHang_Km_Buy1Get1: $scope.dataMerchandise.maHang_Km_Buy1Get1,
+                                        tenHang_Km_Buy1Get1: $scope.dataMerchandise.tenHang_Km_Buy1Get1,
+                                        soLuong_Km_Buy1Get1: $scope.dataMerchandise.soLuong_Km_Buy1Get1,
+                                        tyLeKhuyenMai_ChietKhau: $scope.dataMerchandise.tyLeKhuyenMai_ChietKhau,
+                                        tyLeKhuyenMai_DongGia: $scope.dataMerchandise.tyLeKhuyenMai_DongGia,
+                                        tyLeKhuyenMai_TichDiem: $scope.dataMerchandise.tyLeKhuyenMai_TichDiem,
+                                        tyLeKhuyenMai_TinhTien: $scope.dataMerchandise.tyLeKhuyenMai_TinhTien,
+                                        tyLeKhuyenMai_Voucher: $scope.dataMerchandise.tyLeKhuyenMai_Voucher,
+                                        tyLeBatDau_TinhTien: $scope.dataMerchandise.tyLeBatDau_TinhTien,
+                                        tuGio: $scope.dataMerchandise.tuGio,
+                                        denGio: $scope.dataMerchandise.denGio,
+                                        tonCuoiKySl: $scope.dataMerchandise.tonCuoiKySl === null ? 0 : $scope.dataMerchandise.tonCuoiKySl,
+                                        isBanAm: $scope.dataMerchandise.isBanAm,
+                                        isTichDiem: $scope.dataMerchandise.isTichDiem
+                                    };
+                                if (currentTab.dataDetails.filter(x => x.maVatTu === updatedData.maVatTu).length === 0) {
                                     currentTab.dataDetails.push(obj);
                                     var index = currentTab.dataDetails.findIndex(x => x.maVatTu === obj.maVatTu);
                                     $scope.selectedRow = 0;
@@ -1457,48 +1457,48 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
                     else if ($scope.trangThaiGiaoDich === 10) //đã giao dịch xong -  chuyển giao dịch mới
                     {
                         $scope.tabs = [
-                        {
-                            title: 'Bán hàng 01',
-                            dataDto: {
-                                maNhanVien: $scope.currentUser.userName,
-                                tenNhanVien: $scope.currentUser.fullName,
-                                userName: $scope.currentUser.userName,
-                                chucVu: $scope.currentUser.chucVu,
-                                gioiTinh: $scope.currentUser.gioiTinh,
-                                soDienThoai: $scope.currentUser.soDienThoai,
-                                unitCode: $scope.currentUser.unitCode,
-                                ngayChungTu: '',
-                                maGiaoDich: '',
-                                loaiGiaoDich: 1,
-                                ngayPhatSinh: '',
-                                ghiChu: '',
-                                sumSoLuong: 0,
-                                sumTienHang: 0,
-                                tienVoucher: 0,
-                                khachCanTra: 0,
-                                tienKhachDua: 0,
-                                tienThua: 0,
-                                tienKhuyenMai: 0,
-                                makh: '',
-                                tenKH: '',
-                                theNhanTien: '',
-                                voucher: '',
-                                dienThoai: '',
-                                phieuDatCoc: '',
-                                ngaySinh: '',
-                                tienDatCoc: 0,
-                                email: '',
-                                maThe: '',
-                                diaChi: '',
-                                ngayHetHan: '',
-                                ngayDacBiet: '',
-                                quenThe: 0,
-                                tienThe: 0,
-                                tienCOD: 0,
-                                tienMat: 0
-                            },
-                            dataDetails: []
-                        }];
+                            {
+                                title: 'Bán hàng 01',
+                                dataDto: {
+                                    maNhanVien: $scope.currentUser.userName,
+                                    tenNhanVien: $scope.currentUser.fullName,
+                                    userName: $scope.currentUser.userName,
+                                    chucVu: $scope.currentUser.chucVu,
+                                    gioiTinh: $scope.currentUser.gioiTinh,
+                                    soDienThoai: $scope.currentUser.soDienThoai,
+                                    unitCode: $scope.currentUser.unitCode,
+                                    ngayChungTu: '',
+                                    maGiaoDich: '',
+                                    loaiGiaoDich: 1,
+                                    ngayPhatSinh: '',
+                                    ghiChu: '',
+                                    sumSoLuong: 0,
+                                    sumTienHang: 0,
+                                    tienVoucher: 0,
+                                    khachCanTra: 0,
+                                    tienKhachDua: 0,
+                                    tienThua: 0,
+                                    tienKhuyenMai: 0,
+                                    makh: '',
+                                    tenKH: '',
+                                    theNhanTien: '',
+                                    voucher: '',
+                                    dienThoai: '',
+                                    phieuDatCoc: '',
+                                    ngaySinh: '',
+                                    tienDatCoc: 0,
+                                    email: '',
+                                    maThe: '',
+                                    diaChi: '',
+                                    ngayHetHan: '',
+                                    ngayDacBiet: '',
+                                    quenThe: 0,
+                                    tienThe: 0,
+                                    tienCOD: 0,
+                                    tienMat: 0
+                                },
+                                dataDetails: []
+                            }];
                         service.buildCodeTrade().then(function (response) {
                             if (response && response.status === 200 && response.data) {
                                 $scope.tabs[$scope.tabHienTai].dataDto.maGiaoDich = response.data;
@@ -1630,7 +1630,6 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
                 }
             }
             function F5(key, ev) {
-                debugger;
                 var currentTab = $scope.tabs[$scope.tabHienTai];
                 if (key === 116 && currentTab.dataDetails.length === 0 && currentTab.dataDto.maGiaoDich !== '') {
 
@@ -1798,17 +1797,17 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
                                     $scope.soLuongMaBo = 1;
                                     service.getPackageMerchandise(code).then(function (response) {
                                         obj =
-                                        {
-                                            maVatTu: response.data.maBoHang,
-                                            tenVatTu: response.data.tenBoHang,
-                                            donGia: response.data.thanhTienBoHang,
-                                            soLuong: $scope.soLuongMaBo,
-                                            khuyenMai: response.data.listMaHang[0].tienHangKhuyenMai,
-                                            thanhTien: $scope.soLuongMaBo * response.data.thanhTienBoHang,
-                                            noiDungKhuyenMai: response.data.listMaHang[0].noiDungKhuyenMai
-                                        };
+                                            {
+                                                maVatTu: response.data.maBoHang,
+                                                tenVatTu: response.data.tenBoHang,
+                                                donGia: response.data.thanhTienBoHang,
+                                                soLuong: $scope.soLuongMaBo,
+                                                khuyenMai: response.data.listMaHang[0].tienHangKhuyenMai,
+                                                thanhTien: $scope.soLuongMaBo * response.data.thanhTienBoHang,
+                                                noiDungKhuyenMai: response.data.listMaHang[0].noiDungKhuyenMai
+                                            };
                                         $scope.giamGia = response.data.listMaHang[0].tienHangKhuyenMai;
-                                        if (currentTab.dataDetails.filter(x=>x.maVatTu === response.data.maBoHang).length == 0) {
+                                        if (currentTab.dataDetails.filter(x => x.maVatTu === response.data.maBoHang).length == 0) {
                                             currentTab.dataDetails.push(obj);
                                         }
                                         else {
@@ -1829,11 +1828,11 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
                                         //hàm tính tổng tiền
                                         sumGiaoDich(currentTab.dataDetails);
                                     }
-                                    , function (error) {
-                                    });
+                                        , function (error) {
+                                        });
                                 }
-                                    //hết trường hợp bán bó hàng
-                                    //trường hợp bán mã hàng và mã cân
+                                //hết trường hợp bán bó hàng
+                                //trường hợp bán mã hàng và mã cân
                                 else {
 
                                     /*$scope.filtered.isAdvance = true;
@@ -1844,62 +1843,62 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
                                         if (response && response.status === 200 && response.data.status && response.data && response.data.data.trangThaiCon === 0) {
                                             $scope.data = response.data.data;
                                             obj =
-                                            {
-                                                maVatTu: $scope.data.maVatTu,
-                                                tenVatTu: $scope.data.tenVatTu,
-                                                soLuong: $scope.data.soLuong > 0 ? $scope.data.soLuong : $scope.soLuong,
-                                                giaBanLeVat: (banLe == true ? $scope.data.giaBanLeVat : $scope.data.giaBanBuonVat),
-                                                thanhTien: $scope.soLuong * (banLe == true ? $scope.data.giaBanLeVat : $scope.data.giaBanBuonVat),
-                                                maLoaiVatTu: $scope.data.maLoaiVatTu,
-                                                maNhomVatTu: $scope.data.maNhomVatTu,
-                                                maDonVi: $scope.data.maDonVi,
-                                                giaVon: $scope.data.giaVon,
-                                                maColor: $scope.data.maColor,
-                                                tyLeVatRa: $scope.data.tyLeVatRa,
-                                                tyLeVatVao: $scope.data.tyLeVatVao,
-                                                maVatRa: $scope.data.maVatRa,
-                                                maVatVao: $scope.data.maVatVao,
-                                                donViTinh: $scope.data.donViTinh,
-                                                avatar: $scope.data.avatar,
-                                                image: $scope.data.image,
-                                                path_image: $scope.data.path_image,
-                                                trangThaiCon: $scope.data.trangThaiCon,
-                                                giaTriKhuyenMai: $scope.data.giaTriKhuyenMai,
-                                                tyLeKhuyenMai: $scope.data.tyLeKhuyenMai,
-                                                noiDungKhuyenMai: $scope.data.noiDungKhuyenMai,
-                                                maChuongTrinhKhuyenMai: $scope.data.maChuongTrinhKhuyenMai,
-                                                soLuongKhuyenMai: $scope.data.soLuong_KhuyenMai,
-                                                maKhoKhuyenMai: $scope.data.maKhoKhuyenMai,
-                                                loaiKhuyenMai: $scope.data.loaiKhuyenMai,
-                                                tyLeChietKhau: 0,
-                                                tienChietKhau: 0,
-                                                chietKhau: 0,
-                                                tienThe: 0,
-                                                tienCOD: 0,
-                                                tienDuocKhuyenMai: 0,
-                                                giaTriKhuyenMai_ChietKhau: $scope.data.giaTriKhuyenMai_ChietKhau,
-                                                giaTriKhuyenMai_DongGia: $scope.data.giaTriKhuyenMai_DongGia,
-                                                giaTriKhuyenMai_TichDiem: $scope.data.giaTriKhuyenMai_TichDiem,
-                                                giaTriKhuyenMai_TinhTien: $scope.data.giaTriKhuyenMai_TinhTien,
-                                                giaTriKhuyenMai_Voucher: $scope.data.giaTriKhuyenMai_Voucher,
-                                                giaTriKhuyenMai_Combo: $scope.data.giaTriKhuyenMai_Combo,
-                                                maHang_Km_Buy1Get1: $scope.data.maHang_Km_Buy1Get1,
-                                                tenHang_Km_Buy1Get1: $scope.data.tenHang_Km_Buy1Get1,
-                                                soLuong_Km_Buy1Get1: $scope.data.soLuong_Km_Buy1Get1,
-                                                soLuongKhuyenMai_Combo: $scope.data.soLuongKhuyenMai_Combo,
-                                                tyLeKhuyenMai_ChietKhau: $scope.data.tyLeKhuyenMai_ChietKhau,
-                                                tyLeKhuyenMai_DongGia: $scope.data.tyLeKhuyenMai_DongGia,
-                                                tyLeKhuyenMai_TichDiem: $scope.data.tyLeKhuyenMai_TichDiem,
-                                                tyLeKhuyenMai_TinhTien: $scope.data.tyLeKhuyenMai_TinhTien,
-                                                tyLeKhuyenMai_Voucher: $scope.data.tyLeKhuyenMai_Voucher,
-                                                tyLeBatDau_TinhTien: $scope.data.tyLeBatDau_TinhTien,
-                                                tuGio: $scope.data.tuGio,
-                                                denGio: $scope.data.denGio,
-                                                tonCuoiKySl: $scope.data.tonCuoiKySl === null ? 0 : $scope.data.tonCuoiKySl,
-                                                isBanAm: $scope.data.isBanAm,
-                                                isTichDiem: $scope.data.isTichDiem
-                                            };
-                                            if (currentTab.dataDetails.filter(x=>x.maVatTu === $scope.data.maVatTu).length == 0) {
+                                                {
+                                                    maVatTu: $scope.data.maVatTu,
+                                                    tenVatTu: $scope.data.tenVatTu,
+                                                    soLuong: $scope.data.soLuong > 0 ? $scope.data.soLuong : $scope.soLuong,
+                                                    giaBanLeVat: (banLe == true ? $scope.data.giaBanLeVat : $scope.data.giaBanBuonVat),
+                                                    thanhTien: $scope.soLuong * (banLe == true ? $scope.data.giaBanLeVat : $scope.data.giaBanBuonVat),
+                                                    maLoaiVatTu: $scope.data.maLoaiVatTu,
+                                                    maNhomVatTu: $scope.data.maNhomVatTu,
+                                                    maDonVi: $scope.data.maDonVi,
+                                                    giaVon: $scope.data.giaVon,
+                                                    maColor: $scope.data.maColor,
+                                                    tyLeVatRa: $scope.data.tyLeVatRa,
+                                                    tyLeVatVao: $scope.data.tyLeVatVao,
+                                                    maVatRa: $scope.data.maVatRa,
+                                                    maVatVao: $scope.data.maVatVao,
+                                                    donViTinh: $scope.data.donViTinh,
+                                                    avatar: $scope.data.avatar,
+                                                    image: $scope.data.image,
+                                                    path_image: $scope.data.path_image,
+                                                    trangThaiCon: $scope.data.trangThaiCon,
+                                                    giaTriKhuyenMai: $scope.data.giaTriKhuyenMai,
+                                                    tyLeKhuyenMai: $scope.data.tyLeKhuyenMai,
+                                                    noiDungKhuyenMai: $scope.data.noiDungKhuyenMai,
+                                                    maChuongTrinhKhuyenMai: $scope.data.maChuongTrinhKhuyenMai,
+                                                    soLuongKhuyenMai: $scope.data.soLuong_KhuyenMai,
+                                                    maKhoKhuyenMai: $scope.data.maKhoKhuyenMai,
+                                                    loaiKhuyenMai: $scope.data.loaiKhuyenMai,
+                                                    tyLeChietKhau: 0,
+                                                    tienChietKhau: 0,
+                                                    chietKhau: 0,
+                                                    tienThe: 0,
+                                                    tienCOD: 0,
+                                                    tienDuocKhuyenMai: 0,
+                                                    giaTriKhuyenMai_ChietKhau: $scope.data.giaTriKhuyenMai_ChietKhau,
+                                                    giaTriKhuyenMai_DongGia: $scope.data.giaTriKhuyenMai_DongGia,
+                                                    giaTriKhuyenMai_TichDiem: $scope.data.giaTriKhuyenMai_TichDiem,
+                                                    giaTriKhuyenMai_TinhTien: $scope.data.giaTriKhuyenMai_TinhTien,
+                                                    giaTriKhuyenMai_Voucher: $scope.data.giaTriKhuyenMai_Voucher,
+                                                    giaTriKhuyenMai_Combo: $scope.data.giaTriKhuyenMai_Combo,
+                                                    maHang_Km_Buy1Get1: $scope.data.maHang_Km_Buy1Get1,
+                                                    tenHang_Km_Buy1Get1: $scope.data.tenHang_Km_Buy1Get1,
+                                                    soLuong_Km_Buy1Get1: $scope.data.soLuong_Km_Buy1Get1,
+                                                    soLuongKhuyenMai_Combo: $scope.data.soLuongKhuyenMai_Combo,
+                                                    tyLeKhuyenMai_ChietKhau: $scope.data.tyLeKhuyenMai_ChietKhau,
+                                                    tyLeKhuyenMai_DongGia: $scope.data.tyLeKhuyenMai_DongGia,
+                                                    tyLeKhuyenMai_TichDiem: $scope.data.tyLeKhuyenMai_TichDiem,
+                                                    tyLeKhuyenMai_TinhTien: $scope.data.tyLeKhuyenMai_TinhTien,
+                                                    tyLeKhuyenMai_Voucher: $scope.data.tyLeKhuyenMai_Voucher,
+                                                    tyLeBatDau_TinhTien: $scope.data.tyLeBatDau_TinhTien,
+                                                    tuGio: $scope.data.tuGio,
+                                                    denGio: $scope.data.denGio,
+                                                    tonCuoiKySl: $scope.data.tonCuoiKySl === null ? 0 : $scope.data.tonCuoiKySl,
+                                                    isBanAm: $scope.data.isBanAm,
+                                                    isTichDiem: $scope.data.isTichDiem
+                                                };
+                                            if (currentTab.dataDetails.filter(x => x.maVatTu === $scope.data.maVatTu).length == 0) {
                                                 //chức năng kiểm tra hàng scan vào có nằm bên list combo bên phải
                                                 if ($rootScope.listComboRight && $rootScope.listComboRight.length > 0) {
                                                     var checkRightCombo = $rootScope.listComboRight.findIndex(x => x.maVatTuRight === obj.maVatTu);
@@ -1987,7 +1986,7 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
                             //NẾU LIST HÀNG HÓA TỒN TẠI
                             var currentTab = $scope.tabs[$scope.tabHienTai];
                             if (currentTab.dataDetails.length > 0) {
-                                if (currentTab.dataDetails.filter(x=>x.maVatTu === code).length !== 0) //nếu có hàng thì bật lên list
+                                if (currentTab.dataDetails.filter(x => x.maVatTu === code).length !== 0) //nếu có hàng thì bật lên list
                                 {
                                     var lst = [];
                                     var index = currentTab.dataDetails.findIndex(x => x.maVatTu === code);
@@ -2249,7 +2248,7 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
             //    $scope.modifield = 1;
             //};
 
-            $scope.changeBanGiaVon = function(item) {
+            $scope.changeBanGiaVon = function (item) {
                 if (item.choseGiaVon) {
                     item.thanhTien = item.giaVon * item.soLuong;
                     item.tienChietKhau = item.giaBanLeVat * item.soLuong - item.thanhTien;
@@ -2409,14 +2408,14 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
 
             function loadAuthDonVi() {
                 if (!tempDataService.tempData('sysDonVis')) {
-                    serviceAuthDonVi.getAll_DonVi().then(function(successRes) {
+                    serviceAuthDonVi.getAll_DonVi().then(function (successRes) {
                         if (successRes && successRes.status === 200 && successRes.data.length > 0) {
                             tempDataService.putTempData('sysDonVis', successRes.data);
                             $scope.auDonVis = successRes.data;
                         } else {
                             console.log('successRes', successRes);
                         }
-                    }, function(errorRes) {
+                    }, function (errorRes) {
                         console.log('errorRes', errorRes);
                     });
                 } else {
@@ -2435,101 +2434,101 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
             loadAuthDonVi();
         }]);
     app.controller('payBillController', [
-      '$scope', '$location', '$http', 'configService', 'banLeService', 'tempDataService', '$filter', '$uibModal', '$log', 'ngNotify', 'securityService', '$rootScope', 'toaster', 'periodService', 'merchandiseService', 'customerService', 'merchandiseTypeService', 'nhomVatTuService', 'supplierService', 'wareHouseService', 'packagingService', 'taxService', 'donViTinhService', 'userService', 'giaoDichQuayService', 'keyCodes', 'accountService', 'targetData', '$uibModalInstance', 'AuDonViService',
-      function ($scope, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, ngNotify, securityService, $rootScope, toaster, servicePeriod, serviceMerchandise, serviceCustomer, serviceMerchandiseType, serviceNhomVatTu, serviceSupplier, serviceWareHouse, servicePackaging, serviceTax, serviceDonViTinh, serviceAuthUser, serviceGiaoDichQuay, keyCodes, accountService, targetData, $uibModalInstance , auDonViService) {
-          $scope.currentUser = serviceAuthUser.GetCurrentUser();
-          $scope.keys = keyCodes;
-          $scope.target = {};
-          $scope.modifield = 0;
-          $scope.dataDto = {
-              dataDetails: []
-          }
-          $scope.linkStyle = configService.rootUrlWeb + "/BTS.SP.MART/styles/css/pay.css";
-          $scope.tempData = tempDataService.tempData;
-          //ExtendValue = địa chỉ cửa hàng
-          //ReferenceDataId = số điện thoại cửa hàng
-          $scope.formatLabel = function (paraValue, moduleName) {
-              var data = $filter('filter')($scope.tempData(moduleName), { value: paraValue }, true);
-              if (data && data.length === 1) {
-                  return data[0].text;
-              } else {
-                  return paraValue;
-              }
-          }
-          $scope.target = targetData;
+        '$scope', 'configService', 'banLeService', 'tempDataService', '$filter', '$uibModal', '$log', 'ngNotify', 'securityService', '$rootScope', 'toaster', 'periodService', 'merchandiseService', 'customerService', 'merchandiseTypeService', 'nhomVatTuService', 'supplierService', 'wareHouseService', 'packagingService', 'taxService', 'donViTinhService', 'userService', 'giaoDichQuayService', 'keyCodes', 'accountService', 'targetData', '$uibModalInstance', 'AuDonViService',
+        function ($scope, configService, service, tempDataService, $filter, $uibModal, $log, ngNotify, securityService, $rootScope, toaster, servicePeriod, serviceMerchandise, serviceCustomer, serviceMerchandiseType, serviceNhomVatTu, serviceSupplier, serviceWareHouse, servicePackaging, serviceTax, serviceDonViTinh, serviceAuthUser, serviceGiaoDichQuay, keyCodes, accountService, targetData, $uibModalInstance, auDonViService) {
+            $scope.currentUser = serviceAuthUser.GetCurrentUser();
+            $scope.keys = keyCodes;
+            $scope.target = {};
+            $scope.modifield = 0;
+            $scope.dataDto = {
+                dataDetails: []
+            }
+            $scope.linkStyle = configService.rootUrlWeb + "/BTS.SP.MART/styles/css/pay.css";
+            $scope.tempData = tempDataService.tempData;
+            //ExtendValue = địa chỉ cửa hàng
+            //ReferenceDataId = số điện thoại cửa hàng
+            $scope.formatLabel = function (paraValue, moduleName) {
+                var data = $filter('filter')($scope.tempData(moduleName), { value: paraValue }, true);
+                if (data && data.length === 1) {
+                    return data[0].text;
+                } else {
+                    return paraValue;
+                }
+            }
+            $scope.target = targetData;
 
-          $scope.target.DateNow = new Date();
+            $scope.target.DateNow = new Date();
 
-          if ($scope.target && $scope.target.dataDto && $scope.target.dataDetails.length > 0) {
-              $scope.dataDto = $scope.target.dataDto;
-              $scope.dataDto.tienKhachDua = parseInt($scope.dataDto.tienKhachDua, 10);
-              $scope.dataDto.dataDetails = $scope.target.dataDetails;
+            if ($scope.target && $scope.target.dataDto && $scope.target.dataDetails.length > 0) {
+                $scope.dataDto = $scope.target.dataDto;
+                $scope.dataDto.tienKhachDua = parseInt($scope.dataDto.tienKhachDua, 10);
+                $scope.dataDto.dataDetails = $scope.target.dataDetails;
 
-              if ($scope.dataDto.makh === null || $scope.dataDto.makh === '') $scope.dataDto.makh = 'KHACHLE';
-              angular.forEach($scope.dataDto.dataDetails, function (value, index) {
-                  value.maVatTu = value.maVatTu;
-                  value.tenDayDu = value.tenVatTu;
-                  value.soLuong = value.soLuong;
-                  value.tTienCoVat = value.thanhTien;
-                  value.giaBanLeCoVat = value.giaBanLeVat;
-                  value.vatBan = value.tyLeVatRa;
-                  value.maChuongTrinhKm = value.maChuongTrinhKhuyenMai;
-                  value.tienKhuyenMai = value.tienDuocKhuyenMai;
-              });
-          }
-          auDonViService.getUnitByUnitCode($scope.target.dataDto.unitCode).then(function (response) {
-              if (response) {
-                  $scope.target.dataDto.unitPhone = response.data.soDienThoai;
-                  $scope.target.dataDto.diaChi = response.data.diaChi;
-              }
-          });
+                if ($scope.dataDto.makh === null || $scope.dataDto.makh === '') $scope.dataDto.makh = 'KHACHLE';
+                angular.forEach($scope.dataDto.dataDetails, function (value, index) {
+                    value.maVatTu = value.maVatTu;
+                    value.tenDayDu = value.tenVatTu;
+                    value.soLuong = value.soLuong;
+                    value.tTienCoVat = value.thanhTien;
+                    value.giaBanLeCoVat = value.giaBanLeVat;
+                    value.vatBan = value.tyLeVatRa;
+                    value.maChuongTrinhKm = value.maChuongTrinhKhuyenMai;
+                    value.tienKhuyenMai = value.tienDuocKhuyenMai;
+                });
+            }
+            auDonViService.getUnitByUnitCode($scope.target.dataDto.unitCode).then(function (response) {
+                if (response) {
+                    $scope.target.dataDto.unitPhone = response.data.soDienThoai;
+                    $scope.target.dataDto.diaChi = response.data.diaChi;
+                }
+            });
 
-          $scope.printDiv = function (divName) {
-              var popupWin = '';
-              var printContents = document.getElementById(divName).innerHTML;
-              var originalContents = document.body.innerHTML;
-              if (navigator.userAgent.toLowerCase().indexOf('chrome') > -1) {
-                  popupWin = window.open('', '_blank', 'width=600,height=600,scrollbars=no,menubar=no,toolbar=no,location=no,status=no,titlebar=no');
-                  popupWin.window.focus();
-                  popupWin.document.write('<!DOCTYPE html><html><head>' +
-                      '<link rel="stylesheet" type="text/css" />' +
-                      '</head><body onload="window.print()"><div class="reward-body">' + printContents + '</div></html>');
-                  popupWin.document.close();
-                  popupWin.close();
-                  popupWin.onbeforeunload = function (event) {
-                      popupWin.close();
-                      return '.\n';
-                  };
-                  popupWin.onabort = function (event) {
-                      popupWin.document.close();
-                      popupWin.close();
-                  }
-              } else {
-                  popupWin = window.open('', '_blank', 'width=800px,height=600px');
-                  popupWin.document.open();
-                  popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" href="style.css" /></head><body onload="window.print()">' + printContents + '</html>');
-                  popupWin.document.close();
-              }
-              popupWin.document.close();
-              return true;
-          }
-          //hàm thanh toán hóa đơn
-          $scope.payBill = function () {
-              service.post($scope.dataDto).then(function (response) {
-                  if (response && response.status === 201 && response.data) {
-                      ngNotify.set("Giao dịch thành công", { type: 'success' });
-                      $uibModalInstance.close($scope.dataDto);
-                  } else {
-                      ngNotify.set("Xảy ra lỗi trong quá trình thanh toán", { duration: 3000, type: 'error' });
-                  }
-              });
-              $uibModalInstance.close();
-          }
-          //end hàm thanh toán hóa đơn
-          $scope.cancel = function () {
-              $uibModalInstance.dismiss('cancel');
-          }
-      }]);
+            $scope.printDiv = function (divName) {
+                var popupWin = '';
+                var printContents = document.getElementById(divName).innerHTML;
+                var originalContents = document.body.innerHTML;
+                if (navigator.userAgent.toLowerCase().indexOf('chrome') > -1) {
+                    popupWin = window.open('', '_blank', 'width=600,height=600,scrollbars=no,menubar=no,toolbar=no,location=no,status=no,titlebar=no');
+                    popupWin.window.focus();
+                    popupWin.document.write('<!DOCTYPE html><html><head>' +
+                        '<link rel="stylesheet" type="text/css" />' +
+                        '</head><body onload="window.print()"><div class="reward-body">' + printContents + '</div></html>');
+                    popupWin.document.close();
+                    popupWin.close();
+                    popupWin.onbeforeunload = function (event) {
+                        popupWin.close();
+                        return '.\n';
+                    };
+                    popupWin.onabort = function (event) {
+                        popupWin.document.close();
+                        popupWin.close();
+                    }
+                } else {
+                    popupWin = window.open('', '_blank', 'width=800px,height=600px');
+                    popupWin.document.open();
+                    popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" href="style.css" /></head><body onload="window.print()">' + printContents + '</html>');
+                    popupWin.document.close();
+                }
+                popupWin.document.close();
+                return true;
+            }
+            //hàm thanh toán hóa đơn
+            $scope.payBill = function () {
+                service.post($scope.dataDto).then(function (response) {
+                    if (response && response.status === 201 && response.data) {
+                        ngNotify.set("Giao dịch thành công", { type: 'success' });
+                        $uibModalInstance.close($scope.dataDto);
+                    } else {
+                        ngNotify.set("Xảy ra lỗi trong quá trình thanh toán", { duration: 3000, type: 'error' });
+                    }
+                });
+                $uibModalInstance.close();
+            }
+            //end hàm thanh toán hóa đơn
+            $scope.cancel = function () {
+                $uibModalInstance.dismiss('cancel');
+            }
+        }]);
     return app;
 });
 
