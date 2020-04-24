@@ -171,7 +171,6 @@ namespace BTS.SP.API.Api.Authorize.AuDonVi
         [Route("PostQuery")]
         public async Task<IHttpActionResult> PostQuery(JObject jsonData)
         {
-            var parentUnitCode = _service.GetParentUnitCode();
             var result = new TransferObj();
             var postData = ((dynamic)jsonData);
             var filtered = ((JObject)postData.filtered).ToObject<FilterObj<AuDonViVm.Search>>();
@@ -179,13 +178,7 @@ namespace BTS.SP.API.Api.Authorize.AuDonVi
             var query = new QueryBuilder
             {
                 Take = paged.ItemsPerPage,
-                Skip = paged.FromItem - 1,
-                Filter = new QueryFilterLinQ()
-                {
-                    Property = ClassHelper.GetProperty(() => new AU_DONVI().MaDonVi),
-                    Method = FilterMethod.EqualTo,
-                    Value = parentUnitCode
-                }
+                Skip = paged.FromItem - 1
             };
             try
             {

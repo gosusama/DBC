@@ -10,15 +10,7 @@
             <div class="row form-group">
                 <div class="col-lg-6">
                     <label>
-                        Mã kho<span style="color: red"> (1*)</span>
-                        <label ng-if="!target.isHaveKhoBanLe">
-                            <input type="checkbox" ng-model="target.isKhoBanLe" ng-change="changeKhoBanLe()">
-                            Kho bán lẻ
-                        </label>
-                        <label ng-if="!target.isHaveKhoKM">
-                            <input type="checkbox" ng-model="target.isKhoKM" ng-change="changeKhoKM()">
-                            Kho KM
-                        </label>
+                        Mã kho<span style="color: red"> (*)</span>
                     </label>
                     <input type="text" class="form-control" ng-model="target.maKho" name="_maKho" maxlength="50" required>
                     <span style="color:red" ng-show="_form._maKho.$dirty && _form._maKho.$invalid">
@@ -26,7 +18,7 @@
                     </span>
                 </div>
                 <div class="col-lg-6">
-                    <label>Tên kho</label><span style="color: red"> (2*)</span>
+                    <label>Tên kho</label><span style="color: red"> (*)</span>
                     <input type="text" class="form-control" ng-model="target.tenKho" name="_TenKho" maxlength="300" required>
                     <span style="color:red" ng-show="_form._TenKho.$dirty && _form._TenKho.$invalid">
                         <span ng-show="_form._TenKho.$error.required">Không được để trống</span>

@@ -55,8 +55,8 @@ define(['ui-bootstrap'], function () {
         return result;
     }]);
     /* controller list */
-    app.controller('AuDonVi_ctrl', ['$scope', '$location', '$http', 'configService', 'AuDonViService', 'tempDataService', '$filter', '$uibModal', '$log', 'ngNotify', 'securityService', 'toaster',
-        function ($scope, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, ngNotify, securityService, toaster) {
+    app.controller('AuDonVi_ctrl', ['$scope', 'configService', 'AuDonViService', 'tempDataService', '$filter', '$uibModal', '$log', 'securityService', 'toaster',
+        function ($scope, configService, service, tempDataService, $filter, $uibModal, $log, securityService, toaster) {
             $scope.config = angular.copy(configService);
             $scope.paged = angular.copy(configService.pageDefault);
             $scope.filtered = angular.copy(configService.filterDefault);
@@ -110,11 +110,7 @@ define(['ui-bootstrap'], function () {
             loadAccessList();
             //end
 
-            $scope.setPage = function (pageNo) {
-                $scope.paged.currentPage = pageNo;
-                filterData();
-            };
-            $scope.sortType = 'makhachhang';
+            $scope.sortType = 'maDonVi';
             $scope.sortReverse = false;
             $scope.doSearch = function () {
                 $scope.paged.currentPage = 1;
@@ -125,9 +121,6 @@ define(['ui-bootstrap'], function () {
             };
             $scope.goHome = function () {
                 window.location.href = "#!/home";
-            };
-            $scope.refresh = function () {
-                $scope.setPage($scope.paged.currentPage);
             };
             $scope.title = function () { return 'Danh sách đơn vị sử dụng' };
 
@@ -226,8 +219,8 @@ define(['ui-bootstrap'], function () {
         }]);
 
     /* controller addNew */
-    app.controller('AuDonViCreateController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'AuDonViService', 'tempDataService', '$filter', '$uibModal', '$log', 'ngNotify',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, ngNotify) {
+    app.controller('AuDonViCreateController', ['$scope', '$uibModalInstance', 'configService', 'AuDonViService', 'tempDataService', '$filter', 'ngNotify',
+        function ($scope, $uibModalInstance, configService, service, tempDataService, $filter, ngNotify) {
             $scope.robot = angular.copy(service.robot);
             $scope.config = angular.copy(configService);
             $scope.tempData = tempDataService.tempData;
@@ -267,8 +260,8 @@ define(['ui-bootstrap'], function () {
             };
         }]);
     /* controller Edit */
-    app.controller('AuDonViEditController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'AuDonViService', 'tempDataService', '$filter', '$uibModal', '$log', 'targetData', 'ngNotify',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, targetData, ngNotify) {
+    app.controller('AuDonViEditController', ['$scope', '$uibModalInstance', 'configService', 'AuDonViService', 'tempDataService', '$filter', 'targetData', 'ngNotify',
+        function ($scope, $uibModalInstance, configService, service, tempDataService, $filter, targetData, ngNotify) {
             $scope.config = angular.copy(configService);
             $scope.targetData = angular.copy(targetData);
             $scope.tempData = tempDataService.tempData;
@@ -304,8 +297,8 @@ define(['ui-bootstrap'], function () {
         }]);
 
     /* controller Details */
-    app.controller('AuDonViDetailsController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'AuDonViService', 'tempDataService', '$filter', '$uibModal', '$log', 'targetData', 'ngNotify',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, targetData, ngNotify) {
+    app.controller('AuDonViDetailsController', ['$scope', '$uibModalInstance', 'configService', 'tempDataService', '$filter', 'targetData',
+        function ($scope, $uibModalInstance, configService, tempDataService, $filter, targetData) {
             $scope.config = angular.copy(configService);
             $scope.tempData = tempDataService.tempData;
             $scope.displayHepler = function (paraValue, moduleName) {
@@ -325,8 +318,8 @@ define(['ui-bootstrap'], function () {
 
         }]);
     /* controller delete */
-    app.controller('AuDonViDeleteController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'AuDonViService', 'tempDataService', '$filter', '$uibModal', '$log', 'targetData', 'ngNotify',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, targetData, ngNotify) {
+    app.controller('AuDonViDeleteController', ['$scope', '$uibModalInstance', 'configService', 'AuDonViService', 'targetData', 'ngNotify',
+        function ($scope, $uibModalInstance, configService, service, targetData, ngNotify) {
             $scope.config = angular.copy(configService);
             $scope.isLoading = false;
             $scope.title = function () { return 'Xoá thành phần'; };
@@ -349,8 +342,8 @@ define(['ui-bootstrap'], function () {
         }]);
 
     /* controller Edit */
-    app.controller('AuDonViAddChildController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'AuDonViService', 'tempDataService', '$filter', '$uibModal', '$log', 'targetData', 'ngNotify',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, targetData, ngNotify) {
+    app.controller('AuDonViAddChildController', ['$scope', '$uibModalInstance', 'configService', 'AuDonViService', 'tempDataService', '$filter', 'targetData', 'ngNotify',
+        function ($scope, $uibModalInstance, configService, service, tempDataService, $filter, targetData, ngNotify) {
             $scope.config = angular.copy(configService);
             $scope.tempData = tempDataService.tempData;
             $scope.target = targetData;
@@ -403,8 +396,8 @@ define(['ui-bootstrap'], function () {
             };
         }]);
 
-    app.controller('donViSelectDataController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'AuDonViService', 'tempDataService', '$filter', '$uibModal', '$log', 'ngNotify', 'filterObject', 'serviceSelectData',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, ngNotify, filterObject, serviceSelectData) {
+    app.controller('donViSelectDataController', ['$scope', '$uibModalInstance', 'configService', 'AuDonViService', 'filterObject', 'serviceSelectData',
+        function ($scope, $uibModalInstance, configService, service, filterObject, serviceSelectData) {
             $scope.config = angular.copy(configService);;
             $scope.paged = angular.copy(configService.pageDefault);
             $scope.filtered = angular.copy(configService.filterDefault);

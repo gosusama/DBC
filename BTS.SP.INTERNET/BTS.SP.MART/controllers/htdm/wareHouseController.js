@@ -55,8 +55,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js'], func
         return result;
     }]);
     /* controller list */
-    app.controller('wareHouseController', ['$scope', '$location', '$http', 'configService', 'wareHouseService', 'tempDataService', '$filter', '$uibModal', '$log', 'ngNotify', 'securityService', 'toaster',
-        function ($scope, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, ngNotify, securityService, toaster) {
+    app.controller('wareHouseController', ['$scope', 'configService', 'wareHouseService', 'tempDataService', '$uibModal', '$log', 'securityService', 'toaster',
+        function ($scope, configService, service, tempDataService, $uibModal, $log, securityService, toaster) {
             $scope.config = angular.copy(configService);
             $scope.paged = angular.copy(configService.pageDefault);
             $scope.filtered = angular.copy(configService.filterDefault);
@@ -68,7 +68,6 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js'], func
                 if ($scope.accessList.view) {
                     var postdata = { paged: $scope.paged, filtered: $scope.filtered };
                     service.postQuery(postdata).then(function (successRes) {
-                        console.log('data ck kh:', successRes);
                         if (successRes && successRes.status === 200 && successRes.data && successRes.data.status) {
                             $scope.isLoading = false;
                             $scope.data = successRes.data.data.data;
@@ -200,8 +199,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js'], func
         }]);
 
     /* controller addNew */
-    app.controller('wareHouseCreateController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'wareHouseService', 'tempDataService', '$filter', '$uibModal', '$log', 'ngNotify', 'userService',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, ngNotify, serviceAuthUser) {
+    app.controller('wareHouseCreateController', ['$scope', '$uibModalInstance', 'configService', 'wareHouseService', 'tempDataService', 'ngNotify', 'userService',
+        function ($scope, $uibModalInstance, configService, service, tempDataService, ngNotify, serviceAuthUser) {
             var currentUser = serviceAuthUser.GetCurrentUser();
             $scope.robot = angular.copy(service.robot);
             $scope.config = angular.copy(configService);
@@ -276,11 +275,12 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js'], func
                 $uibModalInstance.close();
             };
         }]);
-    /* controller Edit */
-    app.controller('wareHouseEditController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'wareHouseService', 'tempDataService', '$filter', '$uibModal', '$log', 'targetData', 'ngNotify',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, targetData, ngNotify) {
+
+/* controller Edit */
+    app.controller('wareHouseEditController', ['$scope', '$uibModalInstance', 'configService', 'wareHouseService', 'tempDataService', 'targetData', 'ngNotify',
+        function ($scope, $uibModalInstance, configService, service, tempDataService, targetData, ngNotify) {
             $scope.config = angular.copy(configService);
-            $scope.targetData = angular.copy(targetData);
+            $scope.target = angular.copy(targetData);
             $scope.tempData = tempDataService.tempData;
             $scope.isLoading = false;
             $scope.title = function () { return 'Cập nhập kho hàng'; };
@@ -304,12 +304,11 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js'], func
         }]);
 
     /* controller Details */
-    app.controller('wareHouseDetailsController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'wareHouseService', 'tempDataService', '$filter', '$uibModal', '$log', 'targetData', 'ngNotify',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, targetData, ngNotify) {
+    app.controller('wareHouseDetailsController', ['$scope', '$uibModalInstance', 'configService', 'tempDataService', 'targetData',
+        function ($scope, $uibModalInstance, configService, tempDataService, targetData) {
             $scope.config = angular.copy(configService);
-            $scope.targetData = angular.copy(targetData);
             $scope.tempData = tempDataService.tempData;
-            $scope.target = targetData;
+            $scope.target = angular.copy(targetData);
             $scope.title = function () { return 'Thông tin kho hàng'; };
             $scope.cancel = function () {
                 $uibModalInstance.close();
@@ -317,8 +316,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js'], func
 
         }]);
     /* controller delete */
-    app.controller('wareHouseDeleteController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'wareHouseService', 'tempDataService', '$filter', '$uibModal', '$log', 'targetData', 'ngNotify',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, targetData, ngNotify) {
+    app.controller('wareHouseDeleteController', ['$scope', '$uibModalInstance', 'configService', 'wareHouseService', 'targetData', 'ngNotify',
+        function ($scope, $uibModalInstance, configService, service, targetData, ngNotify) {
             $scope.config = angular.copy(configService);
             $scope.targetData = angular.copy(targetData);
             $scope.target = targetData;
@@ -437,8 +436,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js'], func
         }]);
 
     /* wareHouse Only Select Data Controller*/
-    app.controller('wareHouseOnlySelectDataController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'wareHouseService', 'tempDataService', '$filter', '$uibModal', '$log', 'targetData', 'ngNotify', 'filterObject', 'serviceSelectData',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, targetData, ngNotify, filterObject, serviceSelectData) {
+    app.controller('wareHouseOnlySelectDataController', ['$scope', '$uibModalInstance', 'configService', 'wareHouseService', '$uibModal', '$log', 'targetData', 'filterObject', 'serviceSelectData',
+        function ($scope, $uibModalInstance, configService, service, $uibModal, $log, targetData, filterObject, serviceSelectData) {
             $scope.config = angular.copy(configService);
             $scope.targetData = angular.copy(targetData);
             $scope.paged = angular.copy(configService.pageDefault);
