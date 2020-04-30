@@ -109,7 +109,10 @@ define(['ui-bootstrap'], function () {
             }
             loadAccessList();
             //end
-
+            $scope.setPage = function (pageNo) {
+                $scope.paged.currentPage = pageNo;
+                filterData();
+            };
             $scope.sortType = 'maDonVi';
             $scope.sortReverse = false;
             $scope.doSearch = function () {
@@ -121,6 +124,9 @@ define(['ui-bootstrap'], function () {
             };
             $scope.goHome = function () {
                 window.location.href = "#!/home";
+            };
+            $scope.refresh = function () {
+                $scope.setPage($scope.paged.currentPage);
             };
             $scope.title = function () { return 'Danh sách đơn vị sử dụng' };
 

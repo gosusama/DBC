@@ -106,7 +106,7 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js'], func
                 $scope.paged.currentPage = pageNo;
                 filterData();
             };
-            $scope.sortType = 'maDVT';
+            $scope.sortType = 'maKho';
             $scope.sortReverse = false;
             $scope.doSearch = function () {
                 $scope.paged.currentPage = 1;

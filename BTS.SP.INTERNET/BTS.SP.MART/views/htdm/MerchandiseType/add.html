@@ -9,14 +9,14 @@
         <form role="form" name="_form">
             <div class="row form-group">
                 <div class="col-lg-6">
-                    <label>Mã loại vật tư</label><span style="color: red"> (1*)</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:red;">Bỏ sinh mã</span>&nbsp;&nbsp;<input type="checkbox" ng-model="uncheckAutoGen" ng-click="unAuToGenCode($event)" title="Bỏ sinh mã mới">
+                    <label>Mã loại vật tư</label><span style="color: red"> (*)</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:red;">Bỏ sinh mã</span>&nbsp;&nbsp;<input type="checkbox" ng-model="uncheckAutoGen" ng-click="unAuToGenCode($event)" title="Bỏ sinh mã mới">
                     <input type="text" class="form-control" ng-model="target.maLoaiVatTu" name="_maLoaiVatTu" required ng-disabled="disableGenCode">
                     <span style="color: red" ng-show="_form._maLoaiVatTu.$dirty && _form._maLoaiVatTu.$invalid">
                         <span ng-show="_form._maLoaiVatTu.$error.required">Không được để trống</span>
                     </span>
                 </div>
                 <div class="col-lg-6">
-                    <label>Tên loại vật tư</label><span style="color: red"> (2*)</span>
+                    <label>Tên loại vật tư</label><span style="color: red"> (*)</span>
                     <input type="text" class="form-control" ng-model="target.tenLoaiVatTu" name="_tenLoaiVatTu" required>
                     <span style="color: red" ng-show="_form._tenLoaiVatTu.$dirty && _form._tenLoaiVatTu.$invalid">
                         <span ng-show="_form._tenLoaiVatTu.$error.required">Không được để trống</span>
@@ -25,7 +25,7 @@
             </div>
             <div class="row form-group">
                 <div class="col-lg-12">
-                    <label>Trạng thái</label><span style="color: red"> (3*)</span>
+                    <label>Trạng thái</label><span style="color: red"> (*)</span>
                     <select class="form-control" ng-init="target.trangThai=10" ng-model="target.trangThai" ng-options="opt.value as opt.text for opt in tempData('status')"></select>
                 </div>
             </div>

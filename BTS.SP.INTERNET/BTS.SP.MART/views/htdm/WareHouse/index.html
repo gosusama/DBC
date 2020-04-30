@@ -15,6 +15,7 @@
                     <input type="text" class="form-control" ng-model="filtered.summary" ng-enter="doSearch()">
                     <div class="input-group-btn">
                         <button class="btn btn-default" prevent-default title="search" ng-click="doSearch()"><span class="fa fa-search"></span>&ensp;{{config.label.btnSearch}}</button>
+                        <button class="btn btn-default" prevent-default title="refresh page" ng-click="refresh()"><span class="fa fa-retweet"></span>&ensp;{{config.label.btnRefresh}}</button>
                         <button class="btn btn-default" prevent-default title="refresh page" ng-click="goHome()"><span class="fa fa-undo"></span>&ensp;{{config.label.btnBack}}</button>
                     </div>
                 </div>

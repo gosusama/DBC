@@ -1106,8 +1106,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
             };
         }]);
     /* controller addNew */
-    app.controller('merchandiseCreateController', ['$scope', '$uibModalInstance', 'configService', '$timeout', 'merchandiseService', 'tempDataService', '$filter', '$uibModal', '$log', 'ngNotify', 'Upload', 'userService', 'supplierService', 'merchandiseTypeService', 'nhomVatTuService', 'packagingService', 'taxService', 'donViTinhService', 'shelvesService', 'sizeService', 'colorService',
-        function ($scope, $uibModalInstance, configService, $timeout, service, tempDataService, $filter, $uibModal, $log, ngNotify, upload, serviceAuthUser, serviceSupplier, serviceMerchandiseType, serviceNhomVatTu, servicePackaging, serviceTax, serviceDonViTinh, serviceShelves, serviceSize, serviceColor) {
+    app.controller('merchandiseCreateController', ['$scope', '$uibModalInstance', 'configService', '$timeout', 'merchandiseService', 'tempDataService', '$filter', '$uibModal', '$log', 'ngNotify', 'Upload', 'supplierService', 'merchandiseTypeService', 'nhomVatTuService', 'packagingService', 'taxService', 'donViTinhService', 'shelvesService', 'sizeService', 'colorService',
+        function ($scope, $uibModalInstance, configService, $timeout, service, tempDataService, $filter, $uibModal, $log, ngNotify, upload, serviceSupplier, serviceMerchandiseType, serviceNhomVatTu, servicePackaging, serviceTax, serviceDonViTinh, serviceShelves, serviceSize, serviceColor) {
             $scope.robot = service.robot;
             $scope.config = angular.copy(configService);
             $scope.paged = angular.copy(configService.pageDefault);
@@ -2312,8 +2312,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
             };
         }]);
     /* controller Details */
-    app.controller('merchandiseDetailsController', ['$scope', '$uibModalInstance', 'tempDataService', '$filter', 'targetData', 'securityService',
-        function ($scope, $uibModalInstance, tempDataService, $filter, targetData, securityService) {
+    app.controller('merchandiseDetailsController', ['$scope', '$uibModalInstance', 'tempDataService', '$filter', 'targetData', 'securityService', 'configService', 'merchandiseService',
+        function ($scope, $uibModalInstance, tempDataService, $filter, targetData, securityService, configService, service) {
             $scope.config = angular.copy(configService);
             $scope.paged = angular.copy(configService.pageDefault);
             $scope.robot = service.robot;
@@ -2442,13 +2442,14 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
         }]);
 
     /* controller Import Excel*/
-    app.controller('merchandiseImportExcelController', ['$scope', '$uibModalInstance', 'configService', 'targetData', 'ngNotify', 'FileUploader',
-        function ($scope, $uibModalInstance, configService, targetData, ngNotify, fileUploader) {
+    app.controller('merchandiseImportExcelController', ['$scope', '$uibModalInstance', 'configService', 'ngNotify', 'FileUploader', 'userService',
+        function ($scope, $uibModalInstance, configService, ngNotify, fileUploader, serviceAuthUser) {
             $scope.config = angular.copy(configService);
-            $scope.targetData = angular.copy(targetData);
-            $scope.target = targetData;
+            var currentUser = serviceAuthUser.GetCurrentUser();
+            var unitCode = currentUser.unitCode;
             $scope.isLoading = false;
             $scope.title = function () { return 'Import Data'; };
+            var serviceUrl = configService.rootUrlWebApi + '/Md/Merchandise';
             var uploader = $scope.uploader = new fileUploader({
                 url: serviceUrl + '/UploadFile/' + unitCode
             });
@@ -2700,8 +2701,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
         }]);
 
     /* controller export Item mat hang */
-    app.controller('merchandiseExportItemController', ['$scope', '$uibModalInstance', 'configService', 'merchandiseService', '$uibModal', '$log', 'targetData', 'ngNotify', '$window', 'toaster', 'userService', 'FileUploader',
-        function ($scope, $uibModalInstance, configService, service, $uibModal, $log, targetData, ngNotify, $window, toaster, serviceAuthUser, FileUploader) {
+    app.controller('merchandiseExportItemController', ['$scope', '$uibModalInstance', 'configService', 'merchandiseService', '$uibModal', 'ngNotify', '$window', 'toaster', 'userService', 'FileUploader',
+        function ($scope, $uibModalInstance, configService, service, $uibModal, ngNotify, $window, toaster, serviceAuthUser, FileUploader) {
             var currentUser = serviceAuthUser.GetCurrentUser();
             var unitCode = currentUser.unitCode;
             $scope.robot = angular.copy(service.robot);

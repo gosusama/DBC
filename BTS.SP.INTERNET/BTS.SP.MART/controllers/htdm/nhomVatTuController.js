@@ -52,8 +52,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/htdm/merchandiseTypeController
         return result;
     }]);
     /* controller list */
-    app.controller('nhomVatTuController', ['$scope', '$location', '$http', 'configService', 'nhomVatTuService', 'tempDataService', '$filter', '$uibModal', '$log', 'ngNotify', 'securityService', 'toaster', 'merchandiseTypeService',
-        function ($scope, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, ngNotify, securityService, toaster, serviceMerchandiseType) {
+    app.controller('nhomVatTuController', ['$scope', 'configService', 'nhomVatTuService', 'tempDataService', '$uibModal', '$log', 'securityService', 'toaster', 'merchandiseTypeService',
+        function ($scope, configService, service, tempDataService, $uibModal, $log, securityService, toaster, serviceMerchandiseType) {
             $scope.config = angular.copy(configService);
             $scope.paged = angular.copy(configService.pageDefault);
             $scope.filtered = angular.copy(configService.filterDefault);
@@ -216,8 +216,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/htdm/merchandiseTypeController
         }]);
 
     /* controller addNew */
-    app.controller('nhomVatTuCreateController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'nhomVatTuService', 'tempDataService', '$filter', '$uibModal', '$log', 'ngNotify', 'merchandiseTypeService',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, ngNotify, serviceMerchandiseType) {
+    app.controller('nhomVatTuCreateController', ['$scope', '$uibModalInstance', 'configService', 'nhomVatTuService', 'tempDataService', 'ngNotify', 'merchandiseTypeService',
+        function ($scope, $uibModalInstance, configService, service, tempDataService, ngNotify, serviceMerchandiseType) {
             $scope.robot = angular.copy(service.robot);
             $scope.config = angular.copy(configService);
             $scope.target = {};
@@ -281,8 +281,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/htdm/merchandiseTypeController
             };
         }]);
     /* controller Edit */
-    app.controller('nhomVatTuEditController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'nhomVatTuService', 'tempDataService', '$filter', '$uibModal', '$log', 'targetData', 'ngNotify',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, targetData, ngNotify) {
+    app.controller('nhomVatTuEditController', ['$scope', '$uibModalInstance', 'configService', 'nhomVatTuService', 'tempDataService', 'targetData', 'ngNotify',
+        function ($scope, $uibModalInstance, configService, service, tempDataService, targetData, ngNotify) {
             $scope.config = angular.copy(configService);
             $scope.targetData = angular.copy(targetData);
             $scope.tempData = tempDataService.tempData;
@@ -309,8 +309,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/htdm/merchandiseTypeController
         }]);
 
     /* controller Details */
-    app.controller('nhomVatTuDetailsController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'nhomVatTuService', 'tempDataService', '$filter', '$uibModal', '$log', 'targetData', 'ngNotify',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, targetData, ngNotify) {
+    app.controller('nhomVatTuDetailsController', ['$scope', '$uibModalInstance', 'configService', 'tempDataService', 'targetData',
+        function ($scope, $uibModalInstance, configService, tempDataService, targetData) {
             $scope.config = angular.copy(configService);
             $scope.targetData = angular.copy(targetData);
             $scope.tempData = tempDataService.tempData;
@@ -322,8 +322,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/htdm/merchandiseTypeController
 
         }]);
     /* controller delete */
-    app.controller('nhomVatTuDeleteController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'nhomVatTuService', 'tempDataService', '$filter', '$uibModal', '$log', 'targetData', 'ngNotify',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, targetData, ngNotify) {
+    app.controller('nhomVatTuDeleteController', ['$scope', '$uibModalInstance', 'configService', 'nhomVatTuService', 'targetData', 'ngNotify',
+        function ($scope, $uibModalInstance, configService, service, targetData, ngNotify) {
             $scope.config = angular.copy(configService);
             $scope.targetData = angular.copy(targetData);
             $scope.target = targetData;
@@ -347,8 +347,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/htdm/merchandiseTypeController
             };
         }]);
     /* controller delete */
-    app.controller('nhomVatTuSelectDataController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'nhomVatTuService', 'tempDataService', '$filter', '$uibModal', '$log', 'ngNotify', 'filterObject', 'serviceSelectData',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, ngNotify, filterObject, serviceSelectData) {
+    app.controller('nhomVatTuSelectDataController', ['$scope', '$uibModalInstance', 'configService', 'nhomVatTuService', 'filterObject', 'serviceSelectData',
+        function ($scope, $uibModalInstance, configService, service, filterObject, serviceSelectData) {
             $scope.config = angular.copy(configService);
             $scope.paged = angular.copy(configService.pageDefault);
             $scope.filtered = angular.copy(configService.filterDefault);

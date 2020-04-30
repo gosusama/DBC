@@ -109,7 +109,7 @@ define(['ui-bootstrap'], function () {
                 $scope.paged.currentPage = pageNo;
                 filterData();
             };
-            $scope.sortType = 'mamerchandiseType';
+            $scope.sortType = 'maLoaiVatTu';
             $scope.sortReverse = false;
             $scope.doSearch = function () {
                 $scope.paged.currentPage = 1;
