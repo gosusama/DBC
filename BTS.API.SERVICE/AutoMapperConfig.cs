@@ -155,6 +155,7 @@ namespace BTS.API.SERVICE
                 cfg.CreateMap<MdSizeVm.Dto, MdSize>();
                 cfg.CreateMap<MdXuatXu, MdXuatXuVm.Dto>();
                 cfg.CreateMap<MdXuatXuVm.Dto, MdXuatXu>();
+                cfg.CreateMap<MdDonViTinhVm.Dto, MdDonViTinh>();
 
                 cfg.CreateMap<MdPeriod, ChoiceObj>().ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                        .ForMember(dest => dest.Value, opt => opt.MapFrom(src => src.Id))

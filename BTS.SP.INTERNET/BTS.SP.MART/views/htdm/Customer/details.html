@@ -9,15 +9,15 @@
         <form role="form" name="_form">
             <div class="row form-group">
                 <div class="col-lg-6">
-                    <label>Mã khách hàng</label><span style="color: red">(1*)</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:red;">
-                        <input disabled type="text" class="form-control" ng-model="target.maKH" name="_makhachHang" maxlength="50" required>
+                    <label>Mã khách hàng</label>
+                        <input disabled type="text" class="form-control" ng-model="target.maKH" name="_makhachHang" maxlength="50" />
                         <span style="color:red" ng-show="_form._makhachHang.$dirty && _form._makhachHang.$invalid">
                             <span ng-show="_form._makhachHang.$error.required">Không được để trống</span>
                         </span>
                 </div>
                 <div class="col-lg-6">
-                    <label>Tên khách hàng</label><span style="color: red"> (2*)</span>
-                    <input disabled type="text" class="form-control" ng-model="target.tenKH" name="_tenkhachHang" maxlength="300" required>
+                    <label>Tên khách hàng</label>
+                    <input disabled type="text" class="form-control" ng-model="target.tenKH" name="_tenkhachHang" maxlength="300" />
                     <span style="color:red" ng-show="_form._tenkhachHang.$dirty && _form._tenkhachHang.$invalid">
                         <span ng-show="_form._tenkhachHang.$error.required">Không được để trống</span>
                     </span>
@@ -25,12 +25,12 @@
             </div>
             <div class="row form-group">
                 <div class="col-lg-6">
-                    <label>Địa chỉ</label><span style="color: red"> (3*)</span>
-                    <input disabled type="text" class="form-control" ng-model="target.diaChi" required>
+                    <label>Địa chỉ</label>
+                    <input disabled type="text" class="form-control" ng-model="target.diaChi" />
                 </div>
                 <div class="col-lg-6">
-                    <label>Điện thoại</label><span style="color: red">(4*)</span>
-                    <input disabled type="text" class="form-control" ng-model="target.dienThoai" ng-pattern="/^[0-9]+$/" name="_SoDienThoai" required>
+                    <label>Điện thoại</label>
+                    <input disabled type="text" class="form-control" ng-model="target.dienThoai" ng-pattern="/^[0-9]+$/" name="_SoDienThoai" />
                 </div>
 
             </div>
@@ -47,7 +47,7 @@
 
             <div class="row form-group">
                 <div class="col-md-3">
-                    <label>Ngày sinh</label><span style="color: red"></span>
+                    <label>Ngày sinh</label>
                     <input class="form-control" type="text" ng-model="target.ngaySinh" placeholder="{{config.dateFormat}}" uib-datepicker-popup="{{config.dateFormat}}" datepicker-localdate disabled />
                 </div>
 

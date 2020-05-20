@@ -73,8 +73,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/htdm/hangKhController.js', '/B
         return result;
     }]);
     /* controller list */
-    app.controller('customerController', ['$scope', '$location', '$http', 'configService', 'customerService', 'tempDataService', '$filter', '$uibModal', '$log', 'ngNotify', 'securityService', 'toaster', 'hangKhService', 'userService',
-        function ($scope, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, ngNotify, securityService, toaster, serviceHangKh, serviceAuthUser) {
+    app.controller('customerController', ['$scope', 'configService', 'customerService', 'tempDataService', '$filter', '$uibModal', '$log', 'securityService', 'toaster', 'hangKhService', 'userService',
+        function ($scope, configService, service, tempDataService, $filter, $uibModal, $log, securityService, toaster, serviceHangKh, serviceAuthUser) {
             var currentUser = serviceAuthUser.GetCurrentUser();
             var unitCode = currentUser.unitCode;
             $scope.config = angular.copy(configService);
@@ -285,8 +285,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/htdm/hangKhController.js', '/B
         }]);
 
     /* controller addNew */
-    app.controller('customerCreateController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'customerService', 'tempDataService', '$filter', '$uibModal', '$log', 'ngNotify', 'hangKhService',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, ngNotify, serviceHangKh) {
+    app.controller('customerCreateController', ['$scope', '$uibModalInstance', 'configService', 'customerService', 'tempDataService', '$filter', 'ngNotify', 'hangKhService',
+        function ($scope, $uibModalInstance, configService, service, tempDataService, $filter, ngNotify, serviceHangKh) {
             $scope.robot = angular.copy(service.robot);
             $scope.config = angular.copy(configService);
             $scope.tempData = tempDataService.tempData;
@@ -375,8 +375,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/htdm/hangKhController.js', '/B
             };
         }]);
     /* controller Edit */
-    app.controller('customerEditController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'customerService', 'tempDataService', '$filter', '$uibModal', '$log', 'targetData', 'ngNotify', 'hangKhService',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, targetData, ngNotify, serviceHangKh) {
+    app.controller('customerEditController', ['$scope', '$uibModalInstance', 'configService', 'customerService', 'tempDataService', '$filter', 'targetData', 'ngNotify', 'hangKhService',
+        function ($scope, $uibModalInstance, configService, service, tempDataService, $filter, targetData, ngNotify, serviceHangKh) {
             $scope.config = angular.copy(configService);
             $scope.targetData = angular.copy(targetData);
             $scope.tempData = tempDataService.tempData;
@@ -465,8 +465,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/htdm/hangKhController.js', '/B
         }]);
 
     /* controller Details */
-    app.controller('customerDetailsController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'customerService', 'tempDataService', '$filter', '$uibModal', '$log', 'targetData', 'ngNotify', 'hangKhService',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, targetData, ngNotify, serviceHangKh) {
+    app.controller('customerDetailsController', ['$scope', '$uibModalInstance', 'configService', 'customerService', 'tempDataService', '$filter', 'targetData', 'hangKhService',
+        function ($scope, $uibModalInstance, configService, service, tempDataService, $filter, targetData, serviceHangKh) {
             $scope.config = angular.copy(configService);
             $scope.tempData = tempDataService.tempData;
 
@@ -509,8 +509,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/htdm/hangKhController.js', '/B
 
         }]);
     /* controller delete */
-    app.controller('customerDeleteController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'customerService', 'tempDataService', '$filter', '$uibModal', '$log', 'targetData', 'ngNotify',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, targetData, ngNotify) {
+    app.controller('customerDeleteController', ['$scope', '$uibModalInstance', 'configService', 'customerService', 'targetData', 'ngNotify',
+        function ($scope, $uibModalInstance, configService, service, targetData, ngNotify) {
             $scope.config = angular.copy(configService);
             $scope.isLoading = false;
             $scope.title = function () { return 'Xoá thành phần'; };
@@ -523,133 +523,133 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/htdm/hangKhController.js', '/B
                         ngNotify.set(successRes.data.message, { duration: 3000, type: 'error' });
                     }
                 },
-                function (errorRes) {
-                    console.log('errorRes', errorRes);
-                });
+                    function (errorRes) {
+                        console.log('errorRes', errorRes);
+                    });
             };
             $scope.cancel = function () {
                 $uibModalInstance.close();
             };
         }]);
 
-    app.controller('customerSelectDataController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'customerService', 'tempDataService', '$filter', '$uibModal', '$log', 'ngNotify', 'filterObject', 'serviceSelectData',
-    function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, ngNotify, filterObject, serviceSelectData) {
-        $scope.config = angular.copy(configService);;
-        $scope.paged = angular.copy(configService.pageDefault);
-        $scope.filtered = angular.copy(configService.filterDefault);
-        $scope.filtered = angular.extend($scope.filtered, filterObject);
-        angular.extend($scope.filtered, filterObject);
-        var lstTemp = [];
-        $scope.modeClickOneByOne = true;
-        $scope.title = function () { return 'Danh sách khách hàng'; };
-        $scope.selecteItem = function (item) {
-            $uibModalInstance.close(item);
-        }
-        $scope.isLoading = false;
-        $scope.sortType = 'makhachhang'; // set the default sort type
-        $scope.sortReverse = false;  // set the default sort order
-        function filterData() {
-            if (serviceSelectData) {
-                $scope.modeClickOneByOne = false;
+    app.controller('customerSelectDataController', ['$scope', '$uibModalInstance', 'configService', 'customerService', 'filterObject', 'serviceSelectData',
+        function ($scope, $uibModalInstance, configService, service, filterObject, serviceSelectData) {
+            $scope.config = angular.copy(configService);;
+            $scope.paged = angular.copy(configService.pageDefault);
+            $scope.filtered = angular.copy(configService.filterDefault);
+            $scope.filtered = angular.extend($scope.filtered, filterObject);
+            angular.extend($scope.filtered, filterObject);
+            var lstTemp = [];
+            $scope.modeClickOneByOne = true;
+            $scope.title = function () { return 'Danh sách khách hàng'; };
+            $scope.selecteItem = function (item) {
+                $uibModalInstance.close(item);
             }
-            var postdata = {};
-            if ($scope.modeClickOneByOne) {
-                $scope.isLoading = true;
-                postdata = { paged: $scope.paged, filtered: $scope.filtered };
-                service.postSelectData(postdata).then(function (response) {
-                    $scope.isLoading = false;
-                    if (response && response.status == 200 && response.data && response.data.status) {
-                        $scope.data = response.data.data.data;
-                        angular.extend($scope.paged, response.data.data);
-                    }
-                });
-            } else {
-                $scope.listSelectedData = serviceSelectData.getSelectData();
-                lstTemp = angular.copy($scope.listSelectedData);
-                $scope.isLoading = true;
-                postdata = { paged: $scope.paged, filtered: $scope.filtered };
-                service.postSelectData(postdata).then(function (response) {
-                    $scope.isLoading = false;
-                    if (response && response.status == 200 && response.data && response.data.status) {
-                        $scope.data = response.data.data.data;
-                        console.log('$scope.data', $scope.data);
-                        angular.forEach($scope.data, function (v, k) {
-                            var isSelected = $scope.listSelectedData.some(function (element, index, array) {
-                                if (!element) return false;
-                                if (typeof element === 'string')
-                                    return element == v.value;
-                                return element.value == v.value;
-                            });
-                            if (isSelected) {
-                                $scope.data[k].selected = true;
-                            }
-                        });
-                        angular.extend($scope.paged, response.data.data);
-                    }
-                });
-            }
-        };
-        filterData();
-        $scope.setPage = function (pageNo) {
-            $scope.paged.currentPage = pageNo;
-            filterData();
-        };
-        $scope.doSearch = function () {
-            $scope.paged.currentPage = 1;
-            filterData();
-        };
-        $scope.pageChanged = function () {
-            filterData();
-        };
-        $scope.refresh = function () {
-            $scope.setPage($scope.paged.currentPage);
-        };
-        $scope.doCheck = function (item) {
-            if (item) {
-                var isSelected = $scope.listSelectedData.some(function (element, index, array) {
-                    return element.id == item.id;
-                });
-                if (item.selected) {
-                    if (!isSelected) {
-                        $scope.listSelectedData.push(item);
-                    }
-                } else {
-                    if (isSelected) {
-                        $scope.listSelectedData.splice(item, 1);
-                    }
+            $scope.isLoading = false;
+            $scope.sortType = 'makhachhang'; // set the default sort type
+            $scope.sortReverse = false;  // set the default sort order
+            function filterData() {
+                if (serviceSelectData) {
+                    $scope.modeClickOneByOne = false;
                 }
-            } else {
-                angular.forEach($scope.data, function (v, k) {
-
-                    $scope.data[k].selected = $scope.all;
-                    var isSelected = $scope.listSelectedData.some(function (element, index, array) {
-                        if (!element) return false;
-                        return element.id == v.id;
+                var postdata = {};
+                if ($scope.modeClickOneByOne) {
+                    $scope.isLoading = true;
+                    postdata = { paged: $scope.paged, filtered: $scope.filtered };
+                    service.postSelectData(postdata).then(function (response) {
+                        $scope.isLoading = false;
+                        if (response && response.status == 200 && response.data && response.data.status) {
+                            $scope.data = response.data.data.data;
+                            angular.extend($scope.paged, response.data.data);
+                        }
                     });
-
-                    if ($scope.all) {
+                } else {
+                    $scope.listSelectedData = serviceSelectData.getSelectData();
+                    lstTemp = angular.copy($scope.listSelectedData);
+                    $scope.isLoading = true;
+                    postdata = { paged: $scope.paged, filtered: $scope.filtered };
+                    service.postSelectData(postdata).then(function (response) {
+                        $scope.isLoading = false;
+                        if (response && response.status == 200 && response.data && response.data.status) {
+                            $scope.data = response.data.data.data;
+                            console.log('$scope.data', $scope.data);
+                            angular.forEach($scope.data, function (v, k) {
+                                var isSelected = $scope.listSelectedData.some(function (element, index, array) {
+                                    if (!element) return false;
+                                    if (typeof element === 'string')
+                                        return element == v.value;
+                                    return element.value == v.value;
+                                });
+                                if (isSelected) {
+                                    $scope.data[k].selected = true;
+                                }
+                            });
+                            angular.extend($scope.paged, response.data.data);
+                        }
+                    });
+                }
+            };
+            filterData();
+            $scope.setPage = function (pageNo) {
+                $scope.paged.currentPage = pageNo;
+                filterData();
+            };
+            $scope.doSearch = function () {
+                $scope.paged.currentPage = 1;
+                filterData();
+            };
+            $scope.pageChanged = function () {
+                filterData();
+            };
+            $scope.refresh = function () {
+                $scope.setPage($scope.paged.currentPage);
+            };
+            $scope.doCheck = function (item) {
+                if (item) {
+                    var isSelected = $scope.listSelectedData.some(function (element, index, array) {
+                        return element.id == item.id;
+                    });
+                    if (item.selected) {
                         if (!isSelected) {
-                            $scope.listSelectedData.push($scope.data[k]);
+                            $scope.listSelectedData.push(item);
                         }
                     } else {
                         if (isSelected) {
-                            $scope.listSelectedData.splice($scope.data[k], 1);
+                            $scope.listSelectedData.splice(item, 1);
                         }
                     }
-                });
-            }
-        };
-        $scope.save = function () {
-            $uibModalInstance.close($scope.listSelectedData);
-        };
-        $scope.cancel = function () {
-            service.setSelectData(lstTemp);
-            $uibModalInstance.close();
-        };
-    }]);
+                } else {
+                    angular.forEach($scope.data, function (v, k) {
 
-    app.controller('customerAsyncController', ['$scope', '$location', '$http', 'configService', 'customerService', 'tempDataService', '$filter', '$uibModal', '$log', 'ngNotify', 'securityService', 'toaster', '$uibModalInstance',
-        function ($scope, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, ngNotify, securityService, toaster, $uibModalInstance) {
+                        $scope.data[k].selected = $scope.all;
+                        var isSelected = $scope.listSelectedData.some(function (element, index, array) {
+                            if (!element) return false;
+                            return element.id == v.id;
+                        });
+
+                        if ($scope.all) {
+                            if (!isSelected) {
+                                $scope.listSelectedData.push($scope.data[k]);
+                            }
+                        } else {
+                            if (isSelected) {
+                                $scope.listSelectedData.splice($scope.data[k], 1);
+                            }
+                        }
+                    });
+                }
+            };
+            $scope.save = function () {
+                $uibModalInstance.close($scope.listSelectedData);
+            };
+            $scope.cancel = function () {
+                service.setSelectData(lstTemp);
+                $uibModalInstance.close();
+            };
+        }]);
+
+    app.controller('customerAsyncController', ['$scope', 'configService', 'customerService', 'tempDataService', '$filter', '$uibModal', '$log', 'ngNotify', 'securityService', 'toaster', '$uibModalInstance',
+        function ($scope, configService, service, tempDataService, $filter, $uibModal, $log, ngNotify, securityService, toaster, $uibModalInstance) {
             $scope.config = angular.copy(configService);
             $scope.paged = angular.copy(configService.pageDefault);
             $scope.filtered = angular.copy(configService.filterDefault);
@@ -818,8 +818,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/htdm/hangKhController.js', '/B
         }]);
 
     /* controller Async create Customer */
-    app.controller('customerAsyncCreateController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'customerService', 'tempDataService', '$filter', '$uibModal', '$log', 'ngNotify', 'hangKhService',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, ngNotify, serviceHangKh) {
+    app.controller('customerAsyncCreateController', ['$scope', '$uibModalInstance', 'configService', 'customerService', 'tempDataService', '$filter', 'ngNotify', 'hangKhService',
+        function ($scope, $uibModalInstance, configService, service, tempDataService, $filter, ngNotify, serviceHangKh) {
             $scope.robot = angular.copy(service.robot);
             $scope.config = angular.copy(configService);
             $scope.tempData = tempDataService.tempData;
@@ -897,8 +897,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/htdm/hangKhController.js', '/B
         }]);
 
     /* controller Details Async*/
-    app.controller('customerAsyncDetailsController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'customerService', 'tempDataService', '$filter', '$uibModal', '$log', 'targetData', 'ngNotify', 'hangKhService',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, targetData, ngNotify, serviceHangKh) {
+    app.controller('customerAsyncDetailsController', ['$scope', '$uibModalInstance', 'configService', 'customerService', 'tempDataService', '$filter', 'targetData', 'hangKhService',
+        function ($scope, $uibModalInstance, configService, service, tempDataService, $filter, targetData, serviceHangKh) {
             $scope.config = angular.copy(configService);
             $scope.tempData = tempDataService.tempData;
             //load danh muc
@@ -940,8 +940,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/htdm/hangKhController.js', '/B
         }]);
 
     /* controller Edit Async*/
-    app.controller('customerAsyncEditController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'customerService', 'tempDataService', '$filter', '$uibModal', '$log', 'targetData', 'ngNotify', 'hangKhService',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, targetData, ngNotify, serviceHangKh) {
+    app.controller('customerAsyncEditController', ['$scope', '$uibModalInstance', 'configService', 'customerService', 'tempDataService', '$filter', 'targetData', 'ngNotify', 'hangKhService',
+        function ($scope, $uibModalInstance, configService, service, tempDataService, $filter, targetData, ngNotify, serviceHangKh) {
             $scope.config = angular.copy(configService);
             $scope.targetData = angular.copy(targetData);
             $scope.tempData = tempDataService.tempData;

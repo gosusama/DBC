@@ -8,8 +8,7 @@
     <div class="panel-heading">
         <div class="btn-toolbar" role="toolbar">
             <div class="btn-group">
-                <button ng-if="accessList.add" prevent-default class="btn btn-primary" title="create new item." ng-show="isRootUnitCode" ng-click="create()"><i class="fa fa-plus"></i>&ensp;{{config.label.btnCreate}}</button>
-                <button ng-if="accessList.add" prevent-default class="btn btn-primary" title="Async" ng-show="!isRootUnitCode" ng-click="asyncView()"><i class="fa fa-plus"></i>&ensp;Đồng bộ</button>
+                <button ng-if="accessList.add" prevent-default class="btn btn-primary" title="create new item." ng-click="create()"><i class="fa fa-plus"></i>&ensp;{{config.label.btnCreate}}</button>
             </div>
             <div class="col-lg-6">
                 <div class="input-group">
@@ -43,17 +42,10 @@
                         </a>
                     </th>
                     <th class="column-title">
-                        <a class="title" href="" ng-click="sortType = 'maThe'; sortReverse = !sortReverse">
-                            Mã thẻ
-                            <span ng-show="sortType == 'maThe' && !sortReverse" class="fa fa-caret-down"></span>
-                            <span ng-show="sortType == 'maThe' && sortReverse" class="fa fa-caret-up"></span>
-                        </a>
-                    </th>
-                    <th class="column-title">
-                        <a class="title" href="" ng-click="sortType = 'canCuoc'; sortReverse = !sortReverse">
-                            Căn cước
-                            <span ng-show="sortType == 'canCuoc' && !sortReverse" class="fa fa-caret-down"></span>
-                            <span ng-show="sortType == 'canCuoc' && sortReverse" class="fa fa-caret-up"></span>
+                        <a class="title" href="" ng-click="sortType = 'diaChi'; sortReverse = !sortReverse">
+                            Địa chỉ
+                            <span ng-show="sortType == 'diaChi' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortType == 'diaChi' && sortReverse" class="fa fa-caret-up"></span>
                         </a>
                     </th>
                     <th class="column-title">
@@ -80,8 +72,7 @@
                     <td>{{$index + 1}}</td>
                     <td>{{item.maKH}}</td>
                     <td>{{item.tenKH}}</td>
-                    <td>{{item.maThe}}</td>
-                    <td>{{item.chungMinhThu}}</td>
+                    <td>{{item.diaChi}}</td>
                     <td>{{item.dienThoai}}</td>
                     <td class="table-control btn-group">
                         <a ng-if="accessList.view" class="glyphicon glyphicon-info-sign" ng-click="details(item)" data-toggle="tooltip" data-placement="top" title="Chi tiết"></a> &nbsp;&nbsp;&nbsp;

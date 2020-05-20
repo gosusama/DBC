@@ -9,14 +9,14 @@
         <form role="form" name="_form">
             <div class="row form-group">
                 <div class="col-lg-6">
-                    <label>Mã khách hàng</label><span style="color: red">(1*)</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:red;">Bỏ sinh mã</span>&nbsp;&nbsp;<input type="checkbox" ng-model="uncheckAutoGen" ng-click="unAuToGenCode($event)" title="Bỏ sinh mã mới">
+                    <label>Mã khách hàng</label><span style="color: red">(*)</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:red;">Bỏ sinh mã</span>&nbsp;&nbsp;<input type="checkbox" ng-model="uncheckAutoGen" ng-click="unAuToGenCode($event)" title="Bỏ sinh mã mới">
                     <input type="text" class="form-control" ng-model="target.makh" name="_makhachHang" maxlength="50" required ng-disabled="disableGenCode">
                     <span style="color:red" ng-show="_form._makhachHang.$dirty && _form._makhachHang.$invalid">
                         <span ng-show="_form._makhachHang.$error.required">Không được để trống</span>
                     </span>
                 </div>
                 <div class="col-lg-6">
-                    <label>Tên khách hàng</label><span style="color: red"> (2*)</span>
+                    <label>Tên khách hàng</label><span style="color: red">(*)</span>
                     <input type="text" class="form-control" ng-model="target.tenKH" name="_tenkhachHang" maxlength="300" required>
                     <span style="color:red" ng-show="_form._tenkhachHang.$dirty && _form._tenkhachHang.$invalid">
                         <span ng-show="_form._tenkhachHang.$error.required">Không được để trống</span>
@@ -47,7 +47,7 @@
 
             <div class="row form-group">
                 <div class="col-md-3">
-                    <label>Ngày sinh</label><span style="color: red"></span>
+                    <label>Ngày sinh</label>
                     <input class="form-control" type="date" ng-model="target.ngaySinh" placeholder="dd/MM/yyyy">
                 </div>
 
