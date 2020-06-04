@@ -303,8 +303,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
         return result;
     }]);
     /* controller list */
-    app.controller('merchandiseController', ['$scope', 'configService', 'merchandiseService', 'tempDataService', '$filter', '$uibModal', '$log', 'ngNotify', 'securityService', 'toaster', 'userService', 'supplierService', 'merchandiseTypeService', 'nhomVatTuService', 'packagingService', 'taxService', 'donViTinhService', 'shelvesService', 'sizeService', 'colorService', 'AuDonViService', '$window',
-        function ($scope, configService, service, tempDataService, $filter, $uibModal, $log, ngNotify, securityService, toaster, serviceAuthUser, serviceSupplier, serviceMerchandiseType, serviceNhomVatTu, servicePackaging, serviceTax, serviceDonViTinh, serviceShelves, serviceSize, serviceColor, serviceAuthDonVi, $window) {
+    app.controller('merchandiseController', ['$scope', 'configService', 'merchandiseService', 'tempDataService', '$filter', '$uibModal', '$log', 'ngNotify', 'securityService', 'toaster', 'supplierService', 'merchandiseTypeService', 'nhomVatTuService', 'packagingService', 'taxService', 'donViTinhService', 'shelvesService', 'sizeService', 'colorService', 'AuDonViService', '$window',
+        function ($scope, configService, service, tempDataService, $filter, $uibModal, $log, ngNotify, securityService, toaster, serviceSupplier, serviceMerchandiseType, serviceNhomVatTu, servicePackaging, serviceTax, serviceDonViTinh, serviceShelves, serviceSize, serviceColor, serviceAuthDonVi, $window) {
             $scope.config = angular.copy(configService);
             $scope.paged = angular.copy(configService.pageDefault);
             $scope.filtered = angular.copy(configService.filterDefault);
@@ -1813,7 +1813,7 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
             };
         }]);
     /* controller Edit */
-    app.controller('merchandiseEditController', ['$scope', '$uibModalInstance', 'configService', '$timeout', 'merchandiseService', 'tempDataService', '$filter', '$uibModal', '$log', 'targetData', 'ngNotify', 'Upload', 'supplierService', 'taxService', 'donViTinhService', 'shelvesService', 'securityService',
+    app.controller('merchandiseEditController', ['$scope', '$uibModalInstance', 'configService', '$timeout', 'merchandiseService', 'tempDataService', '$filter', '$uibModal', '$log', 'targetData', 'ngNotify', 'Upload', 'supplierService', 'packagingService', 'taxService', 'donViTinhService', 'shelvesService', 'securityService',
         function ($scope, $uibModalInstance, configService, $timeout, service, tempDataService, $filter, $uibModal, $log, targetData, ngNotify, upload, serviceSupplier, servicePackaging, serviceTax, serviceDonViTinh, serviceShelves, securityService) {
             $scope.config = angular.copy(configService);
             $scope.paged = angular.copy(configService.pageDefault);
@@ -2875,8 +2875,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
         }]);
 
     /* controller Select DataSQL Controller*/
-    app.controller('merchandiseSelectDataSQLController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'merchandiseService', 'tempDataService', '$filter', '$uibModal', '$log', 'targetData', 'ngNotify', 'serviceSelectData', 'filterObject',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, targetData, ngNotify, serviceSelectData, filterObject) {
+    app.controller('merchandiseSelectDataSQLController', ['$scope', '$uibModalInstance', 'configService', 'merchandiseService', '$uibModal', '$log', 'targetData', 'ngNotify', 'serviceSelectData', 'filterObject',
+        function ($scope, $uibModalInstance, configService, service, $uibModal, $log, targetData, ngNotify, serviceSelectData, filterObject) {
             $scope.config = angular.copy(configService);
             $scope.targetData = angular.copy(targetData);
             $scope.filtered = angular.copy(configService.filterDefault);
@@ -2989,8 +2989,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
             };
         }]);
     /* controller export Excel Controller*/
-    app.controller('exportExcelController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'merchandiseService', 'tempDataService', '$filter', '$uibModal', '$log', 'ngNotify', 'merchandiseTypeService',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, ngNotify, merchandiseTypeService) {
+    app.controller('exportExcelController', ['$scope', '$uibModalInstance', 'configService', 'merchandiseService', 'merchandiseTypeService',
+        function ($scope, $uibModalInstance, configService, service, merchandiseTypeService) {
             $scope.config = angular.copy(configService);
             $scope.filtered = angular.copy(configService.filterDefault);
             $scope.paged = angular.copy(configService.pageDefault);
@@ -3075,8 +3075,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
         }]);
 
     /* controller Child Controller */
-    app.controller('merchandiseChildController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'merchandiseService', 'tempDataService', '$filter', '$uibModal', '$log', 'ngNotify', 'targetData',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, ngNotify, targetData) {
+    app.controller('merchandiseChildController', ['$scope', '$uibModalInstance', 'configService', 'merchandiseService', 'tempDataService', '$filter', '$uibModal', '$log', 'targetData',
+        function ($scope, $uibModalInstance, configService, service, tempDataService, $filter, $uibModal, $log, targetData) {
             $scope.robot = service.robot;
             $scope.config = angular.copy(configService);
             $scope.paged = angular.copy(configService.pageDefault);
@@ -3287,8 +3287,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
 
 
     /* controller merchandise Child Create Controller */
-    app.controller('merchandiseChildCreateController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'merchandiseService', 'tempDataService', '$filter', '$uibModal', '$log', 'ngNotify', 'taxService', 'Upload', 'targetData', '$rootScope', 'userService',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, ngNotify, serviceTax, upload, targetData, $rootScope, serviceAuthUser) {
+    app.controller('merchandiseChildCreateController', ['$scope', '$uibModalInstance', 'configService', 'merchandiseService', 'tempDataService', '$filter', '$uibModal', '$log', 'ngNotify', 'taxService', 'Upload', 'targetData', 'userService',
+        function ($scope, $uibModalInstance, configService, service, tempDataService, $filter, $uibModal, $log, ngNotify, serviceTax, upload, targetData, serviceAuthUser) {
             var currentUser = serviceAuthUser.GetCurrentUser();
             $scope.robot = service.robot;
             $scope.config = angular.copy(configService);
@@ -3837,8 +3837,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
             };
         }]);
     /* controller Edit */
-    app.controller('merchandiseChildEditController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'merchandiseService', 'tempDataService', '$filter', '$uibModal', '$log', 'targetData', 'ngNotify', 'taxService', 'Upload', 'packagingService',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, targetData, ngNotify, serviceTax, upload, servicePackaging) {
+    app.controller('merchandiseChildEditController', ['$scope', '$uibModalInstance', 'configService', 'merchandiseService', 'tempDataService', '$filter', '$uibModal', '$log', 'targetData', 'ngNotify', 'taxService', 'Upload',
+        function ($scope, $uibModalInstance, configService, service, tempDataService, $filter, $uibModal, $log, targetData, ngNotify, serviceTax, upload) {
             $scope.config = angular.copy(configService);
             $scope.paged = angular.copy(configService.pageDefault);
             $scope.robot = service.robot;
@@ -4273,8 +4273,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
         }]);
 
     /* controller merchandise Child  Details Controller */
-    app.controller('merchandiseChildDetailsController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'merchandiseService', 'tempDataService', '$filter', '$uibModal', '$log', 'targetData', 'ngNotify',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, targetData, ngNotify) {
+    app.controller('merchandiseChildDetailsController', ['$scope', '$uibModalInstance', 'configService', 'merchandiseService', 'tempDataService', '$filter', 'targetData',
+        function ($scope, $uibModalInstance, configService, service, tempDataService, $filter, targetData) {
             $scope.config = angular.copy(configService);
             $scope.robot = service.robot;
             $scope.targetData = angular.copy(targetData);
@@ -4356,8 +4356,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
         }]);
 
     /* controller merchandise Price Create Controller */
-    app.controller('merchandisePriceCreateController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'merchandiseService', 'tempDataService', '$filter', '$uibModal', '$log', 'ngNotify', '$rootScope', 'userService', 'AuDonViService', 'initData',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, ngNotify, $rootScope, serviceAuthUser, serviceAuthDonVi, initData) {
+    app.controller('merchandisePriceCreateController', ['$scope', '$uibModalInstance', 'configService', 'merchandiseService', 'tempDataService', '$filter', 'userService', 'AuDonViService', 'initData',
+        function ($scope, $uibModalInstance, configService, service, tempDataService, $filter, serviceAuthUser, serviceAuthDonVi, initData) {
             var currentUser = serviceAuthUser.GetCurrentUser();
             $scope.config = angular.copy(configService);
             $scope.robot = service.robot;
@@ -4411,8 +4411,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
 
 
     /* controller merchandise Price Edit Controller */
-    app.controller('merchandisePriceEditController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'merchandiseService', 'tempDataService', '$filter', '$uibModal', '$log', 'targetData', 'ngNotify', '$rootScope', 'userService', 'taxService', 'AuDonViService',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, targetData, ngNotify, $rootScope, serviceAuthUser, serviceTax, serviceAuthDonVi) {
+    app.controller('merchandisePriceEditController', ['$scope', '$uibModalInstance', 'configService', 'merchandiseService', 'tempDataService', 'targetData', 'userService', 'taxService', 'AuDonViService',
+        function ($scope, $uibModalInstance, configService, service, tempDataService, targetData, serviceAuthUser, serviceTax, serviceAuthDonVi) {
             var currentUser = serviceAuthUser.GetCurrentUser();
             $scope.config = angular.copy(configService);
             $scope.robot = service.robot;
@@ -4463,8 +4463,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
 
 
     /* controller merchandise Price Directory Edit Controller */
-    app.controller('merchandisePriceDirectoryEditController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'merchandiseService', 'tempDataService', '$filter', '$uibModal', '$log', 'targetData', 'ngNotify', '$rootScope', 'userService', 'taxService', 'securityService',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, targetData, ngNotify, $rootScope, serviceAuthUser, serviceTax, securityService) {
+    app.controller('merchandisePriceDirectoryEditController', ['$scope', '$uibModalInstance', 'configService', 'merchandiseService', 'tempDataService', '$filter', 'targetData', 'ngNotify', 'userService', 'taxService', 'securityService',
+        function ($scope, $uibModalInstance, configService, service, tempDataService, $filter, targetData, ngNotify, serviceAuthUser, serviceTax, securityService) {
             var currentUser = serviceAuthUser.GetCurrentUser();
             $scope.config = angular.copy(configService);
             $scope.paged = angular.copy(configService.pageDefault);
@@ -5932,8 +5932,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
 
 
     /**vatTu Select Data Controller*/
-    app.controller('vatTuSelectDataController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'merchandiseService', 'tempDataService', '$filter', '$uibModal', '$log', 'ngNotify', '$rootScope', 'filterObject', 'serviceSelectData',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, ngNotify, $rootScope, filterObject, serviceSelectData) {
+    app.controller('vatTuSelectDataController', ['$scope', '$uibModalInstance', 'configService', 'merchandiseService', 'ngNotify', 'filterObject', 'serviceSelectData',
+        function ($scope, $uibModalInstance, configService, service, ngNotify, filterObject, serviceSelectData) {
             $scope.config = angular.copy(configService);
             $scope.robot = service.robot;
             $scope.filtered = angular.copy(configService.filterDefault);

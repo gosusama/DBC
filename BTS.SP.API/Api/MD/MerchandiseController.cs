@@ -1221,7 +1221,7 @@ namespace BTS.SP.API.Api.MD
         [CustomAuthorize(Method = "XEM", State = "merchandise")]
         public async Task<IHttpActionResult> PostAsyncCompareUpdate(MdMerchandiseVm.Dto hangHoa)
         {
-             var result = new TransferObj<MdMerchandise>();
+            var result = new TransferObj<MdMerchandise>();
             string parentUnitCode = _service.GetParentUnitCode();
             string unitCode = _service.GetCurrentUnitCode();
             string rootUnitcode = ConfigurationManager.AppSettings["rootUnitCode"];
@@ -1646,7 +1646,7 @@ namespace BTS.SP.API.Api.MD
                                     _DTO.GiaBanLeVat = GIABANLEVAT;
                                     decimal.TryParse(dataReader["GIABANBUONVAT"] != null ? dataReader["GIABANBUONVAT"].ToString() : "", out GIABANBUONVAT);
                                     _DTO.GiaBanBuonVat = GIABANBUONVAT;
-                                    _DTO.ItemCode = dataReader["ITEMCODE"] != null ? (dataReader["ITEMCODE"].ToString() != "0" ? dataReader["ITEMCODE"].ToString() : null )  : null;
+                                    _DTO.ItemCode = dataReader["ITEMCODE"] != null ? (dataReader["ITEMCODE"].ToString() != "0" ? dataReader["ITEMCODE"].ToString() : null) : null;
                                     listResult.Add(_DTO);
                                 }
                                 if (listResult.Count > 0)
@@ -1858,7 +1858,7 @@ namespace BTS.SP.API.Api.MD
                             }
                         }
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         return BadRequest("Không tồn tại mặt hàng này");
                     }
@@ -2084,7 +2084,43 @@ namespace BTS.SP.API.Api.MD
                 };
                 if (xntItem != null)
                 {
-                    item.SoLuongTon = xntItem.ClosingQuantity;
+                    decimal soLuongXuat = 0;
+                    using (OracleConnection connection = new OracleConnection(new ERPContext().Database.Connection.ConnectionString))
+                    {
+                        connection.Open();
+                        using (var command = connection.CreateCommand())
+                        {
+                            command.CommandType = CommandType.Text;
+                            command.CommandText = "SELECT " +
+                                                        "NVL(SUM(vtctct.soluong), 0) soluong " +
+                                                    "FROM " +
+                                                        "vattuchungtu vtct " +
+                                                        "INNER JOIN vattuchungtuchitiet vtctct ON vtct.machungtupk = vtctct.machungtupk " +
+                                                    "WHERE " +
+                                                        "vtct.trangthai = 0 " +
+                                                        "AND vtct.ngaychungtu <= sysdate " +
+                                                        "AND (vtct.loaichungtu = 'DCX' OR vtct.loaichungtu = 'XKHAC' OR vtct.loaichungtu = 'XBAN') " +
+                                                        "AND vtct.makhoxuat = :makhoxuat " +
+                                                        "AND vtctct.mahang = :mavattu " +
+                                                        "AND vtct.unitcode = :unitcode";
+                            command.Parameters.Add(new OracleParameter(":makhoxuat", OracleDbType.NVarchar2, wareHouseCode, ParameterDirection.Input));
+                            command.Parameters.Add(new OracleParameter(":mavattu", OracleDbType.NVarchar2, item.MaVatTu, ParameterDirection.Input));
+                            command.Parameters.Add(new OracleParameter(":unitcode", OracleDbType.NVarchar2, unitCode, ParameterDirection.Input));
+                            using (OracleDataReader dataReader = command.ExecuteReader())
+                            {
+                                if (dataReader.HasRows)
+                                {
+                                    var SoLuongOrdinal = dataReader.GetOrdinal("soluong");
+                                    while (await dataReader.ReadAsync())
+                                    {
+                                        soLuongXuat = dataReader.GetDecimal(SoLuongOrdinal);
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    item.SoLuongTon = xntItem.ClosingQuantity - soLuongXuat;
                     item.SoLuongNhapTrongKy = xntItem.IncreaseQuantity;
                     item.SoLuongXuatTrongKy = xntItem.DecreaseQuantity;
                     item.GiaVon = xntItem.CostOfCapital == 0 ? 0 : xntItem.CostOfCapital;
@@ -3379,7 +3415,7 @@ namespace BTS.SP.API.Api.MD
             {
                 if (request.Files.Count > 0)
                 {
-                   
+
                     HttpPostedFile file = request.Files[0];
                     file.SaveAs(path + file.FileName);
                     if (File.Exists(path + file.FileName))
@@ -3458,7 +3494,7 @@ namespace BTS.SP.API.Api.MD
                             result.Status = false;
                             return Ok(result);
                         }
-                       
+
                     }
                 }
             }
