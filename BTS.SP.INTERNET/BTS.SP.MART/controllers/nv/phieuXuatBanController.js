@@ -822,11 +822,11 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
                 }
             }, true);
             $rootScope.$on('$locationChangeStart',
-            function (event, next, current) {
-                if ($scope.tagsCustomers) {
-                    $scope.tagsCustomers.clear();
-                }
-            });
+                function (event, next, current) {
+                    if ($scope.tagsCustomers) {
+                        $scope.tagsCustomers.clear();
+                    }
+                });
             $scope.tranferFrom = function (item) {
                 var modalInstance = $uibModal.open({
                     templateUrl: configService.buildUrl('nv/NvPhieuDieuChuyenNoiBo', 'add'),
@@ -1165,6 +1165,7 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
                             $scope.target.thanhTienTruocVat = $scope.robot.sum($scope.target.dataDetails, 'thanhTien');
                             $scope.target.tienVat = $scope.robot.sumVat($scope.tyGia, $scope.target);
                             $scope.target.thanhTienSauVat = $scope.target.thanhTienTruocVat + $scope.target.tienVat - $scope.target.tienChietKhau;
+                            $scope.target.thanhTienTruocVatSauCK = $scope.target.thanhTienTruocVat - $scope.target.tienChietKhau;
                         }, true);
                     }
                 });
@@ -1177,17 +1178,17 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
                     document.getElementById('soluong').focus();
                     return;
                 }
-                //if (!$scope.newItem.soLuong || $scope.newItem.soLuong < 1 || $scope.newItem.soLuong > $scope.newItem.soLuongTon) {
-                //    focus('soluong');
-                //    document.getElementById('soluong').focus();
-                //    toaster.pop({
-                //        type: 'error',
-                //        title: 'Lỗi:',
-                //        body: 'Nhập sai số lượng !',
-                //        timeout: 1000
-                //    });
-                //    return;
-                //}
+                if (!$scope.newItem.soLuong || $scope.newItem.soLuong < 1 || $scope.newItem.soLuong > $scope.newItem.soLuongTon) {
+                    focus('soluong');
+                    document.getElementById('soluong').focus();
+                    toaster.pop({
+                        type: 'error',
+                        title: 'Lỗi:',
+                        body: 'Số lượng hàng tồn trong kho: ' + $scope.newItem.soLuongTon,
+                        timeout: 1000
+                    });
+                    return;
+                }
                 if ($scope.newItem.validateCode == $scope.newItem.maHang) {
                     var exsist = $scope.target.dataDetails.some(function (element, index, array) {
                         return $scope.newItem.maHang == element.maHang;
@@ -1218,7 +1219,6 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
             $scope.selectedMaHang = function (code) {
                 if (code) {
                     service.getMerchandiseForNvByCode(code, $scope.target.maKhoXuat, unitCode).then(function (response) {
-                        console.log(response);
                         if (response && response.status === 200 && response.data && response.data.status) {
                             $scope.newItem = response.data.data;
                             //giá bán có vat
@@ -1348,13 +1348,11 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
                         ngNotify.set("Thêm thành công", { type: 'success' });
                         $uibModalInstance.close($scope.target);
                     } else {
-                        console.log('addNew successRes', successRes);
                         ngNotify.set(successRes.data.message, { duration: 3000, type: 'error' });
                     }
-                },
-                    function (errorRes) {
-                        console.log('errorRes', errorRes);
-                    });
+                }, function (errorRes) {
+                    console.log('errorRes', errorRes);
+                });
             };
             $scope.saveAndKeep = function () {
                 var tempData = angular.copy($scope.target);
@@ -1375,9 +1373,9 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
                         ngNotify.set(successRes.data.message, { duration: 3000, type: 'error' });
                     }
                 },
-                function (errorRes) {
-                    console.log('errorRes', errorRes);
-                });
+                    function (errorRes) {
+                        console.log('errorRes', errorRes);
+                    });
             };
             $scope.saveAndPrint = function () {
                 service.post($scope.target).then(function (successRes) {
@@ -1393,9 +1391,9 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
                         ngNotify.set(successRes.data.message, { duration: 3000, type: 'error' });
                     }
                 },
-                function (errorRes) {
-                    console.log('errorRes', errorRes);
-                });
+                    function (errorRes) {
+                        console.log('errorRes', errorRes);
+                    });
             };
             $scope.createWareHouse = function (target, name) {
                 var modalInstance = $uibModal.open({
@@ -1473,8 +1471,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
             };
         }]);
     /* controller Edit */
-    app.controller('phieuXuatBanEditController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'phieuXuatBanService', 'tempDataService', '$filter', '$uibModal', '$log', 'targetData', 'ngNotify', 'merchandiseService', 'toaster', 'nvCongNoKhachHangService', 'userService',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, targetData, ngNotify, serviceMerchandise, toaster, nvCongNoKhachHangService, serviceAuthUser) {
+    app.controller('phieuXuatBanEditController', ['$scope', '$uibModalInstance', 'configService', 'phieuXuatBanService', 'tempDataService', '$filter', '$uibModal', '$log', 'targetData', 'ngNotify', 'merchandiseService', 'toaster', 'nvCongNoKhachHangService', 'userService',
+        function ($scope, $uibModalInstance, configService, service, tempDataService, $filter, $uibModal, $log, targetData, ngNotify, serviceMerchandise, toaster, nvCongNoKhachHangService, serviceAuthUser) {
             var currentUser = serviceAuthUser.GetCurrentUser();
             var unitCode = currentUser.unitCode;
             $scope.config = angular.copy(configService);
@@ -1558,11 +1556,11 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
                             $scope.target.thanhTienTruocVat = $scope.robot.sum($scope.target.dataDetails, 'thanhTien');
                             $scope.target.tienVat = $scope.robot.sumVat($scope.tyGia, $scope.target);
                             $scope.target.thanhTienSauVat = $scope.target.thanhTienTruocVat + $scope.target.tienVat - $scope.target.tienChietKhau;
+                            $scope.target.thanhTienTruocVatSauCK = $scope.target.thanhTienTruocVat - $scope.target.tienChietKhau;
                         }, true);
                     }
                 });
-
-            };
+            }
             filterData();
             $scope.displayHepler = function (paraValue, moduleName) {
                 var data = $filter('filter')($scope.tempData(moduleName), { value: paraValue }, true);
@@ -1579,17 +1577,17 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
                     document.getElementById('soluong').focus();
                     return;
                 }
-                //if (!$scope.newItem.soLuong || $scope.newItem.soLuong < 1 || $scope.newItem.soLuong > $scope.newItem.soLuongTon) {
-                //    focus('soluong');
-                //    document.getElementById('soluong').focus();
-                //    toaster.pop({
-                //        type: 'error',
-                //        title: 'Lỗi:',
-                //        body: 'Nhập sai số lượng !',
-                //        timeout: 1000
-                //    });
-                //    return;
-                //}
+                if (!$scope.newItem.soLuong || $scope.newItem.soLuong < 1 || $scope.newItem.soLuong > $scope.newItem.soLuongTon) {
+                    focus('soluong');
+                    document.getElementById('soluong').focus();
+                    toaster.pop({
+                        type: 'error',
+                        title: 'Lỗi:',
+                        body: 'Số lượng hàng tồn trong kho: ' + $scope.newItem.soLuongTon,
+                        timeout: 1000
+                    });
+                    return;
+                }
                 if ($scope.newItem.validateCode == $scope.newItem.maHang) {
                     var exsist = $scope.target.dataDetails.some(function (element, index, array) {
                         return $scope.newItem.maHang == element.maHang;
@@ -1848,10 +1846,9 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
 
         }]);
 
-
     /* controller Details */
-    app.controller('phieuXuatBanDetailsController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'phieuXuatBanService', 'tempDataService', '$filter', '$uibModal', '$log', 'targetData', 'ngNotify',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, targetData, ngNotify) {
+    app.controller('phieuXuatBanDetailsController', ['$scope', '$uibModalInstance', 'configService', 'phieuXuatBanService', 'tempDataService', '$filter', 'targetData',
+        function ($scope, $uibModalInstance, configService, service, tempDataService, $filter, targetData) {
             $scope.config = angular.copy(configService);
             $scope.paged = angular.copy(configService.pageDefault);
             $scope.targetData = angular.copy(targetData);
@@ -1917,8 +1914,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
         }]);
 
     /* controller info */
-    app.controller('infoThanhToanController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'phieuXuatBanService', 'tempDataService', '$filter', '$uibModal', '$log', 'targetData', 'ngNotify', 'userService',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, targetData, ngNotify, serviceAuthUser) {
+    app.controller('infoThanhToanController', ['$scope', '$uibModalInstance', 'configService', 'phieuXuatBanService', 'tempDataService', '$filter', 'targetData', 'ngNotify', 'userService',
+        function ($scope, $uibModalInstance, configService, service, tempDataService, $filter, targetData, ngNotify, serviceAuthUser) {
             $scope.config = angular.copy(configService);
             var currentUser = serviceAuthUser.GetCurrentUser();
             var unitCode = currentUser.unitCode;
@@ -2051,8 +2048,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
 
         }]);
     /* controller delete */
-    app.controller('phieuXuatBanDeleteController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'phieuXuatBanService', 'tempDataService', '$filter', '$uibModal', '$log', 'targetData', 'ngNotify',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, targetData, ngNotify) {
+    app.controller('phieuXuatBanDeleteController', ['$scope', '$uibModalInstance', 'configService', 'phieuXuatBanService', 'targetData', 'ngNotify',
+        function ($scope, $uibModalInstance, configService, service, targetData, ngNotify) {
             $scope.config = angular.copy(configService);
             $scope.targetData = angular.copy(targetData);
             $scope.target = targetData;
@@ -2077,9 +2074,9 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
             };
         }]);
 
-    /* print Phieu Nhap Hang Mua Controller */
-    app.controller('printphieuXuatBanController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'phieuXuatBanService', 'tempDataService', '$filter', '$uibModal', '$log', 'targetData', 'ngNotify',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, targetData, ngNotify) {
+    /* print Phieu Xuat Ban Controller */
+    app.controller('printphieuXuatBanController', ['$scope', '$uibModalInstance', 'configService', 'phieuXuatBanService', 'targetData',
+        function ($scope, $uibModalInstance, configService, service, targetData) {
             $scope.robot = angular.copy(service.robot);
             $scope.config = angular.copy(configService);
             $scope.targetData = angular.copy(targetData);
@@ -2120,9 +2117,9 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
             };
         }]);
 
-    /* print Detail Phieu Nhap Hang Mua Controller */
-    app.controller('printDetailphieuXuatBanController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'phieuXuatBanService', 'tempDataService', '$filter', '$uibModal', '$log', 'targetData', 'ngNotify',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, targetData, ngNotify) {
+    /* print Detail Phieu Xuat Ban Controller */
+    app.controller('printDetailphieuXuatBanController', ['$scope', '$uibModalInstance', 'configService', 'phieuXuatBanService', 'targetData',
+        function ($scope, $uibModalInstance, configService, service, targetData) {
             $scope.robot = angular.copy(service.robot);
             $scope.config = angular.copy(configService);
             $scope.targetData = angular.copy(targetData);
@@ -2164,8 +2161,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
         }]);
 
     /* report Phieu Xuất bán Controller */
-    app.controller('reportPhieuXuatBanController', ['$scope', '$location', '$http', 'configService', 'phieuXuatBanService', 'tempDataService', '$filter', '$uibModal', '$log', 'ngNotify', 'userService', '$stateParams', '$window',
-        function ($scope, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, ngNotify, serviceAuthUser, $stateParams, $window) {
+    app.controller('reportPhieuXuatBanController', ['$scope', 'phieuXuatBanService', 'tempDataService', '$filter', 'userService', '$stateParams', '$window',
+        function ($scope, service, tempDataService, $filter, serviceAuthUser, $stateParams, $window) {
             var currentUser = serviceAuthUser.GetCurrentUser();
             $scope.robot = angular.copy(service.robot);
             $scope.tempData = tempDataService.tempData;
@@ -2224,8 +2221,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
             }
         }]);
     /* report Phieu Xuất bán Controller */
-    app.controller('reportPhieuXuatBanController_onlySL', ['$scope', '$location', '$http', 'configService', 'phieuXuatBanService', 'tempDataService', '$filter', '$uibModal', '$log', 'ngNotify', 'userService', '$stateParams', '$window',
-        function ($scope, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, ngNotify, serviceAuthUser, $stateParams, $window) {
+    app.controller('reportPhieuXuatBanController_onlySL', ['$scope', 'phieuXuatBanService', '$filter', 'userService', '$stateParams', '$window',
+        function ($scope, service, $filter, serviceAuthUser, $stateParams, $window) {
             var currentUser = serviceAuthUser.GetCurrentUser();
             $scope.robot = angular.copy(service.robot);
             var id = $stateParams.id;
@@ -2283,8 +2280,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
             }
         }]);
     /* controller export Item bo hang */
-    app.controller('phieuXuatBanExportItemController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'phieuXuatBanService', 'tempDataService', '$filter', '$uibModal', '$log', 'targetData', 'ngNotify',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, targetData, ngNotify) {
+    app.controller('phieuXuatBanExportItemController', ['$scope', '$uibModalInstance', 'configService', 'phieuXuatBanService', 'targetData', 'ngNotify',
+        function ($scope, $uibModalInstance, configService, service, targetData, ngNotify) {
             $scope.robot = angular.copy(service.robot);
             $scope.config = angular.copy(configService);
             $scope.targetData = angular.copy(targetData);
@@ -2327,8 +2324,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
             };
         }]);
 
-    app.controller('phieuXuatBanSelectedController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'phieuXuatBanService', 'tempDataService', '$filter', '$uibModal', '$log', 'ngNotify', 'serviceSelectData', 'periodService', 'merchandiseService', 'customerService', 'merchandiseTypeService', 'nhomVatTuService', 'supplierService', 'wareHouseService', 'packagingService', 'taxService', 'donViTinhService', 'filterObject',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, ngNotify, serviceSelectData, servicePeriod, serviceMerchandise, serviceCustomer, serviceMerchandiseType, serviceNhomVatTu, serviceSupplier, serviceWareHouse, servicePackaging, serviceTax, serviceDonViTinh, filterObject) {
+    app.controller('phieuXuatBanSelectedController', ['$scope', '$uibModalInstance', 'configService', 'phieuXuatBanService', 'filterObject',
+        function ($scope, $uibModalInstance, configService, service, filterObject) {
             $scope.robot = angular.copy(service.robot);
             $scope.config = angular.copy(configService);
             $scope.paged = angular.copy(configService.pageDefault);

@@ -1249,7 +1249,7 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
                 toaster.pop({
                     type: 'error',
                     title: 'Lỗi:',
-                    body: 'Nhập sai số lượng !',
+                    body: 'Số lượng hàng tồn trong kho: ' + $scope.newItem.soLuongTon,
                     timeout: 1000
                 });
                 return;
