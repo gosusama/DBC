@@ -465,8 +465,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
     }]);
     /* controller list */
     app.controller('phieuDieuChuyenNoiBoNhanController', [
-        '$scope', '$location', '$http', 'configService', 'phieuDieuChuyenNoiBoNhanService', 'tempDataService', '$filter', '$uibModal', '$log', 'ngNotify', 'securityService', '$rootScope', 'toaster', 'periodService', 'merchandiseService', 'customerService', 'merchandiseTypeService', 'nhomVatTuService', 'supplierService', 'wareHouseService', 'packagingService', 'taxService', 'donViTinhService', 'AuDonViService',
-        function ($scope, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, ngNotify, securityService, $rootScope, toaster, servicePeriod, serviceMerchandise, serviceCustomer, serviceMerchandiseType, serviceNhomVatTu, serviceSupplier, serviceWareHouse, servicePackaging, serviceTax, serviceDonViTinh, serviceAuthDonVi) {
+        '$scope', 'configService', 'phieuDieuChuyenNoiBoNhanService', 'tempDataService', '$filter', '$uibModal', '$log', 'securityService', '$rootScope', 'toaster', 'periodService', 'merchandiseService', 'merchandiseTypeService', 'nhomVatTuService', 'supplierService', 'wareHouseService', 'packagingService', 'taxService', 'donViTinhService', 'AuDonViService',
+        function ($scope, configService, service, tempDataService, $filter, $uibModal, $log, securityService, $rootScope, toaster, servicePeriod, serviceMerchandise, serviceMerchandiseType, serviceNhomVatTu, serviceSupplier, serviceWareHouse, servicePackaging, serviceTax, serviceDonViTinh, serviceAuthDonVi) {
             $scope.openClosingOut = false;
             //check có mở khóa sổ không
             function checkUnClosingOut() {
@@ -1134,8 +1134,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
             }
         }]);
     /* controller addNew */
-    app.controller('phieuDieuChuyenNoiBoNhanCreateController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'phieuDieuChuyenNoiBoNhanService', 'tempDataService', '$filter', '$uibModal', '$log', 'ngNotify', '$rootScope', 'userService', 'FileUploader', 'merchandiseService', 'customerService', 'merchandiseTypeService', 'nhomVatTuService', 'supplierService', 'wareHouseService', 'packagingService', 'taxService', 'donViTinhService', 'toaster', 'periodService', 'objectFilter', 'AuDonViService',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, ngNotify, $rootScope, serviceAuthUser, FileUploader, serviceMerchandise, serviceCustomer, serviceMerchandiseType, serviceNhomVatTu, serviceSupplier, serviceWareHouse, servicePackaging, serviceTax, serviceDonViTinh, toaster, servicePeriod, objectFilter, serviceAuthDonVi) {
+    app.controller('phieuDieuChuyenNoiBoNhanCreateController', ['$scope', '$uibModalInstance', 'configService', 'phieuDieuChuyenNoiBoNhanService', 'tempDataService', '$filter', '$uibModal', '$log', 'ngNotify', 'userService', 'merchandiseService', 'merchandiseTypeService', 'nhomVatTuService', 'supplierService', 'wareHouseService', 'packagingService', 'taxService', 'donViTinhService', 'periodService', 'objectFilter', 'AuDonViService',
+        function ($scope, $uibModalInstance, configService, service, tempDataService, $filter, $uibModal, $log, ngNotify, serviceAuthUser, serviceMerchandise, serviceMerchandiseType, serviceNhomVatTu, serviceSupplier, serviceWareHouse, servicePackaging, serviceTax, serviceDonViTinh, servicePeriod, objectFilter, serviceAuthDonVi) {
             var currentUser = serviceAuthUser.GetCurrentUser();
             var unitCode = currentUser.unitCode;
             $scope.robot = angular.copy(service.robot);
@@ -1759,8 +1759,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
             };
         }]);
     /* controller Edit */
-    app.controller('phieuDieuChuyenNoiBoNhanEditController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'phieuDieuChuyenNoiBoNhanService', 'tempDataService', '$filter', '$uibModal', '$log', 'targetData', 'ngNotify', 'merchandiseService', 'toaster', 'AuDonViService', 'taxService', 'periodService', 'userService', 'wareHouseService',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, targetData, ngNotify, serviceMerchandise, toaster, serviceAuthDonVi, serviceTax, servicePeriod, serviceAuthUser, serviceWareHouse) {
+    app.controller('phieuDieuChuyenNoiBoNhanEditController', ['$scope', '$uibModalInstance', 'configService', 'phieuDieuChuyenNoiBoNhanService', 'tempDataService', '$filter', '$uibModal', '$log', 'targetData', 'ngNotify', 'merchandiseService', 'taxService', 'periodService', 'userService', 'wareHouseService',
+        function ($scope, $uibModalInstance, configService, service, tempDataService, $filter, $uibModal, $log, targetData, ngNotify, serviceMerchandise, serviceTax, servicePeriod, serviceAuthUser, serviceWareHouse) {
             var currentUser = serviceAuthUser.GetCurrentUser();
             var unitCode = currentUser.unitCode;
             $scope.config = angular.copy(configService);
@@ -2239,8 +2239,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
             };
         }]);
     /* controller Details */
-    app.controller('phieuDieuChuyenNoiBoNhanDetailsController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'phieuDieuChuyenNoiBoNhanService', 'tempDataService', '$filter', '$uibModal', '$log', 'targetData', 'ngNotify', 'merchandiseService', 'taxService', 'periodService',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, targetData, ngNotify, serviceMerchandise, serviceTax, servicePeriod) {
+    app.controller('phieuDieuChuyenNoiBoNhanDetailsController', ['$scope', '$uibModalInstance', 'configService', 'phieuDieuChuyenNoiBoNhanService', 'tempDataService', 'targetData', 'merchandiseService', 'taxService', 'periodService',
+        function ($scope, $uibModalInstance, configService, service, tempDataService, targetData, serviceMerchandise, serviceTax, servicePeriod) {
             $scope.config = angular.copy(configService);
             $scope.robot = angular.copy(service.robot);
             $scope.paged = angular.copy(configService.pageDefault);
@@ -2249,8 +2249,6 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
             $scope.isSameUnitUser = true;
             $scope.khoNhaps = [];
             $scope.khoXuats = [];
-            var trangThai = $scope.target.trangThai;
-            var thanhTienSauVat = $scope.target.thanhTienSauVat;
             var taxRate = 0;
             $scope.target.ngayCT = new Date(targetData.ngayCT);
             $scope.isLoading = false;
@@ -2478,8 +2476,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
 
         }]);
     /* controller delete */
-    app.controller('phieuDieuChuyenNoiBoNhanDeleteController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'phieuDieuChuyenNoiBoNhanService', 'tempDataService', '$filter', '$uibModal', '$log', 'targetData', 'ngNotify',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, targetData, ngNotify) {
+    app.controller('phieuDieuChuyenNoiBoNhanDeleteController', ['$scope', '$uibModalInstance', 'configService', 'phieuDieuChuyenNoiBoNhanService', 'targetData', 'ngNotify',
+        function ($scope, $uibModalInstance, configService, service, targetData, ngNotify) {
             $scope.config = angular.copy(configService);
             $scope.isLoading = false;
             $scope.title = function () { return 'Xoá thành phần'; };
@@ -2502,8 +2500,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
             };
         }]);
     /* report Phieu Dieu Chuyen Noi Bo Nhan Controller */
-    app.controller('reportPhieuDieuChuyenNoiBoNhanController', ['$scope', '$location', '$http', 'configService', 'phieuDieuChuyenNoiBoNhanService', 'tempDataService', '$filter', '$uibModal', '$log', 'ngNotify', 'userService', '$stateParams', '$window', 'taxService',
-        function ($scope, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, ngNotify, serviceAuthUser, $stateParams, $window, serviceTax) {
+    app.controller('reportPhieuDieuChuyenNoiBoNhanController', ['$scope', 'phieuDieuChuyenNoiBoNhanService', 'tempDataService', '$filter', 'userService', '$stateParams', '$window', 'taxService',
+        function ($scope, service, tempDataService, $filter, serviceAuthUser, $stateParams, $window, serviceTax) {
             var currentUser = serviceAuthUser.GetCurrentUser();
             $scope.robot = angular.copy(service.robot);
             var id = $stateParams.id;
@@ -2611,9 +2609,9 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
         }]);
     app.controller('phieuDieuChuyenNoiBoNhanRecieveController', [
         '$scope', '$uibModal', '$uibModalInstance',
-        'phieuDieuChuyenNoiBoNhanService', 'configService', '$mdDialog', '$log',
+        'phieuDieuChuyenNoiBoNhanService', 'configService', '$log',
         function ($scope, $uibModal, $uibModalInstance,
-            phieuDieuChuyenNoiBoNhanService, configService, $mdDialog, $log) {
+            phieuDieuChuyenNoiBoNhanService, configService, $log) {
             $scope.config = configService.config;
             $scope.paged = angular.copy(configService.pageDefault);
             $scope.filtered = angular.copy(configService.filterDefault);
@@ -2698,8 +2696,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
             filterData();
 
         }]);
-    app.controller('phieuDieuChuyenNoiBoNhanExportItemController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'phieuDieuChuyenNoiBoNhanService', 'tempDataService', '$filter', '$uibModal', '$log', 'targetData', 'ngNotify', '$window',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, targetData, ngNotify, $window) {
+    app.controller('phieuDieuChuyenNoiBoNhanExportItemController', ['$scope', '$uibModalInstance', 'configService', 'phieuDieuChuyenNoiBoNhanService', 'targetData', 'ngNotify', '$window',
+        function ($scope, $uibModalInstance, configService, service, targetData, ngNotify, $window) {
             $scope.robot = angular.copy(service.robot);
             $scope.config = angular.copy(configService);
             $scope.targetData = angular.copy(targetData);
@@ -2760,8 +2758,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
                 $uibModalInstance.close();
             };
         }]);
-    app.controller('printItemItemShelvesController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'phieuDieuChuyenNoiBoNhanService', 'tempDataService', '$filter', '$uibModal', '$log', 'targetData', 'ngNotify', '$window',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, targetData, ngNotify, $window) {
+    app.controller('printItemItemShelvesController', ['$scope', '$uibModalInstance', 'configService', 'phieuDieuChuyenNoiBoNhanService', 'targetData', 'ngNotify', '$window',
+        function ($scope, $uibModalInstance, configService, service, targetData, ngNotify, $window) {
             $scope.config = angular.copy(configService);
             $scope.target = targetData;
             $scope.isLoading = false;
@@ -2826,8 +2824,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
             };
         }]);
     /* controller delete */
-    app.controller('phieuDieuChuyenNoiBoReciveDeleteController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'phieuDieuChuyenNoiBoNhanService', 'tempDataService', '$filter', '$uibModal', '$log', 'targetData', 'ngNotify',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, targetData, ngNotify) {
+    app.controller('phieuDieuChuyenNoiBoReciveDeleteController', ['$scope', '$uibModalInstance', 'configService', 'phieuDieuChuyenNoiBoNhanService', 'targetData', 'ngNotify',
+        function ($scope, $uibModalInstance, configService, service, targetData, ngNotify) {
             $scope.config = angular.copy(configService);
             $scope.isLoading = false;
             $scope.title = function () { return 'Xoá thành phần'; };
@@ -2849,8 +2847,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
                 $uibModalInstance.close();
             };
         }]);
-    app.controller('phieuDieuChuyenNoiBoRecieveDetailsController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'phieuDieuChuyenNoiBoNhanService', 'tempDataService', '$filter', '$uibModal', '$log', 'targetData', 'ngNotify', 'merchandiseService', 'wareHouseService',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, targetData, ngNotify, serviceMerchandise, serviceWareHouse) {
+    app.controller('phieuDieuChuyenNoiBoRecieveDetailsController', ['$scope', '$uibModalInstance', 'phieuDieuChuyenNoiBoNhanService', 'tempDataService', '$filter', 'targetData', 'ngNotify', 'merchandiseService', 'wareHouseService',
+        function ($scope, $uibModalInstance, service, tempDataService, $filter, targetData, ngNotify, serviceMerchandise, serviceWareHouse) {
             $scope.robot = angular.copy(service.robot);
             $scope.target = targetData;
             $scope.tempData = tempDataService.tempData;

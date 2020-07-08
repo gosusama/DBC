@@ -2,7 +2,7 @@
 <div>
     <div>
         <div class="modal-header">
-          <h3 class="modal-title" style="color:blue;">{{title()}}</h3>
+            <h3 class="modal-title" style="color:blue;">{{title()}}</h3>
             <div class="button-close" ng-click="cancel()">
                 <i class="fa fa-times-circle"></i>
             </div>
@@ -128,7 +128,6 @@
                                 </tr>
                             </thead>
                             <tbody ng-form name="_formAddDetail">
-
                                 <tr style="background:rgba(119, 119, 119, 0.48)">
                                     <td style="text-align:center;"></td>
                                     <td>
@@ -175,9 +174,6 @@
                                 </tr>
                             </tbody>
                             <tbody ng-form name="_formDetail">
-                                <tr ng-if="isLoading">
-                                    <td colspan="16"><my-loading></my-loading></td>
-                                </tr>
                                 <tr ng-repeat="item in target.dataDetails | filter : newItem.maVatTu track by $index " ng-if="item.keKiemKe === target.keKiemKe">
                                     <td class="text-center">{{$index + 1}}</td>
                                     <td>
@@ -238,49 +234,44 @@
                     </div>
                 </uib-tab>
 
-                <uib-tab index="0" heading="Mã không thuộc kệ">
-                    <div>
-                        <table class="table table-bordered table-hover table-condensed">
-                            <thead>
-                                <tr style="font-weight: bold">
-                                    <th class="text-center" style="width: 3%">STT</th>
-                                    <th class="text-center" style="width: 5%">Mã vật tư</th>
-                                    <th class="text-center" style="width: 10%;max-width:150px !important;">Barcode</th>
-                                    <th class="text-center" style="width: 12%">Tên vật tư</th>
-                                    <th class="text-center" style="width: 10%">Đang thuộc kệ</th>
-                                    <th class="text-center" style="width: 10%">Thao tác</th>
-                                </tr>
-                            </thead>
-                            <tbody ng-form name="_formNotIn">
-                                <tr ng-if="isLoading">
-                                    <td colspan="16"><my-loading></my-loading></td>
-                                </tr>
-                                <tr ng-repeat="item in target.dataDetails | filter : newItem.maVatTu track by $index" ng-if="item.keKiemKe !== target.keKiemKe">
-                                    <td class="text-center">{{$index + 1}}</td>
-                                    <td>
-                                        {{item.maVatTu}}
-                                    </td>
-                                    <td style="word-wrap: break-word;">
-                                        <input type="text" ng-value="item.barcode" disabled="">
-                                    </td>
-                                    <td>
-                                        {{item.tenVatTu}}
-                                    </td>
-                                    <td>
-                                        {{item.keKiemKe}}
-                                    </td>
-                                    <td style="white-space: nowrap">
-                                        <div class="form-buttons form-inline">
-                                            <button prevent-default type="button" style="height: 20px; line-height: 2px;background: rgba(255, 213, 93, 0.61);" ng-click="removeMaHang($index)" class="btn btn-default btn-sm">
-                                                Xóa
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </uib-tab>
+                <!--<uib-tab index="1" heading="Mã không thuộc kệ">
+                    <table class="table table-bordered table-hover table-condensed">
+                        <thead>
+                            <tr style="font-weight: bold">
+                                <th class="text-center" style="width: 3%">STT</th>
+                                <th class="text-center" style="width: 5%">Mã vật tư</th>
+                                <th class="text-center" style="width: 10%;max-width:150px !important;">Barcode</th>
+                                <th class="text-center" style="width: 12%">Tên vật tư</th>
+                                <th class="text-center" style="width: 10%">Đang thuộc kệ</th>
+                                <th class="text-center" style="width: 10%">Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody ng-form name="_formNotIn">
+                            <tr ng-repeat="item in target.dataDetails | filter : newItem.maVatTu track by $index" ng-if="item.keKiemKe !== target.keKiemKe">
+                                <td class="text-center">{{$index + 1}}</td>
+                                <td>
+                                    {{item.maVatTu}}
+                                </td>
+                                <td style="word-wrap: break-word;">
+                                    <input type="text" ng-value="item.barcode" disabled="">
+                                </td>
+                                <td>
+                                    {{item.tenVatTu}}
+                                </td>
+                                <td>
+                                    {{item.keKiemKe}}
+                                </td>
+                                <td style="white-space: nowrap">
+                                    <div class="form-buttons form-inline">
+                                        <button prevent-default type="button" style="height: 20px; line-height: 2px;background: rgba(255, 213, 93, 0.61);" ng-click="removeMaHang($index)" class="btn btn-default btn-sm">
+                                            Xóa
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </uib-tab>-->
             </uib-tabset>
         </div>
     </div>

@@ -479,8 +479,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
     }]);
     /* controller list */
     app.controller('phieuDieuChuyenNoiBoController', [
-        '$scope', '$location', '$http', 'configService', 'phieuDieuChuyenNoiBoService', 'tempDataService', '$filter', '$uibModal', '$log', 'ngNotify', 'securityService', '$rootScope', 'toaster', 'periodService', 'merchandiseService', 'customerService', 'merchandiseTypeService', 'nhomVatTuService', 'supplierService', 'wareHouseService', 'packagingService', 'taxService', 'donViTinhService', 'AuDonViService', 'userService',
-        function ($scope, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, ngNotify, securityService, $rootScope, toaster, servicePeriod, serviceMerchandise, serviceCustomer, serviceMerchandiseType, serviceNhomVatTu, serviceSupplier, serviceWareHouse, servicePackaging, serviceTax, serviceDonViTinh, serviceAuthDonVi, serviceAuthUser) {
+        '$scope', 'configService', 'phieuDieuChuyenNoiBoService', 'tempDataService', '$filter', '$uibModal', '$log', 'securityService', '$rootScope', 'toaster', 'periodService', 'merchandiseService', 'merchandiseTypeService', 'nhomVatTuService', 'supplierService', 'wareHouseService', 'packagingService', 'taxService', 'donViTinhService', 'AuDonViService', 'userService',
+        function ($scope, configService, service, tempDataService, $filter, $uibModal, $log, securityService, $rootScope, toaster, servicePeriod, serviceMerchandise, serviceMerchandiseType, serviceNhomVatTu, serviceSupplier, serviceWareHouse, servicePackaging, serviceTax, serviceDonViTinh, serviceAuthDonVi, serviceAuthUser) {
             var currentUser = serviceAuthUser.GetCurrentUser();
             var unitCode = currentUser.unitCode;
             $scope.openClosingOut = false;
@@ -1087,8 +1087,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
             }
         }]);
     /* controller addNew */
-    app.controller('phieuDieuChuyenNoiBoCreateController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'phieuDieuChuyenNoiBoService', 'tempDataService', '$filter', '$uibModal', '$log', 'ngNotify', '$rootScope', 'userService', 'FileUploader', 'merchandiseService', 'customerService', 'merchandiseTypeService', 'nhomVatTuService', 'supplierService', 'wareHouseService', 'packagingService', 'taxService', 'donViTinhService', 'toaster', 'periodService', 'objectFilter', 'AuDonViService', 'phieuNhapHangMuaService',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, ngNotify, $rootScope, serviceAuthUser, FileUploader, serviceMerchandise, serviceCustomer, serviceMerchandiseType, serviceNhomVatTu, serviceSupplier, serviceWareHouse, servicePackaging, serviceTax, serviceDonViTinh, toaster, servicePeriod, objectFilter, serviceAuthDonVi, phieuNhapHangMuaService) {
+    app.controller('phieuDieuChuyenNoiBoCreateController', ['$scope', '$uibModalInstance', 'configService', 'phieuDieuChuyenNoiBoService', 'tempDataService', '$filter', '$uibModal', '$log', 'ngNotify', 'userService', 'merchandiseService', 'merchandiseTypeService', 'nhomVatTuService', 'supplierService', 'wareHouseService', 'packagingService', 'taxService', 'donViTinhService', 'toaster', 'periodService', 'objectFilter', 'AuDonViService', 'phieuNhapHangMuaService',
+        function ($scope, $uibModalInstance, configService, service, tempDataService, $filter, $uibModal, $log, ngNotify, serviceAuthUser, serviceMerchandise, serviceMerchandiseType, serviceNhomVatTu, serviceSupplier, serviceWareHouse, servicePackaging, serviceTax, serviceDonViTinh, toaster, servicePeriod, objectFilter, serviceAuthDonVi, phieuNhapHangMuaService) {
             var currentUser = serviceAuthUser.GetCurrentUser();
             var unitCode = currentUser.unitCode;
             $scope.robot = angular.copy(service.robot);
@@ -1109,7 +1109,6 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
             $scope.tempData = tempDataService.tempData;
             $scope.isLoading = false;
             $scope.isSameUnitUser = true;
-            var tableName = null;
             var targetObj = null;
             $scope.displayHepler = function (paraValue, moduleName) {
                 var data = $filter('filter')($scope.tempData(moduleName), { value: paraValue }, true);
@@ -1125,8 +1124,7 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
                     var maDonViXuat = response.unitUser;
                     if (maDonViNhan === maDonViXuat) {
                         $scope.isSameUnitUser = true;
-                    }
-                    else {
+                    } else {
                         $scope.isSameUnitUser = false;
                     }
                 });
@@ -1145,7 +1143,6 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
                 }, function (errorRes) {
                     console.log('errorRes', errorRes);
                 });
-
             };
 
             //load danh muc
@@ -1405,7 +1402,6 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
                     }
                 });
                 service.getNewInstanceFrom(maChungTu, function (response) {
-                    console.log(response);
                     $scope.target = response;
                     if ($scope.target.vat != null) {
                         serviceTax.getTaxByCode($scope.target.vat).then(function (response) {
@@ -1460,7 +1456,7 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
                                 }
                             });
                         });
-                        $scope.target.maKhoXuat = objectFilter.maKhoXuat
+                        $scope.target.maKhoXuat = objectFilter.maKhoXuat;
                         $scope.target.maKhoNhap = objectFilter.maKhoNhap;
                     }
                     $scope.pageChanged();
@@ -1471,6 +1467,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
                         $scope.target.maKhoXuat = data[0].value;
                     }
                     $scope.target.lenhDieuDong = objectFilter.maChungTu;
+                    $scope.target.maDonViNhan = "DV1-CH5";
+                    $scope.changeDonViNhan($scope.target.maDonViNhan);
                 });
             };
 
@@ -1495,6 +1493,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
                     $scope.checkExistPhieu = false;
                     service.getNewInstance(function (response) {
                         $scope.target = response;
+                        $scope.target.maDonViNhan = "DV1-CH5";
+                        $scope.changeDonViNhan($scope.target.maDonViNhan);
                         servicePeriod.getKyKeToan().then(function (response) {
                             if (response && response.status == 200 && response.data) {
                                 targetObj = angular.copy(response.data);
@@ -1779,36 +1779,41 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
                 model.thanhTien = model.soLuong * model.donGia;
             }
             $scope.save = function () {
-                var check = true;
+                if ($scope.target.maKhoXuat == $scope.target.maKhoNhap) {
+                    ngNotify.set("Mã kho nhập không được trùng với mã kho xuất!", { type: 'error' });
+                    return;
+                }
+
+                if (!$scope.target.dataDetails || $scope.target.dataDetails.length == 0) {
+                    ngNotify.set("Không có hàng hóa điều chuyển!", { type: 'error' });
+                    return;
+                }
+
                 $scope.target.dataDetails.forEach(function (obj) {
                     if (obj.soLuong > obj.soLuongTonXuat) {
                         ngNotify.set("Kiểm tra lại số lượng nhập !", { type: 'error' });
-                        check = false;
                         return;
                     }
                 });
-                if (check) {
-                    $scope.target.ngayCT = $filter('date')($scope.target.ngayCT);
-                    $scope.target.ngayDieuDong = $filter('date')($scope.target.ngayDieuDong);
-                    //index để sắp xếp theo mã hàng lúc thêm
-                    if ($scope.target.dataDetails.length > 0) {
-                        angular.forEach($scope.target.dataDetails, function (value, index) {
-                            $scope.target.dataDetails.index = index;
-                        });
-                    }
-                    service.post($scope.target).then(function (successRes) {
-                        if (successRes && successRes.status === 201 && successRes.data) {
-                            ngNotify.set("Thêm mới thành công", { type: 'success' });
-                            $uibModalInstance.close($scope.target);
-                        } else {
-                            console.log('addNew successRes', successRes);
-                            ngNotify.set(successRes.data.message, { duration: 3000, type: 'error' });
-                        }
-                    },
-                        function (errorRes) {
-                            console.log('errorRes', errorRes);
-                        });
+
+                $scope.target.ngayCT = $filter('date')($scope.target.ngayCT);
+                $scope.target.ngayDieuDong = $filter('date')($scope.target.ngayDieuDong);
+                //index để sắp xếp theo mã hàng lúc thêm
+                if ($scope.target.dataDetails.length > 0) {
+                    angular.forEach($scope.target.dataDetails, function (value, index) {
+                        $scope.target.dataDetails.index = index;
+                    });
                 }
+                service.post($scope.target).then(function (successRes) {
+                    if (successRes && successRes.status === 201 && successRes.data) {
+                        ngNotify.set("Thêm mới thành công", { type: 'success' });
+                        $uibModalInstance.close($scope.target);
+                    } else {
+                        ngNotify.set(successRes.data.message, { duration: 3000, type: 'error' });
+                    }
+                }, function (errorRes) {
+                    console.log('errorRes', errorRes);
+                });
             };
             $scope.saveAndKeep = function () {
                 var tempData = angular.copy($scope.target);
@@ -1953,8 +1958,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
 
         }]);
     /* controller Edit */
-    app.controller('phieuDieuChuyenNoiBoEditController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'phieuDieuChuyenNoiBoService', 'tempDataService', '$filter', '$uibModal', '$log', 'targetData', 'ngNotify', 'merchandiseService', 'toaster', 'AuDonViService', 'taxService', 'periodService', 'userService', 'wareHouseService',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, targetData, ngNotify, serviceMerchandise, toaster, serviceAuthDonVi, serviceTax, servicePeriod, serviceAuthUser, serviceWareHouse) {
+    app.controller('phieuDieuChuyenNoiBoEditController', ['$scope', '$uibModalInstance', 'configService', 'phieuDieuChuyenNoiBoService', 'tempDataService', '$filter', '$uibModal', '$log', 'targetData', 'ngNotify', 'merchandiseService', 'toaster', 'taxService', 'periodService', 'userService', 'wareHouseService',
+        function ($scope, $uibModalInstance, configService, service, tempDataService, $filter, $uibModal, $log, targetData, ngNotify, serviceMerchandise, toaster, serviceTax, servicePeriod, serviceAuthUser, serviceWareHouse) {
             var currentUser = serviceAuthUser.GetCurrentUser();
             var unitCode = currentUser.unitCode;
             $scope.config = angular.copy(configService);
@@ -2440,6 +2445,16 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
             }
 
             $scope.save = function () {
+                if ($scope.target.maKhoXuat == $scope.target.maKhoNhap) {
+                    ngNotify.set("Mã kho nhập không được trùng với mã kho xuất!", { type: 'error' });
+                    return;
+                }
+
+                if (!$scope.target.dataDetails || $scope.target.dataDetails.length == 0) {
+                    ngNotify.set("Không có hàng hóa điều chuyển!", { type: 'error' });
+                    return;
+                }
+
                 //index để sắp xếp theo mã hàng lúc thêm
                 if ($scope.target.dataDetails.length > 0) {
                     angular.forEach($scope.target.dataDetails, function (value, index) {
@@ -2454,11 +2469,9 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
                         console.log('update successRes', successRes);
                         ngNotify.set(successRes.data.message, { duration: 3000, type: 'error' });
                     }
-                },
-                    function (response) {
-                        console.log('ERROR: Update failed! ' + response);
-                    }
-                );
+                }, function (response) {
+                    console.log('ERROR: Update failed! ' + response);
+                });
             };
             $scope.saveAndPrint = function () {
                 service.updateCT($scope.target).then(function (successRes) {
@@ -2577,9 +2590,9 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
                             ngNotify.set(successRes.data.message, { duration: 3000, type: 'error' });
                         }
                     },
-                    function (errorRes) {
-                        console.log('errorRes', errorRes);
-                    });
+                        function (errorRes) {
+                            console.log('errorRes', errorRes);
+                        });
                 }
             };
             $scope.cancel = function () {
@@ -2725,8 +2738,7 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
                                             $scope.goIndex = function () {
                                                 $state.go('nvDieuChuyenNoiBo');
                                             };
-                                        }
-                                        else if (response && response.status === 200 && response.data && response.data.data === "NoPeriod") {
+                                        } else if (response && response.status === 200 && response.data && response.data.data === "NoPeriod") {
                                             toaster.pop({
                                                 type: 'error',
                                                 title: 'Không thành công',
@@ -2734,8 +2746,7 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
                                                 timeout: 3000
                                             });
                                             $uibModalInstance.close($scope.target);
-                                        }
-                                        else if (response && response.status === 200 && response.data && response.data.data === "Complete") {
+                                        } else if (response && response.status === 200 && response.data && response.data.data === "Complete") {
                                             toaster.pop({
                                                 type: 'success',
                                                 title: 'Thành công',
@@ -2743,8 +2754,7 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
                                                 timeout: 3000
                                             });
                                             $uibModalInstance.close($scope.target);
-                                        }
-                                        else if (response && response.status === 200 && response.data && response.data.data === "Failed") {
+                                        } else if (response && response.status === 200 && response.data && response.data.data === "Failed") {
                                             toaster.pop({
                                                 type: 'error',
                                                 title: 'Lỗi',
@@ -2752,8 +2762,7 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
                                                 timeout: 3000
                                             });
                                             $uibModalInstance.close($scope.target);
-                                        }
-                                        else {
+                                        } else {
                                             toaster.pop({
                                                 type: 'error',
                                                 title: 'Lỗi',
@@ -2769,8 +2778,7 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
                                 toaster.pop('error', "Lỗi:", "Xảy ra lỗi");
                             });
                         }
-                    }
-                    else {
+                    } else {
                         service.postApproval($scope.target).then(function (response) {
                             if (response && response.status === 200 && response.data && response.data.data === "Complete") {
                                 toaster.pop({
@@ -2783,8 +2791,7 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
                                 $scope.goIndex = function () {
                                     $state.go('nvDieuChuyenNoiBo');
                                 };
-                            }
-                            else if (response && response.status === 200 && response.data && response.data.data === "Failed") {
+                            } else if (response && response.status === 200 && response.data && response.data.data === "Failed") {
                                 toaster.pop({
                                     type: 'error',
                                     title: 'Lỗi',
@@ -2792,8 +2799,7 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
                                     timeout: 3000
                                 });
                                 $uibModalInstance.close($scope.target);
-                            }
-                            else if (response && response.status === 200 && response.data && response.data.data === "NoPeriod") {
+                            } else if (response && response.status === 200 && response.data && response.data.data === "NoPeriod") {
                                 toaster.pop({
                                     type: 'error',
                                     title: 'Không thành công',
@@ -2801,8 +2807,7 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
                                     timeout: 3000
                                 });
                                 $uibModalInstance.close($scope.target);
-                            }
-                            else {
+                            } else {
                                 toaster.pop({
                                     type: 'error',
                                     title: 'Lỗi',

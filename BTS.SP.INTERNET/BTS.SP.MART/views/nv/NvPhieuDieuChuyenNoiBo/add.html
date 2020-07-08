@@ -16,7 +16,7 @@
     <div class="modal-body" ng-form name="_form">
         <div class="form-group">
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="md-style-label-input">
                         Số chứng từ
                         <span style="color:red">(*)</span>
@@ -28,7 +28,7 @@
                         </span>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="md-style-label-input">
                         Ngày chứng từ
                     </div>
@@ -39,7 +39,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="md-style-label-input">
                         Ngày tháng
                     </div>
@@ -52,22 +52,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <div class="md-style-label-input">
-                        Phiếu nhập mua
-                    </div>
-                    <div class="md-4-style-input">
-                        <div class="add-input-zone">
-                            <input class="form-control" type="text" ng-model="lenhDieuDong" typeahead-editable="false" typeahead-on-select="loadDataByNhapMua(lenhDieuDong)"
-                                   uib-typeahead="opt.value as opt.text for opt in tempData('nhapMuas') | filter:$viewValue | limitTo: 5">
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
         <div class="form-group">
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="md-style-label-input">
                         Lệnh điều động
                     </div>
@@ -75,7 +64,7 @@
                         <input class="form-control" focus="true" name="_lenhDieuDong" type="text" ng-model="target.lenhDieuDong">
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="md-style-label-input">
                         Người vận chuyển
                     </div>
@@ -83,7 +72,7 @@
                         <input class="form-control" name="_nguoiVanChuyen" type="text" ng-model="target.nguoiVanChuyen">
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="md-style-label-input">
                         Phương tiện vận chuyển
                     </div>
@@ -98,7 +87,7 @@
         </div>
         <div class="form-group">
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="md-style-label-input">
                         Kho xuất
                         <span style="color:red">(*)</span>
@@ -115,7 +104,7 @@
                         </span>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="md-style-label-input">
                         Đơn vị nhận
                         <span style="color:red">(*)</span>
@@ -129,7 +118,7 @@
                         </span>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="md-style-label-input">
                         Kho nhập
                         <span style="color:red">(*)</span>
@@ -146,14 +135,17 @@
                         </span>
                     </div>
                 </div>
-                <div class="col-md-3">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-12">
                     <div class="md-style-label-input">
-                        Lý do
-                        <span style="color:red"></span>
+                        Nội dung
                     </div>
-                    <div class="md-4-style-input">
+                    <div class="md-12-style-input">
                         <div class="add-input-zone">
-                            <input class="form-control" name="_noiDung" type="text" ng-model="target.noiDung">
+                            <textarea class="form-control" name="_noiDung" type="text" ng-model="target.noiDung"></textarea>
                         </div>
                     </div>
                 </div>

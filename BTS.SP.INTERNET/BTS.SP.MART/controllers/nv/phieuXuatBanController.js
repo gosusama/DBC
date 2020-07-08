@@ -135,7 +135,6 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
                 }
                 else {
                     item.thanhTien = item.soLuong * item.donGia;
-                    console.log(item.thanhTien);
                 }
             }
 
@@ -2341,7 +2340,6 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
                 $scope.isLoading = true;
                 postdata = { paged: $scope.paged, filtered: $scope.filtered };
                 service.postQuery(postdata).then(function (successRes) {
-                    console.log(successRes);
                     if (successRes && successRes.status === 200 && successRes.data && successRes.data.status) {
                         $scope.isLoading = false;
                         $scope.data = successRes.data.data.data;

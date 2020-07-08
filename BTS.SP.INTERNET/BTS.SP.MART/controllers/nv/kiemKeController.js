@@ -74,8 +74,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
     }]);
     /* controller list */
     app.controller('kiemKeController', [
-        '$scope', '$location', '$http', 'configService', 'kiemKeService', 'tempDataService', '$filter', '$uibModal', '$log', 'ngNotify', 'securityService', '$rootScope', 'toaster', 'periodService', 'merchandiseService', 'customerService', 'merchandiseTypeService', 'nhomVatTuService', 'supplierService', 'wareHouseService', 'packagingService', 'taxService', 'donViTinhService', 'shelvesService', 'FileUploader', 'userService',
-        function ($scope, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, ngNotify, securityService, $rootScope, toaster, servicePeriod, serviceMerchandise, serviceCustomer, serviceMerchandiseType, serviceNhomVatTu, serviceSupplier, serviceWareHouse, servicePackaging, serviceTax, serviceDonViTinh, serviceShelves, FileUploader, serviceAuthUser) {
+        '$scope', 'configService', 'kiemKeService', 'tempDataService', '$filter', '$uibModal', '$log', 'securityService', 'toaster', 'customerService', 'merchandiseTypeService', 'nhomVatTuService', 'supplierService', 'wareHouseService', 'packagingService', 'taxService', 'donViTinhService', 'shelvesService', 'FileUploader', 'userService',
+        function ($scope, configService, service, tempDataService, $filter, $uibModal, $log, securityService, toaster, serviceCustomer, serviceMerchandiseType, serviceNhomVatTu, serviceSupplier, serviceWareHouse, servicePackaging, serviceTax, serviceDonViTinh, serviceShelves, FileUploader, serviceAuthUser) {
             var currentUser = serviceAuthUser.GetCurrentUser();
             var unitCode = currentUser.unitCode;
             $scope.config = angular.copy(configService);
@@ -452,11 +452,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
         }]);
 
     /* controller addNew */
-    app.controller('receiveDataKiemKeController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'kiemKeService', 'tempDataService', '$filter', '$uibModal', '$log', 'ngNotify', '$rootScope', 'userService', 'FileUploader', 'merchandiseService', 'customerService', 'merchandiseTypeService', 'nhomVatTuService', 'supplierService', 'wareHouseService', 'packagingService', 'taxService', 'donViTinhService', 'periodService', 'targetData',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, ngNotify, $rootScope, serviceAuthUser, FileUploader, serviceMerchandise, serviceCustomer, serviceMerchandiseType, serviceNhomVatTu, serviceSupplier, serviceWareHouse, servicePackaging, serviceTax, serviceDonViTinh, servicePeriod, targetData) {
-            var currentUser = serviceAuthUser.GetCurrentUser();
-            var unitCode = currentUser.unitCode;
-            var maNhanVien = currentUser.userName;
+    app.controller('receiveDataKiemKeController', ['$scope', '$uibModalInstance', 'configService', '$uibModal', 'FileUploader', 'targetData',
+        function ($scope, $uibModalInstance, configService, $uibModal, FileUploader, targetData) {
             var rootUrl = configService.apiServiceBaseUri;
             var serviceUrl = rootUrl + '/api/Nv/KiemKe';
             var uploader = $scope.uploader = new FileUploader({
@@ -495,8 +492,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
             };
         }]);
     /* controller Edit */
-    app.controller('kiemKeEditController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'kiemKeService', 'tempDataService', '$filter', '$uibModal', '$log', 'targetData', 'ngNotify', 'merchandiseService',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, targetData, ngNotify, serviceMerchandise) {
+    app.controller('kiemKeEditController', ['$scope', '$uibModalInstance', 'configService', 'kiemKeService', 'tempDataService', '$filter', '$uibModal', 'targetData', 'ngNotify', 'merchandiseService',
+        function ($scope, $uibModalInstance, configService, service, tempDataService, $filter, $uibModal, targetData, ngNotify, serviceMerchandise) {
             $scope.config = angular.copy(configService);
             $scope.robot = angular.copy(service.robot);
             $scope.paged = angular.copy(configService.pageDefault);
@@ -524,8 +521,7 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
                         $scope.target = response.data.data;
                     }
                 });
-
-            };
+            }
             filterData();
             $scope.selectedMaHang = function (code) {
                 if (code) {
@@ -638,8 +634,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
 
 
     /* controller Details */
-    app.controller('kiemKeDetailsController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'kiemKeService', 'tempDataService', '$filter', '$uibModal', '$log', 'targetData', 'ngNotify',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, targetData, ngNotify) {
+    app.controller('kiemKeDetailsController', ['$scope', '$uibModalInstance', 'configService', 'kiemKeService', 'tempDataService', '$filter', 'targetData',
+        function ($scope, $uibModalInstance, configService, service, tempDataService, $filter, targetData) {
             $scope.config = angular.copy(configService);
             $scope.paged = angular.copy(configService.pageDefault);
             $scope.tempData = tempDataService.tempData;
@@ -707,8 +703,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
 
         }]);
     /* controller delete */
-    app.controller('kiemKeDeleteController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'kiemKeService', 'tempDataService', '$filter', '$uibModal', '$log', 'targetData', 'ngNotify',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, targetData, ngNotify) {
+    app.controller('kiemKeDeleteController', ['$scope', '$uibModalInstance', 'configService', 'kiemKeService', 'targetData', 'ngNotify',
+        function ($scope, $uibModalInstance, configService, service, targetData, ngNotify) {
             $scope.config = angular.copy(configService);
             $scope.targetData = angular.copy(targetData);
             $scope.target = targetData;
@@ -734,20 +730,20 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
         }]);
 
     /* report Phieu Nhap Hang Mua Controller */
-    app.controller('reportkiemKeController', ['$scope', '$location', '$http', 'configService', 'kiemKeService', 'tempDataService', '$filter', '$uibModal', '$log', 'ngNotify', '$stateParams', 'userService','$window',
-        function ($scope, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, ngNotify, $stateParams, serviceAuthUser, $window) {
+    app.controller('reportkiemKeController', ['$scope', 'configService', 'kiemKeService', '$filter', '$stateParams', 'userService', '$window',
+        function ($scope, configService, service, $filter, $stateParams, serviceAuthUser, $window) {
             $scope.robot = angular.copy(service.robot);
             $scope.config = angular.copy(configService);
             $scope.typeReportKiemKe = [
-             {
-                 value: '1', text: 'Hàng đủ'
-             },
-             {
-                 value: '2', text: "Hàng thừa"
-             },
-             {
-                 value: '3', text: "Hàng thiếu"
-             }
+                {
+                    value: '1', text: 'Hàng đủ'
+                },
+                {
+                    value: '2', text: "Hàng thừa"
+                },
+                {
+                    value: '3', text: "Hàng thiếu"
+                }
 
             ];
             function filterData(option) {
@@ -863,8 +859,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
             $scope.myOption = '3';
             filterData($scope.myOption);
         }]);
-    app.controller('repKiemKeLuuTamController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'kiemKeService', 'tempDataService', '$filter', '$uibModal', '$log', 'targetData', 'ngNotify',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, targetData, ngNotify) {
+    app.controller('repKiemKeLuuTamController', ['$scope', '$uibModalInstance', 'configService', 'kiemKeService', 'targetData', 'ngNotify',
+        function ($scope, $uibModalInstance, configService, service, targetData, ngNotify) {
             $scope.robot = angular.copy(service.robot);
             $scope.lstHangHoa = [];
             $scope.target = targetData;
@@ -877,11 +873,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
                         ngNotify.set("Thành công", { type: 'success' });
                         $scope.lstHangHoa.dataDetails.clear();
                         $uibModalInstance.close($scope.target);
-                    } else {
-
                     }
-                }
-                    );
+                });
             };
             $scope.print = function () {
                 var table = document.getElementById('main-report').innerHTML;
@@ -893,8 +886,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
                 $uibModalInstance.close();
             };
         }]);
-    app.controller('kiemKeExternalCodeController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'kiemKeService', 'tempDataService', '$filter', '$uibModal', '$log', 'ngNotify', 'targetData',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, ngNotify, targetData) {
+    app.controller('kiemKeExternalCodeController', ['$scope', '$uibModalInstance', 'configService', 'kiemKeService', 'targetData',
+        function ($scope, $uibModalInstance, configService, service, targetData) {
             $scope.robot = angular.copy(service.robot);
             $scope.config = angular.copy(configService);
             $scope.paged = angular.copy(configService.pageDefault);
@@ -969,4 +962,3 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
         }]);
     return app;
 });
-

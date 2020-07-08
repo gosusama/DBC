@@ -191,7 +191,7 @@
             </thead>
             <tbody>
                 <tr ng-if="isLoading">
-                    <td colspan="6"><my-loading></my-loading></td>
+                    <td colspan="9"><my-loading></my-loading></td>
                 </tr>
                 <tr class="even pointer" ng-repeat="item in data | orderBy:sortType:sortReverse" ng-dblclick="details(item)" ng-class="{'differenceUnitCode': item.differenceUnitCode}">
                     <td>{{$index + 1}}</td>
@@ -201,7 +201,7 @@
                     <td>{{displayHepler(item.maDonViXuat,'auDonVis');}}</td>
                     <td>{{displayHepler(item.maDonViNhan,'auDonVis');}}</td>
                     <td style="text-align:right;">{{item.thanhTienSauVat | number}}</td>
-                    <td ng-class="item.trangThai == 10 ? 'is-approval' : 'not-approval-yet' ">{{item.trangThai | approval}}</td>
+                    <td ng-class="item.trangThai == 10 ? 'is-approval' : 'not-approval-yet'">{{item.trangThai | approval}}</td>
                     <td>
                         <a ng-if="accessList.view" class="glyphicon glyphicon-info-sign" ng-click="details(item)" data-toggle="tooltip" data-placement="top" title="Chi tiết"></a> &nbsp;&nbsp;&nbsp;
                         <a ng-if="accessList.edit" ng-show="item.trangThai != 10" class="glyphicon glyphicon-pencil" ng-click="update(item)" data-toggle="tooltip" data-placement="top" title="Sửa phiếu"></a><span ng-if="item.trangThai != 10">&nbsp;&nbsp;&nbsp;</span>
