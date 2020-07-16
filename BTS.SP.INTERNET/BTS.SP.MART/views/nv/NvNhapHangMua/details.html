@@ -22,7 +22,7 @@
 
 <div style="font-size: 14px;">
     <div class="modal-header">
-      <h3 class="modal-title" style="color:blue;">{{title()}}</h3>
+        <h3 class="modal-title" style="color:blue;">{{title()}}</h3>
         <div class="button-close" ng-click="cancel()">
             <i class="fa fa-times-circle"></i>
         </div>
@@ -30,7 +30,7 @@
     <div class="modal-body" ng-form name="_form">
         <div class="form-group">
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="md-style-label-input">
                         Số chứng từ
                         <span style="color: red">(*)</span>
@@ -42,7 +42,7 @@
                         </span>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="md-style-label-input">
                         Ngày chứng từ<span style="color: red">(*)</span>
                     </div>
@@ -55,32 +55,24 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="md-style-label-input">
                         Ngày hóa đơn
                     </div>
                     <div class="md-4-style-input">
                         <div class="add-input-zone">
                             <input class="input-border-form" type="text" ng-model="target.ngayHoaDon" placeholder="{{config.dateFormat}}" uib-datepicker-popup="{{config.dateFormat}}"
-                                   datepicker-localdate is-open="_ngayHoaDon" disabled/>
+                                   datepicker-localdate is-open="_ngayHoaDon" disabled />
                             <div class="button-calender" ng-click="_ngayHoaDon = !_ngayHoaDon; config.delegateEvent($event);">
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="md-style-label-input">
-                        Số hóa đơn
-                    </div>
-                    <div class="md-4-style-input">
-                        <input class="input-border-form" type="text" name="_maHoaDon" focus="true" ng-model="target.maHoaDon" maxlength="50" disabled/>
                     </div>
                 </div>
             </div>
         </div>
         <div class="form-group">
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="md-style-label-input">
                         Nhà cung cấp
                         <span style="color: red">(*)</span>
@@ -90,7 +82,7 @@
                             <input class="input-border-form" name="_makhachHang" type="text" ng-model="target.maKhachHang" typeahead-editable="false"
                                    uib-typeahead="opt.value as opt.text for opt in tempData('suppliers') | filter:$viewValue | limitTo:5"
                                    typeahead-on-select="selectedkhachHang($item)" typeahead-input-formatter="displayHepler($model, 'suppliers')"
-                                   required disabled/>
+                                   required disabled />
                             <div style="display:none" class="add-input-able" ng-click="createCustomer(target, 'makhachHang')">
                             </div>
                             <span style="color:red" ng-show="_form._makhachHang.$dirty && _form._makhachHang.$invalid">
@@ -99,60 +91,29 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="md-style-label-input">
-                        Mã số thuế
-                    </div>
-                    <div class="md-4-style-input">
-                        <input class="input-border-form" name="_maSoThue" type="text" ng-model="target.maSoThue" disabled/>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="md-style-label-input">
-                        Đơn đặt hàng
-                    </div>
-                    <div class="md-4-style-input">
-                        <input class="input-border-form" name="_sophieudathang" type="text" ng-model="target.soPhieuDatHang" typeahead-editable="false"
-                               uib-typeahead="opt.value as opt.text for opt in donHangs | filter:$viewValue | limitTo:5" typeahead-on-select="selectedDonDatHang($item)" disabled/>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="md-style-label-input">
-                        Trạng thái thanh toán
+                        Kho nhập
+                        <span style="color: red">(*)</span>
                     </div>
                     <div class="md-4-style-input">
                         <div class="add-input-zone">
-                            <select class="form-control" ng-init="target.trangThaiThanhToan = 0" ng-model="target.trangThaiThanhToan" ng-options="opt.value as opt.text for opt in tempData('trangThaiThanhToan')"></select>
+                            <input class="input-border-form" name="_khoNhap" type="text" ng-model="target.maKhoNhap" typeahead-editable="false" typeahead-on-select="selectedKhoNhap($item)" uib-typeahead="opt.value as opt.text for opt in tempData('wareHouses') | filter:$viewValue | limitTo:5" typeahead-input-formatter="displayHepler($model, 'wareHouses')" required disabled />
                         </div>
+                        <span style="color: red" ng-show="_form._khoNhap.$dirty && _form._khoNhap.$invalid">
+                            <span style="color: red">Không được để trống</span>
+                        </span>
                     </div>
                 </div>
             </div>
         </div>
         <div class="form-group">
             <div class="row">
-                <div class="col-md-6">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="md-style-label-input">
-                                Kho nhập
-                                <span style="color: red">(*)</span>
-                            </div>
-                            <div class="md-4-style-input">
-                                <div class="add-input-zone">
-                                    <input class="input-border-form" name="_khoNhap" type="text" ng-model="target.maKhoNhap" typeahead-editable="false" typeahead-on-select="selectedKhoNhap($item)" uib-typeahead="opt.value as opt.text for opt in tempData('wareHouses') | filter:$viewValue | limitTo:5" typeahead-input-formatter="displayHepler($model, 'wareHouses')" required disabled/>
-                                </div>
-                                <span style="color: red" ng-show="_form._khoNhap.$dirty && _form._khoNhap.$invalid">
-                                    <span style="color: red">Không được để trống</span>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-5">
+                <div class="col-md-12">
                     <div class="md-style-label-input">
                         Nội dung
                     </div>
-                    <div class="md-6-style-input">
+                    <div class="md-12-style-input">
                         <textarea class="form-control" rows="3" id="comment" ng-model="target.noiDung" maxlength="300" disabled></textarea>
                     </div>
                 </div>
@@ -203,17 +164,17 @@
                     </td>
                     -->
                     <td>
-                        <input type="text" style="text-align: right; width: 100%" ng-model="item.soLuongLe" ng-change="robot.changeSoLuongLe(item)" awnum="number" disabled/>
+                        <input type="text" style="text-align: right; width: 100%" ng-model="item.soLuongLe" ng-change="robot.changeSoLuongLe(item)" awnum="number" disabled />
                     </td>
                     <td style="text-align:right;">{{item.tyLeVatVao}}%</td>
                     <!-- <td> -->
                     <!-- <input type="text" style="text-align:center; width:100%" ng-model="item.soLuong" awnum="number" disabled> -->
                     <!-- </td> -->
                     <td>
-                        <input style="text-align:right; width:100%;" type="text" ng-model="item.donGia" ng-change="robot.changeDonGia(item)" awnum="number" disabled/>
+                        <input style="text-align:right; width:100%;" type="text" ng-model="item.donGia" ng-change="robot.changeDonGia(item)" awnum="number" disabled />
                     </td>
                     <td>
-                        <input type="text" style="text-align:right; width:100%" ng-model="item.giaMuaCoVat" ng-change="robot.changeGiaMuaDonGia(item)" awnum="number" disabled/>
+                        <input type="text" style="text-align:right; width:100%" ng-model="item.giaMuaCoVat" ng-change="robot.changeGiaMuaDonGia(item)" awnum="number" disabled />
                     </td>
                     <td>
                         <div style="text-align:right; width:100%" disabled>{{item.tyLeLaiLe | number}}</div>
@@ -229,7 +190,7 @@
                         </div>
                     </td>
                     <td>
-                        <input type="text" style="text-align: right; width: 100%" ng-model="item.giaBanLeVat" ng-change="robot.changeSoLuongBao(item)" awnum="number" disabled/>
+                        <input type="text" style="text-align: right; width: 100%" ng-model="item.giaBanLeVat" ng-change="robot.changeSoLuongBao(item)" awnum="number" disabled />
                     </td>
                     <td style="white-space: nowrap" class="text-center">
                         <!-- form -->
@@ -274,10 +235,10 @@
                             <label>Chiết khấu:</label>
                         </td>
                         <td style="width:10%; text-align:right">
-                            <input class="input-border-form" type="text" style="text-align:right; width:100%;border-color:#ababab;" ng-model="target.chietKhau" ng-change="robot.changeChietKhau(target)" awnum="number" disabled/>
+                            <input class="input-border-form" type="text" style="text-align:right; width:100%;border-color:#ababab;" ng-model="target.chietKhau" ng-change="robot.changeChietKhau(target)" awnum="number" disabled />
                         </td>
                         <td style="text-align:right">
-                            <input class="input-border-form" type="text" style="text-align:right;border-color:#ababab;" ng-model="target.tienChietKhau" ng-change="robot.changeTienChietKhau(target)" awnum="number" disabled/>
+                            <input class="input-border-form" type="text" style="text-align:right;border-color:#ababab;" ng-model="target.tienChietKhau" ng-change="robot.changeTienChietKhau(target)" awnum="number" disabled />
                         </td>
                     </tr>
                     <tr>
@@ -287,7 +248,7 @@
                             <span style="color:red">(*)</span>
                         </td>
                         <td style="width:10%;text-align:right">
-                            <select class="input-border-form" ng-model="target.vat" required name="_tax" style="width:100%" ng-change="selectedTax(target)" ng-options="opt.value as opt.text for opt in tempData('taxs')" disabled ></select>
+                            <select class="input-border-form" ng-model="target.vat" required name="_tax" style="width:100%" ng-change="selectedTax(target)" ng-options="opt.value as opt.text for opt in tempData('taxs')" disabled></select>
                         </td>
                         <td nowrap style="text-align:right; width:20%">
                             <span style="color:red;font-weight:bold">
@@ -304,7 +265,7 @@
 
                         <td nowrap style="text-align:right; width:20%">
                             <span style="color:red;font-weight:bold">
-                                <b><input type="text" style="text-align: right; width: 100%" ng-model="target.thanhTienSauVat" awnum="number" disabled/></b>
+                                <b><input type="text" style="text-align: right; width: 100%" ng-model="target.thanhTienSauVat" awnum="number" disabled /></b>
                             </span>
                         </td>
                     </tr>

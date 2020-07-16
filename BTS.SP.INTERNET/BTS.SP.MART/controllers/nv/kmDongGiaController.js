@@ -1,136 +1,132 @@
-﻿define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS.SP.MART/controllers/htdm/periodController.js', '/BTS.SP.MART/controllers/htdm/merchandiseController.js', '/BTS.SP.MART/controllers/htdm/customerController.js', '/BTS.SP.MART/controllers/htdm/merchandiseTypeController.js', '/BTS.SP.MART/controllers/htdm/nhomVatTuController.js', '/BTS.SP.MART/controllers/htdm/supplierController.js', '/BTS.SP.MART/controllers/htdm/wareHouseController.js', '/BTS.SP.MART/controllers/htdm/packagingController.js', '/BTS.SP.MART/controllers/htdm/taxController.js', '/BTS.SP.MART/controllers/htdm/donViTinhController.js', '/BTS.SP.MART/controllers/htdm/typeReasonController.js', '/BTS.SP.MART/controllers/auth/AuNguoiDung.js', '/BTS.SP.MART/controllers/nv/khuyenMaiController.js'], function () {
+﻿define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS.SP.MART/controllers/htdm/merchandiseController.js', '/BTS.SP.MART/controllers/htdm/wareHouseController.js', '/BTS.SP.MART/controllers/htdm/typeReasonController.js', '/BTS.SP.MART/controllers/auth/AuNguoiDung.js', '/BTS.SP.MART/controllers/nv/khuyenMaiController.js'], function () {
     'use strict';
 
-    var app = angular.module('kmDongGiaModule', ['ui.bootstrap', 'authModule', 'periodModule', 'merchandiseModule', 'customerModule', 'merchandiseTypeModule', 'nhomVatTuModule', 'supplierModule', 'wareHouseModule', 'packagingModule', 'taxModule', 'donViTinhModule', 'typeReasonModule', 'AuNguoiDungModule', 'khuyenMaiModule']);
-    app.factory('kmDongGiaService', [
-        '$resource', '$http', '$window', 'configService',
-        function ($resource, $http, $window, configService) {
-            var rootUrl = configService.apiServiceBaseUri;
-            var serviceUrl = rootUrl + '/api/Nv/KhuyenMaiDongGia';
-            var calc = {
-                sum: function (obj, name) {
-                    var total = 0
-                    if (obj && obj.length > 0) {
-                        angular.forEach(obj, function (v, k) {
-                            var increase = v[name];
-                            if (!increase) {
-                                increase = 0;
-                            }
-                            total += increase;
-                        });
-                    }
-                    return total;
-                },
-                changeTyLeKhuyenMai: function (item) {
-                    if (!item.donGia) {
-                        item.giaTriKhuyenMai = 0;
-                    }
-                    if (item.tyLeKhuyenMai < 100) {
-                        item.giaTriKhuyenMai = item.donGia - (item.donGia * item.tyLeKhuyenMai / 100);
-                    } else {
-                        item.giaTriKhuyenMai = item.donGia - item.tyLeKhuyenMai;
-                    }
-                }
-            }
-            var parameterPrint = {};
-            var selectedMerchandise = [];
-
-            function getParameterPrint() {
-                return parameterPrint;
-            }
-
-            var result = {
-                robot: calc,
-                setParameterPrint: function (data) {
-                    parameterPrint = data;
-                },
-                getParameterPrint: function () {
-                    return parameterPrint;
-                },
-                getAllData: function () {
-                    return $http.post(serviceUrl + '/GetAllData');
-                },
-                post: function (data) {
-                    return $http.post(serviceUrl + '/Post', data);
-                },
-                postQuery: function (data) {
-                    return $http.post(serviceUrl + '/PostQuery', data);
-                },
-                postSelectData: function (data, callback) {
-                    $http.post(serviceUrl + '/PostSelectData', data).success(callback);
-                },
-                postPrint: function (callback) {
-                    $http.post(serviceUrl + '/PostPrint', getParameterPrint()).success(callback);
-                },
-                postPrintDetail: function (callback) {
-                    $http.post(serviceUrl + '/PostPrintDetail', getParameterPrint()).success(callback);
-                },
-                getNewInstance: function (callback) {
-                    $http.get(serviceUrl + '/GetNewInstance').success(callback);
-                },
-                getDetails: function (id) {
-                    return $http.get(serviceUrl + '/GetDetails/' + id);
-                },
-                update: function (params) {
-                    return $http.put(serviceUrl + '/' + params.id, params);
-                },
-                approval: function (params, callback) {
-                    return $http.post(serviceUrl + '/PostApproval/' + params.id).success(callback);
-                },
-                unapprove: function (params, callback) {
-                    return $http.post(serviceUrl + '/PostUnApprove/' + params.id).success(callback);
-                },
-                getMerchandiseForNvByCode: function (code, callback) {
-                    return $http.get(rootUrl + '/api/Md/Merchandise/GetForNvByCode/' + code).success(callback);
-                },
-                getMerchandiseTypeForNvByCode: function (code) {
-                    return $http.get(rootUrl + '/api/Md/MerchandiseType/GetForNvByCode/' + code);
-                },
-                getMerchandiseGroupForNvByCode: function (code) {
-                    return $http.get(rootUrl + '/api/Md/NhomVatTu/GetForNvByCode/' + code);
-                },
-                getNhaCungCapForNvByCode: function (code) {
-                    return $http.get(rootUrl + '/api/Md/Supplier/GetForNvByCode/' + code);
-                },
-                getUnitUsers: function (callback) {
-                    $http.get(rootUrl + '/api/Md/UnitUser/GetSelectAll').success(callback);
-                },
-                getSelectMerchandise: function () {
-                    return selectedMerchandise;
-                },
-                setSelectMerchandise: function (array) {
-                    selectedMerchandise = array;
-                },
-                dowloadTemplateExcel: function (filename) {
-                    $http({
-                        url: serviceUrl + '/TemplateExcel_KhuyenMaiDongGia',
-                        method: "POST",
-                        data: null,
-                        headers: {
-                            'Content-type': 'application/json'
-                        },
-                        responseType: 'arraybuffer'
-                    }).success(function (data, status, headers, config) {
-                        var a = document.createElement("a");
-                        document.body.appendChild(a);
-                        a.style = "display: none";
-                        var blob = new Blob([data], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
-                        var objectUrl = URL.createObjectURL(blob);
-                        a.href = objectUrl;
-                        a.download = filename + ".xlsx";
-                        a.click();
-                    }).error(function (data, status, headers, config) {
+    var app = angular.module('kmDongGiaModule', ['ui.bootstrap', 'authModule', 'merchandiseModule', 'wareHouseModule', 'typeReasonModule', 'AuNguoiDungModule', 'khuyenMaiModule']);
+    app.factory('kmDongGiaService', ['$http', 'configService', function ($http, configService) {
+        var rootUrl = configService.apiServiceBaseUri;
+        var serviceUrl = rootUrl + '/api/Nv/KhuyenMaiDongGia';
+        var calc = {
+            sum: function (obj, name) {
+                var total = 0
+                if (obj && obj.length > 0) {
+                    angular.forEach(obj, function (v, k) {
+                        var increase = v[name];
+                        if (!increase) {
+                            increase = 0;
+                        }
+                        total += increase;
                     });
                 }
-            };
-            return result;
+                return total;
+            },
+            changeTyLeKhuyenMai: function (item) {
+                if (!item.donGia) {
+                    item.giaTriKhuyenMai = 0;
+                }
+                if (item.tyLeKhuyenMai < 100) {
+                    item.giaTriKhuyenMai = item.donGia - (item.donGia * item.tyLeKhuyenMai / 100);
+                } else {
+                    item.giaTriKhuyenMai = item.donGia - item.tyLeKhuyenMai;
+                }
+            }
         }
+        var parameterPrint = {};
+        var selectedMerchandise = [];
+
+        function getParameterPrint() {
+            return parameterPrint;
+        }
+
+        var result = {
+            robot: calc,
+            setParameterPrint: function (data) {
+                parameterPrint = data;
+            },
+            getParameterPrint: function () {
+                return parameterPrint;
+            },
+            getAllData: function () {
+                return $http.post(serviceUrl + '/GetAllData');
+            },
+            post: function (data) {
+                return $http.post(serviceUrl + '/Post', data);
+            },
+            postQuery: function (data) {
+                return $http.post(serviceUrl + '/PostQuery', data);
+            },
+            postSelectData: function (data, callback) {
+                $http.post(serviceUrl + '/PostSelectData', data).success(callback);
+            },
+            postPrint: function (callback) {
+                $http.post(serviceUrl + '/PostPrint', getParameterPrint()).success(callback);
+            },
+            postPrintDetail: function (callback) {
+                $http.post(serviceUrl + '/PostPrintDetail', getParameterPrint()).success(callback);
+            },
+            getNewInstance: function (callback) {
+                $http.get(serviceUrl + '/GetNewInstance').success(callback);
+            },
+            getDetails: function (id) {
+                return $http.get(serviceUrl + '/GetDetails/' + id);
+            },
+            update: function (params) {
+                return $http.put(serviceUrl + '/' + params.id, params);
+            },
+            approval: function (params, callback) {
+                return $http.post(serviceUrl + '/PostApproval/' + params.id).success(callback);
+            },
+            unapprove: function (params, callback) {
+                return $http.post(serviceUrl + '/PostUnApprove/' + params.id).success(callback);
+            },
+            getMerchandiseForNvByCode: function (code, wareHouseCode, unitCode) {
+                return $http.get(rootUrl + '/api/Md/Merchandise/GetForNvByCode/' + code + '/' + wareHouseCode + '/' + unitCode);
+            },
+            getMerchandiseTypeForNvByCode: function (code) {
+                return $http.get(rootUrl + '/api/Md/MerchandiseType/GetForNvByCode/' + code);
+            },
+            getMerchandiseGroupForNvByCode: function (code) {
+                return $http.get(rootUrl + '/api/Md/NhomVatTu/GetForNvByCode/' + code);
+            },
+            getNhaCungCapForNvByCode: function (code) {
+                return $http.get(rootUrl + '/api/Md/Supplier/GetForNvByCode/' + code);
+            },
+            getUnitUsers: function (callback) {
+                $http.get(rootUrl + '/api/Md/UnitUser/GetSelectAll').success(callback);
+            },
+            getSelectMerchandise: function () {
+                return selectedMerchandise;
+            },
+            setSelectMerchandise: function (array) {
+                selectedMerchandise = array;
+            },
+            dowloadTemplateExcel: function (filename) {
+                $http({
+                    url: serviceUrl + '/TemplateExcel_KhuyenMaiDongGia',
+                    method: "POST",
+                    data: null,
+                    headers: {
+                        'Content-type': 'application/json'
+                    },
+                    responseType: 'arraybuffer'
+                }).success(function (data, status, headers, config) {
+                    var a = document.createElement("a");
+                    document.body.appendChild(a);
+                    a.style = "display: none";
+                    var blob = new Blob([data], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+                    var objectUrl = URL.createObjectURL(blob);
+                    a.href = objectUrl;
+                    a.download = filename + ".xlsx";
+                    a.click();
+                }).error(function (data, status, headers, config) {
+                });
+            }
+        };
+        return result;
+    }
     ]);
     app.controller('kmDongGiaController', [
-        '$scope', '$rootScope', '$location', '$window', '$uibModal', '$log', '$state', '$filter', '$http',
-        'kmDongGiaService', 'configService', 'ngNotify', 'tempDataService', 'wareHouseService', 'khuyenMaiService',
-        function ($scope, $rootScope, $location, $window, $uibModal, $log, $state, $filter, $http,
-            kmDongGiaService, configService, ngNotify, tempDataService, serviceWareHouse, khuyenMaiService) {
+        '$scope', '$uibModal', '$log', '$state', '$filter', 'kmDongGiaService', 'configService', 'ngNotify', 'tempDataService', 'wareHouseService', 'khuyenMaiService',
+        function ($scope, $uibModal, $log, $state, $filter, kmDongGiaService, configService, ngNotify, tempDataService, serviceWareHouse, khuyenMaiService) {
             $scope.config = angular.copy(configService);
             $scope.paged = angular.copy(configService.pageDefault);
             $scope.robot = angular.copy(kmDongGiaService.robot);
@@ -277,10 +273,8 @@
 
         }]);
     app.controller('kmDongGiaDetailsController', [
-        '$scope', '$uibModalInstance', '$rootScope', '$location', '$window', '$uibModal', '$log', '$state', '$filter', '$http',
-        'kmDongGiaService', 'targetData', 'configService', 'tempDataService',
-        function ($scope, $uibModalInstance, $rootScope, $location, $window, $uibModal, $log, $state, $filter, $http,
-            kmDongGiaService, targetData, configService, tempDataService) {
+        '$scope', '$uibModalInstance', '$uibModal', '$filter', 'kmDongGiaService', 'targetData', 'configService', 'tempDataService',
+        function ($scope, $uibModalInstance, $uibModal, $filter, kmDongGiaService, targetData, configService, tempDataService) {
             $scope.paged = angular.copy(configService.pageDefault);
             $scope.targetData = angular.copy(targetData);
             $scope.config = angular.copy(configService);
@@ -429,10 +423,8 @@
         }
     ]);
     app.controller('kmDongGiaEditController', [
-        '$scope', '$uibModal', '$uibModalInstance', '$filter', '$state', '$log',
-        'kmDongGiaService', 'tempDataService', 'configService', 'targetData', 'wareHouseService', 'ngNotify',
-        function ($scope, $uibModal, $uibModalInstance, $filter, $state, $log,
-            kmDongGiaService, tempDataService, configService, targetData, serviceWareHouse, ngNotify) {
+        '$scope', '$uibModal', '$uibModalInstance', '$filter', '$log', 'kmDongGiaService', 'tempDataService', 'configService', 'targetData', 'wareHouseService', 'ngNotify',
+        function ($scope, $uibModal, $uibModalInstance, $filter, $log, kmDongGiaService, tempDataService, configService, targetData, serviceWareHouse, ngNotify) {
             $scope.robot = angular.copy(kmDongGiaService.robot);
             $scope.paged = angular.copy(configService.pageDefault);
             $scope.config = angular.copy(configService);
@@ -599,14 +591,13 @@
             };
             $scope.selectedMaHang = function (code) {
                 if (code) {
-                    kmDongGiaService.getMerchandiseForNvByCode(code, function (response) {
+                    kmDongGiaService.getMerchandiseForNvByCode(code, $scope.target.maKhoNhap, unitCode).then(function (response) {
                         if (response.status) {
                             $scope.newItem.maHang = response.data.maHang;
                             $scope.newItem.tenHang = response.data.tenHang;
                             $scope.newItem.donGia = response.data.giaBanLeVat;
                             $scope.newItem.validateCode = response.data.maHang;
-                        }
-                        else {
+                        } else {
                             $scope.addNewItem(code);
                         }
                     });
@@ -627,10 +618,8 @@
         }
     ]);
     app.controller('kmDongGiaCreateController', [
-        '$scope', '$uibModal', '$uibModalInstance', 'ngNotify', '$filter', '$state', '$log',
-        'kmDongGiaService', 'tempDataService', 'configService', 'wareHouseService', 'FileUploader', 'userService', 'merchandiseService',
-        function ($scope, $uibModal, $uibModalInstance, ngNotify, $filter, $state, $log,
-            kmDongGiaService, tempDataService, configService, serviceWareHouse, FileUploader, serviceAuthUser, serviceMerchandise) {
+        '$scope', '$uibModal', '$uibModalInstance', 'ngNotify', '$log', 'kmDongGiaService', 'tempDataService', 'configService', 'wareHouseService', 'FileUploader', 'userService', 'merchandiseService',
+        function ($scope, $uibModal, $uibModalInstance, ngNotify, $log, kmDongGiaService, tempDataService, configService, serviceWareHouse, FileUploader, serviceAuthUser, serviceMerchandise) {
             $scope.robot = angular.copy(kmDongGiaService.robot);
             $scope.paged = angular.copy(configService.pageDefault);
             $scope.config = angular.copy(configService);

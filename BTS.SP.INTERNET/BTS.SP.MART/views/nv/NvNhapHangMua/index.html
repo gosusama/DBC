@@ -1,6 +1,6 @@
 ﻿<div class="panel panel-default">
     <div class="panel-heading panel-toolbar">
-      <h3 class="modal-title" style="color:blue;">{{title()}}</h3>
+        <h3 class="modal-title" style="color:blue;">{{title()}}</h3>
         <h4 class="modal-title" ng-if="openClosingOut" style="color: red;">Cảnh báo đang mở khóa sổ ! Hãy khóa sổ lại ngay sau khi thao tác xong để bảo đảm tính đúng đắn cửa dữ liệu</h4>
         <div class="button-close" ng-click="goHome()">
             <i class="fa fa-times-circle"></i>
@@ -139,14 +139,6 @@
                             <span ng-show="sortType == 'ngayDuyetPhieu' && sortReverse" class="fa fa-caret-up"></span>
                         </a>
                     </th>
-
-                    <th class="column-title">
-                        <a class="title" href="" ng-click="sortType = 'noiDung'; sortReverse = !sortReverse">
-                            Ghi chú
-                            <span ng-show="sortType == 'noiDung' && !sortReverse" class="fa fa-caret-down"></span>
-                            <span ng-show="sortType == 'noiDung' && sortReverse" class="fa fa-caret-up"></span>
-                        </a>
-                    </th>
                     <th class="column-title">
                         <a class="title" href="" ng-click="sortType = 'maNhaCungCap'; sortReverse = !sortReverse">
                             Nhà cung cấp
@@ -175,7 +167,7 @@
                             <span ng-show="sortType == 'trangThai' && sortReverse" class="fa fa-caret-up"></span>
                         </a>
                     </th>
-                    <td style="width: 130px;">
+                    <td style="width: 160px;">
                 </tr>
             </thead>
             <tbody>
@@ -187,7 +179,6 @@
                     <td>{{item.maChungTu}}</td>
                     <td>{{item.ngayCT | date : "dd/MM/yyyy"}}</td>
                     <td>{{item.ngayDuyetPhieu | date : "dd/MM/yyyy"}}</td>
-                    <td>{{item.noiDung}}</td>
                     <td>{{displayHepler(item.maKhachHang, 'suppliers')}}</td>
                     <td>{{displayHeplerName(item.maKhoNhap, 'wareHouses')}}</td>
                     <td style="text-align:right;">{{item.thanhTienSauVat | number}}</td>
@@ -204,7 +195,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="7" style="text-align:center; color:red">Tổng tiền</td>
+                    <td colspan="6" style="text-align:center; color:red">Tổng tiền</td>
                     <td style="text-align:right;">{{sum() | number}}</td>
                 </tr>
             </tbody>

@@ -30,7 +30,7 @@
     <div class="modal-body" ng-form name="_form">
         <div class="form-group">
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="md-style-label-input">
                         Số chứng từ
                         <span style="color: red">(*)</span>
@@ -42,7 +42,7 @@
                         </span>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="md-style-label-input">
                         Ngày chứng từ<span style="color: red">(*)</span>
                     </div>
@@ -55,7 +55,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="md-style-label-input">
                         Ngày hóa đơn
                     </div>
@@ -68,19 +68,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <div class="md-style-label-input">
-                        Số hóa đơn
-                    </div>
-                    <div class="md-4-style-input">
-                        <input class="input-border-form" type="text" name="_maHoaDon" focus="true" ng-model="target.maHoaDon" maxlength="50" />
-                    </div>
-                </div>
             </div>
         </div>
         <div class="form-group">
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="md-style-label-input">
                         Nhà cung cấp
                         <span style="color: red">(*)</span>
@@ -99,96 +91,29 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="md-style-label-input">
-                        Mã số thuế
-                    </div>
-                    <div class="md-4-style-input">
-                        <input class="input-border-form" name="_maSoThue" type="text" ng-model="target.maSoThue" />
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="md-style-label-input">
-                        Đơn đặt hàng
-                    </div>
-                    <div class="md-4-style-input">
-                        <input class="input-border-form" name="_sophieudathang" type="text" ng-model="target.soPhieuDatHang" typeahead-editable="false"
-                               uib-typeahead="opt.value as opt.text for opt in donHangs | filter:$viewValue | limitTo:5" typeahead-on-select="selectedDonDatHang($item)" />
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="md-style-label-input">
-                        Trạng thái thanh toán
+                        Kho nhập
+                        <span style="color: red">(*)</span>
                     </div>
                     <div class="md-4-style-input">
                         <div class="add-input-zone">
-                            <select class="form-control" ng-init="target.trangThaiThanhToan = 0" ng-model="target.trangThaiThanhToan" ng-options="opt.value as opt.text for opt in tempData('trangThaiThanhToan')"></select>
+                            <input class="input-border-form" name="_khoNhap" type="text" ng-model="target.maKhoNhap" typeahead-editable="false" typeahead-on-select="selectedKhoNhap($item)" uib-typeahead="opt.value as opt.text for opt in tempData('wareHouses') | filter:$viewValue | limitTo:5" typeahead-input-formatter="displayHepler($model, 'wareHouses')" required />
                         </div>
+                        <span style="color: red" ng-show="_form._khoNhap.$dirty && _form._khoNhap.$invalid">
+                            <span style="color: red">Không được để trống</span>
+                        </span>
                     </div>
                 </div>
             </div>
         </div>
         <div class="form-group">
             <div class="row">
-                <div class="col-md-6">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="md-style-label-input">
-                                Kho nhập
-                                <span style="color: red">(*)</span>
-                            </div>
-                            <div class="md-4-style-input">
-                                <div class="add-input-zone">
-                                    <input class="input-border-form" name="_khoNhap" type="text" ng-model="target.maKhoNhap" typeahead-editable="false" typeahead-on-select="selectedKhoNhap($item)" uib-typeahead="opt.value as opt.text for opt in tempData('wareHouses') | filter:$viewValue | limitTo:5" typeahead-input-formatter="displayHepler($model, 'wareHouses')" required />
-                                </div>
-                                <span style="color: red" ng-show="_form._khoNhap.$dirty && _form._khoNhap.$invalid">
-                                    <span style="color: red">Không được để trống</span>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div style="margin:30px 0 0 0;padding-left:0px;" class="row" nv-file-drop="" uploader="uploader" filters="queueLimit, customFilter" style="height: 35px;">
-                                <div class="md-4-style-input" ng-repeat="item in uploader.queue">
-                                    <strong>{{ item.file.name }}</strong>
-                                    <span ng-show="uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</span>
-                                </div>
-                                <div class="md-4-style-input" ng-repeat="item in uploader.queue">
-                                    <div ng-show="uploader.isHTML5">
-                                        <div class="progress" style="margin-bottom: 0;">
-                                            <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%'}"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="md-4-style-input" style="width:100%;">
-                                    <input style="float:left;margin:0 10px;" type="file" class="input-border-form" nv-file-select="" uploader="uploader" />
-                                    <button style="float:left;font-size: 11px !important;" type="button" class="btn btn-success btn-xs" ng-click="uploader.queue[0].upload()" ng-disabled="uploader.queue[0].isReady || uploader.queue[0].isUploading || uploader.queue[0].isSuccess">
-                                        <span class="glyphicon glyphicon-upload"></span> Upload
-                                    </button>
-                                    <button style="float:left;font-size: 11px !important;" type="button" class="btn btn-warning btn-xs" ng-click="uploader.queue[0].cancel()" ng-disabled="!uploader.queue[0].isUploading">
-                                        <span class="glyphicon glyphicon-ban-circle"></span> Cancel
-                                    </button>
-                                    <button style="float:left;font-size: 11px !important;" type="button" class="btn btn-danger btn-xs" ng-click="uploader.queue[0].remove()">
-                                        <span class="glyphicon glyphicon-trash"></span> Remove
-                                    </button>
-                                    <span ng-show="uploader.queue[0].isSuccess">
-                                        <i class="glyphicon glyphicon-ok"></i>
-                                    </span>
-                                    <span ng-show="uploader.queue[0].isCancel">
-                                        <i class="glyphicon glyphicon-ban-circle"></i>
-                                    </span>
-                                    <span ng-show="uploader.queue[0].isError">
-                                        <i class="glyphicon glyphicon-remove"></i>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-5">
+                <div class="col-md-12">
                     <div class="md-style-label-input">
                         Nội dung
                     </div>
-                    <div class="md-6-style-input">
+                    <div class="md-12-style-input">
                         <textarea class="form-control" rows="3" id="comment" ng-model="target.noiDung" maxlength="300"></textarea>
                     </div>
                 </div>
