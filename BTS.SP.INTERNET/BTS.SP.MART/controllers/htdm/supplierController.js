@@ -97,19 +97,11 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js'], func
         return result;
     }]);
     /* controller list */
-    app.controller('supplierController', ['$scope', '$location', '$http', 'configService', 'supplierService', 'tempDataService', '$filter', '$uibModal', '$log', 'ngNotify', 'securityService', 'toaster', 'userService',
-        function ($scope, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, ngNotify, securityService, toaster, serviceAuthUser) {
-            var currentUser = serviceAuthUser.GetCurrentUser();
-            var unitCode = currentUser.unitCode;
+    app.controller('supplierController', ['$scope', 'configService', 'supplierService', '$uibModal', '$log', 'securityService', 'toaster',
+        function ($scope, configService, service, $uibModal, $log, securityService, toaster) {
             $scope.config = angular.copy(configService);
             $scope.paged = angular.copy(configService.pageDefault);
             $scope.filtered = angular.copy(configService.filterDefault);
-            $scope.tempData = tempDataService.tempData;
-            if ($scope.tempData('rootUnitCode')[0].value === unitCode) {
-                $scope.isRootUnitCode = true;
-            } else {
-                $scope.isRootUnitCode = false;
-            }
             $scope.isEditable = true;
             $scope.disabledSave = false;
             $scope.target = { options: 'maNCC' };
@@ -288,8 +280,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js'], func
             };
         }]);
     /* controller nhaCungCapAsyncController */
-    app.controller('nhaCungCapAsyncController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'supplierService', 'tempDataService', '$filter', '$uibModal', '$log', 'ngNotify',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, ngNotify) {
+    app.controller('nhaCungCapAsyncController', ['$scope', '$uibModalInstance', 'configService', 'supplierService', 'tempDataService', '$uibModal', '$log', 'ngNotify',
+        function ($scope, $uibModalInstance, configService, service, tempDataService, $uibModal, $log, ngNotify) {
             $scope.config = angular.copy(configService);
             $scope.paged = angular.copy(configService.pageDefault);
             $scope.filtered = angular.copy(configService.filterDefault);
@@ -467,9 +459,9 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js'], func
                 $uibModalInstance.close();
             };
         }]);
-    /** async Compare MatHang Controller -- Phạm Tuấn Anh, so sánh đồng bộ */
-    app.controller('asyncCompareNhaCungCapController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'supplierService', 'tempDataService', '$filter', '$uibModal', '$log', 'ngNotify', 'targetData', 'userService',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, ngNotify, targetData, serviceAuthUser) {
+    /** async Compare MatHang Controller -- Nguyễn Tuấn Hoàng Anh, so sánh đồng bộ */
+    app.controller('asyncCompareNhaCungCapController', ['$scope', '$uibModalInstance', 'configService', 'supplierService', 'tempDataService', '$filter', 'ngNotify', 'targetData', 'userService',
+        function ($scope, $uibModalInstance, configService, service, tempDataService, $filter, ngNotify, targetData, serviceAuthUser) {
             var currentUser = serviceAuthUser.GetCurrentUser();
             $scope.unitCode = currentUser.unitCode;
             $scope.config = angular.copy(configService);
@@ -547,8 +539,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js'], func
             };
         }]);
     /* controller nhaCungCapAsyncCreateController */
-    app.controller('nhaCungCapAsyncCreateController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'supplierService', 'tempDataService', '$filter', '$uibModal', '$log', 'ngNotify',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, ngNotify) {
+    app.controller('nhaCungCapAsyncCreateController', ['$scope', '$uibModalInstance', 'configService', 'supplierService', 'tempDataService', 'ngNotify',
+        function ($scope, $uibModalInstance, configService, service, tempDataService, ngNotify) {
             $scope.robot = angular.copy(service.robot);
             $scope.config = angular.copy(configService);
             $scope.target = {};
@@ -589,8 +581,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js'], func
         }]);
 
     /* controller nhaCungCapAsyncEditController */
-    app.controller('nhaCungCapAsyncEditController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'supplierService', 'tempDataService', '$filter', '$uibModal', '$log', 'targetData', 'ngNotify',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, targetData, ngNotify) {
+    app.controller('nhaCungCapAsyncEditController', ['$scope', '$uibModalInstance', 'configService', 'supplierService', 'tempDataService', 'targetData', 'ngNotify',
+        function ($scope, $uibModalInstance, configService, service, tempDataService, targetData, ngNotify) {
             $scope.config = angular.copy(configService);
             $scope.tempData = tempDataService.tempData;
             $scope.target = angular.copy(targetData);;
@@ -616,8 +608,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js'], func
             };
         }]);
     /* controller nhaCungCapAsyncDetailsController */
-    app.controller('nhaCungCapAsyncDetailsController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'supplierService', 'tempDataService', '$filter', '$uibModal', '$log', 'targetData', 'ngNotify',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, targetData, ngNotify) {
+    app.controller('nhaCungCapAsyncDetailsController', ['$scope', '$uibModalInstance', 'configService', 'tempDataService', 'targetData',
+        function ($scope, $uibModalInstance, configService, tempDataService, targetData) {
             $scope.config = angular.copy(configService);
             $scope.tempData = tempDataService.tempData;
             $scope.target = angular.copy(targetData);
@@ -628,8 +620,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js'], func
             };
         }]);
     /* controller addNew */
-    app.controller('supplierCreateController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'supplierService', 'tempDataService', '$filter', '$uibModal', '$log', 'ngNotify',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, ngNotify) {
+    app.controller('supplierCreateController', ['$scope', '$uibModalInstance', 'configService', 'supplierService', 'tempDataService', 'ngNotify',
+        function ($scope, $uibModalInstance, configService, service, tempDataService, ngNotify) {
             $scope.robot = angular.copy(service.robot);
             $scope.config = angular.copy(configService);
             $scope.target = {};
@@ -661,8 +653,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js'], func
             };
         }]);
     /* controller Edit */
-    app.controller('supplierEditController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'supplierService', 'tempDataService', '$filter', '$uibModal', '$log', 'targetData', 'ngNotify',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, targetData, ngNotify) {
+    app.controller('supplierEditController', ['$scope', '$uibModalInstance', 'configService', 'supplierService', 'tempDataService', 'targetData', 'ngNotify',
+        function ($scope, $uibModalInstance, configService, service, tempDataService, targetData, ngNotify) {
             $scope.config = angular.copy(configService);
             $scope.targetData = angular.copy(targetData);
             $scope.tempData = tempDataService.tempData;
@@ -689,8 +681,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js'], func
         }]);
 
     /* controller Details */
-    app.controller('supplierDetailsController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'supplierService', 'tempDataService', '$filter', '$uibModal', '$log', 'targetData', 'ngNotify',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, targetData, ngNotify) {
+    app.controller('supplierDetailsController', ['$scope', '$uibModalInstance', 'configService', 'tempDataService', 'targetData',
+        function ($scope, $uibModalInstance, configService, tempDataService, targetData) {
             $scope.config = angular.copy(configService);
             $scope.targetData = angular.copy(targetData);
             $scope.tempData = tempDataService.tempData;
@@ -702,8 +694,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js'], func
 
         }]);
     /* controller delete */
-    app.controller('supplierDeleteController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'supplierService', 'tempDataService', '$filter', '$uibModal', '$log', 'targetData', 'ngNotify',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, targetData, ngNotify) {
+    app.controller('supplierDeleteController', ['$scope', '$uibModalInstance', 'configService', 'supplierService', 'targetData', 'ngNotify',
+        function ($scope, $uibModalInstance, configService, service, targetData, ngNotify) {
             $scope.config = angular.copy(configService);
             $scope.targetData = angular.copy(targetData);
             $scope.target = targetData;
@@ -728,8 +720,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js'], func
         }]);
 
     /* supplier Select Data Controller */
-    app.controller('supplierSelectDataController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'supplierService', 'tempDataService', '$filter', '$uibModal', '$log', 'ngNotify', 'filterObject', 'serviceSelectData',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, ngNotify, filterObject, serviceSelectData) {
+    app.controller('supplierSelectDataController', ['$scope', '$uibModalInstance', 'configService', 'supplierService', 'tempDataService', '$uibModal', '$log', 'filterObject', 'serviceSelectData',
+        function ($scope, $uibModalInstance, configService, service, tempDataService, $uibModal, $log, filterObject, serviceSelectData) {
             $scope.config = angular.copy(configService);
             $scope.paged = angular.copy(configService.pageDefault);
             $scope.filtered = angular.copy(configService.filterDefault);
@@ -860,8 +852,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js'], func
         }]);
 
     /* supplier Only Select Data Controller */
-    app.controller('supplierOnlySelectDataController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'supplierService', 'tempDataService', '$filter', '$uibModal', '$log', 'targetData', 'ngNotify', 'filterObject',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, targetData, ngNotify, filterObject) {
+    app.controller('supplierOnlySelectDataController', ['$scope', '$uibModalInstance', 'configService', 'supplierService', 'tempDataService', '$uibModal', '$log', 'filterObject',
+        function ($scope, $uibModalInstance, configService, service, tempDataService, $uibModal, $log, filterObject) {
             $scope.config = angular.copy(configService);
             $scope.paged = angular.copy(configService.pageDefault);
             $scope.filtered = angular.copy(configService.filterDefault);

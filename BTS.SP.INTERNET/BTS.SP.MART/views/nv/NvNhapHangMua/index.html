@@ -34,80 +34,42 @@
         </div>
     </div>
     <div ng-show="filtered.isAdvance">
-        <br>
-        <div class="form-group">
+        <div class="form-group row">
             <div class="col-md-4">
-                <div class="form-group">
-                    <label for="">Từ ngày chứng từ</label>
-                    <div>
-                        <div class="add-input-zone">
-                            <input class="form-control" type="text" ng-model="filtered.advanceData.tuNgay" placeholder="{{config.dateFormat}}"
-                                   uib-datepicker-popup="{{config.dateFormat}}" is-open="_tuNgay" datepicker-localdate />
-                            <div class="button-calender" ng-click="_tuNgay = !_tuNgay; config.delegateEvent($event);">
-                            </div>
-                        </div>
+                <label>Từ ngày chứng từ</label>
+                <div class="add-input-zone">
+                    <input class="form-control" type="text" ng-model="filtered.advanceData.tuNgay" placeholder="{{config.dateFormat}}"
+                           uib-datepicker-popup="{{config.dateFormat}}" is-open="_tuNgay" datepicker-localdate />
+                    <div class="button-calender" ng-click="_tuNgay = !_tuNgay; config.delegateEvent($event);">
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="form-group">
-                    <label for="">Đến ngày chứng từ</label>
-                    <div>
-                        <div class="add-input-zone">
-                            <input class="form-control" type="text" ng-model="filtered.advanceData.denNgay" placeholder="{{config.dateFormat}}"
-                                   uib-datepicker-popup="{{config.dateFormat}}" is-open="_denNgay" datepicker-localdate />
-                            <div class="button-calender" ng-click="_denNgay = !_denNgay; config.delegateEvent($event);">
-                            </div>
-                        </div>
-                    </div>
+                <label>Đến ngày chứng từ</label>
+                <div class="add-input-zone">
+                    <input class="form-control" type="text" ng-model="filtered.advanceData.denNgay" placeholder="{{config.dateFormat}}"
+                           uib-datepicker-popup="{{config.dateFormat}}" is-open="_denNgay" datepicker-localdate />
+                    <div class="button-calender" ng-click="_denNgay = !_denNgay; config.delegateEvent($event);"></div>
                 </div>
+            </div>
+            <div class="col-md-4">
+                <label>Mã chứng từ</label>
+                <input ng-model="filtered.advanceData.maChungTu" type="text" class="form-control">
             </div>
         </div>
-        <div class="form-group">
+        <div class="form-group row">
             <div class="col-md-4">
-                <div class="form-group">
-                    <label for="">Mã chứng từ</label>
-                    <input ng-model="filtered.advanceData.maChungTu" type="text" class="form-control">
-                </div>
+                <label>Kho nhập</label>
+                <input ng-model="filtered.advanceData.maKhoNhap" type="text" class="form-control">
             </div>
             <div class="col-md-4">
-                <div class="form-group">
-                    <label for="">Số hóa đơn</label>
-                    <input ng-model="filtered.advanceData.maHoaDon" type="text" class="form-control">
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="">Mã số thuế</label>
-                    <input ng-model="filtered.advanceData.maSoThue" type="text" class="form-control">
-                </div>
+                <label>Lý do</label>
+                <input ng-model="filtered.advanceData.noiDung" type="text" class="form-control">
             </div>
             <div class="col-md-4">
-                <div class="form-group">
-                    <label for="">Kho nhập</label>
-                    <input ng-model="filtered.advanceData.maKhoNhap" type="text" class="form-control">
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="">Lý do</label>
-                    <input ng-model="filtered.advanceData.noiDung" type="text" class="form-control">
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="">Trạng thái duyệt</label>
-                    <select style="width:100%;" class="form-control" ng-model="filtered.advanceData.trangThai"
-                            ng-options="opt.value as opt.text for opt in tempData('trangThai')"></select>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="">Tài khoản tạo phiếu</label>
-                    <input class="form-control" ng-model="filtered.advanceData.iCreateBy" type="text">
-                </div>
+                <label>Trạng thái duyệt</label>
+                <select class="form-control" ng-model="filtered.advanceData.trangThai"
+                        ng-options="opt.value as opt.text for opt in tempData('trangThai')"></select>
             </div>
         </div>
     </div>
@@ -191,7 +153,6 @@
                         <a ng-if="accessList.view" ng-show="item.trangThai === 10 || item.isShow" class="fa fa-tablet" ng-click="printItemShelves(item)" data-toggle="tooltip" data-placement="top" title="In tem kệ"></a>&nbsp;&nbsp;&nbsp;
                         <a ng-if="accessList.approve" class="glyphicon glyphicon-transfer" ng-show="item.trangThai === 10 || item.isShow" data-toggle="tooltip" ng-click="tranferFrom(item)" data-placement="top" title="Điều chuyển"></a>&nbsp;&nbsp;&nbsp;
                         <a ng-if="accessList.delete" class="glyphicon glyphicon-trash" ng-show="item.trangThai != 10 || item.isShow" ng-click="deleteItem($event, item)" data-toggle="tooltip" data-placement="top" title="Xóa"></a> &nbsp;&nbsp;&nbsp;
-
                     </td>
                 </tr>
                 <tr>

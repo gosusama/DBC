@@ -43,13 +43,6 @@
                     </th>
                     <th class="column-title">
                         <a class="title" href="#" ng-click="sortType = 'taiKhoanKt'; sortReverse = !sortReverse">
-                            Tài Khoản Kế Toán
-                            <span ng-show="sortType == 'taiKhoanKt' && !sortReverse" class="fa fa-caret-down"></span>
-                            <span ng-show="sortType == 'taiKhoanKt' && sortReverse" class="fa fa-caret-up"></span>
-                        </a>
-                    </th>
-                    <th class="column-title">
-                        <a class="title" href="#" ng-click="sortType = 'taiKhoanKt'; sortReverse = !sortReverse">
                             Phần trăm
                             <span ng-show="sortType == 'TaxRate' && !sortReverse" class="fa fa-caret-down"></span>
                             <span ng-show="sortType == 'TaxRate' && sortReverse" class="fa fa-caret-up"></span>
@@ -73,13 +66,12 @@
                     </td>
                 </tr>
                 <tr ng-show="isLoading">
-                    <td colspan="7"><my-loading></my-loading></td>
+                    <td colspan="6"><my-loading></my-loading></td>
                 </tr>
                 <tr class="even pointer" ng-repeat="item in data | orderBy:sortType:sortReverse " ng-dblclick="details(item)">
                     <td>{{$index + 1}}</td>
                     <td>{{item.maLoaiThue}}</td>
                     <td>{{item.loaiThue}}</td>
-                    <td>{{item.taiKhoanKt}}</td>
                     <td>{{item.taxRate}}</td>
                     <td>{{item.trangThai | status}}</td>
                     <td class="table-control btn-group">

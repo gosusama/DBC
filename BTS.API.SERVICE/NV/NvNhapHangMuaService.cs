@@ -232,31 +232,8 @@ namespace BTS.API.SERVICE.NV
                 x.VAT = merchandise.MaVatVao;
             });
             UnitOfWork.Repository<NvVatTuChungTuChiTiet>().InsertRange(detailData);
-            UpdateGeneralLedger(instance.DataClauseDetails, exsitItem);
             var result = Update(masterData);
             return result;
-        }
-        public void UpdateGeneralLedger(List<NvNhapHangMuaVm.DtoClauseDetail> data, NvVatTuChungTu exsitItem)
-        {
-            Mapper.CreateMap<NvNhapHangMuaVm.DtoClauseDetail, DclGeneralLedger>();
-            var generalLedgers = Mapper.Map<List<NvNhapHangMuaVm.DtoClauseDetail>, List<DclGeneralLedger>>(data);
-
-            {
-                var detailCollection = UnitOfWork.Repository<DclGeneralLedger>().DbSet.Where(x => x.MaChungTuPk == exsitItem.MaChungTuPk);
-                detailCollection.ToList().ForEach(x => x.ObjectState = ObjectState.Deleted);
-            }
-            generalLedgers.ForEach(x =>
-            {
-                x.Id = Guid.NewGuid().ToString();
-                x.MaChungTuPk = exsitItem.MaChungTuPk;
-                x.MaChungTu = exsitItem.MaChungTu;
-                x.LoaiPhieu = exsitItem.LoaiPhieu;
-                x.TrangThai = exsitItem.TrangThai;
-                x.NgayCT = exsitItem.NgayCT;
-                x.NoiDung = exsitItem.NoiDung;
-                x.UnitCode = exsitItem.UnitCode;
-            });
-            UnitOfWork.Repository<DclGeneralLedger>().InsertRange(generalLedgers);
         }
         protected override Expression<Func<NvVatTuChungTu, bool>> GetKeyFilter(NvVatTuChungTu instance)
         {

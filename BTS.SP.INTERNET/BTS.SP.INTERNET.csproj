@@ -91,6 +91,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="BTS.SP.MART\views\htdm\Currency\delete.html" />
+    <Content Include="BTS.SP.MART\views\htdm\Merchandise\selectDataNm.html" />
     <Content Include="BTS.SP.MART\views\htdm\Origin\delete.html" />
     <Content Include="BTS.SP.MART\views\htdm\Packaging\delete.html" />
     <Content Include="BTS.SP.MART\views\htdm\Period\delete.html" />

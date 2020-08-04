@@ -479,7 +479,7 @@ namespace BTS.API.SERVICE.MD
             public decimal? TonCuoiKySl { get; set; }
 
         }
-        //Phục vụ lấy dữ liệu mã bó hàng- Bán lẻ web Phạm Tuấn Anh
+        //Phục vụ lấy dữ liệu mã bó hàng- Bán lẻ web Nguyễn Tuấn Hoàng Anh
         public class DataBoHang
         {
             public string MaBoHang { get; set; }

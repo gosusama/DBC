@@ -190,7 +190,7 @@ namespace BTS.SP.API.App_Start
             container.RegisterType<IDclCloseoutService, DclCloseoutService>(new HierarchicalLifetimeManager());
 
             //log
-            //báo cáo xuất nhập tồn chi tiết -- Phạm Tuấn Anh
+            //báo cáo xuất nhập tồn chi tiết -- Nguyễn Tuấn Hoàng Anh
             container.RegisterType<IXuatNhapTonChiTietService, XuatNhapTonChiTietService>(new HierarchicalLifetimeManager());
             //end
 

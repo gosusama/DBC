@@ -81,9 +81,7 @@
                         <div class="add-input-zone">
                             <input class="input-border-form" name="_makhachHang" type="text" ng-model="target.maKhachHang" typeahead-editable="false"
                                    uib-typeahead="opt.value as opt.text for opt in tempData('suppliers') | filter:$viewValue | limitTo:5"
-                                   typeahead-on-select="selectedkhachHang($item)" typeahead-input-formatter="displayHepler($model, 'suppliers')"
-                                   required />
-                            <div style="display:none" class="add-input-able" ng-click="createCustomer(target, 'makhachHang')">
+                                   typeahead-input-formatter="displayHepler($model, 'suppliers')" ng-disabled="disabledSupplier" required />
                             </div>
                             <span style="color:red" ng-show="_form._makhachHang.$dirty && _form._makhachHang.$invalid">
                                 <span ng-show="_form._makhachHang.$error.required">Không được để trống</span>
@@ -98,7 +96,7 @@
                     </div>
                     <div class="md-4-style-input">
                         <div class="add-input-zone">
-                            <input class="input-border-form" name="_khoNhap" type="text" ng-model="target.maKhoNhap" typeahead-editable="false" typeahead-on-select="selectedKhoNhap($item)" uib-typeahead="opt.value as opt.text for opt in tempData('wareHouses') | filter:$viewValue | limitTo:5" typeahead-input-formatter="displayHepler($model, 'wareHouses')" required />
+                            <input class="input-border-form" name="_khoNhap" type="text" ng-model="target.maKhoNhap" typeahead-editable="false" uib-typeahead="opt.value as opt.text for opt in wareHousesByUnit | filter:$viewValue | limitTo:5" typeahead-input-formatter="displayHepler($model, 'wareHouses')" required />
                         </div>
                         <span style="color: red" ng-show="_form._khoNhap.$dirty && _form._khoNhap.$invalid">
                             <span style="color: red">Không được để trống</span>
@@ -129,11 +127,8 @@
                     <th style="width:7%;font-size:  12px;" class="text-center">Mã hàng</th>
                     <th style="width:20%;font-size:  12px;" class="text-center">Tên hàng</th>
                     <th style="width:5%;font-size:  12px;" class="text-center">Đơn vị tính</th>
-                    <th style="width:3%;font-size:  12px;" class="text-center">Quy cách</th>
-                    <!--<th style="width:3%" class="text-center">Sl bao</th>-->
                     <th style="width:4%;font-size:  12px;" class="text-center">Số lượng</th>
                     <th style="width:3%;font-size:  12px;" class="text-center">% VAT</th>
-                    <!-- <th style="width:5%" class="text-center">Sl</th> -->
                     <th style="width:7%;font-size:  12px;" class="text-center">Giá mua</th>
                     <th style="width:7%;font-size:  12px;" class="text-center">Giá mua (VAT)</th>
                     <th style="width:4%;font-size:  12px;" class="text-center">Tỷ lệ lãi</th>
@@ -158,19 +153,10 @@
                     <td style="text-align: center;font-size:16px;">
                         <span style="text-align:center;">{{getNameDVT(newItem.donViTinh, 'donViTinhs')}}</span>
                     </td>
-                    <td style="text-align:center;font-size:16px;">{{newItem.luongBao}}</td>
-                    <!--<td>
-                        <input type="text" style="text-align:center; width:100%" ng-model="newItem.soLuongBao" ng-change="robot.changeSoLuongBao(newItem)"
-                               awnum="number">
-                    </td>
-                    -->
                     <td>
                         <input id="soluong" type="text" style="text-align:right; width:100%;font-size:16px;" ng-model="newItem.soLuongLe" ng-change="robot.changeSoLuongLe(newItem)" awnum="number">
                     </td>
                     <td style="text-align:right;font-size:16px;">{{newItem.tyLeVatVao}}%</td>
-                    <!-- <td> -->
-                    <!-- <input type="text" style="text-align:center; width:100%" ng-model="newItem.soLuong" awnum="number" disabled> -->
-                    <!-- </td> -->
                     <td>
                         <input type="text" style="text-align:right; width:100%;font-size:16px;" ng-model="newItem.donGia" ng-change="robot.changeDonGia(newItem)" awnum="number" />
                     </td>
@@ -219,19 +205,10 @@
                     <td style="text-align: center;">
                         <span style="text-align:center;">{{getNameDVT(item.donViTinh, 'donViTinhs')}}</span>
                     </td>
-                    <td style="text-align:center;">{{item.luongBao}}</td>
-                    <!--<td>
-                        <input type="text" style="text-align:center; width:100%" ng-model="item.soLuongBao" ng-change="robot.changeSoLuongBao(item)"
-                               awnum="number" disabled>
-                    </td>
-                    -->
                     <td>
                         <input type="text" style="text-align:right; width:100%" ng-model="item.soLuongLe" ng-change="robot.changeSoLuongLe(item)" awnum="number">
                     </td>
                     <td style="text-align:right;">{{item.tyLeVatVao}}%</td>
-                    <!-- <td> -->
-                    <!-- <input type="text" style="text-align:center; width:100%" ng-model="item.soLuong" awnum="number" disabled> -->
-                    <!-- </td> -->
                     <td>
                         <input style="text-align:right; width:100%;" type="text" ng-model="item.donGia" ng-change="robot.changeDonGia(item)" awnum="number" />
                     </td>

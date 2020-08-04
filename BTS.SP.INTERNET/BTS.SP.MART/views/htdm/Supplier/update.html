@@ -1,94 +1,67 @@
-﻿<div>
-    <div class="modal-header">
-      <h3 class="modal-title" style="color:blue;">{{title()}}</h3>
-        <div class="button-close" ng-click="cancel()">
-            <i class="fa fa-times-circle"></i>
+﻿<div class="modal-header">
+    <h3 class="modal-title" style="color:blue;">{{title()}}</h3>
+    <div class="button-close" ng-click="cancel()">
+        <i class="fa fa-times-circle"></i>
+    </div>
+</div>
+<div class="modal-body">
+    <form role="form" name="_form">
+        <div class="row form-group">
+            <div class="col-lg-6">
+                <label>Mã nhà cung cấp</label><span style="color: red"> (1*)</span>
+                <input type="text" class="form-control" ng-model="target.maNCC" name="_makhachHang" maxlength="50" required disabled="">
+                <span style="color:red" ng-show="_form._makhachHang.$dirty && _form._makhachHang.$invalid">
+                    <span ng-show="_form._makhachHang.$error.required">Không được để trống</span>
+                </span>
+            </div>
+            <div class="col-lg-6">
+                <label>Tên nhà cung cấp</label><span style="color: red"> (2*)</span>
+                <input type="text" class="form-control" ng-model="target.tenNCC" name="_tenkhachHang" maxlength="300" required>
+                <span style="color:red" ng-show="_form._tenkhachHang.$dirty && _form._tenkhachHang.$invalid">
+                    <span ng-show="_form._tenkhachHang.$error.required">Không được để trống</span>
+                </span>
+            </div>
         </div>
-    </div>
-    <div class="modal-body">
-        <form role="form" name="_form">
-            <div class="row form-group">
-                <div class="col-lg-6">
-                    <label>Mã nhà cung cấp</label><span style="color: red"> (1*)</span>
-                    <input type="text" class="form-control" ng-model="target.maNCC" name="_makhachHang" maxlength="50" required disabled="">
-                    <span style="color:red" ng-show="_form._makhachHang.$dirty && _form._makhachHang.$invalid">
-                        <span ng-show="_form._makhachHang.$error.required">Không được để trống</span>
-                    </span>
-                </div>
-                <div class="col-lg-6">
-                    <label>Tên nhà cung cấp</label><span style="color: red"> (2*)</span>
-                    <input type="text" class="form-control" ng-model="target.tenNCC" name="_tenkhachHang" maxlength="300" required>
-                    <span style="color:red" ng-show="_form._tenkhachHang.$dirty && _form._tenkhachHang.$invalid">
-                        <span ng-show="_form._tenkhachHang.$error.required">Không được để trống</span>
-                    </span>
-                </div>
+        <div class="row form-group">
+            <div class="col-lg-6">
+                <label>Địa chỉ</label>
+                <input type="text" class="form-control" ng-model="target.diaChi">
             </div>
-
-            <div class="row form-group">
-
-                <div class="col-lg-6">
-                    <label>Địa chỉ</label>
-                    <input type="text" class="form-control" ng-model="target.diaChi">
-                </div>
-                <div class="col-lg-6">
-                    <label>Tỉnh/Thành phố</label>
-                    <input type="text" class="form-control" ng-model="target.tinhThanhPho">
-                </div>
+            <div class="col-lg-6">
+                <label>Điện thoai</label>
+                <input type="text" class="form-control" ng-model="target.dienThoai" ng-pattern="/^[0-9]+$/" name="_SoDienThoai">
+                <span style="color:red" ng-show="_form._SoDienThoai.$dirty && _form._SoDienThoai.$invalid">
+                    <span ng-show="_form._SoDienThoai.$error.required">Không được để trống</span>
+                    <span ng-show="_form._SoDienThoai.$error.pattern">Ký tự bắt buộc phải là số</span>
+                </span>
             </div>
-            <div class="row form-group">
-
-                <div class="col-lg-6">
-                    <label>Mã số thuế</label>
-                    <input type="text" class="form-control" ng-model="target.maSoThue">
-                </div>
-                <div class="col-lg-6">
-                    <label>Người liên hệ</label>
-                    <input type="text" class="form-control" ng-model="target.nguoiLienHe">
-                </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-lg-6">
+                <label>Fax</label>
+                <input type="text" class="form-control" ng-model="target.fax">
             </div>
-            <div class="row form-group">
-                <div class="col-lg-6">
-                    <label>Chức vụ</label>
-                    <input type="text" class="form-control" ng-model="target.chucVu">
-                </div>
-                <div class="col-lg-6">
-                    <label>Điện thoai</label>
-                    <input type="text" class="form-control" ng-model="target.dienThoai" ng-pattern="/^[0-9]+$/" name="_SoDienThoai">
-                    <span style="color:red" ng-show="_form._SoDienThoai.$dirty && _form._SoDienThoai.$invalid">
-                        <span ng-show="_form._SoDienThoai.$error.required">Không được để trống</span>
-                        <span ng-show="_form._SoDienThoai.$error.pattern">Ký tự bắt buộc phải là số</span>
-                    </span>
-
-                </div>
+            <div class="col-lg-6">
+                <label>Email</label>
+                <input type="email" class="form-control" ng-model="target.email" name="_email">
+                <span style="color:red" ng-show="_form._email.$dirty && _form._email.$invalid">
+                    <span ng-show="_form._email.$error.email">Không hợp lệ <span>(Ví dụ: 123@gmail.com)</span></span>
+                </span>
             </div>
-            <div class="row form-group">
-                <div class="col-lg-6">
-                    <label>Fax</label>
-                    <input type="text" class="form-control" ng-model="target.fax">
-                </div>
-                <div class="col-lg-6">
-                    <label>Email</label>
-                    <input type="email" class="form-control" ng-model="target.email" name="_email">
-                    <span style="color:red" ng-show="_form._email.$dirty && _form._email.$invalid">
-                        <span ng-show="_form._email.$error.email">Không hợp lệ <span>(Ví dụ: 123@gmail.com)</span></span>
-                    </span>
-                </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-lg-6">
+                <label>Mã số thuế</label>
+                <input type="text" class="form-control" ng-model="target.maSoThue">
             </div>
-            <div class="row form-group">
-                <div class="col-lg-6">
-                    <label>Xuất xứ</label>
-                    <select class="form-control edit-width-select" ng-model="target.xuatXu" ng-options="opt.value as opt.text for opt in tempData('origin')"></select>
-                </div>
-                <div class="col-lg-6">
-                    <label>Trạng thái</label>
-                    <select class="form-control" value="10" ng-model="target.trangThai" ng-init="target.trangThai = 10" ng-options="opt.value as opt.text for opt in tempData('status')"></select>
-                </div>
+            <div class="col-lg-6">
+                <label>Trạng thái</label>
+                <select class="form-control" value="10" ng-model="target.trangThai" ng-init="target.trangThai = 10" ng-options="opt.value as opt.text for opt in tempData('status')"></select>
             </div>
-        </form>
-
-    </div>
-    <div class="modal-footer">
-        <button prevent-default type="submit" class="btn btn-primary" ng-click="save()"><i class="fa fa-save"></i>&nbsp;&nbsp;{{config.label.btnSubmit}}</button>
-        <button prevent-default class="btn btn-default" ng-click="cancel()"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;{{config.label.btnCancel}}</button>
-    </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button prevent-default type="submit" class="btn btn-primary" ng-click="save()"><i class="fa fa-save"></i>&nbsp;&nbsp;{{config.label.btnSubmit}}</button>
+    <button prevent-default class="btn btn-default" ng-click="cancel()"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;{{config.label.btnCancel}}</button>
 </div>

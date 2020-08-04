@@ -167,35 +167,17 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
             getWareHouse: function (id) {
                 return $http.get(rootUrl + '/api/Md/WareHouse/' + id);
             },
-            getCustomer: function (id) {
-                return $http.get(rootUrl + '/api/Md/Supplier/' + id);
-            },
-            getWareHouseByCode: function (code) {
-                return $http.get(rootUrl + '/api/Md/WareHouse/GetByCode/' + code);
-            },
-            getOrderById: function (id) {
-                return $http.get(rootUrl + '/api/Nv/DatHang/GetDetailComplete/' + id);
-            },
-            getOrderByCustomer: function (code) {
-                return $http.get(rootUrl + '/api/Nv/DatHang/GetSelectDataIsCompleteByCustomerCode/' + code);
-            },
-            getOrder: function () {
-                return $http.get(rootUrl + '/api/Nv/DatHang/GetSelectDataIsComplete');
-            },
             postApproval: function (data) {
                 return $http.post(serviceUrl + '/PostApproval', data);
             },
             updateCT: function (params) {
                 return $http.put(serviceUrl + '/' + params.id, params);
             },
-            getMerchandiseForNvByCode: function (code, wareHouseCode, unitCode) {
-                return $http.get(rootUrl + '/api/Md/Merchandise/GetForNvByCode/' + code + '/' + wareHouseCode + '/' + unitCode);
+            getMerchandiseForNvByCode: function (code, supplierCode, unitCode) {
+                return $http.get(rootUrl + '/api/Md/Merchandise/GetForNvNhapMuaByCode/' + code + '/' + supplierCode + '/' + unitCode);
             },
             getMerchandise: function (maChungTuPk) {
                 return $http.get(rootUrl + '/api/Nv/NhapHangMua/GetMerchandise/' + maChungTuPk);
-            },
-            getCustomerName: function (maHang) {
-                return $http.get(rootUrl + '/api/Md/Merchandise/GetByCode/' + maHang);
             },
             writeDataToExcel: function (data) {
                 return $http.post(serviceUrl + '/WriteDataToExcel', data);
@@ -403,12 +385,6 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
                     $scope.filtered.advanceData.tagMerchandises = serviceMerchandise.getSelectData();
                     $scope.filtered.advanceData.tagMerchandiseGroups = serviceNhomVatTu.getSelectData();
                     $scope.filtered.advanceData.tagNhaCungCaps = serviceSupplier.getSelectData();
-                    service.getNewParameter().then(function (response) {
-                        if (response && response.status == 200 && response.data) {
-                            $scope.filtered.advanceData = response.data;
-                            $scope.options = $scope.filtered.advanceData.option;
-                        }
-                    });
                     postdata = { paged: $scope.paged, filtered: $scope.filtered };
                     service.postQuery(postdata).then(function (successRes) {
                         if (successRes && successRes.status === 200 && successRes.data && successRes.data.status) {
@@ -600,9 +576,6 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
             $scope.sortReverse = false;
             $scope.doSearch = function () {
                 $scope.paged.currentPage = 1;
-                if (!$scope.filtered.advanceData.trangThai) {
-                    $scope.filtered.advanceData.trangThai = "10";
-                }
                 filterData();
             };
             $scope.pageChanged = function () {
@@ -970,20 +943,19 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
         }]);
 
     /* controller addNew */
-    app.controller('phieuNhapHangMuaCreateController', ['$scope', '$uibModalInstance', 'configService', 'phieuNhapHangMuaService', 'tempDataService', '$filter', '$uibModal', '$log', 'ngNotify', 'userService', 'FileUploader', 'merchandiseService', 'toaster', 'periodService', 'nvCongNoNCCService',
-        function ($scope, $uibModalInstance, configService, service, tempDataService, $filter, $uibModal, $log, ngNotify, serviceAuthUser, FileUploader, serviceMerchandise, toaster, servicePeriod, nvCongNoNCCService) {
+    app.controller('phieuNhapHangMuaCreateController', ['$scope', '$uibModalInstance', 'configService', 'phieuNhapHangMuaService', 'tempDataService', '$filter', '$uibModal', 'ngNotify', 'userService', 'FileUploader', 'merchandiseService', 'toaster', 'periodService', 'wareHouseService', 
+        function ($scope, $uibModalInstance, configService, service, tempDataService, $filter, $uibModal, ngNotify, serviceAuthUser, FileUploader, serviceMerchandise, toaster, servicePeriod, wareHouseService) {
             var currentUser = serviceAuthUser.GetCurrentUser();
             var unitCode = currentUser.unitCode;
             var rootUrl = configService.apiServiceBaseUri;
-            var serviceUrl = rootUrl + '/api/Nv/NhapHangMua';
             $scope.robot = angular.copy(service.robot);
             $scope.config = angular.copy(configService);
             $scope.paged = angular.copy(configService.pageDefault);
+            $scope.disabledSupplier = false;
             $scope.data = [];
             $scope.newItem = {};
             $scope.donHangs = [];
             $scope.target = { dataDetails: [], dataClauseDetails: [] };
-            $scope.tkKtKhoNhap = "";
             $scope.tyGia = 0;
             $scope.isListItemNull = true;
             $scope.tempData = tempDataService.tempData;
@@ -1051,16 +1023,21 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
                             $scope.target.thanhTienTruocVat = $scope.robot.sum($scope.target.dataDetails, 'thanhTien');
                             $scope.target.tienVat = $scope.robot.sumVat($scope.tyGia, $scope.target);
                             $scope.target.thanhTienSauVat = $scope.target.thanhTienTruocVat + $scope.target.tienVat - $scope.target.tienChietKhau;
+
+                            $scope.disabledSupplier = (newValue && newValue.length > 0);
                         }, true);
                     }
                     $scope.target.maKhoNhap = unitCode + '-K1';
                 });
-                service.getOrder().then(function (response) {
-                    if (response && response.status == 200 && response.data) {
-                        $scope.donHangs = response.data;
+                wareHouseService.getByUnit(unitCode).then(function (successRes) {
+                    if (successRes && successRes.status === 200 && successRes.data.data.length > 0) {
+                        $scope.wareHousesByUnit = successRes.data.data;
+                    } else {
+                        console.log('successRes', successRes);
                     }
+                }, function (errorRes) {
+                    console.log('errorRes', errorRes);
                 });
-
             };
             filterData();
             $scope.addRow = function () {
@@ -1119,8 +1096,8 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
             $scope.addNewItem = function (strKey) {
                 var modalInstance = $uibModal.open({
                     backdrop: 'static',
-                    templateUrl: configService.buildUrl('htdm/Merchandise', 'selectData'),
-                    controller: 'merchandiseSelectDataController',
+                    templateUrl: configService.buildUrl('htdm/Merchandise', 'selectDataNm'),
+                    controller: 'merchandiseSelectDataForNmController',
                     windowClass: 'app-modal-window',
                     resolve: {
                         serviceSelectData: function () {
@@ -1128,13 +1105,15 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
                         },
                         filterObject: function () {
                             return {
-                                summary: strKey
+                                summary: strKey,
+                                maKhachHang: $scope.target.maKhachHang,
+                                unitCode: unitCode
                             };
                         }
                     }
                 });
                 modalInstance.result.then(function (updatedData) {
-                    if (!updatedData.selected) {
+                    if (updatedData) {
                         $scope.newItem = updatedData;
                         updatedData.donGia = updatedData.giaMua;
                         $scope.newItem.validateCode = updatedData.maHang;
@@ -1157,78 +1136,26 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
                 $scope.pageChanged();
             };
 
-            //vudq import excel
-            $scope.downloadTemplate = function () {
-                //kmComboService.dowloadTemplateExcel('TemplateExcel-KhuyenMaiCombo');
-            };
-
-            var uploader = $scope.uploader = new FileUploader({
-                url: serviceUrl + '/ImportExcelNhapHangMua/' + unitCode
-            });
-            uploader.filters.push({
-                name: 'syncFilter',
-                fn: function (item, options) {
-                    return this.queue.length < 10;
-                }
-            });
-            uploader.filters.push({
-                name: 'asyncFilter',
-                fn: function (item, options, deferred) {
-                    setTimeout(deferred.resolve, 1e3);
-                }
-            });
-            uploader.onSuccessItem = function (fileItem, response, status, headers) {
-                if (status === 200 && response.data) {
-                    if (response.data.length > 0) {
-                        for (var i = 0; i < response.data.length; i++) {
-                            response.data[i].class = '';
-                            if (!response.data[i].exist) {
-                                response.data[i].class = 'merchandiseSelected';
-                            }
-                            response.data[i].thanhTien = response.data[i].donGia * response.data[i].soLuong;
-                            response.data[i].thanhTienVAT = response.data[i].giaMuaCoVat * response.data[i].soLuong;
-                            $scope.target.dataDetails.push(response.data[i]);
-                        }
-                        $scope.pageChanged();
-                    }
-                }
-            };
-            uploader.onErrorItem = function (fileItem, response, status, headers) {
-                console.info('onErrorItem', fileItem, response, status, headers);
-            };
-            //end vudq import excel
-            $scope.selectedkhachHang = function (item) {
-                service.getCustomer(item.id).then(function (response) {
-                    if (response && response.status == 200 && response.data) {
-                        $scope.target.maSoThue = response.data.maSoThue;
-                    }
-                });
-                nvCongNoNCCService.getAmmountSupplierLend(item.value).then(function (response) {
-                    if (response.status === 200) {
-                        $scope.target.noiDung = "Tổng nợ " + Math.round(response.data.thanhTienCanTra / 1000) + "k";
-                    } else {
-                    }
-                });
-            };
-            $scope.selectedTkCo = function (item) {
-                $scope.target.tkCo = item.value;
-            };
             $scope.selectedMaHang = function (code) {
                 if (code) {
-                    service.getMerchandiseForNvByCode(code, $scope.target.maKhoNhap, unitCode).then(function (response) {
-                        if (response && response.status === 200 && response.data && response.data.status) {
-                            $scope.newItem = response.data.data;
-                            $scope.newItem.donGia = $scope.newItem.giaMua;
-                            $scope.newItem.validateCode = response.data.data.maHang;
-                            $scope.newItem.giaMuaCoVat = response.data.data.giaMua * (1 + response.data.data.tyLeVatVao / 100);
-                            document.getElementById('soluong').focus();
-                        }
-                        else {
-                            $scope.addNewItem(code);
-                        }
-                    });
+                    if ($scope.target.maKhachHang) {
+                        service.getMerchandiseForNvByCode(code, $scope.target.maKhachHang, unitCode).then(function (response) {
+                            if (response && response.status === 200 && response.data && response.data.status) {
+                                $scope.newItem = response.data.data;
+                                $scope.newItem.donGia = $scope.newItem.giaMua;
+                                $scope.newItem.validateCode = response.data.data.maHang;
+                                $scope.newItem.giaMuaCoVat = response.data.data.giaMua * (1 + response.data.data.tyLeVatVao / 100);
+                                document.getElementById('soluong').focus();
+                            }
+                            else {
+                                $scope.addNewItem(code);
+                            }
+                        });
+                    } else {
+                        toaster.pop('error', "Thông báo:", "Vui lòng chọn nhà cung cấp trước khi thêm hàng hóa");
+                    }
                 }
-            }
+            };
             $scope.selectedTax = function (target) {
                 for (var i = 0; i < $scope.tempData('taxs').length; i++) {
                     var tmp = $scope.tempData('taxs')[i];
@@ -1237,28 +1164,6 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
                     }
                 }
             };
-            $scope.selectedKhoNhap = function (item) {
-                $scope.target.maKhoNhap = item.value;
-                service.getWareHouse(item.id).then(function (response) {
-                    if (response && response.status == 200 && response.data) {
-                        $scope.tkKtKhoNhap = response.taiKhoanKt;
-                    }
-                });
-            }
-            $scope.selectedMaBaoBi = function (model, item) {
-                if (!model.soLuongBao) {
-                    model.soLuongBao = 0;
-                }
-                if (!model.donGia) {
-                    model.donGia = 0;
-                }
-                if (!model.soLuongLe) {
-                    model.soLuongLe = 0;
-                }
-                model.luongBao = parseFloat(item.extendValue);
-                model.soLuong = model.soLuongBao * model.luongBao + model.soLuongLe;
-                model.thanhTien = model.soLuong * model.donGia;
-            }
             $scope.save = function () {
                 $scope.target.ngayCT = $filter('date')($scope.target.ngayCT);
                 $scope.target.ngayDieuDong = $filter('date')($scope.target.ngayDieuDong);
@@ -1285,123 +1190,13 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
                         console.log('errorRes', errorRes);
                     });
             };
-            $scope.saveAndKeep = function () {
-                var tempData = angular.copy($scope.target);
-                service.post($scope.target).then(function (successRes) {
-                    if (successRes && successRes.status === 201 && successRes.data.status) {
-                        ngNotify.set(successRes.data.message, { type: 'success' });
-                        $scope.target.dataDetails.clear();
-                        $scope.isListItemNull = true;
-                        service.getNewInstance().then(function (response) {
-                            var expectData = response;
-                            tempData.maChungTu = expectData.maChungTu;
-                            tempData.ngay = expectData.ngay;
-                            $scope.target = tempData;
-                        });
-                        $uibModalInstance.close($scope.target);
-                    } else {
-                        console.log('addNew successRes', successRes);
-                        ngNotify.set(successRes.data.message, { duration: 3000, type: 'error' });
-                    }
-                },
-                    function (errorRes) {
-                        console.log('errorRes', errorRes);
-                    });
-            };
-            $scope.saveAndPrint = function () {
-                service.post($scope.target).then(function (successRes) {
-                    if (successRes && successRes.status === 201 && successRes.data) {
-                        ngNotify.set(successRes.data.message, { type: 'success' });
-                        var url = $state.href('reportPhieuNhapHangMua', { id: response.data.id });
-                        window.open(url, 'Report Viewer');
-                        $scope.target.dataDetails.clear();
-                        $scope.isListItemNull = true;
-                        $uibModalInstance.close($scope.target);
-                    } else {
-                        console.log('addNew successRes', successRes);
-                        ngNotify.set(successRes.data.message, { duration: 3000, type: 'error' });
-                    }
-                },
-                    function (errorRes) {
-                        console.log('errorRes', errorRes);
-                    });
-            };
-            $scope.createWareHouse = function (target, name) {
-                var modalInstance = $uibModal.open({
-                    backdrop: 'static',
-                    templateUrl: configService.buildUrl('htdm/WareHouse', 'add'),
-                    controller: 'wareHouseCreateController',
-                    resolve: {}
-                });
-                modalInstance.result.then(function (updatedData) {
-                    $scope.tempData.update('wareHouses', function () {
-                        if (target && name) {
-                            target[name] = updatedData.maKho;
-                        }
-                    });
-                }, function () {
-                    $log.info('Modal dismissed at: ' + new Date());
-                });
-            };
-            $scope.createMerchandise = function (target, name) {
-                var modalInstance = $uibModal.open({
-                    backdrop: 'static',
-                    templateUrl: configService.buildUrl('htdm/Merchandise', 'add'),
-                    controller: 'merchandiseCreateController',
-                    windowClass: 'app-modal-window',
-                    resolve: {}
-                });
-                modalInstance.result.then(function (updatedData) {
-                    $scope.tempData.update('merchandises', function () {
-                        if (target && name) {
-                            target[name] = updatedData.maVatTu;
-                        }
-                    });
-                }, function () {
-                    $log.info('Modal dismissed at: ' + new Date());
-                });
-            };
-            $scope.createPackage = function (target, name) {
-                var modalInstance = $uibModal.open({
-                    backdrop: 'static',
-                    templateUrl: configService.buildUrl('htdm/Packaging', 'add'),
-                    controller: 'packagingCreateController',
-                    resolve: {}
-                });
-                modalInstance.result.then(function (updatedData) {
-                    $scope.tempData.update('packagings', function () {
-                        if (target && name) {
-                            target[name] = updatedData.maBaoBi;
-                            target.luongBao = updatedData.soLuong;
-                        }
-                    });
-                }, function () {
-                    $log.info('Modal dismissed at: ' + new Date());
-                });
-            };
-            $scope.createCustomer = function (target, name) {
-                var modalInstance = $uibModal.open({
-                    backdrop: 'static',
-                    templateUrl: configService.buildUrl('htdm/Customer', 'add'),
-                    controller: 'customerCreateController',
-                    resolve: {}
-                });
-                modalInstance.result.then(function (updatedData) {
-                    $scope.tempData.update('customers', function () {
-                        if (target && name) {
-                            target[name] = updatedData.maKH;
-                        }
-                    });
-                }, function () {
-                    $log.info('Modal dismissed at: ' + new Date());
-                });
-            };
             $scope.cancel = function () {
                 $scope.isListItemNull = true;
                 $uibModalInstance.dismiss('cancel');
             };
         }]);
-    /* controller Edit */
+
+/* controller Edit */
     app.controller('phieuNhapHangMuaEditController', ['$scope', '$uibModalInstance', 'configService', 'phieuNhapHangMuaService', 'tempDataService', '$filter', '$uibModal', '$log', 'targetData', 'ngNotify', 'merchandiseService', 'toaster', 'nvCongNoNCCService', 'FileUploader', 'userService',
         function ($scope, $uibModalInstance, configService, service, tempDataService, $filter, $uibModal, $log, targetData, ngNotify, serviceMerchandise, toaster, nvCongNoNCCService, FileUploader, serviceAuthUser) {
             $scope.config = angular.copy(configService);
@@ -1415,12 +1210,11 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
             $scope.tempData = tempDataService.tempData;
             $scope.isLoading = false;
             $scope.target = targetData;
-            $scope.target.lstModifield = [];
             $scope.newItem = {};
             $scope.isLoading = false;
+            $scope.disabledSupplier = false;
             $scope.tkKtKhoNhap = "";
             $scope.tyGia = 0;
-            $scope.lstModifield = [];
             $scope.downloadTemplate = function () {
                 //kmComboService.dowloadTemplateExcel('TemplateExcel-KhuyenMaiCombo');
             };
@@ -1517,8 +1311,19 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
                             $scope.target.thanhTienTruocVat = $scope.robot.sum($scope.target.dataDetails, 'thanhTien');
                             $scope.target.tienVat = $scope.robot.sumVat($scope.tyGia, $scope.target);
                             $scope.target.thanhTienSauVat = $scope.target.thanhTienTruocVat + $scope.target.tienVat - $scope.target.tienChietKhau;
+
+                            $scope.disabledSupplier = (newValue && newValue.length > 0);
                         }, true);
                     }
+                });
+                wareHouseService.getByUnit(unitCode).then(function (successRes) {
+                    if (successRes && successRes.status === 200 && successRes.data.data.length > 0) {
+                        $scope.wareHousesByUnit = successRes.data.data;
+                    } else {
+                        console.log('successRes', successRes);
+                    }
+                }, function (errorRes) {
+                    console.log('errorRes', errorRes);
                 });
             };
             filterData();
@@ -1573,22 +1378,11 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
                 document.getElementById('mahang').focus();
             };
 
-            //add các dòng thay đổi trên grid sửa
-            $scope.modifieldRow = function (item) {
-                if (item) {
-                    var exist = $filter('filter')($scope.lstModifield, { maHang: item.maHang }, true);
-                    if (exist && exist.length === 1) {
-                    } else {
-                        $scope.lstModifield.push(item);
-                    }
-                }
-            }
-
             $scope.addNewItem = function (strKey) {
                 var modalInstance = $uibModal.open({
                     backdrop: 'static',
-                    templateUrl: configService.buildUrl('htdm/Merchandise', 'selectData'),
-                    controller: 'merchandiseSelectDataController',
+                    templateUrl: configService.buildUrl('htdm/Merchandise', 'selectDataNm'),
+                    controller: 'merchandiseSelectDataForNmController',
                     windowClass: 'app-modal-window',
                     resolve: {
                         serviceSelectData: function () {
@@ -1596,22 +1390,26 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
                         },
                         filterObject: function () {
                             return {
-                                summary: strKey
+                                summary: strKey,
+                                maKhachHang: $scope.target.maKhachHang,
+                                unitCode: unitCode
                             };
                         }
                     }
                 });
                 modalInstance.result.then(function (updatedData) {
-                    if (!updatedData.selected) {
-                        updatedData.donGia = updatedData.giaMua;
+                    if (updatedData) {
                         $scope.newItem = updatedData;
+                        updatedData.donGia = updatedData.giaMua;
                         $scope.newItem.validateCode = updatedData.maHang;
+                        $scope.newItem.giaBanLe = updatedData.giaBanLe;
                         $scope.newItem.giaMuaCoVat = updatedData.giaMua * (1 + updatedData.tyLeVatVao / 100);
                     }
                     $scope.pageChanged();
                 }, function () {
+
                 });
-            }
+            };
 
             $scope.removeItem = function (index) {
                 var currentPage = $scope.paged.currentPage;
@@ -1620,37 +1418,24 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
                 $scope.target.dataDetails.splice(currentPageIndex, 1);
                 $scope.pageChanged();
             };
-            $scope.selectedkhachHang = function (item) {
-                service.getCustomer(item.id).then(function (response) {
-                    if (response && response && response.data) {
-                        $scope.target.maSoThue = response.data.maSoThue;
-                    }
-                });
-                nvCongNoNCCService.getAmmountSupplierLend(item.value).then(function (response) {
-                    if (response.status === 200) {
-                        $scope.target.noiDung = "Tổng nợ " + Math.round(response.data.thanhTienCanTra / 1000) + "k";
-                    } else {
-                        // console.log('errr', response.message);
-                    }
-                });
-            };
-            $scope.selectedTkCo = function (item) {
-                $scope.target.tkCo = item.value;
-            };
             $scope.selectedMaHang = function (code) {
                 if (code) {
-                    service.getMerchandiseForNvByCode(code, $scope.target.maKhoNhap, unitCode).then(function (response) {
-                        if (response && response.status === 200 && response.data && response.data.status) {
-                            $scope.newItem = response.data.data;
-                            $scope.newItem.donGia = $scope.newItem.giaMua;
-                            $scope.newItem.validateCode = response.data.data.maHang;
-                            $scope.newItem.giaMuaCoVat = response.data.data.giaMua * (1 + response.data.data.tyLeVatVao / 100);
-                            document.getElementById('soluong').focus();
-                        } else {
-                            $scope.addNewItem(code);
-
-                        }
-                    });
+                    if ($scope.target.maKhachHang) {
+                        service.getMerchandiseForNvByCode(code, $scope.target.maKhachHang, unitCode).then(function (response) {
+                            if (response && response.status === 200 && response.data && response.data.status) {
+                                $scope.newItem = response.data.data;
+                                $scope.newItem.donGia = $scope.newItem.giaMua;
+                                $scope.newItem.validateCode = response.data.data.maHang;
+                                $scope.newItem.giaMuaCoVat = response.data.data.giaMua * (1 + response.data.data.tyLeVatVao / 100);
+                                document.getElementById('soluong').focus();
+                            }
+                            else {
+                                $scope.addNewItem(code);
+                            }
+                        });
+                    } else {
+                        toaster.pop('error', "Thông báo:", "Vui lòng chọn nhà cung cấp trước khi thêm hàng hóa");
+                    }
                 }
             };
             $scope.selectedTax = function (target) {
@@ -1660,114 +1445,6 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
                         $scope.tyGia = tmp.extendValue;
                     }
                 }
-            };
-            $scope.selectedKhoNhap = function (item) {
-                $scope.target.maKhoNhap = item.value;
-                service.getWareHouse(item.id).then(function (response) {
-                    $scope.tkKtKhoNhap = response.taiKhoanKt;
-                });
-            }
-            $scope.selectedMaBaoBi = function (model, item) {
-                if (!model.soLuongBao) {
-                    model.soLuongBao = 0;
-                }
-                if (!model.donGia) {
-                    model.donGia = 0;
-                }
-                if (!model.soLuongLe) {
-                    model.soLuongLe = 0;
-                }
-                model.luongBao = parseFloat(item.extendValue);
-                model.soLuong = model.soLuongBao * model.luongBao + model.soLuongLe;
-                model.thanhTien = model.soLuong * model.donGia;
-            }
-            $scope.saveAndPrint = function () {
-                service.updateCT($scope.target).then(function (successRes) {
-                    if (successRes && successRes.status === 200 && successRes.data.status) {
-                        ngNotify.set(successRes.data.message, { type: 'success' });
-                        var url = $state.href('reportPhieuNhapHangMua', { id: successRes.data.data.id });
-                        window.open(url, 'Report Viewer');
-                        $scope.target.dataDetails.clear();
-                        $uibModalInstance.close($scope.target);
-                    } else {
-                        console.log('update successRes', successRes);
-                        ngNotify.set(successRes.data.message, { duration: 3000, type: 'error' });
-                    }
-                },
-                    function (response) {
-                        console.log('ERROR: Update failed! ' + response);
-                    }
-                );
-            };
-            $scope.createWareHouse = function (target, name) {
-                var modalInstance = $uibModal.open({
-                    backdrop: 'static',
-                    templateUrl: configService.buildUrl('htdm/WareHouse', 'add'),
-                    controller: 'wareHouseCreateController',
-                    resolve: {}
-                });
-                modalInstance.result.then(function (updatedData) {
-                    $scope.tempData.update('wareHouses', function () {
-                        if (target && name) {
-                            target[name] = updatedData.maKho;
-                        }
-                    });
-                }, function () {
-                    $log.info('Modal dismissed at: ' + new Date());
-                });
-            };
-            $scope.createMerchandise = function (target, name) {
-                var modalInstance = $uibModal.open({
-                    backdrop: 'static',
-                    templateUrl: configService.buildUrl('htdm/Merchandise', 'add'),
-                    controller: 'merchandiseCreateController',
-                    windowClass: 'app-modal-window',
-                    resolve: {}
-                });
-                modalInstance.result.then(function (updatedData) {
-                    $scope.tempData.update('merchandises', function () {
-                        if (target && name) {
-                            target[name] = updatedData.maVatTu;
-                        }
-                    });
-                }, function () {
-                    $log.info('Modal dismissed at: ' + new Date());
-                });
-            };
-            $scope.createPackage = function (target, name) {
-                var modalInstance = $uibModal.open({
-                    backdrop: 'static',
-                    templateUrl: configService.buildUrl('htdm/Packaging', 'add'),
-                    controller: 'packagingCreateController',
-                    resolve: {}
-                });
-                modalInstance.result.then(function (updatedData) {
-                    $scope.tempData.update('packagings', function () {
-                        if (target && name) {
-                            target[name] = updatedData.maBaoBi;
-                            target.luongBao = updatedData.soLuong;
-                        }
-                    });
-                }, function () {
-                    $log.info('Modal dismissed at: ' + new Date());
-                });
-            };
-            $scope.createCustomer = function (target, name) {
-                var modalInstance = $uibModal.open({
-                    backdrop: 'static',
-                    templateUrl: configService.buildUrl('htdm/Customer', 'add'),
-                    controller: 'customerCreateController',
-                    resolve: {}
-                });
-                modalInstance.result.then(function (updatedData) {
-                    $scope.tempData.update('customers', function () {
-                        if (target && name) {
-                            target[name] = updatedData.maKH;
-                        }
-                    });
-                }, function () {
-                    $log.info('Modal dismissed at: ' + new Date());
-                });
             };
             $scope.save = function () {
                 $scope.target.ngayCT = $filter('date')($scope.target.ngayCT);
@@ -1780,9 +1457,6 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
                     angular.forEach($scope.target.dataDetails, function (value, index) {
                         value.index = index;
                     });
-                }
-                if ($scope.lstModifield.length > 0) {
-                    $scope.target.lstModifield = $scope.lstModifield;
                 }
                 service.updateCT($scope.target).then(function (successRes) {
                     if (successRes && successRes.status === 200 && successRes.data) {

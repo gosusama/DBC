@@ -154,7 +154,7 @@ namespace BTS.API.SERVICE.NV
             }
         }
         
-        //Phạm Tuấn Anh
+        //Nguyễn Tuấn Hoàng Anh
         //Procerdure lấy dữ liệu bán lẻ trên Web BÓ hàng
         public static MdMerchandiseVm.DataBoHang GetDataBoHang(ERPContext ctx, string maBo,string unitCode)//, string maDonVi = "")
         {

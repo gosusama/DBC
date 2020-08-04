@@ -52,8 +52,8 @@ define(['ui-bootstrap'], function () {
         return result;
     }]);
     /* controller list */
-    app.controller('packagingController', ['$scope', '$location', '$http', 'configService', 'packagingService', 'tempDataService', '$filter', '$uibModal', '$log', 'ngNotify', 'securityService', 'toaster',
-        function ($scope, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, ngNotify, securityService, toaster) {
+    app.controller('packagingController', ['$scope', 'configService', 'packagingService', 'tempDataService', '$uibModal', '$log', 'securityService', 'toaster',
+        function ($scope, configService, service, tempDataService, $uibModal, $log, securityService, toaster) {
             $scope.config = angular.copy(configService);
             $scope.paged = angular.copy(configService.pageDefault);
             $scope.filtered = angular.copy(configService.filterDefault);
@@ -66,7 +66,6 @@ define(['ui-bootstrap'], function () {
                 if ($scope.accessList.view) {
                     var postdata = { paged: $scope.paged, filtered: $scope.filtered };
                     service.postQuery(postdata).then(function (successRes) {
-                        console.log('data ck kh:', successRes);
                         if (successRes && successRes.status === 200 && successRes.data && successRes.data.status) {
                             $scope.isLoading = false;
                             $scope.data = successRes.data.data.data;
@@ -198,8 +197,8 @@ define(['ui-bootstrap'], function () {
         }]);
 
     /* controller addNew */
-    app.controller('packagingCreateController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'packagingService', 'tempDataService', '$filter', '$uibModal', '$log', 'ngNotify',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, ngNotify) {
+    app.controller('packagingCreateController', ['$scope', '$uibModalInstance', 'configService', 'packagingService', 'tempDataService', 'ngNotify',
+        function ($scope, $uibModalInstance, configService, service, tempDataService, ngNotify) {
             $scope.robot = angular.copy(service.robot);
             $scope.config = angular.copy(configService);
             $scope.tempData = tempDataService.tempData;
@@ -220,18 +219,17 @@ define(['ui-bootstrap'], function () {
                         console.log('addNew successRes', successRes);
                         ngNotify.set(successRes.data.message, { duration: 3000, type: 'error' });
                     }
-                },
-                    function (errorRes) {
-                        console.log('errorRes', errorRes);
-                    });
+                }, function (errorRes) {
+                    console.log('errorRes', errorRes);
+                });
             };
             $scope.cancel = function () {
                 $uibModalInstance.close();
             };
         }]);
     /* controller Edit */
-    app.controller('packagingEditController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'packagingService', 'tempDataService', '$filter', '$uibModal', '$log', 'targetData', 'ngNotify',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, targetData, ngNotify) {
+    app.controller('packagingEditController', ['$scope', '$uibModalInstance', 'configService', 'packagingService', 'tempDataService', 'targetData', 'ngNotify',
+        function ($scope, $uibModalInstance, configService, service, tempDataService, targetData, ngNotify) {
             $scope.config = angular.copy(configService);
             $scope.tempData = tempDataService.tempData;
             $scope.target = angular.copy(targetData);
@@ -244,13 +242,11 @@ define(['ui-bootstrap'], function () {
                         ngNotify.set(successRes.data.message, { type: 'success' });
                         $uibModalInstance.close($scope.target);
                     } else {
-                        console.log('update successRes', successRes);
                         ngNotify.set(successRes.data.message, { duration: 3000, type: 'error' });
                     }
-                },
-                    function (errorRes) {
-                        console.log('errorRes', errorRes);
-                    });
+                }, function (errorRes) {
+                    console.log('errorRes', errorRes);
+                });
             };
             $scope.cancel = function () {
                 $uibModalInstance.close();
@@ -258,8 +254,8 @@ define(['ui-bootstrap'], function () {
         }]);
 
     /* controller Details */
-    app.controller('packagingDetailsController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'packagingService', 'tempDataService', '$filter', '$uibModal', '$log', 'targetData', 'ngNotify',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, targetData, ngNotify) {
+    app.controller('packagingDetailsController', ['$scope', '$uibModalInstance', 'configService', 'tempDataService', 'targetData',
+        function ($scope, $uibModalInstance, configService, tempDataService, targetData) {
             $scope.config = angular.copy(configService);
             $scope.targetData = angular.copy(targetData);
             $scope.tempData = tempDataService.tempData;
@@ -271,8 +267,8 @@ define(['ui-bootstrap'], function () {
 
         }]);
     /* controller delete */
-    app.controller('packagingDeleteController', ['$scope', '$uibModalInstance', '$location', '$http', 'configService', 'packagingService', 'tempDataService', '$filter', '$uibModal', '$log', 'targetData', 'ngNotify',
-        function ($scope, $uibModalInstance, $location, $http, configService, service, tempDataService, $filter, $uibModal, $log, targetData, ngNotify) {
+    app.controller('packagingDeleteController', ['$scope', '$uibModalInstance', 'configService', 'packagingService', 'targetData', 'ngNotify',
+        function ($scope, $uibModalInstance, configService, service, targetData, ngNotify) {
             $scope.config = angular.copy(configService);
             $scope.targetData = angular.copy(targetData);
             $scope.target = targetData;
@@ -286,8 +282,7 @@ define(['ui-bootstrap'], function () {
                     } else {
                         ngNotify.set(successRes.data.message, { duration: 3000, type: 'error' });
                     }
-                },
-                function (errorRes) {
+                }, function (errorRes) {
                     console.log('errorRes', errorRes);
                 });
             };

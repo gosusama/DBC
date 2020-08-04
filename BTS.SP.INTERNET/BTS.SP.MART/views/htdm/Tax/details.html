@@ -1,43 +1,35 @@
-﻿<div>
-    <div class="modal-header">
-      <h3 class="modal-title" style="color:blue;">{{title()}}</h3>
-        <div class="button-close" ng-click="cancel()">
-            <i class="fa fa-times-circle"></i>
+﻿<div class="modal-header">
+    <h3 class="modal-title" style="color:blue;">{{title()}}</h3>
+    <div class="button-close" ng-click="cancel()">
+        <i class="fa fa-times-circle"></i>
+    </div>
+</div>
+<div class="modal-body">
+    <form role="form">
+        <input type="hidden" ng-model="target.id">
+        <div class="row form-group">
+            <div class="col-lg-6">
+                <label>Mã loại thuế</label><span style="color: red">(*)</span>
+                <input type="text" class="form-control" ng-model="target.maLoaiThue" disabled>
+            </div>
+            <div class="col-lg-6">
+                <label>Loại thuế</label><span style="color: red">(*)</span>
+                <input type="text" class="form-control" ng-model="target.loaiThue" disabled>
+            </div>
         </div>
-    </div>
-    <div class="modal-body">
-        <form role="form">
-            <input type="hidden" ng-model="target.id">
-            <div class="row form-group">
-                <div class="col-lg-6">
-                    <label>Mã loại thuế</label><span style="color: red"> (1*)</span>
-                    <input type="text" class="form-control" ng-model="target.maLoaiThue" disabled>
-                </div>
-                <div class="col-lg-6">
-                    <label>Loại thuế</label><span style="color: red"> (2*)</span>
-                    <input type="text" class="form-control" ng-model="target.loaiThue" disabled>
-                </div>
-            </div>
 
-            <div class="row form-group">
-                <div class="col-lg-6">
-                    <label>Tài Khoản Kế Toán</label><span style="color: red"> (3*)</span>
-                    <input type="text" ng-model="target.taiKhoanKt"  typeahead-editable="false" uib-typeahead="opt.value as opt.text for opt in tempData.accounts | filter:$viewValue" typeahead-input-formatter="formatLabel($model, 'accounts')"  class="form-control" disabled />
-                </div>
-                <div class="col-lg-6">
-                    <label>Phần trăm</label><span style="color: red"> (4*)</span>
-                    <input type="text" class="form-control" ng-model="target.taxRate" name="_taxRate" disabled>
-                </div>
+        <div class="row form-group">
+            <div class="col-lg-6">
+                <label>Phần trăm</label><span style="color: red"> (4*)</span>
+                <input type="text" class="form-control" ng-model="target.taxRate" name="_taxRate" disabled>
             </div>
-            <div class="row form-group">
-                <div class="col-lg-12">
-                    <label>Trạng thái</label><span style="color: red"> (5*)</span>
-                    <input type="text" class="form-control" ng-model="target.trangThai" name="_taxRate" typeahead-editable="false" uib-typeahead="opt.value as opt.text for opt in tempData('status') | filter:$viewValue" typeahead-input-formatter="formatLabel($model, 'status')" disabled>
-                </div>
+            <div class="col-lg-6">
+                <label>Trạng thái</label><span style="color: red"> (5*)</span>
+                <input type="text" class="form-control" ng-model="target.trangThai" name="_taxRate" typeahead-editable="false" uib-typeahead="opt.value as opt.text for opt in tempData('status') | filter:$viewValue" typeahead-input-formatter="formatLabel($model, 'status')" disabled>
             </div>
-        </form>
-    </div>
-    <div class="modal-footer">
-        <button prevent-default class="btn btn-default" ng-click="cancel()"><span class="glyphicon glyphicon-remove"></span>&ensp;<i class="fa fa-arrow-left"></i>&nbsp;&nbsp;{{config.label.btnCancel}}</button>
-    </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button prevent-default class="btn btn-default" ng-click="cancel()"><span class="glyphicon glyphicon-remove"></span>&ensp;<i class="fa fa-arrow-left"></i>&nbsp;&nbsp;{{config.label.btnCancel}}</button>
 </div>

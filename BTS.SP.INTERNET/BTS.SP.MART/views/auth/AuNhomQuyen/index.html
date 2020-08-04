@@ -42,7 +42,6 @@
                             <span ng-show="sortType == 'TENNHOMQUYEN' && sortReverse" class="fa fa-caret-up"></span>
                         </a>
                     </th>
-                    <th class="column-title">Mô tả</th>
                     <th class="column-title">
                         <a ng-click="sortType = 'TRANGTHAI'; sortReverse = !sortReverse">
                             Trạng thái
@@ -50,6 +49,7 @@
                             <span ng-show="sortType == 'TRANGTHAI' && sortReverse" class="fa fa-caret-up"></span>
                         </a>
                     </th>
+                    <th class="column-title">Mô tả</th>
                     <th class="column-title" width="10%">Hành động</th>
                 </tr>
             </thead>
@@ -64,8 +64,8 @@
                     <td>{{paged.itemsPerPage*(paged.currentPage-1)+$index+1}}</td>
                     <td>{{item.manhomquyen}}</td>
                     <td>{{item.tennhomquyen}}</td>
-                    <td>{{item.mota}}</td>
                     <td>{{item.trangthai | status}}</td>
+                    <td>{{item.mota}}</td>
                     <td style="text-align: center;">
                         <a class="fa fa-search" ng-click="detail(item)" ng-if="accessList.view" tabindex="Xem"></a>&nbsp;&nbsp;
                         <a class="fa fa-pencil" ng-click="edit(item)" ng-if="accessList.edit" title="Sửa"></a>&nbsp;&nbsp;

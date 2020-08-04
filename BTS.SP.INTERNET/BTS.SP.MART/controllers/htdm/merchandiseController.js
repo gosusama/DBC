@@ -297,6 +297,13 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
             },
             clearSelectData: function () {
                 selectedData = [];
+            }, 
+            getForNvNhapMua: function (supplierCode, unitCode, summary) {
+                if (summary) {
+                    return $http.get(serviceUrl + '/GetForNvNhapMua/' + supplierCode + '/' + unitCode + '/' + summary);
+                } else {
+                    return $http.get(serviceUrl + '/GetForNvNhapMua/' + supplierCode + '/' + unitCode);
+                }
             }
             //end service
         };
@@ -6007,5 +6014,56 @@ define(['ui-bootstrap', '/BTS.SP.MART/controllers/auth/AuthController.js', '/BTS
             };
         }]);
     //end controller đồng bộ
+
+    app.controller('merchandiseSelectDataForNmController', ['$scope', '$uibModalInstance', 'configService', 'merchandiseService', 'filterObject',
+        function ($scope, $uibModalInstance, configService, service, filterObject) {
+            $scope.paged = angular.copy(configService.pageDefault);
+            $scope.summary = angular.copy(filterObject.summary);
+            $scope.isLoading = false;
+            $scope.dataPaging = [];
+            $scope.title = function () { return 'Hàng hóa, Vật tư'; };
+
+            function filterData() {
+                $scope.listSelectedData = service.getSelectData();
+                $scope.isLoading = true;
+                service.getForNvNhapMua(filterObject.maKhachHang, filterObject.unitCode, $scope.summary).then(function (successRes) {
+                    $scope.isLoading = false;
+                    if (successRes && successRes.status === 200 && successRes.data && successRes.data.status) {
+                        $scope.data = successRes.data.data;
+                        $scope.pageChanged();
+                    }
+                });
+                $scope.cancel = function () {
+                    $uibModalInstance.dismiss('cancel');
+                };
+            }
+            filterData();
+
+            $scope.selectItem = function (item) {
+                $uibModalInstance.close(item);
+            };
+
+            $scope.pageChanged = function () {
+                var currentPage = $scope.paged.currentPage;
+                var itemsPerPage = 10;
+                $scope.paged.totalItems = $scope.data.length;
+                $scope.dataPaging = [];
+                if ($scope.data) {
+                    for (var i = (currentPage - 1) * itemsPerPage; i < currentPage * itemsPerPage && i < $scope.data.length; i++) {
+                        $scope.dataPaging.push($scope.data[i]);
+                    }
+                }
+            };
+
+            $scope.doSearch = function () {
+                $scope.paged.currentPage = 1;
+                filterData();
+            };
+
+            $scope.cancel = function () {
+                $uibModalInstance.close();
+            };
+        }]);
+
     return app;
 });

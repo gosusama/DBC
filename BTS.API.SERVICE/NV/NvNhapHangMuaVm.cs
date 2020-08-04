@@ -27,7 +27,7 @@ namespace BTS.API.SERVICE.NV
             public string MaHoaDon { get; set; }
             public DateTime? TuNgay { get; set; }
             public DateTime? DenNgay { get; set; }
-            public int TrangThai { get; set; }
+            public int? TrangThai { get; set; }
             public string ICreateBy { get; set; }
             public string DefaultOrder
             {

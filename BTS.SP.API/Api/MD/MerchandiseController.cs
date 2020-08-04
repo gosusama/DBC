@@ -2081,7 +2081,7 @@ namespace BTS.SP.API.Api.MD
                     {
                         item.LuongBao = baoBi.SoLuong;
                     }
-                };
+                }
                 if (xntItem != null)
                 {
                     decimal soLuongXuat = 0;
@@ -3505,6 +3505,48 @@ namespace BTS.SP.API.Api.MD
                 result.Status = false;
                 return Ok(result);
             }
+            return Ok(result);
+        }
+
+        [Route("GetForNvNhapMuaByCode/{code}/{supplierCode}/{unitCode}")]
+        public IHttpActionResult GetForNvNhapMuaByCode(string code, string supplierCode, string unitCode)
+        {
+            TransferObj<MdMerchandiseVm.Dto> result = new TransferObj<MdMerchandiseVm.Dto>();
+            string strQuery = @"SELECT * FROM V_VATTU_GIABAN WHERE lower(MAHANG) = lower('" + code + "') AND MAKHACHHANG = '" + supplierCode + "' AND MADONVI = '" + unitCode + "'";
+            var data = new ERPContext().Database.SqlQuery<MdMerchandiseVm.Dto>(strQuery).ToList();
+            if (data != null && data.Count > 0)
+            {
+                result.Data = data[0];
+                result.Status = true;
+            }
+            else
+            {
+                result.Status = false;
+            }
+
+            return Ok(result);
+        }
+
+        [Route("GetForNvNhapMua/{supplierCode}/{unitCode}/{summary?}")]
+        public IHttpActionResult GetForNvNhapMua(string supplierCode, string unitCode, string summary = null)
+        {
+            TransferObj<List<MdMerchandiseVm.Dto>> result = new TransferObj<List<MdMerchandiseVm.Dto>>();
+            string strQuery = @"SELECT * FROM V_VATTU_GIABAN WHERE MAKHACHHANG = '" + supplierCode + "' AND MADONVI = '" + unitCode + "'";
+            if (!string.IsNullOrEmpty(summary))
+            {
+                strQuery += " AND (LOWER(MAHANG) LIKE '%" + summary.ToLower() + "%' OR LOWER(BARCODE) LIKE '%" + summary.ToLower() + "%' OR LOWER(TENHANG) LIKE '%" + summary.ToLower() + "%')";
+            }
+            var data = new ERPContext().Database.SqlQuery<MdMerchandiseVm.Dto>(strQuery).ToList();
+            if (data != null && data.Count > 0)
+            {
+                result.Data = data;
+                result.Status = true;
+            }
+            else
+            {
+                result.Status = false;
+            }
+
             return Ok(result);
         }
     }

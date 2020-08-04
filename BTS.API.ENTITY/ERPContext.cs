@@ -31,7 +31,7 @@ namespace BTS.API.ENTITY
         public virtual DbSet<MdMonitorProcess> MdMonitorProcesses { get; set; }
         public virtual DbSet<MdCustomer> MdCustomers { get; set; }
         public virtual DbSet<MdDepartment> MdDepartments { get; set; }
-        //Phạm Tuấn Anh thêm danh mục Xuât Xứ
+        //Nguyễn Tuấn Hoàng Anh thêm danh mục Xuât Xứ
         public virtual DbSet<MdXuatXu> MdXuatXu { get; set; }
         public virtual DbSet<MdCurrency> MdCurrencies { get; set; }
         public virtual DbSet<MdPackaging> MdPackagings { get; set; }
